@@ -12,9 +12,21 @@ udadisiApp.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'partials/home.html',
       controller: 'HomeCtrl'
     }).
-    when('/view2', {
-      templateUrl: 'partials/view2.html',
-      controller: 'View2Ctrl'
+    when('/about', {
+      templateUrl: 'partials/about.html',
+      controller: 'HomeCtrl'
+    }).
+    when('/locations', {
+      templateUrl: 'partials/location-profile.html',
+      controller: 'LocationsCtrl'
+    }).
+    when('/trends', {
+      templateUrl: 'partials/trend-profile.html',
+      controller: 'TrendsCtrl'
+    }).
+    when('/trend-explorer', {
+      templateUrl: 'partials/trend-explorer.html',
+      controller: 'ExplorerCtrl'
     }).
     otherwise({redirectTo: '/home'});
 }]);
