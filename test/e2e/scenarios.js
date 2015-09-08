@@ -19,6 +19,10 @@ describe('udadisi app', function() {
       expect(element.all(by.css('[ng-view] h1')).first().getText()).
         toMatch(/EXPLORE THE TRENDS/);
     });
+
+    it('should show a list of global trends when user navigates to /home', function() {
+      expect(element.all(by.css('ul.trends li')).count()).toBeGreaterThan(0);
+    });
   });
 
 
