@@ -4,13 +4,14 @@
 
 var udadisiControllers = angular.module('udadisiControllers', ['ngRoute']);
 
-udadisiControllers.controller('HomeCtrl', ['$scope', '$log', 'Trends', function($scope, $log, Trends) {
-  $scope.trends = Trends.query({ trend: 'all' });  
-  //$log.log($scope.trends.length);
-  if($scope.trends.length === 0){ 
+udadisiControllers.controller('HomeCtrl', ['$scope', '$log', 'Trends', function($scope, $log, Trends) { 
+  Trends.query({ trend: 'all' }, function(data) {
+    $scope.trends = data;
+  }, function(error){
+    //$log.log(error);
     $scope.trendsMessage = "No trends received from remote server, using examples: "
     $scope.trends = [{"term":"solar","occurrences":442},{"term":"battery","occurrences":407}]; 
-  }
+  }); 
 }]);
 
 udadisiControllers.controller('LocationsCtrl', ['$scope', '$routeParams',
