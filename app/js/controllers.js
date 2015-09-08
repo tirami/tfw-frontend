@@ -7,10 +7,12 @@ var udadisiControllers = angular.module('udadisiControllers', ['ngRoute']);
 udadisiControllers.controller('HomeCtrl', [function() {
 }]);
 
-udadisiControllers.controller('LocationsCtrl', [function() {
+udadisiControllers.controller('LocationsCtrl', ['$scope', '$routeParams',
+  function($scope, $routeParams) { $scope.location = $routeParams.location; 
 }]);
 
-udadisiControllers.controller('TrendsCtrl', [function() {
+udadisiControllers.controller('TrendsCtrl', ['$scope', '$routeParams', 
+  function($scope, $routeParams) { $scope.trend = $routeParams.trend; 
 }]);
 
 udadisiControllers.controller('ExplorerCtrl', [function() {

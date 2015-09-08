@@ -16,11 +16,11 @@ udadisiApp.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'partials/about.html',
       controller: 'HomeCtrl'
     }).
-    when('/locations', {
+    when('/locations/:location', {
       templateUrl: 'partials/location-profile.html',
       controller: 'LocationsCtrl'
     }).
-    when('/trends', {
+    when('/trends/:trend', {
       templateUrl: 'partials/trend-profile.html',
       controller: 'TrendsCtrl'
     }).
