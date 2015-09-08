@@ -4,7 +4,8 @@
 
 var udadisiControllers = angular.module('udadisiControllers', ['ngRoute']);
 
-udadisiControllers.controller('HomeCtrl', [function() {
+udadisiControllers.controller('HomeCtrl', ['$scope', 'Trends', function($scope, Trends) {
+  $scope.trends = Trends.query('all');
 }]);
 
 udadisiControllers.controller('LocationsCtrl', ['$scope', '$routeParams',

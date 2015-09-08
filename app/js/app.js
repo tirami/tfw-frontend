@@ -3,6 +3,7 @@
 // Declare app level module which depends on views, and components
 var udadisiApp = angular.module('udadisiApp', [
   'ngRoute',
+  'udadisiServices',
   'udadisiControllers'
 ]);
 
