@@ -2,10 +2,10 @@
 <p>This is the partial for home.</p>
 
 <h3>TOP GLOBAL TRENDS</h3>
-
+<p>{{ trendsMessage }}</p>
 <ul class="trends">
-  <li><a href="#/trends/solar">Solar</a>: Stats stats stats</li>
   <li ng-repeat="trend in trends">
-    {{ trend.term }}: {{ trend.occurrences }}
+    <a href="#/trends/{{ trend.term }}">{{ trend.term }}</a>: {{ trend.occurrences }}
   </li>
 </ul>
+
