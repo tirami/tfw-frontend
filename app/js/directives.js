@@ -17,8 +17,10 @@ var drawWordcloud = function(scope, element, attrs) {
     if (!newVal) { return; }
 
     var fill = d3.scale.category20();
+    var cloudSize = [500, 500];
+    //TODO: make sure word size doesn't go out of bounds
     var trendWords = scope.trends.map(function(trend) { return {text: trend.term, size: trend.occurrences/10.0, test: "haha"}; });
-    var layout = d3.layout.cloud().size([500, 500]).words(trendWords)
+    var layout = d3.layout.cloud().size(cloudSize).words(trendWords)
         .padding(5).rotate(function() { return ~~(Math.random() * 2) * 90; })
         .font("Impact").fontSize(function(d) { return d.size; })
         .on("end", draw);
