@@ -28,3 +28,6 @@
   content: "";
   padding: 0;
 }
+
+div.chart { width: 50%; }
+div.chart div { margin-top:0.1em; background-color: #B3D4FC; }
