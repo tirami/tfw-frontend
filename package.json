@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "description": "The udadisi front end",
-  "repository": "https://github.com/tirami/tfw-frontend",
+  "repository": "https://github.com/tirami/udadisi-frontend",
   "license": "MIT",
   "devDependencies": {
     "bower": "^1.3.1",
