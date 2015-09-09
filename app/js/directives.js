@@ -17,10 +17,8 @@ var drawWordcloud = function(scope, element, attrs) {
     if (!newVal) { return; }
 
     var fill = d3.scale.category20();
-    var wordsArr = scope.trends.map(function(e){ return e.term });
-    
-    var layout = d3.layout.cloud().size([500, 500]).words(wordsArr.map(
-      function(d) { return {text: d, size: 10 + Math.random() * 90, test: "haha"}; }))
+    var trendWords = scope.trends.map(function(trend) { return {text: trend.term, size: trend.occurrences/10.0, test: "haha"}; });
+    var layout = d3.layout.cloud().size([500, 500]).words(trendWords)
         .padding(5).rotate(function() { return ~~(Math.random() * 2) * 90; })
         .font("Impact").fontSize(function(d) { return d.size; })
         .on("end", draw);
