@@ -5,7 +5,7 @@ var udadisiServices = angular.module('udadisiServices', ['ngResource']);
 
 udadisiServices.factory('Trends', ['$resource',
   function($resource){
-    return $resource('http://localhost:8080/v1/trends/:trend', {}, {
+    return $resource('http://localhost:8080/v1/trends/:location', {}, {
       query: {method:'GET', params:{limit:10}, isArray:true}
     });
   }]);

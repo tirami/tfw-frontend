@@ -3,42 +3,51 @@
 describe('Udadisi controllers module', function() {
 
   beforeEach(module('udadisiApp'));
-  
-  describe('home controller', function(){
-    it('should ....', inject(function($controller) {
-      //spec body
-      var controller = $controller('HomeCtrl');
-      expect(controller).toBeDefined();
+  var scope, controller;
+
+  describe('Home controller', function(){
+    
+    beforeEach(inject(function($controller) {
+      scope = {};
+      controller = $controller('HomeCtrl', {$scope:scope});
     }));
+
+    it('should be defined... ', function() {
+      expect(controller).toBeDefined();
+    });
   });
 
   describe('trends controller', function(){
-    it('should ....', inject(function($controller) {
-      //spec body
-      var controller = $controller('TrendsCtrl', { $scope: {} });
-      expect(controller).toBeDefined();
+    beforeEach(inject(function($controller) {
+      scope = {};
+      controller = $controller('TrendsCtrl', {$scope:scope});
     }));
+
+    it('should be defined... ', function() {
+      expect(controller).toBeDefined();
+    });
   });
-
+  
   describe('locations controller', function(){
-    /*var scope;
-
-    beforeEach(inject(function(_$rootScope_){
-      scope = $rootScope.$new();
-    }));*/
-
-    it('should ....', inject(function($controller) {
-      //spec body
-      var controller = $controller('LocationsCtrl', { $scope: {} });
-      expect(controller).toBeDefined();
+    beforeEach(inject(function($controller) {
+      scope = {};
+      controller = $controller('LocationsCtrl', {$scope:scope});
     }));
+
+    it('should be defined... ', function() {
+      expect(controller).toBeDefined();
+    });
   });
 
   describe('trend explorer controller', function(){
-    it('should ....', inject(function($controller) {
-      //spec body
-      var controller = $controller('ExplorerCtrl');
-      expect(controller).toBeDefined();
+    beforeEach(inject(function($controller) {
+      scope = {};
+      controller = $controller('ExplorerCtrl', {$scope:scope});
     }));
+
+    it('should be defined... ', function() {
+      expect(controller).toBeDefined();
+    });
   });
+
 });
