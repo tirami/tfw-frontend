@@ -9,6 +9,12 @@ udadisiDirectives.directive('wordcloud',
   }
 );
 
+udadisiDirectives.directive('timespan', 
+  function($parse) {
+    return { restrict: 'E', scope: { start: '=', end: '='}, link: setTimespan }
+  }
+);
+
 var drawWordcloud = function(scope, element, attrs) {
   var vis = d3.select(element[0]); //TODO: getting: "mutating the [[Prototype]] of an object..." (may be browser vers)
   
@@ -40,9 +46,8 @@ var drawWordcloud = function(scope, element, attrs) {
       .style("font-family", "Impact")
       .style("fill", function(d, i) { return fill(i); })
       .attr("text-anchor", "middle")
-      .attr("transform", function(d) {
-      return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-      }).text(function(d) { return d.text; });
+      .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"; })
+      .text(function(d) { return d.text; });
     };
   });
 };
@@ -66,3 +71,42 @@ var barChart = function (scope, element, attrs) {
   //on the data value (d) 
   //and text all with a smooth transition
 };
+
+var setTimespan = function(scope, element, attrs) {
+  var data = [scope.start, scope.end]; 
+
+  var container = d3.select(element[0]),
+      width = (container.node().offsetWidth),
+      margin = {top: 0, right: 0, bottom: 0, left: 0},
+      height = 100;
+
+  var timeExtent = d3.extent(data, function(d) { return new Date(d); });
+
+  var svg = container.append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom);
+
+  var context = svg.append('g').attr('class', 'context').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+  var x = d3.time.scale().range([0, width]).domain(timeExtent);
+
+  //The x axis & labelling
+  var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(5);
+  svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + (height-20) + ")")
+    .call(xAxis).selectAll("text").attr("y", 4).attr("x", 2).style("text-anchor", "start");
+
+  //The "brush" or selector itself
+  var brush = d3.svg.brush().x(x).on('brushend', brushend);
+  context.append('g').attr('class', 'x brush').call(brush).selectAll('rect').attr('y', 0).attr('height', height);
+
+  function brushend() {
+    // If the user has selected no brush area, share everything.
+    if (brush.empty()) {
+        console.log("brush empty");
+    } else {
+    // Otherwise, restrict features to only things in the brush extent.
+      console.log(brush.extent()[0]);
+      console.log(brush.extent()[1]);
+    }
+  }
+}

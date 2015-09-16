@@ -1,16 +1,49 @@
-<h1>TREND EXPLORER</h1>
+<style>
+.ui-brush {
+  background:#f8f8f8;
+  position:absolute;
+  bottom:0;right:0;left:0;
+  height:100px;
+  width:900px;
+  margin: 0 auto;
+  }
+.brush .extent {
+  stroke:#fff;
+  fill-opacity:0.125;
+  shape-rendering:crispEdges;
+  }
 
-<h3>Location Options</h3>
-<p>Global</p>
-<p>Location 1</p>
-<p>Location 2</p>
+.axis line,
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+</style>
 
-<h3>Source Options</h3>
-<p>All sources</p>
-<p>Blogs</p>
-<p>News</p>
-<p>Academia</p>
-<p>Twitter</p>
 
-<h3>Velocity</h3>
-<p>All, Low, Med, High</p>
+<div ng-controller="ExplorerCtrl">
+  <h1>TREND EXPLORER</h1>
+
+  <div style="float:left;">
+    <h3>Location Options</h3>
+    <button ng-click="getTrends('all')">Global</button>
+    <button ng-click="getTrends('nairobi')">Nairobi</button>
+    <button ng-click="getTrends('lima')">Lima</button>
+
+    <h3>Source Options</h3>
+    <p>All sources</p>
+    <p>Blogs</p>
+    <p>News</p>
+    <p>Academia</p>
+    <p>Twitter</p>
+
+    <h3>Velocity</h3>
+    <p>All, Low, Med, High</p>
+  </div>
+
+  <div style = "float:right;">
+    <wordcloud trends="trends"></wordcloud>
+    <timespan start="spanStart" end="spanEnd" selection="selectionStart" class='ui-brush'></timespan>
+  </div>
+</div>
