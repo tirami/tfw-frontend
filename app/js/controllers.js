@@ -28,12 +28,12 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$log', 'Trends', funct
 
   var day   = 24*60*60*1000;
   var today = startOfToday();
-
+  
   $scope.spanEnd   = today-1; //at 23:59:59
   $scope.spanStart = today-(7*day); //week before
   
-  $scope.selectionStart = today-1;
-  $scope.selectionEnd   = today;
+  $scope.selectionStart = today-(1*day);
+  $scope.selectionEnd   = today-1;
 
   $scope.getTrends = function(location){ Trends.query({ location: location }, function(data) {
       $scope.trends = data;
@@ -46,5 +46,5 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$log', 'Trends', funct
 }]);
 
 var startOfToday = function(){
-  return Date.now() - (Date.now() % 24*60*60*1000);
+  return Date.now() - (Date.now() % (24*60*60*1000));
 }

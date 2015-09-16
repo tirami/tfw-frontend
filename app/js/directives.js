@@ -11,7 +11,7 @@ udadisiDirectives.directive('wordcloud',
 
 udadisiDirectives.directive('timespan', 
   function($parse) {
-    return { restrict: 'E', scope: { start: '=', end: '='}, link: setTimespan }
+    return { restrict: 'E', scope: { selectstart: '=', selectend: '=', start: '=', end: '='}, link: setTimespan }
   }
 );
 
@@ -73,14 +73,14 @@ var barChart = function (scope, element, attrs) {
 };
 
 var setTimespan = function(scope, element, attrs) {
-  var data = [scope.start, scope.end]; 
+  var timespan = [scope.start, scope.end];
 
   var container = d3.select(element[0]),
       width = (container.node().offsetWidth),
       margin = {top: 0, right: 0, bottom: 0, left: 0},
       height = 100;
 
-  var timeExtent = d3.extent(data, function(d) { return new Date(d); });
+  var timeExtent = d3.extent(timespan, function(d) { return new Date(d); });
 
   var svg = container.append('svg')
       .attr('width', width + margin.left + margin.right)
@@ -98,6 +98,11 @@ var setTimespan = function(scope, element, attrs) {
   //The "brush" or selector itself
   var brush = d3.svg.brush().x(x).on('brushend', brushend);
   context.append('g').attr('class', 'x brush').call(brush).selectAll('rect').attr('y', 0).attr('height', height);
+
+  // define our brush extent
+  brush.extent([new Date(scope.selectstart), new Date(scope.selectend)]);
+  // now draw the brush to match our extent
+  brush(d3.select(".brush"));
 
   function brushend() {
     // If the user has selected no brush area, share everything.
