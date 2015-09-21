@@ -5,7 +5,7 @@ var udadisiDirectives = angular.module('udadisiDirectives', []);
 
 udadisiDirectives.directive('wordcloud', 
   function($parse) {
-    return { restrict: 'E', scope: { trends: '=' }, link: drawWordcloud }
+    return { restrict: 'E', scope: { trends: '=', height: '=', width: '=' }, link: drawWordcloud }
   }
 );
 
@@ -23,13 +23,24 @@ var drawWordcloud = function(scope, element, attrs) {
     if (!newVal) { return; }
 
     var fill = d3.scale.category20();
-    var cloudSize = [500, 500];
-    //TODO: make sure word size doesn't go out of bounds
-    var trendWords = scope.trends.map(function(trend) { return {text: trend.term, size: trend.occurrences/10.0, test: "haha"}; });
+    var cloudSize = [scope.width, scope.height];
+
+
+    //Set word size factor
+    var totalLength = 0;
+    var average = 0;
+    scope.trends.map(function(t) { totalLength += t.term.length; average += t.occurrences; });
+    average = average / scope.trends.length;
+    var maxSize = Math.sqrt((cloudSize[0]*0.9)*(cloudSize[1]*0.9) / totalLength);
+    var extents = d3.extent(scope.trends, function(t) { return t.occurrences; });
+    var sizeFactor = (maxSize / extents[1]) * (extents[1] / average);
+
+
+    var trendWords = scope.trends.map(function(trend) { return {text: trend.term, size: trend.occurrences * sizeFactor }; });
     var layout = d3.layout.cloud().size(cloudSize).words(trendWords)
-        .padding(5).rotate(function() { return ~~(Math.random() * 2) * 90; })
-        .font("Impact").fontSize(function(d) { return d.size; })
-        .on("end", draw);
+      .padding(5).rotate(function() { return 0; }) //return ~~(Math.random() * 2) * 90;
+      .font("Impact").fontSize(function(d) { return d.size; })
+      .on("end", draw);
     
     layout.start();
 
