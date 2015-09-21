@@ -121,8 +121,17 @@ var setTimespan = function(scope, element, attrs) {
         console.log("brush empty");
     } else {
     // Otherwise, restrict features to only things in the brush extent.
-      console.log(brush.extent()[0]);
-      console.log(brush.extent()[1]);
+      var fromDate = (brush.extent()[0].yyyymmdd());
+      var days  = Math.ceil((brush.extent()[1] - brush.extent()[0]) / (24*60*60*1000))
+      console.log(days);
     }
   }
 }
+
+
+Date.prototype.yyyymmdd = function() {
+  var yyyy = this.getFullYear().toString();
+  var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+  var dd  = this.getDate().toString();
+  return yyyy + (mm[1]?mm:"0"+mm[0]) + (dd[1]?dd:"0"+dd[0]); // padding
+};
