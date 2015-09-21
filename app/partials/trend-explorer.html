@@ -27,9 +27,10 @@
 
   <div style="float:left;">
     <h3>Location Options</h3>
-    <button ng-click="getTrends('all')">Global</button>
-    <button ng-click="getTrends('nairobi')">Nairobi</button>
-    <button ng-click="getTrends('lima')">Lima</button>
+
+    <button class ="locationToggle" target-location="all" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Global</button>
+    <button class ="locationToggle" target-location="nairobi" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Nairobi</button>
+    <button class ="locationToggle" target-location="lima" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Lima</button>
 
     <h3>Source Options</h3>
     <p>All sources</p>

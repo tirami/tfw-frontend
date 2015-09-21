@@ -15,6 +15,20 @@ udadisiDirectives.directive('timespan',
   }
 );
 
+udadisiDirectives.directive('locationToggle', 
+  function($parse) {
+    return { restrict: 'C', scope: { selectStart: '=', location: '=', interval: '=', updateFn: '=' }, link: setLocation }
+  }
+);
+
+var setLocation = function(scope, element, attrs) {
+  element.on('click', function(event) {
+    scope.location = this.getAttribute("target-location");
+    scope.$apply();
+    scope.updateFn(scope.location, scope.selectStart.yyyymmdd(), scope.interval);
+  });
+};
+
 var drawWordcloud = function(scope, element, attrs) {
   var vis = d3.select(element[0]); //TODO: getting: "mutating the [[Prototype]] of an object..." (may be browser vers)
   
@@ -31,7 +45,7 @@ var drawWordcloud = function(scope, element, attrs) {
     var average = 0;
     scope.trends.map(function(t) { totalLength += t.term.length; average += t.occurrences; });
     average = average / scope.trends.length;
-    var maxSize = Math.sqrt((cloudSize[0]*0.9)*(cloudSize[1]*0.9) / totalLength);
+    var maxSize = Math.sqrt((cloudSize[0]*0.74)*(cloudSize[1]*0.74) / totalLength);
     var extents = d3.extent(scope.trends, function(t) { return t.occurrences; });
     var sizeFactor = (maxSize / extents[1]) * (extents[1] / average);
 
@@ -117,14 +131,13 @@ var setTimespan = function(scope, element, attrs) {
   brush(d3.select(".brush"));
 
   function brushend() {
-    // If the user has selected no brush area, share everything.
     if (brush.empty()) {
-      console.log("brush empty");
-    } else {
-    // Otherwise, restrict features to only things in the brush extent.
-      var fromDate = (brush.extent()[0].yyyymmdd());
-      var days  = Math.ceil((brush.extent()[1] - brush.extent()[0]) / (24*60*60*1000))
-      scope.updateFn(scope.location, fromDate, days);
+      console.log("brush empty, doing nowt");
+    } else {  
+      scope.selectStart = brush.extent()[0];
+      scope.interval = Math.ceil((brush.extent()[1] - brush.extent()[0]) / (24*60*60*1000));
+      scope.$apply();
+      scope.updateFn(scope.location, scope.selectStart.yyyymmdd(), scope.interval);
     }
   }
 }
