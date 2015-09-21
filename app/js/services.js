@@ -3,8 +3,8 @@
 /* Services */
 var udadisiServices = angular.module('udadisiServices', ['ngResource']);
 
-udadisiServices.factory('Trends', ['$resource',
-  function($resource){
+udadisiServices.factory('Trends', ['$resource','$log',
+  function($resource, $log){
     //http://localhost:8080/v1/trends/samplelocation?limit=10&from=20150826&interval=3
     return $resource('http://localhost:8080/v1/trends/:location', {}, {
       query: {method:'GET', params:{limit:10, from: "20150821", interval: 3}, isArray:true}

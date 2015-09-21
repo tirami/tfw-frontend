@@ -11,7 +11,7 @@ udadisiDirectives.directive('wordcloud',
 
 udadisiDirectives.directive('timespan', 
   function($parse) {
-    return { restrict: 'E', scope: { selectstart: '=', selectend: '=', start: '=', end: '='}, link: setTimespan }
+    return { restrict: 'E', scope: { selectStart: '=', location: '=', interval: '=', start: '=', end: '=', updateFn: '=' }, link: setTimespan }
   }
 );
 
@@ -22,9 +22,9 @@ var drawWordcloud = function(scope, element, attrs) {
     vis.selectAll('*').remove();
     if (!newVal) { return; }
 
+    //Setup backg
     var fill = d3.scale.category20();
     var cloudSize = [scope.width, scope.height];
-
 
     //Set word size factor
     var totalLength = 0;
@@ -35,7 +35,7 @@ var drawWordcloud = function(scope, element, attrs) {
     var extents = d3.extent(scope.trends, function(t) { return t.occurrences; });
     var sizeFactor = (maxSize / extents[1]) * (extents[1] / average);
 
-
+    //Setup words
     var trendWords = scope.trends.map(function(trend) { return {text: trend.term, size: trend.occurrences * sizeFactor }; });
     var layout = d3.layout.cloud().size(cloudSize).words(trendWords)
       .padding(5).rotate(function() { return 0; }) //return ~~(Math.random() * 2) * 90;
@@ -111,19 +111,20 @@ var setTimespan = function(scope, element, attrs) {
   context.append('g').attr('class', 'x brush').call(brush).selectAll('rect').attr('y', 0).attr('height', height);
 
   // define our brush extent
-  brush.extent([new Date(scope.selectstart), new Date(scope.selectend)]);
+  var selectEnd = new Date(scope.selectStart + (scope.interval*24*60*60*1000))
+  brush.extent([new Date(scope.selectStart), selectEnd]);
   // now draw the brush to match our extent
   brush(d3.select(".brush"));
 
   function brushend() {
     // If the user has selected no brush area, share everything.
     if (brush.empty()) {
-        console.log("brush empty");
+      console.log("brush empty");
     } else {
     // Otherwise, restrict features to only things in the brush extent.
       var fromDate = (brush.extent()[0].yyyymmdd());
       var days  = Math.ceil((brush.extent()[1] - brush.extent()[0]) / (24*60*60*1000))
-      console.log(days);
+      scope.updateFn(scope.location, fromDate, days);
     }
   }
 }
