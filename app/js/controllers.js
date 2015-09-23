@@ -36,7 +36,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$log', 'Trends', funct
   $scope.location = "all";
   $scope.interval = 1;
 
-  $scope.getTrends = function(location, fromDate, interval){ Trends.query({ location: location, from: fromDate, interval: interval }, function(data) {
+  $scope.getTrends = function(location, fromDate, interval){ Trends.query({ location: location, limit: 10, from: fromDate, interval: interval }, function(data) {
       $scope.trends = data;
     }, function(error){
       $scope.trendsMessage = "No trends received from remote server, using examples: ";
