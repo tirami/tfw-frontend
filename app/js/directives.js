@@ -5,7 +5,7 @@ var udadisiDirectives = angular.module('udadisiDirectives', []);
 
 udadisiDirectives.directive('wordcloud', 
   function($parse) {
-    return { restrict: 'E', scope: { trends: '=', height: '=', width: '=' }, link: drawWordcloud }
+    return { restrict: 'E', scope: { trends: '=' }, link: drawWordcloud }
   }
 );
 
@@ -38,7 +38,11 @@ var drawWordcloud = function(scope, element, attrs) {
 
     //Setup backg
     var fill = d3.scale.category20();
-    var cloudSize = [scope.width, scope.height];
+    //var margin = {top: 30, right: 10, bottom: 30, left: 10}; 
+    //var width = parseInt(d3.select('#wordcloud').style('width'), 10); 
+
+    var bbox = d3.select('#graph-container').node().getBoundingClientRect();
+    var cloudSize = [bbox.width, bbox.width/2];
 
     //Set word size factor
     var totalLength = 0;
@@ -74,6 +78,10 @@ var drawWordcloud = function(scope, element, attrs) {
       .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"; })
       .text(function(d) { return d.text; });
     };
+
+    //function resize(){}
+    //d3.select(window).on('resize', resize); 
+
   });
 };
 
