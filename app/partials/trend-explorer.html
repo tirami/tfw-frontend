@@ -25,7 +25,7 @@
 <div ng-controller="ExplorerCtrl">
   <h1>TREND EXPLORER</h1>
 
-  <div style="float:left;">
+  <div style="float:left;width:30%;">
     <h3>Location Options</h3>
 
     <button class ="locationToggle" target-location="all" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Global</button>
@@ -43,8 +43,8 @@
     <p>All, Low, Med, High</p>
   </div>
 
-  <div style = "float:right;">
-    <wordcloud width="500" height="500" trends="trends"></wordcloud>
-    <timespan location="location" select-start="selectionStart" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></timespan>
+  <div id = "graph-container" style = "float:right; width:69%;">
+    <div wordcloud id="wordcloud" style="" trends="trends"></div>
+    <div timespan location="location" select-start="selectionStart" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
   </div>
 </div>
