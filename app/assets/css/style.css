@@ -1,6 +1,44 @@
+@charset "UTF-8";
 body {
   font: 100% Helvetica, sans-serif;
   color: #333;
+}
+
+#pageHeader {
+  background: black;
+  overflow: auto;
+}
+
+#main-menu {
+  float: right;
+  width: auto;
+}
+
+/*  Mobile Specific Metas –––––––––––––––––––––––––––––––––––––––––––––––––– */
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/*  Profile Specific CSS –––––––––––––––––––––––––––––––––––––––––––––––––– */
+#cityProfile {
+  padding-top: 3em;
+}
+#cityProfile header, #cityProfile section {
+  padding: 1em;
+  border: 1px solid #ccc;
+}
+
+#profileHeader {
+  overflow: auto;
+}
+#profileHeader img.locationMap {
+  float: left;
+  margin-right: 1em;
+}
+#profileHeader h1 span {
+  display: block;
+  font-size: 0.5em;
 }
 
 /*# sourceMappingURL=style.css.map */
