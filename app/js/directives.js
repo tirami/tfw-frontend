@@ -62,7 +62,7 @@ var drawMap = function(scope,element,attrs){
     svg.selectAll(".pin")
       .data(places)
       .enter().append("circle", ".pin")
-      .attr("r", 5)
+      .attr("r", 7)
       .attr("transform", function(d) {
         return "translate(" + projection([
           d.location.longitude,
