@@ -48,3 +48,5 @@ div.chart div { margin-top:0.1em; background-color: #B3D4FC; }
   stroke: #fff;
   stroke-width: .5px;
 }
+.locationPanel { display:none; position:absolute; }
+.locationPanel.active { display:block; }

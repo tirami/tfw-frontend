@@ -35,6 +35,15 @@ var drawMap = function(scope,element,attrs){
   var scale = width*(widthScaleFactor*scope.mapScale);
   var projection = d3.geo.equirectangular().scale(scale).translate([width / 2, height / 2]).precision(.1);
   var path = d3.geo.path().projection(projection);
+
+  //Collect places
+  var places = [];
+  for (var i = 0; i < element[0].children.length; i++) {
+    var c = angular.element(element[0].children[i]);
+    places.push({ element: c, location: { latitude: c.attr('data-latitude'), longitude: c.attr('data-longitude') } });
+  }
+
+  //Append svg
   var svg = d3.select(element[0]).append("svg").attr("width", width).attr("height", height);
 
   //Grid
@@ -44,10 +53,26 @@ var drawMap = function(scope,element,attrs){
   d3.json("/app/world.json", function(error, world) {
     if (error) throw error;
     //Land
-    var r = svg.insert("path", ".graticule")
+    svg.insert("path", ".graticule")
       .datum(topojson.feature(world, world.objects.land))
       .attr("class", "land")
       .attr("d", path);
+
+    //Location pins
+    svg.selectAll(".pin")
+      .data(places)
+      .enter().append("circle", ".pin")
+      .attr("r", 5)
+      .attr("transform", function(d) {
+        return "translate(" + projection([
+          d.location.longitude,
+          d.location.latitude
+        ]) + ")";
+      }).on("click", function(place,e){
+        for (var i = 0; i < places.length; i++) { places[i].element.removeClass("active"); }
+        place.element.toggleClass("active"); 
+        place.element.css("top", (d3.event.pageY + 10) + "px").css("left", (d3.event.pageX + 10) + "px");
+      });
 
     //Borders
     /*svg.insert("path", ".graticule")
