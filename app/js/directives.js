@@ -23,35 +23,26 @@ udadisiDirectives.directive('locationToggle',
 
 udadisiDirectives.directive('mapProjection', 
   function($parse) {
-    return { restrict: 'A', scope: { }, link: drawMap }
+    return { restrict: 'A', scope: { mapScale: '=' }, link: drawMap }
   }
 );
 
 var drawMap = function(scope,element,attrs){
-  //var width = 960, height = 480;
   var bbox = d3.select(element[0]).node().getBoundingClientRect();
-  var width = bbox.width-30;
+  var width = bbox.width-13;
   var height = width/2;
-  var scale = width*0.15625;
+  var widthScaleFactor = 0.15625;
+  var scale = width*(widthScaleFactor*scope.mapScale);
   var projection = d3.geo.equirectangular().scale(scale).translate([width / 2, height / 2]).precision(.1);
   var path = d3.geo.path().projection(projection);
   var svg = d3.select(element[0]).append("svg").attr("width", width).attr("height", height);
 
   //Grid
-  var graticule = d3.geo.graticule();
-  svg.append("path").datum(graticule).attr("class", "graticule").attr("d", path); 
+  //var graticule = d3.geo.graticule();
+  //svg.append("path").datum(graticule).attr("class", "graticule").attr("d", path); 
 
   d3.json("/app/world.json", function(error, world) {
     if (error) throw error;
-
-    /*var hscale  = scale*width  / (bounds[1][0] - bounds[0][0]);
-    var vscale  = scale*height / (bounds[1][1] - bounds[0][1]);
-    var scale   = (hscale < vscale) ? hscale : vscale;
-    var offset  = [width - (bounds[0][0] + bounds[1][0])/2, height - (bounds[0][1] + bounds[1][1])/2];
-
-    projection = d3.geo.mercator().center(center).scale(scale).translate(offset);
-    path = path.projection(projection);*/
-
     //Land
     var r = svg.insert("path", ".graticule")
       .datum(topojson.feature(world, world.objects.land))
@@ -59,10 +50,10 @@ var drawMap = function(scope,element,attrs){
       .attr("d", path);
 
     //Borders
-    svg.insert("path", ".graticule")
+    /*svg.insert("path", ".graticule")
       .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
       .attr("class", "boundary")
-      .attr("d", path);
+      .attr("d", path);*/
   });
   //d3.select(self.frameElement).style("height", height + "px");
 };
