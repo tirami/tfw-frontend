@@ -10,23 +10,31 @@
 	    
 	    <div class="padding">
 
-    <h3>Location Options</h3>
-    
-    <ul>
-	    <li> <button class ="locationToggle" target-location="all" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Global</button></li>
-	    <li><button class ="locationToggle" target-location="nairobi" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Nairobi</button></li>
-	    <li><button class ="locationToggle" target-location="lima" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Lima</button></li>
-    </ul>
-
-    <h3>Source Options</h3>
-    <p>All sources</p>
-    <p>Blogs</p>
-    <p>News</p>
-    <p>Academia</p>
-    <p>Twitter</p>
-
-    <h3>Velocity</h3>
-    <p>All, Low, Med, High</p>
+			    <h3>Location Options</h3>
+			    
+			    <ul id="locationOptions" class="filter">
+				    <li> <button class ="selected locationToggle" target-location="all" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Global</button></li>
+				    <li><button class ="locationToggle" target-location="nairobi" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Nairobi</button></li>
+				    <li><button class ="locationToggle" target-location="lima" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Lima</button></li>
+			    </ul>
+			
+			    <h3>Source Options</h3>
+			    
+			    <ul id="sourceOptions" class="filter">
+					    <li><button class="selected">All sources</button></li>
+					    <li><button>Blogs</button></li>
+					    <li><button>News</button></li>
+					    <li><button>Academia</button></li>
+					    <li><button>Twitter</button></li>
+			    </ul>
+			
+			    <h3>Velocity</h3>
+			    <ul id="sourceOptions" class="filter">
+					    <li><button class="selected">All</button></li>
+					    <li><button>Low</button></li>
+					    <li><button>Medium</button></li>
+					    <li><button>High</button></li>
+			    </ul>
 
     </div>
     </div>

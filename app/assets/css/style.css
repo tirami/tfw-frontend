@@ -68,13 +68,34 @@ body {
   background: #2f323a;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  color: white;
+  color: #a0abbe;
 }
 #side-menu h3 {
   font-size: 1em;
 }
 #side-menu .padding {
   padding: 60px 1em 1em 1em;
+}
+#side-menu ul.filter {
+  list-style-type: none;
+  padding: 0;
+}
+#side-menu ul.filter button {
+  background: none;
+  border: 0;
+  padding: 0.5em;
+  -webkit-border-radius: 0.25em;
+  -moz-border-radius: 0.25em;
+  border-radius: 0.25em;
+}
+#side-menu ul.filter button.selected {
+  color: white;
+}
+#side-menu ul.filter button:hover {
+  background: black;
+}
+#side-menu ul.filter button:focus {
+  outline: none;
 }
 
 #graph-container {

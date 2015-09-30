@@ -1,6 +1,13 @@
 $font-stack:    Helvetica, sans-serif;
 $primary-color: #333;
 
+@mixin rounded($radius: 0.5em) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+
 body {
 	 background: #edeff5;
   font: 100% $font-stack;
@@ -62,9 +69,24 @@ body {
 	background: #2f323a;
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
-	color: white;
+	color: #a0abbe;
 		h3 {font-size: 1em;}
 		.padding {	padding: 60px 1em 1em 1em;}
+		
+		ul.filter {
+			list-style-type: none;
+			padding: 0;
+			button {
+				background: none; 
+				border: 0; 
+				padding: 0.5em;
+				@include rounded(0.25em);
+				&.selected {color: white;}
+				&:hover {background: black;}
+				&:focus { outline:none }
+			}
+		}
+		
 }
 
 #graph-container {
