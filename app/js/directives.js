@@ -87,6 +87,8 @@ var setLocation = function(scope, element, attrs) {
   element.on('click', function(event) {
     scope.location = this.getAttribute("target-location");
     scope.$apply();
+    $('.locationToggle').removeClass('active');
+    $(this).toggleClass('active');
     scope.updateFn(scope.location, scope.selectStart.yyyymmdd(), scope.interval);
   });
 };
