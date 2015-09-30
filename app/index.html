@@ -4,29 +4,62 @@
 <!--[if IE 8]>         <html lang="en" ng-app="udadisiApp" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html lang="en" ng-app="udadisiApp" class="no-js"> <!--<![endif]-->
 <head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Udadisi FE</title>
+  <title>Udadisi : </title>
   <meta name="description" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->  
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  
   <link rel="stylesheet" href="css/app.css">
+
+  <!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->  
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+
 </head>
 <body>
-  <ul class="menu">
-    <li><a href="#/home">TFW</a></li>
-    <li><a href="#/home">Home</a></li>
-    <li><a href="#/trend-explorer">Trend Explorer</a></li>
-    <li><a href="#/locations/global">Location Reports (global)</a></li>
-    <li><a href="#/locations/location-1">Location Reports (l1)</a></li>
-    <li><a href="#/about">About</a></li>
-  </ul>
+ 
+ <header id="pageHeader">
+
+  <a href="#/home">Udasisi</a>
+ 
+
+  <nav id="main-menu" class="pure-menu pure-menu-horizontal">
+    <ul class="pure-menu-list">
+      <li class="pure-menu-item"><a href="#/home" class="pure-menu-link">Home</a></li>
+      <li class="pure-menu-item"><a href="#/trend-explorer"class="pure-menu-link">Trend Explorer</a></li>
+      <li class="pure-menu-item"><a href="#/locations/global"class="pure-menu-link">Location Reports (global)</a></li>
+      <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+        <a href="#/locations/location-1" id="menuLink1" class="pure-menu-link">Location Reports</a>
+        <ul class="pure-menu-children">
+          <li class="pure-menu-item"><a href="#" class="pure-menu-link">Lima</a></li>
+          <li class="pure-menu-item"><a href="#" class="pure-menu-link">Nairobi</a></li>
+          <li class="pure-menu-item"><a href="#" class="pure-menu-link">Ahmedabad</a></li>
+        </ul>
+      </li>
+      <li class="pure-menu-item"><a href="#/about" class="pure-menu-link">About</a></li>
+    </ul>
+  </nav>
+  
+ </header>
 
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
+  
 
   <div ng-view></div>
 
