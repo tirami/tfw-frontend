@@ -150,7 +150,7 @@ var setTimespan = function(scope, element, attrs) {
   var container = d3.select(element[0]),
       width = (container.node().offsetWidth),
       margin = {top: 0, right: 0, bottom: 0, left: 0},
-      height = 100;
+      height = 50;
 
   var timeExtent = d3.extent(timespan, function(d) { return new Date(d); });
 

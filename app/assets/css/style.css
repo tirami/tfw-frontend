@@ -1,17 +1,29 @@
 @charset "UTF-8";
 body {
+  background: #edeff5;
   font: 100% Helvetica, sans-serif;
   color: #333;
 }
 
 #pageHeader {
-  background: black;
-  overflow: auto;
+  background: white;
+  padding: 0.5em;
+  overflow: visible;
+  position: relative;
+  z-index: 100;
+}
+#pageHeader #logo {
+  margin: 0.5em;
+  display: inline-block;
 }
 
 #main-menu {
   float: right;
   width: auto;
+}
+
+.ng-scope {
+  z-index: 0;
 }
 
 /*  Mobile Specific Metas –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -39,6 +51,62 @@ body {
 #profileHeader h1 span {
   display: block;
   font-size: 0.5em;
+}
+
+/*  Trend Explorer CSS –––––––––––––––––––––––––––––––––––––––––––––––––– */
+#side-menu {
+  margin-left: -20%;
+  /* "#menu" width */
+  width: 20%;
+  min-width: 100px;
+  position: fixed;
+  top: 0;
+  left: 20%;
+  bottom: 0;
+  z-index: 50;
+  /* so the menu or its navicon stays above all content */
+  background: #2f323a;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  color: white;
+}
+#side-menu h3 {
+  font-size: 1em;
+}
+#side-menu .padding {
+  padding: 60px 1em 1em 1em;
+}
+
+#graph-container {
+  position: absolute;
+  height: 100vh;
+  right: 0;
+  width: 80%;
+  top: 0;
+}
+#graph-container #wordcloud {
+  margin-top: 3em;
+}
+#graph-container .ui-brush {
+  background: #f8f8f8;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 50px;
+  width: 100%;
+  margin: 0 auto;
+}
+#graph-container .brush .extent {
+  stroke: #fff;
+  fill-opacity: 0.125;
+  shape-rendering: crispEdges;
+}
+#graph-container .axis line,
+#graph-container .axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
 }
 
 /*# sourceMappingURL=style.css.map */

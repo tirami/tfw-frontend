@@ -1,36 +1,22 @@
-<style>
-.ui-brush {
-  background:#f8f8f8;
-  position:absolute;
-  bottom:0;right:0;left:0;
-  height:100px;
-  width:900px;
-  margin: 0 auto;
-  }
-.brush .extent {
-  stroke:#fff;
-  fill-opacity:0.125;
-  shape-rendering:crispEdges;
-  }
-
-.axis line,
-.axis path {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-</style>
-
-
 <div ng-controller="ExplorerCtrl">
-  <h1>TREND EXPLORER</h1>
 
-  <div style="float:left;width:30%;">
+    <!-- Menu toggle -->
+    <a href="#side-menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="side-menu">
+	    
+	    <div class="padding">
+
     <h3>Location Options</h3>
-
-    <button class ="locationToggle" target-location="all" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Global</button>
-    <button class ="locationToggle" target-location="nairobi" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Nairobi</button>
-    <button class ="locationToggle" target-location="lima" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Lima</button>
+    
+    <ul>
+	    <li> <button class ="locationToggle" target-location="all" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Global</button></li>
+	    <li><button class ="locationToggle" target-location="nairobi" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Nairobi</button></li>
+	    <li><button class ="locationToggle" target-location="lima" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Lima</button></li>
+    </ul>
 
     <h3>Source Options</h3>
     <p>All sources</p>
@@ -41,9 +27,12 @@
 
     <h3>Velocity</h3>
     <p>All, Low, Med, High</p>
-  </div>
 
-  <div id = "graph-container" style = "float:right; width:69%;">
+    </div>
+    </div>
+
+
+  <div id = "graph-container" style = "float:right; width:80%;">
     <div wordcloud id="wordcloud" style="" trends="trends"></div>
     <div timespan location="location" select-start="selectionStart" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
   </div>
