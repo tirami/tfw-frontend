@@ -23,41 +23,64 @@ udadisiDirectives.directive('locationToggle',
 
 udadisiDirectives.directive('mapProjection', 
   function($parse) {
-    return { restrict: 'A', scope: { }, link: drawMap }
+    return { restrict: 'A', scope: { mapScale: '=' }, link: drawMap }
   }
 );
 
 var drawMap = function(scope,element,attrs){
-  //var width = 960, height = 480;
   var bbox = d3.select(element[0]).node().getBoundingClientRect();
-  var width = bbox.width, height = bbox.width/2;
-  console.log(bbox);
-
-  var projection = d3.geo.equirectangular().scale(153).translate([width / 2, height / 2]).precision(.1);
-
+  var width = bbox.width-13;
+  var height = width/2;
+  var widthScaleFactor = 0.15625;
+  var scale = width*(widthScaleFactor*scope.mapScale);
+  var projection = d3.geo.equirectangular().scale(scale).translate([width / 2, height / 2]).precision(.1);
   var path = d3.geo.path().projection(projection);
 
-  var graticule = d3.geo.graticule();
+  //Collect places
+  var places = [];
+  for (var i = 0; i < element[0].children.length; i++) {
+    var c = angular.element(element[0].children[i]);
+    places.push({ element: c, location: { latitude: c.attr('data-latitude'), longitude: c.attr('data-longitude') } });
+  }
 
+  //Append svg
   var svg = d3.select(element[0]).append("svg").attr("width", width).attr("height", height);
 
-  svg.append("path").datum(graticule).attr("class", "graticule").attr("d", path);
+  //Grid
+  //var graticule = d3.geo.graticule();
+  //svg.append("path").datum(graticule).attr("class", "graticule").attr("d", path); 
 
   d3.json("/app/world.json", function(error, world) {
     if (error) throw error;
-
+    //Land
     svg.insert("path", ".graticule")
-        .datum(topojson.feature(world, world.objects.land))
-        .attr("class", "land")
-        .attr("d", path);
+      .datum(topojson.feature(world, world.objects.land))
+      .attr("class", "land")
+      .attr("d", path);
 
-    svg.insert("path", ".graticule")
-        .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
-        .attr("class", "boundary")
-        .attr("d", path);
+    //Location pins
+    svg.selectAll(".pin")
+      .data(places)
+      .enter().append("circle", ".pin")
+      .attr("r", 7)
+      .attr("transform", function(d) {
+        return "translate(" + projection([
+          d.location.longitude,
+          d.location.latitude
+        ]) + ")";
+      }).on("click", function(place,e){
+        for (var i = 0; i < places.length; i++) { places[i].element.removeClass("active"); }
+        place.element.toggleClass("active"); 
+        place.element.css("top", (d3.event.pageY + 10) + "px").css("left", (d3.event.pageX + 10) + "px");
+      });
+
+    //Borders
+    /*svg.insert("path", ".graticule")
+      .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+      .attr("class", "boundary")
+      .attr("d", path);*/
   });
-
-  d3.select(self.frameElement).style("height", height + "px");
+  //d3.select(self.frameElement).style("height", height + "px");
 };
 
 var setLocation = function(scope, element, attrs) {
