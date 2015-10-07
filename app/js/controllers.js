@@ -13,18 +13,22 @@ var udadisiControllers = angular.module('udadisiControllers', ['ngRoute']);
 udadisiControllers.controller('HomeCtrl', ['$scope', '$log', 'Trends', function($scope, $log, Trends) { 
   
   $scope.selectionStart = today-(1*day);
-  $scope.location = "all";
   $scope.interval = 1;
+  $scope.locations = {"all":[], "dhaka":[], "lima":[], "nairobi":[]};
 
-  $scope.getTrends = function(location, fromDate, interval){ Trends.query({ location: location, limit: 10, from: fromDate, interval: interval }, function(data) {
-      $scope.trends = data;
+  $scope.getTrends = function(location, fromDate, interval){ 
+    Trends.query({ location: location, limit: 5, from: fromDate, interval: interval }, function(data) {
+      $scope.locations[location] = data;
     }, function(error){
-      $scope.trendsMessage = "No trends received from remote server, using examples: ";
-      $scope.trends = [{"term":"solar","occurrences":442},{"term":"battery","occurrences":407}]; 
+      $scope.trendsMessage       = "No trends received from remote server, using examples: ";
+      $scope.locations[location] = [{"term":"water-pump","occurrences":452},{"term":"solar","occurrences":442},{"term":"battery","occurrences":407}]; 
     });
   };
 
-  $scope.getTrends($scope.location, new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
+  $.each($scope.locations, function(location,valueObj){
+    $scope.getTrends(location, new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
+  });
+
 }]);
 
 udadisiControllers.controller('LocationsCtrl', ['$scope', '$routeParams',

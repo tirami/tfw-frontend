@@ -30,7 +30,7 @@ udadisiDirectives.directive('mapProjection',
 var drawMap = function(scope,element,attrs){
   var bbox = d3.select(element[0]).node().getBoundingClientRect();
   var width = bbox.width-13;
-  var height = width/2;
+  var height = width*(0.5*scope.mapScale);
   var widthScaleFactor = 0.15625;
   var scale = width*(widthScaleFactor*scope.mapScale);
   var projection = d3.geo.equirectangular().scale(scale).translate([width / 2, height / 2]).precision(.1);
@@ -68,7 +68,7 @@ var drawMap = function(scope,element,attrs){
           d.location.longitude,
           d.location.latitude
         ]) + ")";
-      }).on("click", function(place,e){
+      }).on("mouseover", function(place,e){
         for (var i = 0; i < places.length; i++) { places[i].element.removeClass("active"); }
         place.element.toggleClass("active"); 
         place.element.css("top", (d3.event.pageY + 10) + "px").css("left", (d3.event.pageX + 10) + "px");

@@ -5,7 +5,8 @@ var udadisiApp = angular.module('udadisiApp', [
   'ngRoute',
   'udadisiServices',
   'udadisiControllers',
-  'udadisiDirectives'
+  'udadisiDirectives',
+  'udadisiFilters'
 ]);
 
 udadisiApp.config(['$routeProvider', function($routeProvider) {
