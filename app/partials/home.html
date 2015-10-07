@@ -1,9 +1,7 @@
 <div ng-controller="HomeCtrl">
 
   <h1>EXPLORE THE TRENDS</h1>
-  <p>This is the partial for home.</p>
 
-  <h3>TOP GLOBAL TRENDS</h3>
   <!--<p>{{ trendsMessage }}</p>
   <ul class="trends">
     <li ng-repeat="trend in trends">
@@ -19,24 +17,10 @@
 
   <div class="pure-g top-trends">
     <div ng-repeat="(location, trends) in locations" class="pure-u-1-4">
-      <h4>Top {{ location | allAsGlobal }} Trends</h4>
+      <h4 class="capitalize">Top {{ location | allAsGlobal }} Trends</h4>
       <ul><li ng-repeat="trend in trends">{{ trend.term }}</li></ul>
+      <a class="capitalize" href="#/locations/{{ location }}">{{ location | allAsGlobal }} Profile</a>
     </div>
-<!--
-    <div class="pure-u-1-4">
-      <h4>Top Ahmedabad Trends</h4>
-      <ul trends-for="ahmedabad"></ul>
-    </div>
-
-    <div class="pure-u-1-4">
-      <h4>Top Lima Trends</h4>
-      <ul trends-for="lima"></ul>
-    </div>
-
-    <div class="pure-u-1-4">
-      <h4>Top Nairobi Trends</h4>
-      <ul trends-for="nairobi"></ul>
-    </div>-->
   </div>
   
 </div>
