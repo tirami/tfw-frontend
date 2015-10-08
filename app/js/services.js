@@ -4,7 +4,7 @@
 var udadisiServices = angular.module('udadisiServices', ['ngResource']);
 
 //Trends for a location
-udadisiServices.factory('Trends', ['$resource','$log',
+udadisiServices.factory('LocationTrends', ['$resource','$log',
   function($resource, $log){
     //http://localhost:8080/v1/trends/all?from=20150826&interval=3&limit=10
     return $resource('http://localhost:8080/v1/trends/:location', {}, {
@@ -19,7 +19,7 @@ udadisiServices.factory('Location', ['$resource','$log',
     });
   }]);
 
-udadisiServices.factory('LocationTrends', ['$resource','$log',
+udadisiServices.factory('RelatedTrends', ['$resource','$log',
   function($resource, $log){
     return $resource('http://localhost:8080/v1/trends/:location/:term', {}, {
       query: { method:'GET', params:{ location:'all', from: "20150821", interval: 3 }, isArray:true }

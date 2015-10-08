@@ -2,11 +2,11 @@
 
 describe("trends service", function () {
 
-  var Trends;
+  var LocationTrends;
   beforeEach(module("udadisiServices"));
-  beforeEach(inject(function (_Trends_) {  Trends = _Trends_; }));
+  beforeEach(inject(function (_LocationTrends_) {  LocationTrends = _LocationTrends_; }));
 
-  it('should have Trends service be defined', function () { expect(Trends).toBeDefined(); });  
+  it('LocationTrends service should be defined', function () { expect(LocationTrends).toBeDefined(); });  
 
   describe("Mocked API Responses", function () {
 
@@ -20,21 +20,21 @@ describe("trends service", function () {
     }));
 
     afterEach(function() {
-     $httpBackend.verifyNoOutstandingExpectation();
-     $httpBackend.verifyNoOutstandingRequest();
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
     });
     
     it('should have sent a GET request to the trends API', function() {
-      var result = Trends.query({ location: "all", limit: 10, from: "20150826", interval: 3 });
+      var result = LocationTrends.query({ location: "all", limit: 10, from: "20150826", interval: 3 });
       $httpBackend.expectGET('http://localhost:8080/v1/trends/all?from=20150826&interval=3&limit=10');
       $httpBackend.flush();
     });
 
     it("should do something", function () {
       var opts = { location: "all", limit: 10, from: "20150826", interval: 3 };
-      spyOn(Trends,"query").and.callThrough();
-      Trends.query(opts);
-      expect(Trends.query).toHaveBeenCalledWith(opts);
+      spyOn(LocationTrends,"query").and.callThrough();
+      LocationTrends.query(opts);
+      expect(LocationTrends.query).toHaveBeenCalledWith(opts);
       //expect(terms).toEqual(["solar", "biotech"]);  });
       $httpBackend.flush();
     });
