@@ -3,11 +3,20 @@
 /* Services */
 var udadisiServices = angular.module('udadisiServices', ['ngResource']);
 
+//Trends for a location
 udadisiServices.factory('Trends', ['$resource','$log',
   function($resource, $log){
     //http://localhost:8080/v1/trends/all?from=20150826&interval=3&limit=10
     return $resource('http://localhost:8080/v1/trends/:location', {}, {
-      query: {method:'GET', params:{limit:10, from: "20150821", interval: 3}, isArray:true}
+      query: { method:'GET', params:{ location:'all', limit:10, from: "20150821", interval: 3}, isArray:true }
+    });
+  }]);
+
+udadisiServices.factory('Location', ['$resource','$log',
+  function($resource, $log){
+    //http://localhost:8080/v1/trends/all?from=20150826&interval=3&limit=10
+    return $resource('http://localhost:8080/v1/locations', {}, {
+      query: { method:'GET', params: { }, isArray:true }
     });
   }]);
 
