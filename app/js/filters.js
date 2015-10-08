@@ -6,3 +6,9 @@ angular.module('udadisiFilters', []).filter('allAsGlobal', function() {
     if (input == 'all') { return 'Global' } else { return input; }
   };
 })
+
+angular.module('udadisiFilters', []).filter('boolAsActive', function() {
+  return function(input) {
+    if (input) { return 'active' } else { return ''; }
+  };
+})

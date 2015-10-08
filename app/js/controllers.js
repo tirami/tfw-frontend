@@ -62,4 +62,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$log', 'LocationTrends
   };
 
   $scope.getTrends($scope.location, new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
+
+  $scope.showTextView = true;
+  $scope.toggleView = function() { $scope.showTextView = $scope.showTextView === false ? true: false; };
 }]);

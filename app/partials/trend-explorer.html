@@ -10,6 +10,13 @@
 	    
 	    <div class="padding">
 
+          <h3>View</h3>
+
+          <button class="pure-button" ng-click="toggleView()">
+            <span class="{{ showTextView | boolAsActive }}">Text view</span>|
+            <span class="{{ !showTextView | boolAsActive }}">Chart view</span>
+          </button>
+          
 			    <h3>Location Options</h3>
 			    
 			    <ul id="locationOptions" class="filter">
@@ -41,7 +48,8 @@
 
 
   <div id = "graph-container" style = "float:right; width:80%;">
-    <div wordcloud id="wordcloud" style="" trends="trends"></div>
+    <div wordcloud id="wordcloud" style="" ng-hide="!showTextView" trends="trends"></div>
+    <div scatter-plot ng-hide="showTextView"></div>
     <div timespan location="location" select-start="selectionStart" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
   </div>
 </div>
