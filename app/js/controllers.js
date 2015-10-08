@@ -10,7 +10,7 @@ var today = startOfToday(); // CHANGE TO startOfToday(); to get up to date info
 
 var udadisiControllers = angular.module('udadisiControllers', ['ngRoute']);
 
-udadisiControllers.controller('HomeCtrl', ['$scope', '$log', 'LocationTrends', function($scope, $log, LocationTrends) { 
+udadisiControllers.controller('HomeCtrl', ['$scope', '$window', 'LocationTrends', function($scope, $window, LocationTrends) { 
   
   $scope.selectionStart = today-(1*day);
   $scope.interval = 1;
@@ -28,6 +28,11 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$log', 'LocationTrends', f
   $.each($scope.locations, function(location,valueObj){
     $scope.getTrends(location, new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
   });
+
+  $scope.query = "";
+  $scope.search = function(){
+    $window.location.href = '/app/#/trends/'+$scope.query;
+  };
 
 }]);
 
