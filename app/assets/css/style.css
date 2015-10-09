@@ -22,6 +22,17 @@ body {
   width: auto;
 }
 
+.is-center {
+  text-align: center;
+}
+
+.splash {
+  height: 0px;
+  top: 100px;
+  width: 100%;
+  position: absolute;
+}
+
 .ng-scope {
   z-index: 0;
 }
