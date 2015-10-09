@@ -129,7 +129,8 @@ button.pure-button span.active { color:white;background-color:#333; }
     shape-rendering: crispEdges;
   }
   
-  .trendPanel { display:none; position:absolute; width:10%; background-color:#333; color:white; text-align: center; }
+  .trendPanel { display:none; position:absolute; width:auto; padding-left:5px; padding-right:5px;
+    background-color:#333; color:white; text-align: center; }
 
   .trendPanel.active { display:block; }
 

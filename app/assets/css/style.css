@@ -148,7 +148,9 @@ button.pure-button span.active {
 #graph-container .trendPanel {
   display: none;
   position: absolute;
-  width: 10%;
+  width: auto;
+  padding-left: 5px;
+  padding-right: 5px;
   background-color: #333;
   color: white;
   text-align: center;

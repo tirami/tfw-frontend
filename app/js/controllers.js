@@ -47,7 +47,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$routeParams',
 udadisiControllers.controller('ExplorerCtrl', ['$scope', '$log', 'LocationTrends', function($scope, $log, LocationTrends) { 
   //today = 1440111600000; // CHANGE TO startOfToday(); to get up to date info
   $scope.spanEnd   = today-1; //at 23:59:59
-  $scope.spanStart = today-(7*day); //week before
+  $scope.spanStart = today-(31*day);
   
   $scope.selectionStart = today-(1*day);
   $scope.location = "all";
