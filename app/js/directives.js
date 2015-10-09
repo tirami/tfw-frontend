@@ -36,63 +36,71 @@ udadisiDirectives.directive('mapProjection',
 var drawScatterPlot = function(scope, element, attrs){
 
   var bbox = d3.select('#graph-container').node().getBoundingClientRect();
-
   var margin = {top: 20, right: 20, bottom: 100, left: 40};
   var width = bbox.width - margin.left - margin.right;
   var height = bbox.height - margin.top - margin.bottom;
-  
+    
   var x = d3.scale.linear().range([0, width]);
   var y = d3.scale.linear().range([height, 0]);
   var z = d3.scale.category10();
+  var vis = d3.select(element[0]);
+  
+  scope.$watch('trends', function (newVal, oldVal) { 
+    vis.selectAll('*').remove();
+    if (!newVal) { return; }
 
-  var svg = d3.select(element[0]).append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    var svg = vis.append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+    var trends = newVal.map(function(trend) {
+      var trendPanel = angular.element('<div class="trendPanel"><h4>'+ trend.term +'</h4><p>Score XYZ</p></div>');
+      trendPanel.appendTo(element[0]);
+      return { x: trend.occurrences, y: trend.term.length, element: trendPanel };
+    });
 
-  d3.csv("data.csv", function(error, data) {
-    if (error) throw error;
-    // Compute the series names ("y1", "y2", etc.) from the loaded CSV.
-    var seriesNames = d3.keys(data[0])
-        .filter(function(d) { return d !== "x"; })
-        .sort();
-    // Map the data to an array of arrays of {x, y} tuples.
-    var series = seriesNames.map(function(series) {
-      return data.map(function(d) {
-        return {x: +d.x, y: +d[series]};
-      });
-  });
+    // Compute the scales’ domains.
+    var xext = d3.extent(trends, function(d) { return d.x });
+    var yext = d3.extent(trends, function(d) { return d.y });
 
-  // Compute the scales’ domains.
-  x.domain(d3.extent(d3.merge(series), function(d) { return d.x; })).nice();
-  y.domain(d3.extent(d3.merge(series), function(d) { return d.y; })).nice();
+    //Add small buffer to extents
+    xext[0] = xext[0]-(1);
+    xext[1] = xext[1]+(1);
+    yext[0] = yext[0]-(1);
+    yext[1] = yext[1]+(1);
 
-  // Add the x-axis.
-  svg.append("g")
+    x.domain(xext);
+    y.domain(yext);
+
+    // Add the x-axis.
+    svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.svg.axis().scale(x).orient("bottom"));
 
-  // Add the y-axis.
-  svg.append("g")
+    // Add the y-axis.
+    svg.append("g")
       .attr("class", "y axis")
       .call(d3.svg.axis().scale(y).orient("left"));
 
-  // Add the points!
-  svg.selectAll(".series")
-      .data(series)
-    .enter().append("g")
-      .attr("class", "series")
-      .style("fill", function(d, i) { return z(i); })
-    .selectAll(".point")
-      .data(function(d) { return d; })
-    .enter().append("circle")
-      .attr("class", "point")
-      .attr("r", 4.5)
-      .attr("cx", function(d) { return x(d.x); })
-      .attr("cy", function(d) { return y(d.y); });
-  });
+    var xPosition = 10; 
+    var yPosition = 10;
 
+    svg.selectAll(".series")
+      .data(trends)
+      .enter().append("circle")
+      .attr("class", "dot")
+      .attr("r", 10)
+      .attr("cx", function(d) { return x(d.x); })
+      .attr("cy", function(d) { return y(d.y); }).on("mouseover", function(trend,e){
+        for (var i = 0; i < trends.length; i++) { trends[i].element.removeClass("active"); }
+        trend.element.toggleClass("active");
+        if (d3.event.layerX > width/2){ xPosition = (trend.element.width()*-1)-10; } else { xPosition = 10; }
+        if (d3.event.layerY > height/2){ yPosition = (trend.element.height()*-1)-10; } else { yPosition = 10; }
+        trend.element.css("top", (d3.event.layerY + yPosition) + "px").css("left", (d3.event.layerX + xPosition) + "px");
+      });
+  });
 };
 
 var drawMap = function(scope,element,attrs){

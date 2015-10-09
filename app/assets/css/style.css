@@ -145,5 +145,16 @@ button.pure-button span.active {
   stroke: #000;
   shape-rendering: crispEdges;
 }
+#graph-container .trendPanel {
+  display: none;
+  position: absolute;
+  width: 10%;
+  background-color: #333;
+  color: white;
+  text-align: center;
+}
+#graph-container .trendPanel.active {
+  display: block;
+}
 
 /*# sourceMappingURL=style.css.map */
