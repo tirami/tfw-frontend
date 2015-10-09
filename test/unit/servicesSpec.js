@@ -13,7 +13,7 @@ describe("trends service", function () {
     var $httpBackend;
     beforeEach(inject(function ($injector) { 
       $httpBackend = $injector.get('$httpBackend'); 
-      $httpBackend.when("GET", "http://localhost:8080/v1/all/trends?from=20150826&interval=3&limit=10").respond(
+      $httpBackend.when("GET", "http://localhost:8080/v1/locations/all/trends?from=20150826&interval=3&limit=10").respond(
         [{"term":"solar","occurrences":28},{"term":"battery","occurrences":25},
         {"term":"openmaps","occurrences":25},{"term":"gravitylight","occurrences":20},{"term":"banana","occurrences":16},{"term":"water","occurrences":15},
         {"term":"tech-funds","occurrences":14},{"term":"crowdsourcing","occurrences":12},{"term":"crowdfunding","occurrences":10},{"term":"biotech","occurrences":9}]);    
@@ -26,7 +26,7 @@ describe("trends service", function () {
     
     it('should have sent a GET request to the trends API', function() {
       var result = LocationTrends.query({ location: "all", limit: 10, from: "20150826", interval: 3 });
-      $httpBackend.expectGET('http://localhost:8080/v1/all/trends?from=20150826&interval=3&limit=10');
+      $httpBackend.expectGET('http://localhost:8080/v1/locations/all/trends?from=20150826&interval=3&limit=10');
       $httpBackend.flush();
     });
 

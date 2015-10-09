@@ -7,12 +7,12 @@ var udadisiServices = angular.module('udadisiServices', ['ngResource']);
 udadisiServices.factory('LocationTrends', ['$resource','$log',
   function($resource, $log){
     //http://localhost:8080/v1/all/trends?from=20150826&interval=3&limit=10
-    return $resource('http://localhost:8080/v1/:location/trends', {}, {
+    return $resource('http://localhost:8080/v1/locations/:location/trends', {}, {
       query: { method:'GET', params:{ location:'all', limit:10, from: "20150821", interval: 3}, isArray:true }
     });
   }]);
 
-udadisiServices.factory('Location', ['$resource','$log',
+udadisiServices.factory('Locations', ['$resource','$log',
   function($resource, $log){
     return $resource('http://localhost:8080/v1/locations', {}, {
       query: { method:'GET', params: { }, isArray:true }
@@ -21,14 +21,14 @@ udadisiServices.factory('Location', ['$resource','$log',
 
 udadisiServices.factory('Stats', ['$resource','$log',
   function($resource, $log){
-    return $resource('http://localhost:8080/v1/locations/stats', {}, {
+    return $resource('http://localhost:8080/v1/locations/:location/stats', {}, {
       query: { method:'GET', params: { }, isArray:false }
     });
   }]);
 
 udadisiServices.factory('RelatedTrends', ['$resource','$log',
   function($resource, $log){
-    return $resource('http://localhost:8080/v1/:location/trends/:term', {}, {
+    return $resource('http://localhost:8080/v1/locations/:location/trends/:term', {}, {
       query: { method:'GET', params:{ location:'all', from: "20150821", interval: 3 }, isArray:true }
     });
   }]);
