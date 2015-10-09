@@ -19,6 +19,13 @@ udadisiServices.factory('Location', ['$resource','$log',
     });
   }]);
 
+udadisiServices.factory('Stats', ['$resource','$log',
+  function($resource, $log){
+    return $resource('http://localhost:8080/v1/locations/stats', {}, {
+      query: { method:'GET', params: { }, isArray:false }
+    });
+  }]);
+
 udadisiServices.factory('RelatedTrends', ['$resource','$log',
   function($resource, $log){
     return $resource('http://localhost:8080/v1/:location/trends/:term', {}, {
