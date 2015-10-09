@@ -57,7 +57,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$log', 'LocationTrends
       $scope.trends = data;
     }, function(error){
       $scope.trendsMessage = "No trends received from remote server, using examples: ";
-      $scope.trends = [{"term":"solar","occurrences":442},{"term":"battery","occurrences":407}]; 
+      $scope.trends = [{"term":"water-pump","occurrences":452},{"term":"solar","occurrences":442},{"term":"battery","occurrences":407}]; 
     });
   };
 
