@@ -28,7 +28,7 @@
     <div ng-repeat="location in locations" class="pure-u-1-4">
       <h4 class="capitalize">Top {{ location.name | allAsGlobal }} Trends</h4>
       <ul><li ng-repeat="trend in location.trends">{{ trend.term }}</li></ul>
-      <a class="capitalize" href="#/locations/{{ location }}">{{ location.name | allAsGlobal }} Profile</a>
+      <a class="capitalize" href="#/locations/{{ location.name }}">{{ location.name | allAsGlobal }} Profile</a>
     </div>
   </div>
   
