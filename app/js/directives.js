@@ -165,7 +165,9 @@ var setLocation = function(scope, element, attrs) {
     scope.$apply();
     $('.locationToggle').removeClass('active');
     $(this).toggleClass('active');
-    scope.updateFn(scope.location, scope.selectStart.yyyymmdd(), scope.interval);
+    var date = scope.selectStart;
+    if (!(date instanceof Date)) { date = new Date(date); }
+    scope.updateFn(scope.location, date.yyyymmdd(), scope.interval);
   });
 };
 
