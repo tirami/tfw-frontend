@@ -10,25 +10,37 @@ var today = startOfToday(); // CHANGE TO startOfToday(); to get up to date info
 
 var udadisiControllers = angular.module('udadisiControllers', ['ngRoute']);
 
-udadisiControllers.controller('HomeCtrl', ['$scope', '$window', 'LocationTrends', function($scope, $window, LocationTrends) { 
-  
-  $scope.selectionStart = today-(1*day);
-  $scope.interval = 1;
-  $scope.locations = {"all":[], "dhaka":[], "lima":[], "nairobi":[]};
+udadisiControllers.controller('HomeCtrl', ['$scope', '$log', '$window', 'Locations', 'Stats', 'LocationTrends', function($scope, $log, $window, Locations, Stats, LocationTrends) { 
 
   $scope.getTrends = function(location, fromDate, interval){ 
-    LocationTrends.query({ location: location, limit: 5, from: fromDate, interval: interval }, function(data) {
-      $scope.locations[location] = data;
-    }, function(error){
-      $scope.trendsMessage       = "No trends received from remote server, using examples: ";
-      $scope.locations[location] = [{"term":"water-pump","occurrences":452},{"term":"solar","occurrences":442},{"term":"battery","occurrences":407}]; 
-    });
+    LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval }, 
+      function(data) { location.trends = data; }, 
+      function(error){ $log.log("No trends returned for "+location.name); });
   };
-  
-  $.each($scope.locations, function(location,valueObj){
-    $scope.getTrends(location, new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
-  });
 
+  $scope.getStats = function(location){
+    Stats.get({ location: location.name }, 
+      function(result){ location.trendscount = result.trendscount; },
+      function(error){ $log.log("No stats returned for "+location.name); });
+  };
+
+  var exampleTrends = [{"term":"water-pump","occurrences":452},{"term":"solar","occurrences":442},{"term":"battery","occurrences":407}];
+  $scope.locations = [{name:"all", trends:exampleTrends, trendscount: 100}, {name: "dhaka", trends:exampleTrends, trendscount: 100}, {name: "lima", trends:exampleTrends, trendscount: 100}, {name: "nairobi", trends:exampleTrends, trendscount: 100}];
+  $scope.selectionStart = today-(1*day);
+  $scope.interval = 1;
+  $scope.globalLocation = undefined;
+
+  Locations.query({}, function(data){
+    $scope.locations = [];
+    $.each(data, function(idx, item){
+      var location = {name: item.Name, trends:[], trendscount: 0 };
+      $scope.locations.push(location);
+      if (location.name == "all"){ $scope.globalLocation = location; }
+      $scope.getTrends(location, new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
+      $scope.getStats(location);
+    });
+  });
+  
   $scope.query = "";
   $scope.search = function(){
     $window.location.href = '/app/#/trends/'+$scope.query;
