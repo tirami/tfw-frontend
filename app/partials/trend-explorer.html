@@ -19,10 +19,8 @@
           
 			    <h3>Location Options</h3>
 			    
-			    <ul id="locationOptions" class="filter">
-				    <li> <button class ="selected locationToggle" target-location="all" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Global</button></li>
-				    <li><button class ="locationToggle" target-location="nairobi" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Nairobi</button></li>
-				    <li><button class ="locationToggle" target-location="lima" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>Lima</button></li>
+			    <ul id="locationOptions" class="filter" ng-repeat="location in locations">
+				    <li><button class ="locationToggle" target-location="{{location}}" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>{{ location | allAsGlobal }}</button></li>
 			    </ul>
 			
 			    <h3>Source Options</h3>

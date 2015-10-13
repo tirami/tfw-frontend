@@ -56,7 +56,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$routeParams',
   function($scope, $routeParams) { $scope.trend = $routeParams.trend; 
 }]);
 
-udadisiControllers.controller('ExplorerCtrl', ['$scope', '$log', 'LocationTrends', function($scope, $log, LocationTrends) { 
+udadisiControllers.controller('ExplorerCtrl', ['$scope', '$log', 'LocationTrends', 'Locations', function($scope, $log, LocationTrends, Locations) { 
   //today = 1440111600000; // CHANGE TO startOfToday(); to get up to date info
   $scope.spanEnd   = today-1; //at 23:59:59
   $scope.spanStart = today-(31*day);
@@ -74,6 +74,12 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$log', 'LocationTrends
   };
 
   $scope.getTrends($scope.location, new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
+
+  $scope.locations = ["all", "dhaka", "lima", "nairobi"];
+  Locations.query({}, function(data){
+    $scope.locations = [];
+    $.each(data, function(idx, item){  $scope.locations.push(item.Name);  });
+  });
 
   $scope.showTextView = true;
   $scope.toggleView = function() { $scope.showTextView = $scope.showTextView === false ? true: false; };
