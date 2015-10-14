@@ -54,10 +54,8 @@ var drawScatterPlot = function(scope, element, attrs){
       .attr("height", height + margin.top + margin.bottom)
       .append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     
-    var trends = newVal.map(function(trend) {
-      var trendPanel = angular.element('<div class="trendPanel"><h4>'+ trend.term +'</h4><p>Score XYZ</p></div>');
-      trendPanel.appendTo(element[0]);
-      return { x: trend.occurrences, y: trend.term.length, element: trendPanel };
+    var trends = newVal.map(function(trend, idx) {
+      return { x: trend.occurrences, y: trend.term.length, elementId: ("#trend-panel-"+idx) };
     });
 
     // Compute the scales’ domains.
@@ -94,11 +92,12 @@ var drawScatterPlot = function(scope, element, attrs){
       .attr("r", 10)
       .attr("cx", function(d) { return x(d.x); })
       .attr("cy", function(d) { return y(d.y); }).on("mouseover", function(trend,e){
-        for (var i = 0; i < trends.length; i++) { trends[i].element.removeClass("active"); }
-        trend.element.toggleClass("active");
-        if (d3.event.layerX > width/2){ xPosition = (trend.element.width()*-1)-10; } else { xPosition = 10; }
-        if (d3.event.layerY > height/2){ yPosition = (trend.element.height()*-1)-10; } else { yPosition = 10; }
-        trend.element.css("top", (d3.event.layerY + yPosition) + "px").css("left", (d3.event.layerX + xPosition) + "px");
+        $('.trendPanel').removeClass("active");
+        var element = $(trend.elementId);
+        element.toggleClass("active");
+        if (d3.event.layerX > width/2){ xPosition = (element.width()*-1)-10; } else { xPosition = 10; }
+        if (d3.event.layerY > height/2){ yPosition = (element.height()*-1)-10; } else { yPosition = 10; }
+        element.css("top", (d3.event.layerY + yPosition) + "px").css("left", (d3.event.layerX + xPosition) + "px");
       });
   });
 };
@@ -196,7 +195,7 @@ var drawWordcloud = function(scope, element, attrs) {
     var sizeFactor = (maxSize / extents[1]) * (extents[1] / average);
 
     //Setup words
-    var trendWords = scope.trends.map(function(trend) { return {text: trend.term, size: trend.occurrences * sizeFactor }; });
+    var trendWords = scope.trends.map(function(trend, idx) { return {text: trend.term, size: (trend.occurrences * sizeFactor), elementId: ("#trend-panel-"+idx) }; });
     var layout = d3.layout.cloud().size(cloudSize).words(trendWords)
       .padding(5).rotate(function() { return 0; }) //return ~~(Math.random() * 2) * 90;
       .font("Impact").fontSize(function(d) { return d.size; })
@@ -218,7 +217,12 @@ var drawWordcloud = function(scope, element, attrs) {
       .style("fill", function(d, i) { return fill(i); })
       .attr("text-anchor", "middle")
       .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"; })
-      .text(function(d) { return d.text; });
+      .text(function(d) { return d.text; })
+      .on('click', function(obj){ 
+        $('.trendPanel').removeClass('active'); 
+        $(obj.elementId).addClass('active');
+
+      });
     };
 
     //function resize(){}

@@ -49,6 +49,7 @@
     <div wordcloud id="wordcloud" style="" ng-hide="!showTextView" trends="trends"></div>
     <div scatter-plot ng-hide="showTextView" trends="trends"></div>
     <div timespan location="location" select-start="selectionStart" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
+    <div ng-repeat="(idx,trend) in trends" class="trendPanel" id="trend-panel-{{ idx }}">{{ trend.term }}</div>
   </div>
 
 </div>

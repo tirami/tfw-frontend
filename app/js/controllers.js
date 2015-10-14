@@ -82,5 +82,5 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$log', 'LocationTrends
   });
 
   $scope.showTextView = true;
-  $scope.toggleView = function() { $scope.showTextView = $scope.showTextView === false ? true: false; };
+  $scope.toggleView = function() { $('.trendPanel').removeClass("active"); $scope.showTextView = $scope.showTextView === false ? true: false; };
 }]);
