@@ -82,10 +82,14 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$log', 'LocationTrends
   });
 
   $scope.showTextView = true;
-  $scope.toggleView = function() { 
-    $('.trendPanel').removeClass("active"); 
+  $scope.resetPanels = function(){
+    $('.trendPanel, #overlay').removeClass("active");
     $('.trendPanel').attr("style", ""); 
-    $("#graph-container").toggleClass("wordcloud-container")
-    $("#graph-container").toggleClass("scatterplot-container")
+  }
+
+  $scope.toggleView = function(){
+    $scope.resetPanels();
+    $("#graph-container").toggleClass("wordcloud-container");
+    $("#graph-container").toggleClass("scatterplot-container");   
     $scope.showTextView = $scope.showTextView === false ? true: false; };
 }]);

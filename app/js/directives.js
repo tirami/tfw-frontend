@@ -145,7 +145,7 @@ var drawMap = function(scope,element,attrs){
         ]) + ")";
       }).on("mouseover", function(place,e){
         for (var i = 0; i < places.length; i++) { places[i].element.removeClass("active"); }
-        place.element.toggleClass("active"); 
+        place.element.toggleClass("active");
         place.element.css("top", (d3.event.pageY + 10) + "px").css("left", (d3.event.pageX + 10) + "px");
       });
 
@@ -221,7 +221,7 @@ var drawWordcloud = function(scope, element, attrs) {
       .on('click', function(obj){ 
         $('.trendPanel').removeClass('active'); 
         $(obj.elementId).addClass('active');
-
+        $('#overlay').addClass('active');
       });
     };
 

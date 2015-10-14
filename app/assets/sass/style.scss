@@ -129,19 +129,36 @@ button.pure-button span.active { color:white;background-color:#333; }
   }
 
   .trendPanel { display:none; position:absolute; width:auto; padding-left:5px; padding-right:5px;
-    background-color:#333; color:white; text-align: center; }
+    background-color:#333; color:white; text-align: center; z-index: 101; }
 
   .trendPanel.active { display:block; }
+
+  #overlay {  
+    width: 100%;
+    height: 100%;
+    background-color: rgb(51, 51, 51);
+    z-index: 100;
+    display: none;
+    position: absolute;
+    top: 0px;
+    opacity: 0.4;
+  }
+  #overlay.active { display:block; }
 }
 
-#graph-container.scatterplot-container .trendPanel {
-  .pure-button { display:none; }
+#graph-container.scatterplot-container {
+  .trendPanel { 
+    .pure-button { display:none; } 
+  }
+  #overlay.active { display: none; }
 }
 
-#graph-container.wordcloud-container .trendPanel {
-  width: 33%;
-  top: 33%;
-  margin: 0 auto;
-  text-align: center;
-  left: 33%; 
+#graph-container.wordcloud-container {
+  .trendPanel {
+    width: 33%;
+    top: 33%;
+    margin: 0 auto;
+    text-align: center;
+    left: 33%;
+  }
 }
