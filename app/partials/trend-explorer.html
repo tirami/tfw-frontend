@@ -46,7 +46,7 @@
 
 
   <div id="graph-container" class="wordcloud-container" style = "float:right; width:80%;">
-    <div wordcloud id="wordcloud" style="" ng-hide="!showTextView" trends="trends"></div>
+    <div wordcloud id="wordcloud" style="" map-scale="0.85" ng-hide="!showTextView" trends="trends"></div>
     <div scatter-plot ng-hide="showTextView" trends="trends"></div>
     <div timespan location="location" select-start="selectionStart" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
     <div ng-visible="true" ng-click="resetPanels()" id="overlay"></div>

@@ -5,7 +5,7 @@ var udadisiDirectives = angular.module('udadisiDirectives', []);
 
 udadisiDirectives.directive('wordcloud', 
   function($parse) {
-    return { restrict: 'A', scope: { trends: '=' }, link: drawWordcloud }
+    return { restrict: 'A', scope: { trends: '=', mapScale: '=' }, link: drawWordcloud }
   }
 );
 
@@ -102,39 +102,20 @@ var drawScatterPlot = function(scope, element, attrs){
   });
 };
 
-var drawMap = function(scope,element,attrs){
-  var bbox = d3.select(element[0]).node().getBoundingClientRect();
-  var width = bbox.width-13;
-  var height = width*(0.5*scope.mapScale);
-  var widthScaleFactor = 0.15625;
-  var scale = width*(widthScaleFactor*scope.mapScale);
-  var projection = d3.geo.equirectangular().scale(scale).translate([width / 2, height / 2]).precision(.1);
+var drawWorld = function(group, size, mapScale, places){
+  var projection = d3.geo.equirectangular().scale(mapScale).translate([size[0] / 2, size[1] / 2]).precision(.1);
   var path = d3.geo.path().projection(projection);
-
-  //Collect places
-  var places = [];
-  for (var i = 0; i < element[0].children.length; i++) {
-    var c = angular.element(element[0].children[i]);
-    places.push({ element: c, location: { latitude: c.attr('data-latitude'), longitude: c.attr('data-longitude') } });
-  }
-
-  //Append svg
-  var svg = d3.select(element[0]).append("svg").attr("width", width).attr("height", height);
-
-  //Grid
-  //var graticule = d3.geo.graticule();
-  //svg.append("path").datum(graticule).attr("class", "graticule").attr("d", path); 
 
   d3.json("/app/world.json", function(error, world) {
     if (error) throw error;
     //Land
-    svg.insert("path", ".graticule")
+    group.insert("path", ".graticule")
       .datum(topojson.feature(world, world.objects.land))
       .attr("class", "land")
       .attr("d", path);
 
     //Location pins
-    svg.selectAll(".pin")
+    group.selectAll(".pin")
       .data(places)
       .enter().append("circle", ".pin")
       .attr("r", 7)
@@ -155,7 +136,29 @@ var drawMap = function(scope,element,attrs){
       .attr("class", "boundary")
       .attr("d", path);*/
   });
-  //d3.select(self.frameElement).style("height", height + "px");
+};
+
+var drawMap = function(scope,element,attrs){
+  var bbox = d3.select(element[0]).node().getBoundingClientRect();
+  var width = bbox.width-13;
+  var height = width*(0.5*scope.mapScale);
+  var widthScaleFactor = 0.15625;
+  var scale = width*(widthScaleFactor*scope.mapScale);
+
+  //Collect places
+  var places = [];
+  for (var i = 0; i < element[0].children.length; i++) {
+    var c = angular.element(element[0].children[i]);
+    places.push({ element: c, location: { latitude: c.attr('data-latitude'), longitude: c.attr('data-longitude') } });
+  }
+
+  //Append svg
+  var svg = d3.select(element[0]).append("svg").attr("width", width).attr("height", height);
+  drawWorld(svg, [width,height], scale, places);
+
+  //Grid
+  //var graticule = d3.geo.graticule();
+  //svg.append("path").datum(graticule).attr("class", "graticule").attr("d", path); 
 };
 
 var setLocation = function(scope, element, attrs) {
@@ -172,18 +175,24 @@ var setLocation = function(scope, element, attrs) {
 
 var drawWordcloud = function(scope, element, attrs) {
   var vis = d3.select(element[0]); //TODO: getting: "mutating the [[Prototype]] of an object..." (may be browser vers)
+  var bbox = d3.select('#graph-container').node().getBoundingClientRect();
+  var cloudSize = [bbox.width, bbox.height-60];
+  var svg = vis.append("svg").attr("width", cloudSize[0]).attr("height", cloudSize[1]);
+
+  //Add map
+  var widthScaleFactor = 0.15625;
+  var scale = cloudSize[0]*(widthScaleFactor*scope.mapScale);
+  var mapGroup = svg.append("g");
+  drawWorld(mapGroup, cloudSize, scale, []);
+
+  var wordGroup = svg.append("g").attr("transform", "translate(" + cloudSize[0] / 2 + "," + cloudSize[1] / 2 + ")");
   
   scope.$watch('trends', function (newVal, oldVal) { 
-    vis.selectAll('*').remove();
+    wordGroup.selectAll('*').remove();
     if (!newVal) { return; }
 
     //Setup backg
     var fill = d3.scale.category20();
-    //var margin = {top: 30, right: 10, bottom: 30, left: 10}; 
-    //var width = parseInt(d3.select('#wordcloud').style('width'), 10); 
-
-    var bbox = d3.select('#graph-container').node().getBoundingClientRect();
-    var cloudSize = [bbox.width, bbox.height-60];
 
     //Set word size factor
     var totalLength = 0;
@@ -202,27 +211,22 @@ var drawWordcloud = function(scope, element, attrs) {
       .on("end", draw);
     
     layout.start();
-
+    
     function draw(words) {
-      vis.append("svg")
-      .attr("width", layout.size()[0])
-      .attr("height", layout.size()[1])
-      .append("g")
-      .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
-      .selectAll("text")
-      .data(words)
-      .enter().append("text")
-      .style("font-size", function(d) { return d.size + "px"; })
-      .style("font-family", "Impact")
-      .style("fill", function(d, i) { return fill(i); })
-      .attr("text-anchor", "middle")
-      .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"; })
-      .text(function(d) { return d.text; })
-      .on('click', function(obj){ 
-        $('.trendPanel').removeClass('active'); 
-        $(obj.elementId).addClass('active');
-        $('#overlay').addClass('active');
-      });
+      wordGroup.selectAll("text")
+        .data(words)
+        .enter().append("text")
+        .style("font-size", function(d) { return d.size + "px"; })
+        .style("font-family", "Impact")
+        .style("fill", function(d, i) { return fill(i); })
+        .attr("text-anchor", "middle")
+        .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"; })
+        .text(function(d) { return d.text; })
+        .on('click', function(obj){ 
+          $('.trendPanel').removeClass('active'); 
+          $(obj.elementId).addClass('active');
+          $('#overlay').addClass('active');
+        });
     };
 
     //function resize(){}
