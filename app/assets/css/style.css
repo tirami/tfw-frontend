@@ -159,4 +159,16 @@ button.pure-button span.active {
   display: block;
 }
 
+#graph-container.scatterplot-container .trendPanel .pure-button {
+  display: none;
+}
+
+#graph-container.wordcloud-container .trendPanel {
+  width: 33%;
+  top: 33%;
+  margin: 0 auto;
+  text-align: center;
+  left: 33%;
+}
+
 /*# sourceMappingURL=style.css.map */

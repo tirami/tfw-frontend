@@ -7,9 +7,8 @@ $primary-color: #333;
   border-radius: $radius;
 }
 
-
 body {
-	 background: #edeff5;
+	background: #edeff5;
   font: 100% $font-stack;
   color: $primary-color;
 }
@@ -128,10 +127,21 @@ button.pure-button span.active { color:white;background-color:#333; }
     stroke: #000;
     shape-rendering: crispEdges;
   }
-  
+
   .trendPanel { display:none; position:absolute; width:auto; padding-left:5px; padding-right:5px;
     background-color:#333; color:white; text-align: center; }
 
   .trendPanel.active { display:block; }
+}
 
+#graph-container.scatterplot-container .trendPanel {
+  .pure-button { display:none; }
+}
+
+#graph-container.wordcloud-container .trendPanel {
+  width: 33%;
+  top: 33%;
+  margin: 0 auto;
+  text-align: center;
+  left: 33%; 
 }
