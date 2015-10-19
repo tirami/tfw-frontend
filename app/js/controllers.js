@@ -52,8 +52,19 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$routeParams',
   function($scope, $routeParams) { $scope.location = $routeParams.location; 
 }]);
 
-udadisiControllers.controller('TrendsCtrl', ['$scope', '$routeParams', 
-  function($scope, $routeParams) { $scope.trend = $routeParams.trend; 
+udadisiControllers.controller('TrendsCtrl', ['$scope', '$routeParams', 'Locations', function($scope, $routeParams, Locations) { 
+  $scope.trend = $routeParams.trend; 
+  
+  $scope.locations = [{name:"all", trendscount: 100}, {name: "dhaka", trendscount: 100}, {name: "lima", trendscount: 100}, {name: "nairobi", trendscount: 100}];
+
+  Locations.query({}, function(data){
+    $scope.locations = [];
+    $.each(data, function(idx, item){
+      var location = {name: item.Name, trendscount: 0 };
+      $scope.locations.push(location);
+    });
+  });
+
 }]);
 
 udadisiControllers.controller('ExplorerCtrl', ['$scope', '$log', 'LocationTrends', 'Locations', function($scope, $log, LocationTrends, Locations) { 

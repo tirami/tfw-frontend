@@ -32,7 +32,9 @@
   </header>
   
   <div id="filters">
-    <a>Location 1</a><a>Location 2</a><a>Location 3</a>
+    <ul>
+    <li ng-repeat="location in locations"><a href="#" class="upcase">{{ location.name | allAsGlobal }}</a></li>
+    </ul>
   </div>
 
   <div id="trendTimeline">
