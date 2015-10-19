@@ -118,7 +118,7 @@ var drawWorld = function(group, size, mapScale, places){
     group.selectAll(".pin")
       .data(places)
       .enter().append("circle", ".pin")
-      .attr("r", 7)
+      .attr("r", function(d) { return d.spotSize })
       .attr("transform", function(d) {
         return "translate(" + projection([
           d.location.longitude,
@@ -149,7 +149,9 @@ var drawMap = function(scope,element,attrs){
   var places = [];
   for (var i = 0; i < element[0].children.length; i++) {
     var c = angular.element(element[0].children[i]);
-    places.push({ element: c, location: { latitude: c.attr('data-latitude'), longitude: c.attr('data-longitude') } });
+    var spotSize = c.attr('data-spot-size');
+    if (spotSize === undefined){ spotSize = 7 } 
+    places.push({ element: c, spotSize: spotSize, location: { latitude: c.attr('data-latitude'), longitude: c.attr('data-longitude') } });
   }
 
   //Append svg
