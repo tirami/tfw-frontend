@@ -2,7 +2,7 @@
   <header id="profileHeader">
    
      <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=150%C3%97150&w=150&h=150" alt="locationMap" class="locationMap" />
-    <h1><span>Trend profile for</span>{{ location }}</h1>
+    <h1><span>Trend profile for</span>{{ location.name }}</h1>
     
     <div class="profileStats">
             <dl>
@@ -32,7 +32,7 @@
     </div>  <!-- end city rising trends --> 
   </div>
   <section>
-    <h2>Overview of all {{ location }} trends</h2>
+    <h2>Overview of all {{ location.name }} trends</h2>
   </section> <!-- end city trends overview -->
 
 </div> <!-- end cityProfile content -->

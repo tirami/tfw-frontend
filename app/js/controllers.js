@@ -48,8 +48,28 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$log', '$window', 'Locatio
 
 }]);
 
-udadisiControllers.controller('LocationsCtrl', ['$scope', '$routeParams',
-  function($scope, $routeParams) { $scope.location = $routeParams.location; 
+udadisiControllers.controller('LocationsCtrl', ['$scope', '$routeParams', '$log', 'Stats', 'LocationTrends', function($scope, $routeParams, $log, Stats, LocationTrends) { 
+  $scope.location = { name: $routeParams.location, trendscount: 0 }
+  $scope.trends = [{"term":"water-pump","occurrences":452},{"term":"solar","occurrences":442},{"term":"battery","occurrences":407}];
+  
+  $scope.getTrends = function(location, fromDate, interval){ 
+    LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval }, 
+      function(data) { $scope.trends = data; }, 
+      function(error){ $log.log("No trends returned for "+location.name); });
+  };
+
+  $scope.getStats = function(location){
+    Stats.get({ location: location.name }, 
+      function(result){ location.trendscount = result.trendscount; },
+      function(error){ $log.log("No stats returned for "+location.name); });
+  };
+
+  $scope.selectionStart = today-(1*day);
+  $scope.interval = 1;
+
+  $scope.getStats($scope.location);
+  $scope.getTrends($scope.location, $scope.selectionStart, $scope.interval);
+
 }]);
 
 udadisiControllers.controller('TrendsCtrl', ['$scope', '$routeParams', 'Locations', function($scope, $routeParams, Locations) { 
