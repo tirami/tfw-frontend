@@ -33,6 +33,12 @@ udadisiDirectives.directive('mapProjection',
   }
 );
 
+udadisiDirectives.directive('barGraph', 
+  function($parse) {
+    return { priority: 0, restrict: 'A', scope: { trends: '=' }, link: drawBars }
+  }
+);
+
 var drawScatterPlot = function(scope, element, attrs){
 
   var bbox = d3.select('#graph-container').node().getBoundingClientRect();
@@ -237,7 +243,7 @@ var drawWordcloud = function(scope, element, attrs) {
   });
 };
 
-var barChart = function (scope, element, attrs) {
+var drawBars = function (scope, element, attrs) {
   var data = attrs.chartData.split(','); //e.g.  <chart chart-data="40,100,80,15,25,60,10"></chart>
   //in D3, any selection[0] contains the group
   //selection[0][0] is the DOM node
@@ -251,7 +257,8 @@ var barChart = function (scope, element, attrs) {
    .data(data).enter().append("div")
    .transition().ease("elastic")
    .style("width", function(d) { return d + "%"; })
-   .text(function(d) { return d + "%"; });
+   .style("height", "1.8em");
+   //.text(function(d) { return d + "%"; });
   //a little of magic: setting it's width based
   //on the data value (d) 
   //and text all with a smooth transition

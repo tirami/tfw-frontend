@@ -1,36 +1,38 @@
 <div id="cityProfile" class="page">
   <header id="profileHeader">
    
-   	<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=150%C3%97150&w=150&h=150" alt="locationMap" class="locationMap" />
+     <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=150%C3%97150&w=150&h=150" alt="locationMap" class="locationMap" />
     <h1><span>Trend profile for</span>{{ location }}</h1>
     
     <div class="profileStats">
-						<dl>
-						  <dt>Area</dt>
-						  <dd>696 km²</dd>
-						  <dt>Population Density</dt>
-						  <dd>4,850/km2 (12,600/sq mi)</dd>
-						</dl>
-    </div>
-    
+            <dl>
+              <dt>Area</dt>
+              <dd>696 km²</dd>
+              <dt>Population Density</dt>
+              <dd>4,850/km2 (12,600/sq mi)</dd>
+            </dl>
+    </div>    
   </header>
-  
-  <div class="pure-g">
-	  <div class="pure-u-1-2">
-		  <section>
-		  <h2>Todays top trends</h2>
-		  </section>
-	  </div>  <!-- end city top trends -->	  
-	  <div class="pure-u-1-2">
-		  <section>
-		  <h2>Todays rising trends</h2>
-		  </section>
-	  </div>  <!-- end city rising trends -->	  
-  </div>
 
+  <div class = "pure-g">
+    <div class="pure-u-1-2">
+      <section>
+        <h2>Todays top trends</h2>
+        <div bar-graph chart-data="40,100,80,15,25,60,10">
+        </div>
+      </section>
+    </div>  <!-- end city top trends --> 
+
+    <div class="pure-u-1-2">
+      <section>
+        <h2>Todays rising trends</h2>
+        <div bar-graph chart-data="40,100,80,15,25,60,10">
+        </div>
+      </section>
+    </div>  <!-- end city rising trends --> 
+  </div>
   <section>
-   <h2>Overview of all {{ location }} trends</h2>
+    <h2>Overview of all {{ location }} trends</h2>
   </section> <!-- end city trends overview -->
 
- </div> <!-- end cityProfile content -->
-
+</div> <!-- end cityProfile content -->
