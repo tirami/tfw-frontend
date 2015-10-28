@@ -29,7 +29,7 @@ udadisiDirectives.directive('locationToggle',
 
 udadisiDirectives.directive('mapProjection', 
   function($parse) {
-    return { restrict: 'A', scope: { mapScale: '=' }, link: drawMap }
+    return { priority: 0, restrict: 'A', scope: { mapScale: '=' }, link: { post: drawMap } }
   }
 );
 

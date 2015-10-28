@@ -55,12 +55,12 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$routeParams',
 udadisiControllers.controller('TrendsCtrl', ['$scope', '$routeParams', 'Locations', function($scope, $routeParams, Locations) { 
   $scope.trend = $routeParams.trend; 
   
-  $scope.locations = [{name:"all", trendscount: 100}, {name: "dhaka", trendscount: 100}, {name: "lima", trendscount: 100}, {name: "nairobi", trendscount: 100}];
+  $scope.locations = [{name:"all", prevalence: Math.random()*10 }, {name: "dhaka", prevalence: Math.random()*10 }, {name: "lima", prevalence: Math.random()*10 }, {name: "nairobi", prevalence: Math.random()*10 }];
 
   Locations.query({}, function(data){
     $scope.locations = [];
     $.each(data, function(idx, item){
-      var location = {name: item.Name, trendscount: 0 };
+      var location = {name: item.Name, prevalence: Math.random()*10 };
       $scope.locations.push(location);
     });
   });
