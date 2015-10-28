@@ -244,24 +244,19 @@ var drawWordcloud = function(scope, element, attrs) {
 };
 
 var drawBars = function (scope, element, attrs) {
-  var data = attrs.chartData.split(','); //e.g.  <chart chart-data="40,100,80,15,25,60,10"></chart>
-  //in D3, any selection[0] contains the group
-  //selection[0][0] is the DOM node
-  //but we won't need that this time
-  var chart = d3.select(element[0]);
-  //to our original directive markup bars-chart
-  //we add a div with out chart stling and bind each
-  //data entry to the chart
+  //var data = attrs.chartData.split(','); //e.g.  <chart chart-data="40,100,80,15,25,60,10"></chart>
+  
+  var data = scope.trends;//.map(function(t) { t.occurrences; });
+  var extents = d3.extent(scope.trends, function(t) { return t.occurrences; });
+
+  var chart = d3.select(element[0]);  
   chart.append("div").attr("class", "chart")
    .selectAll('div')
    .data(data).enter().append("div")
    .transition().ease("elastic")
-   .style("width", function(d) { return d + "%"; })
-   .style("height", "1.8em");
-   //.text(function(d) { return d + "%"; });
-  //a little of magic: setting it's width based
-  //on the data value (d) 
-  //and text all with a smooth transition
+   .style("width", function(d) { return (d.occurrences/extents[1]*100) + "%"; })
+   .style("height", "1.8em")
+   .text(function(d) { return d.term; });
 };
 
 var setTimespan = function(scope, element, attrs) {
