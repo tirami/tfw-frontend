@@ -73,54 +73,90 @@ var drawTimeSeries = function(scope, element, attrs){
   //scope.$watch('trends', function (newVal, oldVal) { 
     
     // Get the data
-    var data = [
+    var trends = [
+      { term: "battery", series:[
       {date:"1-May-12",close:58.13},
       {date:"30-Apr-12",close:53.98},
       {date:"27-Apr-12",close:67.00},
       {date:"26-Apr-12",close:89.70},
       {date:"25-Apr-12",close:99.00},
-      {date:"24-Apr-12",close:130.28},
-      {date:"23-Apr-12",close:166.70},
-      {date:"20-Apr-12",close:234.98},
-      {date:"19-Apr-12",close:345.44},
-      {date:"18-Apr-12",close:443.34},
-      {date:"17-Apr-12",close:543.70},
-      {date:"16-Apr-12",close:580.13},
-      {date:"13-Apr-12",close:605.23},
-      {date:"12-Apr-12",close:622.77},
-      {date:"11-Apr-12",close:626.20},
-      {date:"10-Apr-12",close:628.44},
-      {date:"9-Apr-12",close:636.23},
-      {date:"5-Apr-12",close:633.68},
-      {date:"4-Apr-12",close:624.31},
-      {date:"3-Apr-12",close:629.32},
-      {date:"2-Apr-12",close:618.63},
-      {date:"30-Mar-12",close:599.55},
-      {date:"29-Mar-12",close:609.86},
-      {date:"28-Mar-12",close:617.62},
-      {date:"27-Mar-12",close:614.48},
-      {date:"26-Mar-12",close:606.98}
+      {date:"24-Apr-12",close:100.0},
+      {date:"23-Apr-12",close:16.70},
+      {date:"20-Apr-12",close:23.98},
+      {date:"19-Apr-12",close:34.44},
+      {date:"18-Apr-12",close:44.34},
+      {date:"17-Apr-12",close:54.70},
+      {date:"16-Apr-12",close:58.13},
+      {date:"13-Apr-12",close:60.23},
+      {date:"12-Apr-12",close:62.77},
+      {date:"11-Apr-12",close:62.20},
+      {date:"10-Apr-12",close:62.44},
+      {date:"9-Apr-12",close:63.23},
+      {date:"5-Apr-12",close:63.68},
+      {date:"4-Apr-12",close:62.31},
+      {date:"3-Apr-12",close:62.32},
+      {date:"2-Apr-12",close:61.63},
+      {date:"30-Mar-12",close:59.55},
+      {date:"29-Mar-12",close:69.86},
+      {date:"28-Mar-12",close:67.62},
+      {date:"27-Mar-12",close:64.48},
+      {date:"26-Mar-12",close:66.98}
+      ]}, 
+      { term: "solar-pump", series:[
+      {date:"1-May-12",close:48.13},
+      {date:"30-Apr-12",close:43.98},
+      {date:"27-Apr-12",close:37.00},
+      {date:"26-Apr-12",close:69.70},
+      {date:"25-Apr-12",close:59.00},
+      {date:"24-Apr-12",close:40.0},
+      {date:"23-Apr-12",close:25.70},
+      {date:"20-Apr-12",close:29.98},
+      {date:"19-Apr-12",close:35.44},
+      {date:"18-Apr-12",close:45.34},
+      {date:"17-Apr-12",close:59.70},
+      {date:"16-Apr-12",close:33.13},
+      {date:"13-Apr-12",close:34.23},
+      {date:"12-Apr-12",close:64.77},
+      {date:"11-Apr-12",close:62.20},
+      {date:"10-Apr-12",close:82.44},
+      {date:"9-Apr-12",close:83.23},
+      {date:"5-Apr-12",close:68.68},
+      {date:"4-Apr-12",close:76.31},
+      {date:"3-Apr-12",close:54.32},
+      {date:"2-Apr-12",close:34.63},
+      {date:"30-Mar-12",close:29.55},
+      {date:"29-Mar-12",close:49.86},
+      {date:"28-Mar-12",close:77.62},
+      {date:"27-Mar-12",close:84.48},
+      {date:"26-Mar-12",close:64.98}
+      ]}
     ];
 
-    data.forEach(function(d) {
-      d.date = parseDate(d.date).getTime();
-      d.close = +d.close;
+    trends.forEach(function(trend){
+      trend.series.forEach(function(d){
+        d.date = parseDate(d.date).getTime();
+        d.close = +d.close;
+      });
     });
 
-    console.log(data);
     // Scale the range of the data
-    x.domain(d3.extent(data, function(d) { return d.date; }));
-    y.domain([0, d3.max(data, function(d) { return d.close; })]);
+    x.domain(d3.extent(trends[0].series, function(d) { return d.date; }));
+    y.domain([0, 100]);
 
     // Define the line
     var valueline = d3.svg.line()
       .x(function(d) { return x(d.date); })
       .y(function(d) { return y(d.close); });
 
+    var color = d3.scale.category10();
+
     // Add the valueline path.
-    svg.append("path")
-      .attr("class", "line")
-      .attr("d", valueline(data));
+    trends.forEach(function(trend){
+      svg.append("path")
+        .attr("class", "line")
+        .style("stroke", function() { return trend.color = color(trend.term); })
+        .attr("d", valueline(trend.series));
+    });
 
     // Add the X Axis
     svg.append("g")

@@ -188,4 +188,17 @@ button.pure-button span.active {
   left: 33%;
 }
 
+#series-container path {
+  stroke: steelblue;
+  stroke-width: 2;
+  fill: none;
+}
+#series-container .axis path,
+#series-container .axis line {
+  fill: none;
+  stroke: grey;
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
 /*# sourceMappingURL=style.css.map */
