@@ -51,7 +51,7 @@ var drawTimeSeries = function(scope, element, attrs){
   var bbox = d3.select('#series-container').node().getBoundingClientRect();
   var margin = {top: 20, right: 20, bottom: 100, left: 40};
   var width = bbox.width - margin.left - margin.right;
-  var height = bbox.height - margin.top - margin.bottom; 
+  var height = bbox.height - margin.top - margin.bottom;
 
   // Set the ranges
   var x = d3.time.scale().range([0, width]);
@@ -62,75 +62,17 @@ var drawTimeSeries = function(scope, element, attrs){
   var yAxis = d3.svg.axis().scale(y).orient("left").ticks(5);
 
   // Parse the date / time
-  var parseDate = d3.time.format("%d-%b-%y").parse;
+  var parseDate = d3.time.format("%Y%m%d").parse;
 
-  // Adds the svg canvas
   var svg = d3.select(element[0]).append("svg")
     .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-  
-  //scope.$watch('trends', function (newVal, oldVal) { 
-    
-    // Get the data
-    var trends = [
-      { term: "battery", series:[
-      {date:"1-May-12",close:58.13},
-      {date:"30-Apr-12",close:53.98},
-      {date:"27-Apr-12",close:67.00},
-      {date:"26-Apr-12",close:89.70},
-      {date:"25-Apr-12",close:99.00},
-      {date:"24-Apr-12",close:100.0},
-      {date:"23-Apr-12",close:16.70},
-      {date:"20-Apr-12",close:23.98},
-      {date:"19-Apr-12",close:34.44},
-      {date:"18-Apr-12",close:44.34},
-      {date:"17-Apr-12",close:54.70},
-      {date:"16-Apr-12",close:58.13},
-      {date:"13-Apr-12",close:60.23},
-      {date:"12-Apr-12",close:62.77},
-      {date:"11-Apr-12",close:62.20},
-      {date:"10-Apr-12",close:62.44},
-      {date:"9-Apr-12",close:63.23},
-      {date:"5-Apr-12",close:63.68},
-      {date:"4-Apr-12",close:62.31},
-      {date:"3-Apr-12",close:62.32},
-      {date:"2-Apr-12",close:61.63},
-      {date:"30-Mar-12",close:59.55},
-      {date:"29-Mar-12",close:69.86},
-      {date:"28-Mar-12",close:67.62},
-      {date:"27-Mar-12",close:64.48},
-      {date:"26-Mar-12",close:66.98}
-      ]}, 
-      { term: "solar-pump", series:[
-      {date:"1-May-12",close:48.13},
-      {date:"30-Apr-12",close:43.98},
-      {date:"27-Apr-12",close:37.00},
-      {date:"26-Apr-12",close:69.70},
-      {date:"25-Apr-12",close:59.00},
-      {date:"24-Apr-12",close:40.0},
-      {date:"23-Apr-12",close:25.70},
-      {date:"20-Apr-12",close:29.98},
-      {date:"19-Apr-12",close:35.44},
-      {date:"18-Apr-12",close:45.34},
-      {date:"17-Apr-12",close:59.70},
-      {date:"16-Apr-12",close:33.13},
-      {date:"13-Apr-12",close:34.23},
-      {date:"12-Apr-12",close:64.77},
-      {date:"11-Apr-12",close:62.20},
-      {date:"10-Apr-12",close:82.44},
-      {date:"9-Apr-12",close:83.23},
-      {date:"5-Apr-12",close:68.68},
-      {date:"4-Apr-12",close:76.31},
-      {date:"3-Apr-12",close:54.32},
-      {date:"2-Apr-12",close:34.63},
-      {date:"30-Mar-12",close:29.55},
-      {date:"29-Mar-12",close:49.86},
-      {date:"28-Mar-12",close:77.62},
-      {date:"27-Mar-12",close:84.48},
-      {date:"26-Mar-12",close:64.98}
-      ]}
-    ];
+    .attr("height", height + margin.top + margin.bottom);
+
+  var lineGroup = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  scope.$watch('trends', function (trends, oldTrends) { 
+    lineGroup.selectAll('*').remove();
+    if (!trends) { return; }
 
     trends.forEach(function(trend){
       trend.series.forEach(function(d){
@@ -139,7 +81,6 @@ var drawTimeSeries = function(scope, element, attrs){
       });
     });
 
-    // Scale the range of the data
     x.domain(d3.extent(trends[0].series, function(d) { return d.date; }));
     y.domain([0, 100]);
 
@@ -158,18 +99,9 @@ var drawTimeSeries = function(scope, element, attrs){
         .attr("d", valueline(trend.series));
     });
 
-    // Add the X Axis
-    svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
-
-    // Add the Y Axis
-    svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis);
-  //}); //end of watch
-
+    svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
+    svg.append("g").attr("class", "y axis").call(yAxis);
+  });
 };
 
 var drawScatterPlot = function(scope, element, attrs){

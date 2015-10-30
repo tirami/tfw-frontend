@@ -51,7 +51,17 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$log', '$window', 'Locatio
 udadisiControllers.controller('LocationsCtrl', ['$scope', '$routeParams', '$log', 'Stats', 'LocationTrends', function($scope, $routeParams, $log, Stats, LocationTrends) { 
   $scope.location = { name: $routeParams.location, trendscount: 0 }
   $scope.trends = [{"term":"water-pump","occurrences":452},{"term":"solar","occurrences":442},{"term":"battery","occurrences":407}];
-  
+
+  $scope.trends.forEach(function(t){
+    var series = []; 
+    var day = new Date();
+    for(var i=0; i < 10; i++){ 
+      day.setDate(day.getDate() + 1);
+      series.push({ date: day.yyyymmdd(), close: Math.random()*100 });
+    }
+    t.series = series;
+  });
+
   $scope.getTrends = function(location, fromDate, interval){ 
     LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval }, 
       function(data) { $scope.trends = data; }, 
