@@ -55,7 +55,7 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$routeParams', '$log'
   $scope.trends.forEach(function(t){
     var series = []; 
     var day = new Date();
-    for(var i=0; i < 10; i++){ 
+    for(var i=0; i < 10; i++){
       day.setDate(day.getDate() + 1);
       series.push({ date: day.yyyymmdd(), close: Math.random()*100 });
     }
