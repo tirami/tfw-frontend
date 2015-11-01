@@ -49,7 +49,7 @@ var drawTimeSeries = function(scope, element, attrs){
   //var trends = { term: "battery", timeseries: [100000:100, 100000:100] }
 
   var bbox = d3.select('#series-container').node().getBoundingClientRect();
-  var margin = {top: 20, right: 20, bottom: 100, left: 40};
+  var margin = {top: 10, right: 10, bottom: 10, left: 10};
   var width = bbox.width - margin.left - margin.right;
   var height = bbox.height - margin.top - margin.bottom;
 
@@ -68,10 +68,11 @@ var drawTimeSeries = function(scope, element, attrs){
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom);
 
-  var lineGroup = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  //svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   scope.$watch('trends', function (trends, oldTrends) { 
-    lineGroup.selectAll('*').remove();
+    
+    svg.selectAll('*').remove();
     if (!trends) { return; }
 
     trends.forEach(function(trend){
@@ -99,7 +100,7 @@ var drawTimeSeries = function(scope, element, attrs){
         .attr("d", valueline(trend.series));
     });
 
-    svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
+    //svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
     svg.append("g").attr("class", "y axis").call(yAxis);
   });
 };
@@ -309,19 +310,24 @@ var drawWordcloud = function(scope, element, attrs) {
 };
 
 var drawBars = function (scope, element, attrs) {
-  //var data = attrs.chartData.split(','); //e.g.  <chart chart-data="40,100,80,15,25,60,10"></chart>
   
-  var data = scope.trends;//.map(function(t) { t.occurrences; });
-  var extents = d3.extent(scope.trends, function(t) { return t.occurrences; });
-
   var chart = d3.select(element[0]);  
-  chart.append("div").attr("class", "chart")
-   .selectAll('div')
-   .data(data).enter().append("div")
-   .transition().ease("elastic")
-   .style("width", function(d) { return (d.occurrences/extents[1]*100) + "%"; })
-   .style("height", "1.8em")
-   .text(function(d) { return d.term; });
+
+  scope.$watch('trends', function (newVal, oldVal) { 
+    chart.selectAll('*').remove();
+    if (!newVal) { return; }
+
+    var data = newVal;
+    var extents = d3.extent(data, function(t) { return t.occurrences; });
+  
+    chart.append("div").attr("class", "chart")
+      .selectAll('div')
+      .data(data).enter().append("div")
+      .transition().ease("elastic")
+      .style("width", function(d) { return (d.occurrences/extents[1]*100) + "%"; })
+      .style("height", "1.8em")
+      .text(function(d) { return d.term; });
+   });
 };
 
 var setTimespan = function(scope, element, attrs) {
@@ -357,14 +363,14 @@ var setTimespan = function(scope, element, attrs) {
   // now draw the brush to match our extent
   brush(d3.select(".brush"));
 
-  function brushend() {
+  function brushend(){
     if (brush.empty()) {
       console.log("brush empty, doing nowt");
     } else {  
       scope.selectStart = brush.extent()[0];
       scope.interval = Math.ceil((brush.extent()[1] - brush.extent()[0]) / (24*60*60*1000));
       scope.$apply();
-      scope.updateFn(scope.location, scope.selectStart.yyyymmdd(), scope.interval);
+      scope.updateFn(scope.location.name, scope.selectStart.yyyymmdd(), scope.interval);
     }
   }
 }

@@ -49,37 +49,47 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$log', '$window', 'Locatio
 }]);
 
 udadisiControllers.controller('LocationsCtrl', ['$scope', '$routeParams', '$log', 'Stats', 'LocationTrends', function($scope, $routeParams, $log, Stats, LocationTrends) { 
-  $scope.location = { name: $routeParams.location, trendscount: 0 }
-  $scope.trends = [{"term":"water-pump","occurrences":452},{"term":"solar","occurrences":442},{"term":"battery","occurrences":407}];
 
-  $scope.trends.forEach(function(t){
-    var series = []; 
-    var day = new Date();
-    for(var i=0; i < 10; i++){ 
-      day.setDate(day.getDate() + 1);
-      series.push({ date: day.yyyymmdd(), close: Math.random()*100 });
-    }
-    t.series = series;
-  });
+  var generateExampleTrends = function(){
+    var trends = [{"term":"water-pump","occurrences":452, "series":[]},{"term":"solar","occurrences":442,"series":[]},{"term":"battery","occurrences":407,"series":[]}];
+    trends.forEach(function(t){
+      var series = []; 
+      var day = new Date();
+      for(var i=0; i < 10; i++){
+        day.setDate(day.getDate() + 1);
+        series.push({ date: day.yyyymmdd(), close: Math.random()*100 });
+      }
+      t.series = series;
+    });
+    return trends;
+  };
+
+  $scope.trends = generateExampleTrends();
 
   $scope.getTrends = function(location, fromDate, interval){ 
     LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval }, 
       function(data) { $scope.trends = data; }, 
-      function(error){ $log.log("No trends returned for "+location.name); });
+      function(error){ 
+        $log.log("No trends returned for "+location.name);
+        $scope.trends = generateExampleTrends();
+      });
   };
 
   $scope.getStats = function(location){
-    Stats.get({ location: location.name }, 
+    Stats.get({ location: location.name },
       function(result){ location.trendscount = result.trendscount; },
       function(error){ $log.log("No stats returned for "+location.name); });
   };
 
+  $scope.location = { name: $routeParams.location, trendscount: 0 }
+  
   $scope.selectionStart = today-(1*day);
+  $scope.spanEnd   = today-1;
+  $scope.spanStart = today-(31*day);
   $scope.interval = 1;
 
   $scope.getStats($scope.location);
   $scope.getTrends($scope.location, $scope.selectionStart, $scope.interval);
-
 }]);
 
 udadisiControllers.controller('TrendsCtrl', ['$scope', '$routeParams', 'Locations', function($scope, $routeParams, Locations) { 
@@ -103,10 +113,10 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$log', 'LocationTrends
   $scope.spanStart = today-(31*day);
   
   $scope.selectionStart = today-(1*day);
-  $scope.location = "all";
+  $scope.location = { name: "all" };
   $scope.interval = 1;
 
-  $scope.getTrends = function(location, fromDate, interval){ LocationTrends.query({ location: location, limit: 10, from: fromDate, interval: interval }, function(data) {
+  $scope.getTrends = function(location, fromDate, interval){ LocationTrends.query({ location: location.name, limit: 10, from: fromDate, interval: interval }, function(data) {
       $scope.trends = data;
     }, function(error){
       $scope.trendsMessage = "No trends received from remote server, using examples: ";
