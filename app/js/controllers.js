@@ -10,7 +10,16 @@ var today = startOfToday(); // CHANGE TO startOfToday(); to get up to date info
 
 var udadisiControllers = angular.module('udadisiControllers', ['ngRoute']);
 
-udadisiControllers.controller('HomeCtrl', ['$scope', '$log', '$window', 'Locations', 'Stats', 'LocationTrends', function($scope, $log, $window, Locations, Stats, LocationTrends) { 
+udadisiControllers.controller('MainCtrl', ['$scope', '$route', function ($scope, $route) {
+  // $scope.setActivePage will be available to all children 
+  // scopes of this controller
+  $scope.setActivePage = function(name) {
+    $scope.activePage = name.replace(/\//g, '').replace(':', '-');
+  };
+}]);
+
+udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window', 'Locations', 'Stats', 'LocationTrends', function($scope, $route, $log, $window, Locations, Stats, LocationTrends) { 
+  $scope.setActivePage($route.current.originalPath);
 
   $scope.getTrends = function(location, fromDate, interval){ 
     LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval }, 
@@ -48,7 +57,8 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$log', '$window', 'Locatio
 
 }]);
 
-udadisiControllers.controller('LocationsCtrl', ['$scope', '$routeParams', '$log', 'Stats', 'LocationTrends', function($scope, $routeParams, $log, Stats, LocationTrends) { 
+udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParams', '$log', 'Stats', 'LocationTrends', function($scope, $route, $routeParams, $log, Stats, LocationTrends) { 
+  $scope.setActivePage($route.current.originalPath);
 
   var generateExampleTrends = function(){
     var trends = [{"term":"water-pump","occurrences":452, "series":[]},{"term":"solar","occurrences":442,"series":[]},{"term":"battery","occurrences":407,"series":[]}];
@@ -92,7 +102,9 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$routeParams', '$log'
   $scope.getTrends($scope.location, $scope.selectionStart, $scope.interval);
 }]);
 
-udadisiControllers.controller('TrendsCtrl', ['$scope', '$routeParams', 'Locations', function($scope, $routeParams, Locations) { 
+udadisiControllers.controller('TrendsCtrl', ['$scope', '$route', '$routeParams', 'Locations', function($scope, $route, $routeParams, Locations) { 
+  $scope.setActivePage($route.current.originalPath);
+
   $scope.trend = $routeParams.trend; 
   
   $scope.locations = [{name:"all", prevalence: Math.random()*10 }, {name: "dhaka", prevalence: Math.random()*10 }, {name: "lima", prevalence: Math.random()*10 }, {name: "nairobi", prevalence: Math.random()*10 }];
@@ -107,7 +119,9 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$routeParams', 'Location
 
 }]);
 
-udadisiControllers.controller('ExplorerCtrl', ['$scope', '$log', 'LocationTrends', 'Locations', function($scope, $log, LocationTrends, Locations) { 
+udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'LocationTrends', 'Locations', function($scope, $route, $log, LocationTrends, Locations) { 
+  $scope.setActivePage($route.current.originalPath);
+
   //today = 1440111600000; // CHANGE TO startOfToday(); to get up to date info
   $scope.spanEnd   = today-1; //at 23:59:59
   $scope.spanStart = today-(31*day);
