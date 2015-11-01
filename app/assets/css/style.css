@@ -30,6 +30,11 @@ body {
   font-weight: 700;
 }
 
+.pure-menu-horizontal .pure-menu-has-children > .pure-menu-link:after {
+  content: "\f078";
+  font-family: FontAwesome;
+}
+
 .is-center {
   text-align: center;
 }

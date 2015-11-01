@@ -39,8 +39,14 @@ body {
 #main-menu {
 	float: right;
 	width: auto;
-	font-weight: 700;
+	font-weight: 700;	
 }
+
+	.pure-menu-horizontal .pure-menu-has-children>.pure-menu-link:after {
+		content: "\f078";
+		    font-family: FontAwesome;
+	}
+
 
 .is-center { text-align:center; }
 .splash {
