@@ -1,12 +1,19 @@
 @charset "UTF-8";
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "Open Sans", Helvetica, sans-serif;
+}
+
 body {
-  background: #edeff5;
-  font: 100% Helvetica, sans-serif;
+  background: #f9f9f5;
   color: #333;
+  font-weight: 300;
 }
 
 #pageHeader {
-  background: white;
+  background: #f9f9f5;
   padding: 0.5em;
   overflow: visible;
   position: relative;
@@ -20,6 +27,7 @@ body {
 #main-menu {
   float: right;
   width: auto;
+  font-weight: 700;
 }
 
 .is-center {
@@ -35,6 +43,101 @@ body {
 
 .ng-scope {
   z-index: 0;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+footer {
+  background: #3f3a34;
+  text-align: center;
+  padding-bottom: 1em;
+}
+footer p {
+  margin-top: 0;
+  padding-top: 1em;
+  color: #f9f9f5;
+}
+
+/*  Home Page –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+#mapContainer {
+  background: #0c1444;
+}
+
+.locationPanel {
+  background: white;
+  padding: 1em;
+  width: 15em;
+}
+.locationPanel h3 {
+  margin: 0;
+}
+.locationPanel dd, .locationPanel dt {
+  display: inline-block;
+  margin: 0;
+  width: 50%;
+}
+.locationPanel dt {
+  font-weight: 600;
+}
+.locationPanel dd:after {
+  display: block;
+}
+
+#searchbox {
+  text-align: center;
+  color: #f9f9f5;
+  max-width: 800px;
+  padding: 1em;
+}
+#searchbox form {
+  margin-bottom: 1em;
+}
+#searchbox input[type="text"] {
+  border-radius: 4px 0 0 4px;
+  position: relative;
+  left: 3px;
+  width: 400px;
+}
+#searchbox button {
+  border-radius: 0 4px 4px 0;
+  position: relative;
+  right: 3px;
+  border: 1px solid #0078e7;
+}
+#searchbox span {
+  font-style: italic;
+  font-size: 2em;
+  font-weight: 300;
+}
+#searchbox a#cta {
+  background: #ffd600;
+  color: navy;
+  padding: 0.5em;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 4px;
+  display: inline-block;
+  margin-left: 1em;
+}
+
+.l-box {
+  padding: 1em;
+}
+
+#introduction {
+  text-align: center;
+}
+
+#top-trends {
+  background: #008e8f;
+  color: #f9f9f5;
+}
+#top-trends ul {
+  list-style-type: none;
+  padding: 0;
 }
 
 /*  Mobile Specific Metas –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -199,6 +302,22 @@ button.pure-button span.active {
   stroke: grey;
   stroke-width: 1;
   shape-rendering: crispEdges;
+}
+
+@media screen and (min-width: 48em) {
+  .container {
+    max-width: 750px;
+  }
+}
+@media screen and (min-width: 64em) {
+  .container {
+    max-width: 1000px;
+  }
+}
+@media screen and (min-width: 80em) {
+  .container {
+    max-width: 1200px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
