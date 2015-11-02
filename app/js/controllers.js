@@ -35,7 +35,7 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', function ($scope,
   $scope.generateExampleTrends = function(){
     var trends = [{"term":"water-pump","occurrences":452, "series":[]},{"term":"solar","occurrences":442,"series":[]},{"term":"battery","occurrences":407,"series":[]}];
     trends.forEach(function(t){
-      t.series = $scope.generateDates();
+      t.series = $scope.generateSeries();
     });
     return trends;
   };

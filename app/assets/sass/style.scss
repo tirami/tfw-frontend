@@ -22,13 +22,13 @@ $pa-brown: #3f3a34;
 }
 
 body {
-	background: $pa-cream;
+  background: $pa-cream;
  color: $primary-color;
  font-weight: 300;
 }
 
 #pageHeader {
-		background: $pa-cream;
+    background: $pa-cream;
   padding: 0.5em;
   overflow: visible;
   position: relative;
@@ -37,15 +37,15 @@ body {
 }
 
 #main-menu {
-	float: right;
-	width: auto;
-	font-weight: 700;	
+  float: right;
+  width: auto;
+  font-weight: 700;  
 }
 
-	.pure-menu-horizontal .pure-menu-has-children>.pure-menu-link:after {
-		content: "\f078";
-		    font-family: FontAwesome;
-	}
+  .pure-menu-horizontal .pure-menu-has-children>.pure-menu-link:after {
+    content: "\f078";
+        font-family: FontAwesome;
+  }
 
 
 .is-center { text-align:center; }
@@ -59,91 +59,91 @@ body {
 .ng-scope { z-index: 0;}
 
 .container {
-	margin: 0 auto;
+  margin: 0 auto;
 }
 
 footer {
-	background: $pa-brown;
-	text-align: center;
-	padding-bottom: 1em;
-	p {margin-top: 0; padding-top: 1em; color: $pa-cream;}
+  background: $pa-brown;
+  text-align: center;
+  padding-bottom: 1em;
+  p {margin-top: 0; padding-top: 1em; color: $pa-cream;}
 }
 
 
 /*  Home Page –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 #mapContainer {
-	background: #0c1444;
+  background: #0c1444;
 }
 
 .locationPanel {
-	background: white; 
-	padding: 1em;
-	width: 15em;
-	
-	h3 {
-		margin: 0;
-	}
+  background: white; 
+  padding: 1em;
+  width: 15em;
+  
+  h3 {
+    margin: 0;
+  }
 
-	dd, dt { display: inline-block; margin: 0; width: 50%;}
-	dt {font-weight: 600;}
-	dd:after {display: block;}
+  dd, dt { display: inline-block; margin: 0; width: 50%;}
+  dt {font-weight: 600;}
+  dd:after {display: block;}
 }
 
 #searchbox {
-	text-align: center;
-	color: $pa-cream;
-	max-width: 800px;
-	padding: 1em;
-	
-	form { margin-bottom: 1em;}
-	
-	input[type="text"] {
-		border-radius: 4px 0 0 4px;
-		position: relative;
-		left: 3px; 
-		width: 400px;
-	}
-	button {
-		border-radius: 0 4px 4px 0; 
-		position: relative;
-		right: 3px;
-		border: 1px solid #0078e7;
-	}
-	
-	span {font-style: italic; font-size: 2em; font-weight: 300;}
-	
-	a#cta {
-		background: $pa-yellow;
-		color: navy;
-		padding: 0.5em;
-		font-weight: 700;
-		text-decoration: none;
-		text-transform: uppercase;
-		border-radius: 4px;
-		display: inline-block;
-		margin-left: 1em;
-	}
+  text-align: center;
+  color: $pa-cream;
+  max-width: 800px;
+  padding: 1em;
+  
+  form { margin-bottom: 1em;}
+  
+  input[type="text"] {
+    border-radius: 4px 0 0 4px;
+    position: relative;
+    left: 3px; 
+    width: 400px;
+  }
+  button {
+    border-radius: 0 4px 4px 0; 
+    position: relative;
+    right: 3px;
+    border: 1px solid #0078e7;
+  }
+  
+  span {font-style: italic; font-size: 2em; font-weight: 300;}
+  
+  a#cta {
+    background: $pa-yellow;
+    color: navy;
+    padding: 0.5em;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 4px;
+    display: inline-block;
+    margin-left: 1em;
+  }
 }
 
 .l-box {padding: 1em;}
 
 #introduction {
-	text-align: center;
+  text-align: center;
 }
 
 #top-trends {
-	background: $pa-green; 
-	color: $pa-cream;
-	
-	ul {
-		list-style-type: none;
-		padding: 0;
-	}
-	
-	a.capitalize {
-	}
-	
+  background: $pa-green; 
+  color: $pa-cream;
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  a.capitalize {
+  }
+  
 }
 
 
@@ -151,59 +151,59 @@ footer {
 
 
 .page {
-	max-width: 1280px;
-	margin: 0 auto;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 
 /*  Profile Specific CSS –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 #cityProfile {
-	 padding-top: 3em;
+   padding-top: 3em;
   header, section {
    padding: 1em;
    border: 1px solid #ccc;
- }	
+ }  
 }
 
 #profileHeader {
-	overflow: auto;
-	img.locationMap {float: left; margin-right: 1em;}
-	h1 span { display: block; font-size: 0.5em;}	
+  overflow: auto;
+  img.locationMap {float: left; margin-right: 1em;}
+  h1 span { display: block; font-size: 0.5em;}  
 }
 
 
 /*  Trend Explorer CSS –––––––––––––––––––––––––––––––––––––––––––––––––– */
 #side-menu {
-	margin-left: -20%; /* "#menu" width */
-	width: 20%;
-	min-width: 100px;
-	position: fixed;
-	top: 0;
+  margin-left: -20%; /* "#menu" width */
+  width: 20%;
+  min-width: 100px;
+  position: fixed;
+  top: 0;
  left: 20%;
-	bottom: 0;
-	z-index: 50; /* so the menu or its navicon stays above all content */
-	background: #2f323a;
-	overflow-y: auto;
-	-webkit-overflow-scrolling: touch;
-	color: #a0abbe;
-		h3 {font-size: 1em;}
-		.padding {	padding: 60px 1em 1em 1em;}
-		
-		ul.filter {
-			list-style-type: none;
-			padding: 0;
-			button {
-				background: none; 
-				border: 0; 
-				padding: 0.5em;
-				@include rounded(0.25em);
-				&.selected {color: white;}
-				&:hover {background: black;}
-				&:focus { outline:none }
-			}
-		}
-		
+  bottom: 0;
+  z-index: 50; /* so the menu or its navicon stays above all content */
+  background: #2f323a;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  color: #a0abbe;
+    h3 {font-size: 1em;}
+    .padding {  padding: 60px 1em 1em 1em;}
+    
+    ul.filter {
+      list-style-type: none;
+      padding: 0;
+      button {
+        background: none; 
+        border: 0; 
+        padding: 0.5em;
+        @include rounded(0.25em);
+        &.selected {color: white;}
+        &:hover {background: black;}
+        &:focus { outline:none }
+      }
+    }
+    
 }
 
 button.pure-button span.active { color:white;background-color:#333; }
@@ -299,30 +299,28 @@ button.pure-button span.active { color:white;background-color:#333; }
 @media screen and (min-width:35.5em){
 
 }
-	
-	
+  
+  
 @media screen and (min-width:48em){
 
-.container {
-	max-width: 750px;
-}
+  .container {
+    max-width: 750px;
+  }
 
 }
-		
-		
-		
+
 @media screen and (min-width:64em){
 
-.container {
-	max-width: 1000px;
-}
+  .container {
+    max-width: 1000px;
+  }
 
 }
-	
+  
 @media screen and (min-width:80em){
-	
-.container {
-	max-width: 1200px;
+  
+  .container {
+    max-width: 1200px;
+  }
+  
 }
-	
-	}
