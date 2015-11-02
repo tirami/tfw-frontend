@@ -19,16 +19,20 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', function ($scope,
     $scope.activePage = name.replace(/\//g, '').replace(':', '-');
   };
 
+  $scope.generateSeries = function(){
+    var series = []; 
+    var day = new Date();
+    for(var i=0; i < 10; i++){
+      day.setDate(day.getDate() + 1);
+      series.push({ date: day.yyyymmdd(), close: Math.random()*100 });
+    }
+    return series;
+  };
+
   $scope.generateExampleTrends = function(){
     var trends = [{"term":"water-pump","occurrences":452, "series":[]},{"term":"solar","occurrences":442,"series":[]},{"term":"battery","occurrences":407,"series":[]}];
     trends.forEach(function(t){
-      var series = []; 
-      var day = new Date();
-      for(var i=0; i < 10; i++){
-        day.setDate(day.getDate() + 1);
-        series.push({ date: day.yyyymmdd(), close: Math.random()*100 });
-      }
-      t.series = series;
+      t.series = generateDates();
     });
     return trends;
   };
@@ -111,14 +115,12 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
 
 
 //Trend Profile
-udadisiControllers.controller('TrendsCtrl', ['$scope', '$route', '$routeParams', 'Locations', function($scope, $route, $routeParams, Locations) { 
+udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$routeParams', 'Locations', function($scope, $log, $route, $routeParams, Locations) { 
   $scope.setActivePage($route.current.originalPath);
 
   $scope.trend = $routeParams.trend;
   
   $scope.locations = [{name:"all", prevalence: Math.random()*10 }, {name: "dhaka", prevalence: Math.random()*10 }, {name: "lima", prevalence: Math.random()*10 }, {name: "nairobi", prevalence: Math.random()*10 }];
-
-  $scope.sources = [{term: "All", series:[]}, {term: "Twitter", series:[]}, {term: "Blogs", series:[]}, {term: "News", series:[]}, {term: "Academia", series:[]}]
 
   Locations.query({}, function(data){
     $scope.locations = [];
@@ -128,6 +130,15 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$route', '$routeParams',
     });
   });
 
+  $scope.getSources = function(){
+    $scope.sources = [{term: "All", series:[]}, {term: "Twitter", series:[]}, {term: "Blogs", series:[]}, {term: "News", series:[]}, {term: "Academia", series:[]}];
+    $scope.sources.forEach(function(s){
+      s.series = $scope.generateSeries();
+    });
+  };
+
+  $scope.getSources();
+  $log.log($scope.sources);
 }]);
 
 

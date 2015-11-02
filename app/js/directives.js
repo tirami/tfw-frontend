@@ -47,7 +47,6 @@ udadisiDirectives.directive('timeSeries',
 
 var drawTimeSeries = function(scope, element, attrs){
   //var trends = { term: "battery", timeseries: [100000:100, 100000:100] }
-
   var bbox = d3.select('#series-container').node().getBoundingClientRect();
   var margin = {top: 10, right: 10, bottom: 10, left: 40};
 
@@ -72,7 +71,7 @@ var drawTimeSeries = function(scope, element, attrs){
   var group = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   scope.$watch('seriesData', function (data, oldData) { 
-    
+    console.log(data);
     group.selectAll('*').remove();
     if (!data) { return; }
 

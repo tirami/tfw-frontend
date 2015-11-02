@@ -43,9 +43,9 @@
     <section>
       <h2>Overview of current {{ trend }} trends</h2>
       <div id = "series-container">
-        <div time-series seriesData="sources"></div>
+        <div time-series series-data="sources"></div>
       </div>
-      <div timespan location="location" select-start="selectionStart" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
+      <div timespan location="location" select-start="selectionStart" interval="interval" start="spanStart" end="spanEnd" update-fn='getSources' class='ui-brush'></div>
     </section>
   </div>
 
