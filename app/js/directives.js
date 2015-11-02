@@ -374,7 +374,7 @@ var setTimespan = function(scope, element, attrs) {
       scope.selectStart = brush.extent()[0];
       scope.interval = Math.ceil((brush.extent()[1] - brush.extent()[0]) / (24*60*60*1000));
       scope.$apply();
-      scope.updateFn(scope.location.name, scope.selectStart.yyyymmdd(), scope.interval);
+      scope.updateFn(scope.location, scope.selectStart.yyyymmdd(), scope.interval);
     }
   }
 }
