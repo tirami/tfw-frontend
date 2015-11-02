@@ -15,6 +15,9 @@ var udadisiControllers = angular.module('udadisiControllers', ['ngRoute']);
 udadisiControllers.controller('MainCtrl', ['$scope', '$route', function ($scope, $route) {
   // $scope.setActivePage will be available to all children 
   // scopes of this controller
+
+  $scope.Math = window.Math;
+
   $scope.setActivePage = function(name) {
     $scope.activePage = name.replace(/\//g, '').replace(':', '-');
   };
@@ -32,7 +35,7 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', function ($scope,
   $scope.generateExampleTrends = function(){
     var trends = [{"term":"water-pump","occurrences":452, "series":[]},{"term":"solar","occurrences":442,"series":[]},{"term":"battery","occurrences":407,"series":[]}];
     trends.forEach(function(t){
-      t.series = generateDates();
+      t.series = $scope.generateDates();
     });
     return trends;
   };
@@ -119,8 +122,8 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   $scope.setActivePage($route.current.originalPath);
 
   $scope.trend = $routeParams.trend;
-  
-  $scope.locations = [{name:"all", prevalence: Math.random()*10 }, {name: "dhaka", prevalence: Math.random()*10 }, {name: "lima", prevalence: Math.random()*10 }, {name: "nairobi", prevalence: Math.random()*10 }];
+
+  $scope.locations = [{name:"all", prevalence: Math.random()*10 }, {name: "dhaka", prevalence: Math.random()*10, latitude: 23.7000, longitude: 90.3667 }, {name: "lima", prevalence: Math.random()*10, latitude:-12.0433, longitude: -77.0283 }, {name: "nairobi", prevalence: Math.random()*10, latitude: -1.2833, longitude: 36.8167}];
 
   Locations.query({}, function(data){
     $scope.locations = [];

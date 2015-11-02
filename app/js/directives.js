@@ -3,6 +3,17 @@
 /* Directives */
 var udadisiDirectives = angular.module('udadisiDirectives', []);
 
+var mapDirective = function($templateRequest, $compile, $parse) {
+  return {
+    restrict: 'A', scope: { mapScale: '=' },
+    link: function(scope, element, attrs){
+      setTimeout(function(){ drawMap(scope,element,attrs); }, 10);
+    }
+  }
+};
+
+udadisiDirectives.directive('mapProjection', ['$templateRequest', '$parse', mapDirective]);
+
 udadisiDirectives.directive('wordcloud', 
   function($parse) {
     return { restrict: 'A', scope: { trends: '=', mapScale: '=' }, link: drawWordcloud }
@@ -24,12 +35,6 @@ udadisiDirectives.directive('timespan',
 udadisiDirectives.directive('locationToggle', 
   function($parse) {
     return { restrict: 'C', scope: { selectStart: '=', location: '=', interval: '=', updateFn: '=' }, link: setLocation }
-  }
-);
-
-udadisiDirectives.directive('mapProjection', 
-  function($parse) {
-    return { priority: 0, restrict: 'A', scope: { mapScale: '=' }, link: { post: drawMap } }
   }
 );
 
@@ -221,7 +226,7 @@ var drawMap = function(scope,element,attrs){
   for (var i = 0; i < element[0].children.length; i++) {
     var c = angular.element(element[0].children[i]);
     var spotSize = c.attr('data-spot-size');
-    if (spotSize === undefined){ spotSize = 7 } 
+    if (spotSize === undefined){ spotSize = 7 } else { spotSize = spotSize + 1; }
     places.push({ element: c, spotSize: spotSize, location: { latitude: c.attr('data-latitude'), longitude: c.attr('data-longitude') } });
   }
 

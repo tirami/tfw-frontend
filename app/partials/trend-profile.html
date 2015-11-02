@@ -25,8 +25,7 @@
     </div>
     <div class="pure-u-1-2">
       <div map-projection map-scale="0.85" style="width:100%;height:auto;" id="mapContainer">
-        <div ng-repeat="location in locations" class="locationPanel" data-spot-size="{{ location.prevalence }}" data-latitude="23.0300" data-longitude="72.5800">About {{ location.name | allAsGlobal }}</div>
-        <div class="locationPanel" data-latitude="-1.2833" data-spot-size="3.0" data-longitude="36.8167">About Nairobi</div>
+        <div ng-repeat="location in locations"  ng-if="location.name != 'all'" class="locationPanel" data-spot-size="{{ location.prevalence }}" data-latitude="{{ location.latitude }}" data-longitude="{{ location.longitude }}"> {{ Math.round((location.prevalence/10.0)*100.0) }}% prevalent in {{ location.name }}</div>
       </div>
     </div>
   </div>
