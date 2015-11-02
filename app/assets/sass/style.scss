@@ -144,9 +144,19 @@ body.trend-explorer footer {
 	background: $pa-green; 
 	color: $pa-cream;
 	
+	h4 {font-size: 1.5em;
+		font-weight: 500;
+		margin: 0;
+		text-transform: capitalize;
+	}
+	
 	ul {
 		list-style-type: none;
 		padding: 0;
+		li {
+			border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+			padding: 0.25em 0;
+			}
 	}
 	
 	a.capitalize {
@@ -204,7 +214,7 @@ body.trend-explorer footer {
 			button {
 				background: none; 
 				border: 0; 
-				padding: 0.5em;
+				padding: 0.25em;
 				@include rounded(0.25em);
 				&.selected {color: white;}
 				&:hover {background: black;}
@@ -216,6 +226,30 @@ body.trend-explorer footer {
 
 button.pure-button span.active { color:white;background-color:#333; }
 
+.ui-brush {
+  background:#f8f8f8;
+  position:relative;
+  bottom:0;right:0;left:0;
+  height:50px;
+  width:100%;
+  margin: 0 auto;
+}
+.brush .extent {
+  stroke:#fff;
+  fill-opacity:0.125;
+  shape-rendering:crispEdges;
+}
+.axis line,.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+#series-container { 
+  height:50vh;
+  width:100%;
+}
+
 #graph-container {
   position: absolute;
   height:93.5vh;
@@ -223,28 +257,9 @@ button.pure-button span.active { color:white;background-color:#333; }
   width: 80%;
   top: 6.5vh;
 
+  .ui-brush { position:absolute; } 
+
   #wordcloud {margin-top: 0em;}
-
-  .ui-brush {
-    background:#f8f8f8;
-    position:absolute;
-    bottom:0;right:0;left:0;
-    height:50px;
-    width:100%;
-    margin: 0 auto;
-  }
-  .brush .extent {
-    stroke:#fff;
-    fill-opacity:0.125;
-    shape-rendering:crispEdges;
-  }
-
-  .axis line,
-  .axis path {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
-  }
 
   .trendPanel { display:none; position:absolute; width:auto; padding-left:5px; padding-right:5px;
     background-color:#333; color:white; text-align: center; z-index: 101; }
