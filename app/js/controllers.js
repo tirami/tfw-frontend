@@ -137,8 +137,14 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     });
   };
 
+  $scope.location = $scope.locations[0];
+
+  $scope.selectionStart = today-(1*day);
+  $scope.spanEnd   = today-1;
+  $scope.spanStart = today-(31*day);
+  $scope.interval = 1;
+
   $scope.getSources();
-  $log.log($scope.sources);
 }]);
 
 

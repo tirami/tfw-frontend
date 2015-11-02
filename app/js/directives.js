@@ -71,7 +71,6 @@ var drawTimeSeries = function(scope, element, attrs){
   var group = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   scope.$watch('seriesData', function (data, oldData) { 
-    console.log(data);
     group.selectAll('*').remove();
     if (!data) { return; }
 
