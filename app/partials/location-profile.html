@@ -1,9 +1,10 @@
-<div id="cityProfile" class="page">
+<div id="cityProfile">
+	<div  class="container">
   <header id="profileHeader">
    
-     <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=150%C3%97150&w=150&h=150" alt="locationMap" class="locationMap" />
+    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=150%C3%97150&w=150&h=150" alt="locationMap" class="locationMap" />
     <h1 class="uppercase"><span>Profile for</span>{{ location.name.toUpperCase() }} TRENDS</h1>
-    
+   
     <!--<div class="profileStats">
             <dl>
               <dt>Area</dt>
@@ -15,7 +16,7 @@
   </header>
 
   <div class = "pure-g">
-    <div class="pure-u-1-2">
+    <div class="pure-u-1 pure-u-md-1-2">
       <section>
         <h2>Top trends</h2>
         <div bar-graph trends="trends">
@@ -23,7 +24,7 @@
       </section>
     </div>  <!-- end city top trends --> 
 
-    <div class="pure-u-1-2">
+    <div class="pure-u-1 pure-u-md-1-2">
       <section>
         <h2>Rising trends</h2>
         <div bar-graph trends="trends">
@@ -38,5 +39,5 @@
     </div>
     <div timespan location="location" select-start="selectionStart" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
   </section> <!-- end city trends overview -->
-
+</div> 
 </div> <!-- end cityProfile content -->

@@ -8,7 +8,7 @@
 
 body {
   background: #f9f9f5;
-  color: #333;
+  color: #0c1444;
   font-weight: 300;
 }
 
@@ -29,10 +29,13 @@ body {
   width: auto;
   font-weight: 700;
 }
-
-.pure-menu-horizontal .pure-menu-has-children > .pure-menu-link:after {
+#main-menu .pure-menu-has-children > .pure-menu-link:after {
   content: "\f078";
   font-family: FontAwesome;
+}
+
+.pure-menu-link {
+  color: #0c1444;
 }
 
 .is-center {
@@ -63,6 +66,10 @@ footer p {
   margin-top: 0;
   padding-top: 1em;
   color: #f9f9f5;
+}
+
+body.trend-explorer footer {
+  display: none;
 }
 
 /*  Home Page –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -111,21 +118,16 @@ footer p {
   right: 3px;
   border: 1px solid #0078e7;
 }
-#searchbox span {
-  font-style: italic;
-  font-size: 2em;
-  font-weight: 300;
-}
 #searchbox a#cta {
   background: #ffd600;
   color: navy;
   padding: 0.5em;
+  font-size: 1.25em;
   font-weight: 700;
   text-decoration: none;
   text-transform: uppercase;
   border-radius: 4px;
   display: inline-block;
-  margin-left: 1em;
 }
 
 .l-box {
@@ -134,15 +136,30 @@ footer p {
 
 #introduction {
   text-align: center;
+  padding: 3em 0;
 }
 
 #top-trends {
   background: #008e8f;
   color: #f9f9f5;
+  padding: 2em 0;
+}
+#top-trends h4 {
+  font-size: 1.5em;
+  font-weight: 500;
+  margin: 0;
+  text-transform: capitalize;
 }
 #top-trends ul {
   list-style-type: none;
   padding: 0;
+}
+#top-trends ul li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 0.25em 0;
+}
+#top-trends a.capitalize {
+  text-transform: capitalize;
 }
 
 /*  Mobile Specific Metas –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -152,24 +169,76 @@ footer p {
 }
 
 /*  Profile Specific CSS –––––––––––––––––––––––––––––––––––––––––––––––––– */
-#cityProfile {
+#trendProfile, #cityProfile {
+  background: #0c1444;
   padding-top: 3em;
 }
-#cityProfile header, #cityProfile section {
+#trendProfile header, #trendProfile section, #cityProfile header, #cityProfile section {
   padding: 1em;
   border: 1px solid #ccc;
+}
+#trendProfile .container, #cityProfile .container {
+  background: #f9f9f5;
 }
 
 #profileHeader {
   overflow: auto;
+  background: white;
+  padding: 1em;
 }
 #profileHeader img.locationMap {
   float: left;
   margin-right: 1em;
 }
+#profileHeader h1 {
+  font-size: 5em;
+  font-weight: 400;
+  line-height: 1.25em;
+  text-transform: capitalize;
+  margin: 0.25em 0 0 0;
+}
 #profileHeader h1 span {
   display: block;
-  font-size: 0.5em;
+  font-size: 0.2em;
+  font-weight: 700;
+  line-height: 0.25em;
+  text-transform: none;
+}
+#profileHeader #trendInfo {
+  padding-top: 2em;
+}
+#profileHeader #trendInfo h4 {
+  margin: 0;
+}
+#profileHeader #trendInfo #trendChange span {
+  font-size: 3em;
+}
+#profileHeader #trendInfo #trendChange p {
+  margin: 0;
+}
+#profileHeader #trendInfo #trendVelocity #rate {
+  font-size: 3em;
+}
+#profileHeader #trendInfo #trendVelocity p {
+  margin: 0;
+}
+#profileHeader #trendInfo #relatedTrends ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#filters ul {
+  list-style: none;
+}
+#filters ul li {
+  display: inline-block;
+}
+#filters ul li a {
+  padding: 1em;
+}
+#filters ul li a i.fa {
+  margin-right: 0.5em;
 }
 
 /*  Trend Explorer CSS –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -202,7 +271,7 @@ footer p {
 #side-menu ul.filter button {
   background: none;
   border: 0;
-  padding: 0.5em;
+  padding: 0.25em;
   -webkit-border-radius: 0.25em;
   -moz-border-radius: 0.25em;
   border-radius: 0.25em;
@@ -319,6 +388,7 @@ button.pure-button span.active {
   shape-rendering: crispEdges;
 }
 
+/*  Trend Profile  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 @media screen and (min-width: 48em) {
   .container {
     max-width: 750px;
