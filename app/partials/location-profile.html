@@ -1,8 +1,9 @@
-<div id="cityProfile" class="page">
+<div id="cityProfile">
+	<div  class="container">
   <header id="profileHeader">
    
      <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=150%C3%97150&w=150&h=150" alt="locationMap" class="locationMap" />
-    <h1 class="uppercase"><span>Profile for</span>{{ location.name }} trends</h1>
+    <h1 class="uppercase"><span>Profile for</span>{{ location.name }}</h1>
     
     <!--<div class="profileStats">
             <dl>
@@ -38,5 +39,5 @@
     </div>
     <div timespan location="location" select-start="selectionStart" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
   </section> <!-- end city trends overview -->
-
+</div> 
 </div> <!-- end cityProfile content -->
