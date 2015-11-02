@@ -65,6 +65,18 @@ footer p {
   color: #f9f9f5;
 }
 
+body.trend-explorer footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+body.trend-explorer footer a {
+  display: none;
+}
+body.trend-explorer footer p {
+  margin: 0 auto;
+}
+
 /*  Home Page –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 #mapContainer {
   background: #0c1444;
