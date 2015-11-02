@@ -2,16 +2,16 @@
   <header id="profileHeader">
    
      <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=150%C3%97150&w=150&h=150" alt="locationMap" class="locationMap" />
-    <h1><span>Trend profile for</span>{{ location.name }}</h1>
+    <h1 class="uppercase"><span>Profile for</span>{{ location.name }} trends</h1>
     
-    <div class="profileStats">
+    <!--<div class="profileStats">
             <dl>
               <dt>Area</dt>
               <dd>696 km²</dd>
               <dt>Population Density</dt>
               <dd>4,850/km2 (12,600/sq mi)</dd>
             </dl>
-    </div>    
+    </div> -->
   </header>
 
   <div class = "pure-g">
@@ -34,7 +34,7 @@
   <section>
     <h2>Overview of all {{ location.name }} trends</h2>
     <div id = "series-container">
-      <div time-series trends="trends"></div>
+      <div time-series series-data="trends"></div>
     </div>
     <div timespan location="location" select-start="selectionStart" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
   </section> <!-- end city trends overview -->

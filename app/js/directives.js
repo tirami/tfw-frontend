@@ -3,6 +3,17 @@
 /* Directives */
 var udadisiDirectives = angular.module('udadisiDirectives', []);
 
+var mapDirective = function($templateRequest, $compile, $parse) {
+  return {
+    restrict: 'A', scope: { mapScale: '=' },
+    link: function(scope, element, attrs){
+      setTimeout(function(){ drawMap(scope,element,attrs); }, 10);
+    }
+  }
+};
+
+udadisiDirectives.directive('mapProjection', ['$templateRequest', '$parse', mapDirective]);
+
 udadisiDirectives.directive('wordcloud', 
   function($parse) {
     return { restrict: 'A', scope: { trends: '=', mapScale: '=' }, link: drawWordcloud }
@@ -27,12 +38,6 @@ udadisiDirectives.directive('locationToggle',
   }
 );
 
-udadisiDirectives.directive('mapProjection', 
-  function($parse) {
-    return { priority: 0, restrict: 'A', scope: { mapScale: '=' }, link: { post: drawMap } }
-  }
-);
-
 udadisiDirectives.directive('barGraph', 
   function($parse) {
     return { priority: 0, restrict: 'A', scope: { trends: '=' }, link: drawBars }
@@ -41,13 +46,12 @@ udadisiDirectives.directive('barGraph',
 
 udadisiDirectives.directive('timeSeries', 
   function($parse) {
-    return { priority: 0, restrict: 'A', scope: { trends: '=' }, link: drawTimeSeries }
+    return { priority: 0, restrict: 'A', scope: { seriesData: '=' }, link: drawTimeSeries }
   }
 );
 
 var drawTimeSeries = function(scope, element, attrs){
   //var trends = { term: "battery", timeseries: [100000:100, 100000:100] }
-
   var bbox = d3.select('#series-container').node().getBoundingClientRect();
   var margin = {top: 10, right: 10, bottom: 10, left: 40};
 
@@ -71,19 +75,18 @@ var drawTimeSeries = function(scope, element, attrs){
 
   var group = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  scope.$watch('trends', function (trends, oldTrends) { 
-    
+  scope.$watch('seriesData', function (data, oldData) { 
     group.selectAll('*').remove();
-    if (!trends) { return; }
+    if (!data) { return; }
 
-    trends.forEach(function(trend){
-      trend.series.forEach(function(d){
+    data.forEach(function(entry){
+      entry.series.forEach(function(d){
         d.date = parseDate(d.date).getTime();
         d.close = +d.close;
       });
     });
 
-    x.domain(d3.extent(trends[0].series, function(d) { return d.date; }));
+    x.domain(d3.extent(data[0].series, function(d) { return d.date; }));
     y.domain([0, 100]);
 
     // Define the line
@@ -94,11 +97,11 @@ var drawTimeSeries = function(scope, element, attrs){
     var color = d3.scale.category10();
 
     // Add the valueline path.
-    trends.forEach(function(trend){
+    data.forEach(function(entry){
       group.append("path")
         .attr("class", "line")
-        .style("stroke", function() { return trend.color = color(trend.term); })
-        .attr("d", valueline(trend.series));
+        .style("stroke", function() { return entry.color = color(entry.term); })
+        .attr("d", valueline(entry.series));
     });
 
     //svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
@@ -223,7 +226,7 @@ var drawMap = function(scope,element,attrs){
   for (var i = 0; i < element[0].children.length; i++) {
     var c = angular.element(element[0].children[i]);
     var spotSize = c.attr('data-spot-size');
-    if (spotSize === undefined){ spotSize = 7 } 
+    if (spotSize === undefined){ spotSize = 7 } else { spotSize = spotSize + 1; }
     places.push({ element: c, spotSize: spotSize, location: { latitude: c.attr('data-latitude'), longitude: c.attr('data-longitude') } });
   }
 

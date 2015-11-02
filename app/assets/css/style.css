@@ -1,360 +1,46 @@
-@charset "UTF-8";
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  font-family: "Open Sans", Helvetica, sans-serif;
-}
+/*
+Error: Invalid CSS after "...ound: $pa-green": expected "{", was "; "
+        on line 145 of app/assets/sass/style.scss
 
-body {
-  background: #f9f9f5;
-  color: #333;
-  font-weight: 300;
-}
+140:   text-align: center;
+141: }
+142: 
+143: #top-trends {
+144: <<<<<<< HEAD
+145: 	background: $pa-green; 
+146: 	color: $pa-cream;
+147: 	
+148: 	h4 {font-size: 1.5em;
+149: 		font-weight: 500;
+150: 		margin: 0;
 
-#pageHeader {
-  background: #f9f9f5;
-  padding: 0.5em;
-  overflow: visible;
-  position: relative;
-  z-index: 100;
-}
-#pageHeader #logo {
-  margin: 0.5em;
-  display: inline-block;
-}
-
-#main-menu {
-  float: right;
-  width: auto;
-  font-weight: 700;
-}
-
-.pure-menu-horizontal .pure-menu-has-children > .pure-menu-link:after {
-  content: "\f078";
-  font-family: FontAwesome;
-}
-
-.is-center {
-  text-align: center;
-}
-
-.splash {
-  height: 0px;
-  top: 100px;
-  width: 100%;
-  position: absolute;
-}
-
-.ng-scope {
-  z-index: 0;
-}
-
-.container {
-  margin: 0 auto;
-}
-
-footer {
-  background: #3f3a34;
-  text-align: center;
-  padding-bottom: 1em;
-}
-footer p {
-  margin-top: 0;
-  padding-top: 1em;
-  color: #f9f9f5;
-}
-
-body.trend-explorer footer {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-}
-body.trend-explorer footer a {
-  display: none;
-}
-body.trend-explorer footer p {
-  margin: 0 auto;
-}
-
-/*  Home Page –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
-#mapContainer {
-  background: #0c1444;
-}
-
-.locationPanel {
-  background: white;
-  padding: 1em;
-  width: 15em;
-}
-.locationPanel h3 {
-  margin: 0;
-}
-.locationPanel dd, .locationPanel dt {
-  display: inline-block;
-  margin: 0;
-  width: 50%;
-}
-.locationPanel dt {
-  font-weight: 600;
-}
-.locationPanel dd:after {
-  display: block;
-}
-
-#searchbox {
-  text-align: center;
-  color: #f9f9f5;
-  max-width: 800px;
-  padding: 1em;
-}
-#searchbox form {
-  margin-bottom: 1em;
-}
-#searchbox input[type="text"] {
-  border-radius: 4px 0 0 4px;
-  position: relative;
-  left: 3px;
-  width: 400px;
-}
-#searchbox button {
-  border-radius: 0 4px 4px 0;
-  position: relative;
-  right: 3px;
-  border: 1px solid #0078e7;
-}
-#searchbox span {
-  font-style: italic;
-  font-size: 2em;
-  font-weight: 300;
-}
-#searchbox a#cta {
-  background: #ffd600;
-  color: navy;
-  padding: 0.5em;
-  font-weight: 700;
-  text-decoration: none;
-  text-transform: uppercase;
-  border-radius: 4px;
-  display: inline-block;
-  margin-left: 1em;
-}
-
-.l-box {
-  padding: 1em;
-}
-
-#introduction {
-  text-align: center;
-}
-
-#top-trends {
-  background: #008e8f;
-  color: #f9f9f5;
-}
-#top-trends h4 {
-  font-size: 1.5em;
-  font-weight: 500;
-  margin: 0;
-  text-transform: capitalize;
-}
-#top-trends ul {
-  list-style-type: none;
-  padding: 0;
-}
-#top-trends ul li {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-  padding: 0.25em 0;
-}
-
-/*  Mobile Specific Metas –––––––––––––––––––––––––––––––––––––––––––––––––– */
-.page {
-  max-width: 1280px;
-  margin: 0 auto;
-}
-
-/*  Profile Specific CSS –––––––––––––––––––––––––––––––––––––––––––––––––– */
-#cityProfile {
-  padding-top: 3em;
-}
-#cityProfile header, #cityProfile section {
-  padding: 1em;
-  border: 1px solid #ccc;
-}
-
-#profileHeader {
-  overflow: auto;
-}
-#profileHeader img.locationMap {
-  float: left;
-  margin-right: 1em;
-}
-#profileHeader h1 span {
-  display: block;
-  font-size: 0.5em;
-}
-
-/*  Trend Explorer CSS –––––––––––––––––––––––––––––––––––––––––––––––––– */
-#side-menu {
-  margin-left: -20%;
-  /* "#menu" width */
-  width: 20%;
-  min-width: 100px;
-  position: fixed;
-  top: 0;
-  left: 20%;
-  bottom: 0;
-  z-index: 50;
-  /* so the menu or its navicon stays above all content */
-  background: #2f323a;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  color: #a0abbe;
-}
-#side-menu h3 {
-  font-size: 1em;
-}
-#side-menu .padding {
-  padding: 60px 1em 1em 1em;
-}
-#side-menu ul.filter {
-  list-style-type: none;
-  padding: 0;
-}
-#side-menu ul.filter button {
-  background: none;
-  border: 0;
-  padding: 0.25em;
-  -webkit-border-radius: 0.25em;
-  -moz-border-radius: 0.25em;
-  border-radius: 0.25em;
-}
-#side-menu ul.filter button.selected {
-  color: white;
-}
-#side-menu ul.filter button:hover {
-  background: black;
-}
-#side-menu ul.filter button:focus {
-  outline: none;
-}
-
-button.pure-button span.active {
-  color: white;
-  background-color: #333;
-}
-
-.ui-brush {
-  background: #f8f8f8;
-  position: relative;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  height: 50px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.brush .extent {
-  stroke: #fff;
-  fill-opacity: 0.125;
-  shape-rendering: crispEdges;
-}
-
-.axis line, .axis path {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-#series-container {
-  height: 50vh;
-  width: 100%;
-}
-
-#graph-container {
-  position: absolute;
-  height: 93.5vh;
-  right: 0;
-  width: 80%;
-  top: 6.5vh;
-}
-#graph-container .ui-brush {
-  position: absolute;
-}
-#graph-container #wordcloud {
-  margin-top: 0em;
-}
-#graph-container .trendPanel {
-  display: none;
-  position: absolute;
-  width: auto;
-  padding-left: 5px;
-  padding-right: 5px;
-  background-color: #333;
-  color: white;
-  text-align: center;
-  z-index: 101;
-}
-#graph-container .trendPanel.active {
-  display: block;
-}
-#graph-container #overlay {
-  width: 100%;
-  height: 100%;
-  background-color: #333333;
-  z-index: 100;
-  display: none;
-  position: absolute;
-  top: 0px;
-  opacity: 0.4;
-}
-#graph-container #overlay.active {
-  display: block;
-}
-
-#graph-container.scatterplot-container .trendPanel .pure-button {
-  display: none;
-}
-#graph-container.scatterplot-container #overlay.active {
-  display: none;
-}
-
-#graph-container.wordcloud-container .trendPanel {
-  width: 33%;
-  top: 33%;
-  margin: 0 auto;
-  text-align: center;
-  left: 33%;
-}
-
-#series-container path {
-  stroke: steelblue;
-  stroke-width: 2;
-  fill: none;
-}
-#series-container .axis path,
-#series-container .axis line {
-  fill: none;
-  stroke: grey;
-  stroke-width: 1;
-  shape-rendering: crispEdges;
-}
-
-@media screen and (min-width: 48em) {
-  .container {
-    max-width: 750px;
-  }
-}
-@media screen and (min-width: 64em) {
-  .container {
-    max-width: 1000px;
-  }
-}
-@media screen and (min-width: 80em) {
-  .container {
-    max-width: 1200px;
-  }
-}
-
-/*# sourceMappingURL=style.css.map */
+Backtrace:
+app/assets/sass/style.scss:145
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:1162:in `expected'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:1098:in `expected'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:1093:in `tok!'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:638:in `block'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:708:in `declaration_or_ruleset'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:658:in `block_child'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:647:in `block_contents'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:639:in `block'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:632:in `ruleset'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:657:in `block_child'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:650:in `block_contents'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:117:in `stylesheet'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/scss/parser.rb:42:in `parse'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/engine.rb:403:in `_to_tree'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/engine.rb:378:in `_render_with_sourcemap'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/engine.rb:295:in `render_with_sourcemap'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/exec/sass_scss.rb:410:in `run'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/exec/sass_scss.rb:63:in `process_result'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/exec/base.rb:52:in `parse'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/lib/sass/exec/base.rb:19:in `parse!'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.4.18/bin/sass:13:in `<top (required)>'
+/usr/bin/sass:23:in `load'
+/usr/bin/sass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Invalid CSS after \"...ound: $pa-green\": expected \"{\", was \"; \"\A         on line 145 of app/assets/sass/style.scss\A \A 140:   text-align: center;\A 141: }\A 142: \A 143: #top-trends {\A 144: <<<<<<< HEAD\A 145: 	background: $pa-green; \A 146: 	color: $pa-cream;\A 147: 	\A 148: 	h4 {font-size: 1.5em;\A 149: 		font-weight: 500;\A 150: 		margin: 0;"; }
