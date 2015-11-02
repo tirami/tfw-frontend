@@ -164,6 +164,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
   $scope.interval = 1;
 
   $scope.getTrends = function(location, fromDate, interval){ 
+    $log.log(location);
     LocationTrends.query({ location: location.name, limit: 10, from: fromDate, interval: interval }, function(data) {
       $scope.trends = data;
     }, function(error){
@@ -174,7 +175,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
 
   $scope.getTrends($scope.location, new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
 
-  $scope.locations = ["all", "dhaka", "lima", "nairobi"];
+  $scope.locations = [{ name: "all" }, { name: "dhaka" }, { name: "lima" }, { name: "nairobi" }];
   Locations.query({}, function(data){
     $scope.locations = [];
     $.each(data, function(idx, item){  $scope.locations.push(item.Name);  });

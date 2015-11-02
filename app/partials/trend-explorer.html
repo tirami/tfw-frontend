@@ -20,7 +20,7 @@
           <h3>Location Options</h3>
           
           <ul id="locationOptions" class="filter" ng-repeat="location in locations">
-            <li><button class ="locationToggle" target-location="{{location}}" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>{{ location | allAsGlobal }}</button></li>
+            <li><button class ="locationToggle" target-location="{{location.name}}" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>{{ location.name | allAsGlobal }}</button></li>
           </ul>
       
           <h3>Source Options</h3>

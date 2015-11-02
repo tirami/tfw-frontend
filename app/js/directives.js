@@ -241,7 +241,7 @@ var drawMap = function(scope,element,attrs){
 
 var setLocation = function(scope, element, attrs) {
   element.on('click', function(event) {
-    scope.location = this.getAttribute("target-location");
+    scope.location = { name: this.getAttribute("target-location") };
     scope.$apply();
     $('.locationToggle').removeClass('active');
     $(this).toggleClass('active');
@@ -374,6 +374,7 @@ var setTimespan = function(scope, element, attrs) {
       scope.selectStart = brush.extent()[0];
       scope.interval = Math.ceil((brush.extent()[1] - brush.extent()[0]) / (24*60*60*1000));
       scope.$apply();
+      console.log(scope.location);
       scope.updateFn(scope.location, scope.selectStart.yyyymmdd(), scope.interval);
     }
   }
