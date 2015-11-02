@@ -7,8 +7,8 @@
     </a>
 
     <div id="side-menu">
-	    
-	    <div class="padding">
+      
+      <div class="padding">
 
           <h3>View</h3>
 
@@ -17,29 +17,29 @@
             <span class="{{ !showTextView | boolAsActive }}">Chart view</span>
           </button>
           
-			    <h3>Location Options</h3>
-			    
-			    <ul id="locationOptions" class="filter" ng-repeat="location in locations">
-				    <li><button class ="locationToggle" target-location="{{location}}" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>{{ location | allAsGlobal }}</button></li>
-			    </ul>
-			
-			    <h3>Source Options</h3>
-			    
-			    <ul id="sourceOptions" class="filter">
-					    <li><button class="selected">All sources</button></li>
-					    <li><button>Blogs</button></li>
-					    <li><button>News</button></li>
-					    <li><button>Academia</button></li>
-					    <li><button>Twitter</button></li>
-			    </ul>
-			
-			    <h3>Velocity</h3>
-			    <ul id="sourceOptions" class="filter">
-					    <li><button class="selected">All</button></li>
-					    <li><button>Low</button></li>
-					    <li><button>Medium</button></li>
-					    <li><button>High</button></li>
-			    </ul>
+          <h3>Location Options</h3>
+          
+          <ul id="locationOptions" class="filter" ng-repeat="location in locations">
+            <li><button class ="locationToggle" target-location="{{location}}" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>{{ location | allAsGlobal }}</button></li>
+          </ul>
+      
+          <h3>Source Options</h3>
+          
+          <ul id="sourceOptions" class="filter">
+              <li><button class="selected">All sources</button></li>
+              <li><button>Blogs</button></li>
+              <li><button>News</button></li>
+              <li><button>Academia</button></li>
+              <li><button>Twitter</button></li>
+          </ul>
+      
+          <h3>Velocity</h3>
+          <ul id="sourceOptions" class="filter">
+              <li><button class="selected">All</button></li>
+              <li><button>Low</button></li>
+              <li><button>Medium</button></li>
+              <li><button>High</button></li>
+          </ul>
 
     </div>
     </div>
