@@ -10,14 +10,33 @@ var today = startOfToday(); // CHANGE TO startOfToday(); to get up to date info
 
 var udadisiControllers = angular.module('udadisiControllers', ['ngRoute']);
 
+
+//Main Controller
 udadisiControllers.controller('MainCtrl', ['$scope', '$route', function ($scope, $route) {
   // $scope.setActivePage will be available to all children 
   // scopes of this controller
   $scope.setActivePage = function(name) {
     $scope.activePage = name.replace(/\//g, '').replace(':', '-');
   };
+
+  $scope.generateExampleTrends = function(){
+    var trends = [{"term":"water-pump","occurrences":452, "series":[]},{"term":"solar","occurrences":442,"series":[]},{"term":"battery","occurrences":407,"series":[]}];
+    trends.forEach(function(t){
+      var series = []; 
+      var day = new Date();
+      for(var i=0; i < 10; i++){
+        day.setDate(day.getDate() + 1);
+        series.push({ date: day.yyyymmdd(), close: Math.random()*100 });
+      }
+      t.series = series;
+    });
+    return trends;
+  };
+
 }]);
 
+
+//Home Controller
 udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window', 'Locations', 'Stats', 'LocationTrends', function($scope, $route, $log, $window, Locations, Stats, LocationTrends) { 
   $scope.setActivePage($route.current.originalPath);
 
@@ -57,31 +76,19 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
 
 }]);
 
+
+//Location profile
 udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParams', '$log', 'Stats', 'LocationTrends', function($scope, $route, $routeParams, $log, Stats, LocationTrends) { 
   $scope.setActivePage($route.current.originalPath);
 
-  var generateExampleTrends = function(){
-    var trends = [{"term":"water-pump","occurrences":452, "series":[]},{"term":"solar","occurrences":442,"series":[]},{"term":"battery","occurrences":407,"series":[]}];
-    trends.forEach(function(t){
-      var series = []; 
-      var day = new Date();
-      for(var i=0; i < 10; i++){
-        day.setDate(day.getDate() + 1);
-        series.push({ date: day.yyyymmdd(), close: Math.random()*100 });
-      }
-      t.series = series;
-    });
-    return trends;
-  };
-
-  $scope.trends = generateExampleTrends();
+  $scope.trends = $scope.generateExampleTrends();
 
   $scope.getTrends = function(location, fromDate, interval){ 
     LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval }, 
       function(data) { $scope.trends = data; }, 
       function(error){ 
         $log.log("No trends returned for "+location.name);
-        $scope.trends = generateExampleTrends();
+        $scope.trends = $scope.generateExampleTrends();
       });
   };
 
@@ -102,12 +109,16 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
   $scope.getTrends($scope.location, $scope.selectionStart, $scope.interval);
 }]);
 
+
+//Trend Profile
 udadisiControllers.controller('TrendsCtrl', ['$scope', '$route', '$routeParams', 'Locations', function($scope, $route, $routeParams, Locations) { 
   $scope.setActivePage($route.current.originalPath);
 
-  $scope.trend = $routeParams.trend; 
+  $scope.trend = $routeParams.trend;
   
   $scope.locations = [{name:"all", prevalence: Math.random()*10 }, {name: "dhaka", prevalence: Math.random()*10 }, {name: "lima", prevalence: Math.random()*10 }, {name: "nairobi", prevalence: Math.random()*10 }];
+
+  $scope.sources = [{term: "All", series:[]}, {term: "Twitter", series:[]}, {term: "Blogs", series:[]}, {term: "News", series:[]}, {term: "Academia", series:[]}]
 
   Locations.query({}, function(data){
     $scope.locations = [];
@@ -119,6 +130,8 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$route', '$routeParams',
 
 }]);
 
+
+//Trend Explorer
 udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'LocationTrends', 'Locations', function($scope, $route, $log, LocationTrends, Locations) { 
   $scope.setActivePage($route.current.originalPath);
 

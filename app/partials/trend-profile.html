@@ -40,9 +40,12 @@
   </div>
 
   <div id="trendTimeline">
-    <h2>Overview of current {{ trend }} trends</h2>
     <section>
-      <p> Popularity over time</p>
+      <h2>Overview of current {{ trend }} trends</h2>
+      <div id = "series-container">
+        <div time-series seriesData="sources"></div>
+      </div>
+      <div timespan location="location" select-start="selectionStart" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
     </section>
   </div>
 

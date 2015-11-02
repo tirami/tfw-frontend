@@ -41,7 +41,7 @@ udadisiDirectives.directive('barGraph',
 
 udadisiDirectives.directive('timeSeries', 
   function($parse) {
-    return { priority: 0, restrict: 'A', scope: { trends: '=' }, link: drawTimeSeries }
+    return { priority: 0, restrict: 'A', scope: { seriesData: '=' }, link: drawTimeSeries }
   }
 );
 
@@ -71,19 +71,19 @@ var drawTimeSeries = function(scope, element, attrs){
 
   var group = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  scope.$watch('trends', function (trends, oldTrends) { 
+  scope.$watch('seriesData', function (data, oldData) { 
     
     group.selectAll('*').remove();
-    if (!trends) { return; }
+    if (!data) { return; }
 
-    trends.forEach(function(trend){
-      trend.series.forEach(function(d){
+    data.forEach(function(entry){
+      entry.series.forEach(function(d){
         d.date = parseDate(d.date).getTime();
         d.close = +d.close;
       });
     });
 
-    x.domain(d3.extent(trends[0].series, function(d) { return d.date; }));
+    x.domain(d3.extent(data[0].series, function(d) { return d.date; }));
     y.domain([0, 100]);
 
     // Define the line
@@ -94,11 +94,11 @@ var drawTimeSeries = function(scope, element, attrs){
     var color = d3.scale.category10();
 
     // Add the valueline path.
-    trends.forEach(function(trend){
+    data.forEach(function(entry){
       group.append("path")
         .attr("class", "line")
-        .style("stroke", function() { return trend.color = color(trend.term); })
-        .attr("d", valueline(trend.series));
+        .style("stroke", function() { return entry.color = color(entry.term); })
+        .attr("d", valueline(entry.series));
     });
 
     //svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
