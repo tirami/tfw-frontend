@@ -222,19 +222,9 @@ button.pure-button span.active {
   background-color: #333;
 }
 
-#graph-container {
-  position: absolute;
-  height: 93.5vh;
-  right: 0;
-  width: 80%;
-  top: 6.5vh;
-}
-#graph-container #wordcloud {
-  margin-top: 0em;
-}
-#graph-container .ui-brush {
+.ui-brush {
   background: #f8f8f8;
-  position: absolute;
+  position: relative;
   bottom: 0;
   right: 0;
   left: 0;
@@ -242,16 +232,36 @@ button.pure-button span.active {
   width: 100%;
   margin: 0 auto;
 }
-#graph-container .brush .extent {
+
+.brush .extent {
   stroke: #fff;
   fill-opacity: 0.125;
   shape-rendering: crispEdges;
 }
-#graph-container .axis line,
-#graph-container .axis path {
+
+.axis line, .axis path {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
+}
+
+#series-container {
+  height: 50vh;
+  width: 100%;
+}
+
+#graph-container {
+  position: absolute;
+  height: 93.5vh;
+  right: 0;
+  width: 80%;
+  top: 6.5vh;
+}
+#graph-container .ui-brush {
+  position: absolute;
+}
+#graph-container #wordcloud {
+  margin-top: 0em;
 }
 #graph-container .trendPanel {
   display: none;

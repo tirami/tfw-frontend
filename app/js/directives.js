@@ -49,7 +49,8 @@ var drawTimeSeries = function(scope, element, attrs){
   //var trends = { term: "battery", timeseries: [100000:100, 100000:100] }
 
   var bbox = d3.select('#series-container').node().getBoundingClientRect();
-  var margin = {top: 10, right: 10, bottom: 10, left: 10};
+  var margin = {top: 10, right: 10, bottom: 10, left: 40};
+
   var width = bbox.width - margin.left - margin.right;
   var height = bbox.height - margin.top - margin.bottom;
 
@@ -68,11 +69,11 @@ var drawTimeSeries = function(scope, element, attrs){
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom);
 
-  //svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  var group = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   scope.$watch('trends', function (trends, oldTrends) { 
     
-    svg.selectAll('*').remove();
+    group.selectAll('*').remove();
     if (!trends) { return; }
 
     trends.forEach(function(trend){
@@ -94,14 +95,14 @@ var drawTimeSeries = function(scope, element, attrs){
 
     // Add the valueline path.
     trends.forEach(function(trend){
-      svg.append("path")
+      group.append("path")
         .attr("class", "line")
         .style("stroke", function() { return trend.color = color(trend.term); })
         .attr("d", valueline(trend.series));
     });
 
     //svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
-    svg.append("g").attr("class", "y axis").call(yAxis);
+    group.append("g").attr("class", "y axis").call(yAxis);
   });
 };
 
@@ -334,9 +335,9 @@ var setTimespan = function(scope, element, attrs) {
   var timespan = [scope.start, scope.end];
 
   var container = d3.select(element[0]),
-      width = (container.node().offsetWidth),
-      margin = {top: 0, right: 0, bottom: 0, left: 0},
-      height = 50;
+    margin = {top: 0, right: 10, bottom: 0, left: 40},
+    height = 50;
+  var width = (container.node().offsetWidth) - margin.left - margin.right;
 
   var timeExtent = d3.extent(timespan, function(d) { return new Date(d); });
 
@@ -350,7 +351,7 @@ var setTimespan = function(scope, element, attrs) {
 
   //The x axis & labelling
   var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(5);
-  svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + (height-20) + ")")
+  context.append("g").attr("class", "x axis").attr("transform", "translate(0," + (height-20) + ")")
     .call(xAxis).selectAll("text").attr("y", 4).attr("x", 2).style("text-anchor", "start");
 
   //The "brush" or selector itself

@@ -33,7 +33,7 @@
   </div>
   <section>
     <h2>Overview of all {{ location.name }} trends</h2>
-    <div id = "series-container" style="height:50vh; width:100%;">
+    <div id = "series-container">
       <div time-series trends="trends"></div>
     </div>
     <div timespan location="location" select-start="selectionStart" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
