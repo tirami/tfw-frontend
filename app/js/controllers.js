@@ -120,10 +120,10 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
 
 
 //Trend Profile
-udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$routeParams', 'Locations', function($scope, $log, $route, $routeParams, Locations) { 
+udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$routeParams', 'Locations', 'RelatedTrends', function($scope, $log, $route, $routeParams, Locations, RelatedTrends) { 
   $scope.setActivePage($route.current.originalPath);
 
-  $scope.trend = $routeParams.trend;
+  $scope.trend = { name: $routeParams.trend, word_counts:[], sources:[] };
   //{name: "dhaka", prevalence: Math.random()*10, latitude: 23.7000, longitude: 90.3667 }, 
   $scope.locations = [{name:"all", prevalence: Math.random()*10 }, {name: "lima", prevalence: Math.random()*10, latitude:-12.0433, longitude: -77.0283 }, {name: "nairobi", prevalence: Math.random()*10, latitude: -1.2833, longitude: 36.8167}];
 
@@ -134,6 +134,17 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
       $scope.locations.push(location);
     });
   });
+
+  $scope.getRelatedTrends = function(location, trend, fromDate, interval) {
+    RelatedTrends.query(
+      { location: location.name, term: trend.name, limit: 5, from: fromDate, interval: interval }, 
+      function(data){ 
+        $scope.trend.word_counts = data[0].word_counts; 
+        $scope.trend.sources = data[0].sources; 
+        $log.log($scope.trend);
+      },
+      function(error){ $log.log("No trends returned for "+trend.name); });
+  };
 
   $scope.getSources = function(){
     $scope.sources = [{term: "All", series:[]}, {term: "Twitter", series:[]}, {term: "Blogs", series:[]}, {term: "News", series:[]}, {term: "Academia", series:[]}];
@@ -149,6 +160,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   $scope.spanStart = today-(31*day);
   $scope.interval = 1;
 
+  $scope.getRelatedTrends($scope.location, $scope.trend, "", 0); //new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
   $scope.getSources();
 }]);
 
