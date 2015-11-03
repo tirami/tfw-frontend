@@ -105,7 +105,9 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
       function(error){ $log.log("No stats returned for "+location.name); });
   };
 
-  $scope.location = { name: $routeParams.location, trendscount: 0 }
+  var n = $routeParams.location;
+  if(n == "global") { n = "all"; }
+  $scope.location = { name: n, trendscount: 0 }
   
   $scope.selectionStart = today-(1*day);
   $scope.spanEnd   = today-1;
@@ -113,7 +115,7 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
   $scope.interval = 1;
 
   $scope.getStats($scope.location);
-  $scope.getTrends($scope.location, $scope.selectionStart, $scope.interval);
+  $scope.getTrends($scope.location, new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
 }]);
 
 
@@ -122,8 +124,8 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   $scope.setActivePage($route.current.originalPath);
 
   $scope.trend = $routeParams.trend;
-
-  $scope.locations = [{name:"all", prevalence: Math.random()*10 }, {name: "dhaka", prevalence: Math.random()*10, latitude: 23.7000, longitude: 90.3667 }, {name: "lima", prevalence: Math.random()*10, latitude:-12.0433, longitude: -77.0283 }, {name: "nairobi", prevalence: Math.random()*10, latitude: -1.2833, longitude: 36.8167}];
+  //{name: "dhaka", prevalence: Math.random()*10, latitude: 23.7000, longitude: 90.3667 }, 
+  $scope.locations = [{name:"all", prevalence: Math.random()*10 }, {name: "lima", prevalence: Math.random()*10, latitude:-12.0433, longitude: -77.0283 }, {name: "nairobi", prevalence: Math.random()*10, latitude: -1.2833, longitude: 36.8167}];
 
   Locations.query({}, function(data){
     $scope.locations = [];
@@ -175,7 +177,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
 
   $scope.getTrends($scope.location, new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
 
-  $scope.locations = [{ name: "all" }, { name: "dhaka" }, { name: "lima" }, { name: "nairobi" }];
+  $scope.locations = [{ name: "all" }, { name: "lima" }, { name: "nairobi" }];
   Locations.query({}, function(data){
     $scope.locations = [];
     $.each(data, function(idx, item){  $scope.locations.push(item.Name);  });

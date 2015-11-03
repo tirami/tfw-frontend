@@ -85,7 +85,7 @@ var drawTimeSeries = function(scope, element, attrs){
         d.close = +d.close;
       });
     });
-
+    console.log(data);
     x.domain(d3.extent(data[0].series, function(d) { return d.date; }));
     y.domain([0, 100]);
 
@@ -102,6 +102,12 @@ var drawTimeSeries = function(scope, element, attrs){
         .attr("class", "line")
         .style("stroke", function() { return entry.color = color(entry.term); })
         .attr("d", valueline(entry.series));
+
+        /*.append("text")
+          .style("font-size", function(entry) { return "10px"; })
+          .style("font-family", "Impact")
+          .attr("text-anchor", "middle")
+          .text(function(d) { return entry.term; })*/
     });
 
     //svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);

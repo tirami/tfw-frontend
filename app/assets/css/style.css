@@ -319,6 +319,10 @@ button.pure-button span.active {
   width: 100%;
 }
 
+#wordcloud .land {
+  fill: rgba(25, 25, 25, 0.1);
+}
+
 #graph-container {
   position: absolute;
   height: 93.5vh;
