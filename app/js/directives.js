@@ -85,7 +85,7 @@ var drawTimeSeries = function(scope, element, attrs){
         d.close = +d.close;
       });
     });
-    console.log(data);
+    
     x.domain(d3.extent(data[0].series, function(d) { return d.date; }));
     y.domain([0, 100]);
 
@@ -380,7 +380,6 @@ var setTimespan = function(scope, element, attrs) {
       scope.selectStart = brush.extent()[0];
       scope.interval = Math.ceil((brush.extent()[1] - brush.extent()[0]) / (24*60*60*1000));
       scope.$apply();
-      console.log(scope.location);
       scope.updateFn(scope.location, scope.selectStart.yyyymmdd(), scope.interval);
     }
   }

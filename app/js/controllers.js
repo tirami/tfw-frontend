@@ -123,25 +123,19 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
 udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$routeParams', 'Locations', 'RelatedTrends', function($scope, $log, $route, $routeParams, Locations, RelatedTrends) { 
   $scope.setActivePage($route.current.originalPath);
 
-  $scope.trend = { name: $routeParams.trend, word_counts:[], sources:[] };
   //{name: "dhaka", prevalence: Math.random()*10, latitude: 23.7000, longitude: 90.3667 }, 
-  $scope.locations = [{name:"all", prevalence: Math.random()*10 }, {name: "lima", prevalence: Math.random()*10, latitude:-12.0433, longitude: -77.0283 }, {name: "nairobi", prevalence: Math.random()*10, latitude: -1.2833, longitude: 36.8167}];
-
-  Locations.query({}, function(data){
-    $scope.locations = [];
-    $.each(data, function(idx, item){
-      var location = {name: item.Name, prevalence: Math.random()*10 };
-      $scope.locations.push(location);
-    });
-  });
+  $scope.locations = [
+    {name: "all",     trend: { name: $routeParams.trend }, prevalence: Math.random()*10 }, 
+    {name: "lima",    trend: { name: $routeParams.trend }, prevalence: Math.random()*10, latitude:-12.0433, longitude: -77.0283 }, 
+    {name: "nairobi", trend: { name: $routeParams.trend }, prevalence: Math.random()*10, latitude: -1.2833, longitude: 36.8167}, 
+    {name: "durban",  trend: { name: $routeParams.trend }, prevalence: Math.random()*10, latitude: -29.8833, longitude: 31.0500}];
 
   $scope.getRelatedTrends = function(location, trend, fromDate, interval) {
     RelatedTrends.query(
       { location: location.name, term: trend.name, limit: 5, from: fromDate, interval: interval }, 
       function(data){ 
-        $scope.trend.word_counts = data[0].word_counts; 
-        $scope.trend.sources = data[0].sources; 
-        $log.log($scope.trend);
+        location.trend.word_counts = data[0].word_counts; 
+        location.trend.sources = data[0].sources; 
       },
       function(error){ $log.log("No trends returned for "+trend.name); });
   };
@@ -153,6 +147,15 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     });
   };
 
+  /*
+  Locations.query({}, function(data){
+    $scope.locations = [];
+    $.each(data, function(idx, item){
+      var location = {name: item.Name, trend: {}, prevalence: Math.random()*10 };
+      $scope.locations.push(location);
+    });
+  }); */
+
   $scope.location = $scope.locations[0];
 
   $scope.selectionStart = today-(1*day);
@@ -160,8 +163,15 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   $scope.spanStart = today-(31*day);
   $scope.interval = 1;
 
-  $scope.getRelatedTrends($scope.location, $scope.trend, "", 0); //new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
+  $scope.trend = $scope.locations[0].trend;
+
+  $scope.locations.forEach(function(location){
+    $scope.getRelatedTrends(location, $scope.trend, "", 0); //new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
+  });
+
   $scope.getSources();
+
+  $log.log($scope.locations);
 }]);
 
 
