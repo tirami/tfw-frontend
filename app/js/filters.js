@@ -14,3 +14,16 @@ udadisiFilters.filter('boolAsActive', function() {
     if (input) { return 'active' } else { return ''; }
   };
 })
+
+udadisiFilters.filter('urlEncode', [function() {
+  return window.encodeURIComponent;
+}]);
+
+/*
+
+udadisiFilters.filter('urlEncode', function() {
+  return function(input) { 
+    return window.encodeURIComponent(input); 
+  }
+});
+*/

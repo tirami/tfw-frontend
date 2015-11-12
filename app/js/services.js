@@ -28,10 +28,11 @@ udadisiServices.factory('Stats', ['$resource','$log',
     });
   }]);
 
+//TODO: ASK ANDREW TO ACCEPT LIMIT
 udadisiServices.factory('RelatedTrends', ['$resource','$log',
   function($resource, $log){
     return $resource(host+'v1/locations/:location/trends/:term', {}, {
-      query: { method:'GET', params:{ location:'all', from: "20150821", interval: 3 }, isArray:true }
+      query: { method:'GET', params:{ location:'all', limit:10, from: "20150821", interval: 3 }, isArray:true }
     });
   }]);
 

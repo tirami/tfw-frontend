@@ -85,7 +85,7 @@ var drawTimeSeries = function(scope, element, attrs){
         d.close = +d.close;
       });
     });
-
+    
     x.domain(d3.extent(data[0].series, function(d) { return d.date; }));
     y.domain([0, 100]);
 
@@ -102,6 +102,12 @@ var drawTimeSeries = function(scope, element, attrs){
         .attr("class", "line")
         .style("stroke", function() { return entry.color = color(entry.term); })
         .attr("d", valueline(entry.series));
+
+        /*.append("text")
+          .style("font-size", function(entry) { return "10px"; })
+          .style("font-family", "Impact")
+          .attr("text-anchor", "middle")
+          .text(function(d) { return entry.term; })*/
     });
 
     //svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
@@ -241,7 +247,7 @@ var drawMap = function(scope,element,attrs){
 
 var setLocation = function(scope, element, attrs) {
   element.on('click', function(event) {
-    scope.location = this.getAttribute("target-location");
+    scope.location = { name: this.getAttribute("target-location") };
     scope.$apply();
     $('.locationToggle').removeClass('active');
     $(this).toggleClass('active');
@@ -374,7 +380,7 @@ var setTimespan = function(scope, element, attrs) {
       scope.selectStart = brush.extent()[0];
       scope.interval = Math.ceil((brush.extent()[1] - brush.extent()[0]) / (24*60*60*1000));
       scope.$apply();
-      scope.updateFn(scope.location.name, scope.selectStart.yyyymmdd(), scope.interval);
+      scope.updateFn(scope.location, scope.selectStart.yyyymmdd(), scope.interval);
     }
   }
 }
