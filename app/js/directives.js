@@ -63,17 +63,21 @@ var drawNodes = function(scope, element, attrs){
   var margin = {top: 10, right: 10, bottom: 10, left: 10};
   var width = bbox.width - margin.left - margin.right;
   var height = bbox.height - margin.top - margin.bottom;
+    
+  var root;
 
-  var node, link, root;
   var force = d3.layout.force()
-    .on("tick", tick)
-    .charge(function(d) { return d._children ? -d.size / 100 : -30; })
-    .linkDistance(function(d) { return d.target._children ? 100 : 50; })
-    .size([width+100, height+100]);
+      .size([width, height])
+      .on("tick", tick);
 
-  var vis = d3.select(element[0]).append("svg:svg").attr("width", width).attr("height", height);
+  var svg = d3.select(element[0]).append("svg")
+      .attr("width", width)
+      .attr("height", height);
 
-  var json = { "name": "flare", "children": 
+  var link = svg.selectAll(".link"),
+      node = svg.selectAll(".node");
+
+  var root = { "name": "flare", "children": 
     [{"name": "analytics","children": [{ "name": "cluster", "children": [
       {"name": "AgglomerativeCluster", "size": 3938},
       {"name": "CommunityStructure", "size": 3812},
@@ -82,67 +86,68 @@ var drawNodes = function(scope, element, attrs){
     ]
     }]}]};
 
-  root = json;
-  root.fixed = true;
-  root.x = width / 2;
-  root.y = height / 2;
   update();
-  
+
   function update() {
     var nodes = flatten(root),
         links = d3.layout.tree().links(nodes);
 
     // Restart the force layout.
     force
-        .nodes(nodes)
-        .links(links)
-        .start();
+      .nodes(nodes)
+      .links(links)
+      .start();
 
     // Update the links…
-    link = vis.selectAll("line.link")
-        .data(links, function(d) { return d.target.id; });
-
-    // Enter any new links.
-    link.enter().insert("svg:line", ".node")
-        .attr("class", "link")
-        .attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
+    link = link.data(links, function(d) { return d.target.id; });
 
     // Exit any old links.
     link.exit().remove();
 
+    // Enter any new links.
+    link.enter().insert("line", ".node")
+      .attr("class", "link")
+      .attr("x1", function(d) { return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
+
     // Update the nodes…
-    node = vis.selectAll("circle.node")
-        .data(nodes, function(d) { return d.id; })
-        .style("fill", color);
-
-    node.transition()
-        .attr("r", function(d) { return d.children ? 4.5 : Math.sqrt(d.size) / 10; });
-
-    // Enter any new nodes.
-    node.enter().append("svg:circle")
-        .attr("class", "node")
-        .attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; })
-        .attr("r", function(d) { return d.children ? 4.5 : Math.sqrt(d.size) / 10; })
-        .style("fill", color)
-        .on("click", click)
-        .call(force.drag);
+    node = node.data(nodes, function(d) { return d.id; }).style("fill", color);
 
     // Exit any old nodes.
     node.exit().remove();
+
+    // Enter any new nodes.
+    node.enter().append("g")
+      .attr("class", "node")
+      //.attr("cx", function(d) { return d.x; })
+      //.attr("cy", function(d) { return d.y; })
+      //.attr("r", function(d) { return Math.sqrt(d.size) / 10 || 4.5; })
+      //.style("fill", color)
+      .on("click", click)
+      .call(force.drag);
+
+    node.append("circle")
+      //.attr("cx", function(d) { return d.x; })
+      //.attr("cy", function(d) { return d.y; })
+      .attr("r", function(d) { return Math.sqrt(d.size) / 10 || 4.5; })
+      .style("fill", color);
+
+    node.append("text")
+      .attr("dx", 12)
+      .attr("dy", ".35em")
+      .text(function(d) { return d.name });
+
   }
 
   function tick() {
     link.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
 
-    node.attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
+    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
   }
 
   // Color leaf nodes orange, and packages white or blue.
@@ -152,14 +157,16 @@ var drawNodes = function(scope, element, attrs){
 
   // Toggle children on click.
   function click(d) {
-    if (d.children) {
-      d._children = d.children;
-      d.children = null;
-    } else {
-      d.children = d._children;
-      d._children = null;
+    if (!d3.event.defaultPrevented) {
+      if (d.children) {
+        d._children = d.children;
+        d.children = null;
+      } else {
+        d.children = d._children;
+        d._children = null;
+      }
+      update();
     }
-    update();
   }
 
   // Returns a list of all nodes under the root.
@@ -167,13 +174,12 @@ var drawNodes = function(scope, element, attrs){
     var nodes = [], i = 0;
 
     function recurse(node) {
-      if (node.children) node.size = node.children.reduce(function(p, v) { return p + recurse(v); }, 0);
+      if (node.children) node.children.forEach(recurse);
       if (!node.id) node.id = ++i;
       nodes.push(node);
-      return node.size;
     }
 
-    root.size = recurse(root);
+    recurse(root);
     return nodes;
   }
 
