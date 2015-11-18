@@ -240,7 +240,7 @@ var drawTimeSeries = function(scope, element, attrs){
 
         /*.append("text")
           .style("font-size", function(entry) { return "10px"; })
-          .style("font-family", "Impact")
+          .style("font-family", "Open Sans")
           .attr("text-anchor", "middle")
           .text(function(d) { return entry.term; })*/
     });
@@ -426,7 +426,7 @@ var drawWordcloud = function(scope, element, attrs) {
     var trendWords = scope.trends.map(function(trend, idx) { return {text: trend.term, size: (trend.occurrences * sizeFactor), elementId: ("#trend-panel-"+idx) }; });
     var layout = d3.layout.cloud().size(cloudSize).words(trendWords)
       .padding(5).rotate(function() { return 0; }) //return ~~(Math.random() * 2) * 90;
-      .font("Impact").fontSize(function(d) { return d.size; })
+      .font("Open Sans").fontSize(function(d) { return d.size; })
       .on("end", draw);
     
     layout.start();
@@ -436,7 +436,7 @@ var drawWordcloud = function(scope, element, attrs) {
         .data(words)
         .enter().append("text")
         .style("font-size", function(d) { return d.size + "px"; })
-        .style("font-family", "Impact")
+        .style("font-family", "Open Sans")
         .style("fill", function(d, i) { return fill(i); })
         .attr("text-anchor", "middle")
         .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"; })

@@ -1,4 +1,5 @@
 @charset "UTF-8";
+/* Rory - these are the 10 PA colors */
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -58,7 +59,7 @@ body {
 }
 
 footer {
-  background: #3f3a34;
+  background: #634400;
   text-align: center;
   padding-bottom: 1em;
 }
@@ -98,6 +99,7 @@ body.trend-explorer footer {
 }
 
 #searchbox {
+  height: 0;
   text-align: center;
   color: #f9f9f5;
   max-width: 800px;
@@ -180,9 +182,11 @@ body.trend-explorer footer {
 #trendProfile .container, #cityProfile .container {
   background: #f9f9f5;
 }
+#trendProfile #locationMap, #cityProfile #locationMap {
+  height: 200px;
+}
 
 #profileHeader {
-  overflow: auto;
   padding: 1em;
 }
 #profileHeader img.locationMap {
