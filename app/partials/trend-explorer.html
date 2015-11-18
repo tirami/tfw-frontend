@@ -15,12 +15,13 @@
           <button class="pure-button" ng-click="toggleView()">
             <span class="{{ showTextView | boolAsActive }}">Text view</span>|
             <span class="{{ !showTextView | boolAsActive }}">Chart view</span>
+            <span class="{{ !showTextView | boolAsActive }}">Block view</span>
           </button>
           
           <h3>Location Options</h3>
           
-          <ul id="locationOptions" class="filter" ng-repeat="location in locations">
-            <li><button class ="locationToggle" target-location="{{location.name}}" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>{{ location.name | allAsGlobal }}</button></li>
+          <ul id="locationOptions" class="filter">
+            <li ng-repeat="location in locations"><button class ="locationToggle" target-location="{{location.name}}" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>{{ location.name | allAsGlobal }}</button></li>
           </ul>
       
           <h3>Source Options</h3>
@@ -45,7 +46,7 @@
 
 
   <div id="graph-container" class="wordcloud-container" style = "float:right; width:80%;">
-    <div wordcloud id="wordcloud" style="" map-scale="0.85" ng-hide="!showTextView" trends="trends"></div>
+    <div wordcloud id="wordcloud" style="" map-scale="1" ng-hide="!showTextView" trends="trends"></div>
     <div scatter-plot ng-hide="showTextView" trends="trends"></div>
     <div timespan location="location" select-start="selectionStart" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
     <div ng-visible="true" ng-click="resetPanels()" id="overlay"></div>
