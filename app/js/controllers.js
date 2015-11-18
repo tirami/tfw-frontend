@@ -136,6 +136,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
       function(data){ 
         location.trend.word_counts = data[0].word_counts; 
         location.trend.sources = data[0].sources; 
+        if ($scope.location === location){ $scope.relatedTrends = data[0].word_counts; }
       },
       function(error){ $log.log("No trends returned for "+trend.name); });
   };
@@ -157,21 +158,19 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   }); */
 
   $scope.location = $scope.locations[0];
+  $scope.trend = $scope.locations[0].trend;
+  $scope.relatedTrends = [];
 
   $scope.selectionStart = today-(1*day);
   $scope.spanEnd   = today-1;
   $scope.spanStart = today-(31*day);
   $scope.interval = 1;
-
-  $scope.trend = $scope.locations[0].trend;
-
+  
   $scope.locations.forEach(function(location){
     $scope.getRelatedTrends(location, $scope.trend, "", 0); //new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
   });
 
   $scope.getSources();
-
-  $log.log($scope.trend);
 }]);
 
 

@@ -52,33 +52,24 @@ udadisiDirectives.directive('timeSeries',
 
 udadisiDirectives.directive('nodeGraph', 
   function($parse) {
-    return { priority: 0, restrict: 'A', scope: { trend: '=' }, link: drawNodes }
+    return { priority: 0, restrict: 'A', scope: { trend: "=", relatedTrends: '=' }, link: drawNodes }
   }
 );
 
 var drawNodes = function(scope, element, attrs){
-  //trend.word_counts
-
   var bbox = d3.select('#node-container').node().getBoundingClientRect();
   var margin = {top: 10, right: 10, bottom: 10, left: 10};
   var width = bbox.width - margin.left - margin.right;
   var height = bbox.height - margin.top - margin.bottom;
-    
-  var root;
+  
+  var force = d3.layout.force().gravity(.01).distance(140).charge(-100)
+    .size([width, height]).on("tick", tick);
 
-  var force = d3.layout.force()
-      .size([width, height])
-      .on("tick", tick);
+  var svg = d3.select(element[0]).append("svg").attr("width", width).attr("height", height);
 
-  var svg = d3.select(element[0]).append("svg")
-      .attr("width", width)
-      .attr("height", height);
+  var link = svg.selectAll(".link"), node = svg.selectAll(".node");
 
-  var link = svg.selectAll(".link"),
-      node = svg.selectAll(".node");
-
-  var root = { "name": "flare", "children": 
-    [{"name": "analytics","children": [{ "name": "cluster", "children": [
+  var root = { "name": "trend", "children": [{"name": "analytics","children": [{ "name": "cluster", "children": [
       {"name": "AgglomerativeCluster", "size": 3938},
       {"name": "CommunityStructure", "size": 3812},
       {"name": "HierarchicalCluster", "size": 16714},
@@ -86,17 +77,31 @@ var drawNodes = function(scope, element, attrs){
     ]
     }]}]};
 
-  update();
+  scope.$watchGroup(['trend', 'relatedTrends'], function(data, oldValues, scope) {
+    if (!data) { return; }
+
+    var trend = data[0];
+    var relatedTrends = data[1];
+
+    root = { "name": trend.name, "children":[] };
+
+    relatedTrends.forEach(function(entry){ 
+      if (entry.term != trend.name){
+        root.children.push({ "name": entry.term, "size":entry.occurrences }); 
+      }
+    });
+    
+    update();
+  });
 
   function update() {
-    var nodes = flatten(root),
-        links = d3.layout.tree().links(nodes);
+    var nodes = flatten(root);
+    var links = d3.layout.tree().links(nodes);
 
+    console.log(nodes);
+    
     // Restart the force layout.
-    force
-      .nodes(nodes)
-      .links(links)
-      .start();
+    force.nodes(nodes).links(links).start();
 
     // Update the links…
     link = link.data(links, function(d) { return d.target.id; });
@@ -121,24 +126,17 @@ var drawNodes = function(scope, element, attrs){
     // Enter any new nodes.
     node.enter().append("g")
       .attr("class", "node")
-      //.attr("cx", function(d) { return d.x; })
-      //.attr("cy", function(d) { return d.y; })
-      //.attr("r", function(d) { return Math.sqrt(d.size) / 10 || 4.5; })
-      //.style("fill", color)
       .on("click", click)
       .call(force.drag);
 
     node.append("circle")
-      //.attr("cx", function(d) { return d.x; })
-      //.attr("cy", function(d) { return d.y; })
-      .attr("r", function(d) { return Math.sqrt(d.size) / 10 || 4.5; })
+      .attr("r", function(d) { return 10; }) //return Math.sqrt(d.size) / 10 || 14.5; })
       .style("fill", color);
 
     node.append("text")
       .attr("dx", 12)
       .attr("dy", ".35em")
       .text(function(d) { return d.name });
-
   }
 
   function tick() {
@@ -172,13 +170,11 @@ var drawNodes = function(scope, element, attrs){
   // Returns a list of all nodes under the root.
   function flatten(root) {
     var nodes = [], i = 0;
-
     function recurse(node) {
       if (node.children) node.children.forEach(recurse);
       if (!node.id) node.id = ++i;
       nodes.push(node);
     }
-
     recurse(root);
     return nodes;
   }
