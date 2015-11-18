@@ -100,6 +100,7 @@ body.trend-explorer footer {
 }
 
 #searchbox {
+	 height: 0;
   text-align: center;
   color: $pa-cream;
   max-width: 800px;
@@ -186,6 +187,8 @@ body.trend-explorer footer {
    border: 1px solid #ccc;
  }  
  .container {background: $pa-cream;}
+ 
+ #locationMap {height: 200px;}
 }
 
 #profileHeader {

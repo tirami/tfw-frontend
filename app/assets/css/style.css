@@ -98,6 +98,7 @@ body.trend-explorer footer {
 }
 
 #searchbox {
+  height: 0;
   text-align: center;
   color: #f9f9f5;
   max-width: 800px;
@@ -179,6 +180,9 @@ body.trend-explorer footer {
 }
 #trendProfile .container, #cityProfile .container {
   background: #f9f9f5;
+}
+#trendProfile #locationMap, #cityProfile #locationMap {
+  height: 200px;
 }
 
 #profileHeader {
