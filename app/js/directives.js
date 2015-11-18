@@ -498,9 +498,17 @@ var setTimespan = function(scope, element, attrs) {
   context.append("g").attr("class", "x axis").attr("transform", "translate(0," + (height-20) + ")")
     .call(xAxis).selectAll("text").attr("y", 4).attr("x", 2).style("text-anchor", "start");
 
+  var arc = d3.svg.arc()
+    .outerRadius(height / 2)
+    .startAngle(0)
+    .endAngle(function(d, i) { return i ? -Math.PI : Math.PI; });
+
   //The "brush" or selector itself
   var brush = d3.svg.brush().x(x).on('brushend', brushend);
-  context.append('g').attr('class', 'x brush').call(brush).selectAll('rect').attr('y', 0).attr('height', height);
+  var brushg = context.append('g').attr('class', 'x brush').call(brush); 
+
+  brushg.selectAll(".resize").append("path").attr("transform", "translate(0," +  height / 2 + ")").attr("d", arc);
+  brushg.selectAll('rect').attr('y', 0).attr('height', height);
 
   // define our brush extent
   var selectEnd = new Date(scope.selectStart + (scope.interval*24*60*60*1000))
