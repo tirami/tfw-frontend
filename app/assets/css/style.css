@@ -14,6 +14,7 @@ body {
 }
 
 #pageHeader {
+  border-bottom: 10px solid #0c1444;
   background: #f9f9f5;
   padding: 0.5em;
   overflow: visible;
@@ -296,7 +297,8 @@ button.pure-button span.active {
 }
 
 .ui-brush {
-  background: #f8f8f8;
+  background: #0c1444;
+  color: white;
   position: relative;
   bottom: 0;
   right: 0;
@@ -307,15 +309,17 @@ button.pure-button span.active {
 }
 
 .brush .extent {
-  stroke: #fff;
-  fill: #ffd600;
-  fill-opacity: 0.5;
+  fill: #008e8f;
   shape-rendering: crispEdges;
+}
+
+.tick {
+  fill: white;
 }
 
 .axis line, .axis path {
   fill: none;
-  stroke: #000;
+  stroke: white;
   shape-rendering: crispEdges;
 }
 
@@ -325,11 +329,11 @@ button.pure-button span.active {
 }
 
 #wordcloud .land {
-  fill: rgba(25, 25, 25, 0.1);
+  fill: #eaeae1;
 }
 
 #graph-container {
-  background: #e9e9e9;
+  background: #f9f9f5;
   position: absolute;
   height: 93.5vh;
   right: 0;
