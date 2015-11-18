@@ -1,13 +1,20 @@
 $font-stack: 'Open Sans', Helvetica, sans-serif;
 $primary-color: #333;
+$pa-cream: #f9f9f5;
 
+/* Rory - these are the 10 PA colors */
 $pa-pink: #e2014d;
 $pa-yellow: #ffd600;
-$pa-green: #008e8f;
-$pa-cream: #f9f9f5;
-$pa-brown: #3f3a34;
+$pa-turquoise: #008e8f;
+$pa-brown: #634400;
 $navy-blue: #0c1444;
-$pa-red: #af013c;
+$pa-red: #fc1921;
+$pa-orange: #faa433;
+$pa-royal-blue: #232690;
+$pa-light-green: #98cb99;
+$pa-light-blue: #66afe9;
+
+
 
 @mixin rounded($radius: 0.5em) {
   -webkit-border-radius: $radius;
@@ -142,7 +149,7 @@ body.trend-explorer footer {
 }
 
 #top-trends {
-	background: $pa-green; 
+	background: $pa-turquoise; 
 	color: $pa-cream;
 	padding: 2em 0;
 	
