@@ -272,6 +272,7 @@ body.trend-explorer footer {
   padding: 0;
 }
 #side-menu ul.filter button {
+  text-transform: capitalize;
   background: none;
   border: 0;
   padding: 0.25em;
@@ -307,7 +308,8 @@ button.pure-button span.active {
 
 .brush .extent {
   stroke: #fff;
-  fill-opacity: 0.125;
+  fill: #ffd600;
+  fill-opacity: 0.5;
   shape-rendering: crispEdges;
 }
 

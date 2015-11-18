@@ -265,6 +265,7 @@ body.trend-explorer footer {
 			list-style-type: none;
 			padding: 0;
 			button {
+				text-transform: capitalize;
 				background: none; 
 				border: 0; 
 				padding: 0.25em;
@@ -288,7 +289,8 @@ button.pure-button span.active { color:white;background-color:#333; }
 }
 .brush .extent {
   stroke:#fff;
-  fill-opacity:0.125;
+  fill: $pa-yellow;
+  fill-opacity:0.5;
   shape-rendering:crispEdges;
 }
 .axis line,.axis path {
