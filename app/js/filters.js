@@ -5,7 +5,9 @@ var udadisiFilters = angular.module('udadisiFilters', []);
 
 udadisiFilters.filter('allAsGlobal', function() {
   return function(input) {
-    if (input == 'all') { return 'Global' } else { return input; }
+    if (input == 'all') { return 'Global' }
+    else if (input == 'ALL') { return 'GLOBAL' }
+    else { return input; }
   };
 })
 

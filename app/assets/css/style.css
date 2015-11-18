@@ -186,7 +186,6 @@ body.trend-explorer footer {
 }
 
 #profileHeader {
-  overflow: auto;
   padding: 1em;
 }
 #profileHeader img.locationMap {

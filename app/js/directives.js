@@ -50,6 +50,17 @@ udadisiDirectives.directive('timeSeries',
   }
 );
 
+udadisiDirectives.directive('nodeGraph', 
+  function($parse) {
+    return { priority: 0, restrict: 'A', scope: { seriesData: '=' }, link: drawNodes }
+  }
+);
+
+var drawNodes = function(){
+
+};
+
+
 var drawTimeSeries = function(scope, element, attrs){
   //var trends = { term: "battery", timeseries: [100000:100, 100000:100] }
   var bbox = d3.select('#series-container').node().getBoundingClientRect();
