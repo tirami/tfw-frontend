@@ -56,6 +56,39 @@ udadisiDirectives.directive('nodeGraph',
   }
 );
 
+//TODO: USE COLOURS VIZ OTHER THAN WORDCLOUD
+//TODO: DIAMOND HANDLES FOR TIMESPAN CONTROL
+//TODO: MAKE BRUSH HALF SIZE, NOT OBSCURING DATE LABELLING
+//TODO: CHANGE DATE FORMAT TO BE CLEAR
+
+var colours = { "pa-pink": "#e2014d", 
+    "pa-yellow": "#ffd600",
+    "pa-turquoise": "#008e8f",
+    "pa-brown": "#634400",
+    "navy-blue": "#0c1444",
+    "pa-red": "#fc1921",
+    "pa-orange": "#faa433",
+    "pa-royal-blue": "#232690",
+    "pa-light-green": "#98cb99",
+    "pa-light-blue": "#66afe9" }
+
+var getColoursArray = function() {
+  var c = []; 
+  for(var key in colours) {
+      var value = colours[key];
+      c.push(value);
+  }
+  return c;
+}
+
+var getUdadisiColour = function(i){
+  var arr = getColoursArray();
+  if (i >= arr.length){
+    Math.floor(Math.random() * (arr.length-1));
+  }
+  return arr[i];
+};
+
 var drawNodes = function(scope, element, attrs){
   var bbox = d3.select('#node-container').node().getBoundingClientRect();
   var margin = {top: 10, right: 10, bottom: 10, left: 10};
@@ -407,9 +440,6 @@ var drawWordcloud = function(scope, element, attrs) {
     wordGroup.selectAll('*').remove();
     if (!newVal) { return; }
 
-    //Setup backg
-    var fill = d3.scale.category20();
-
     //Set word size factor
     var totalLength = 0;
     var average = 0;
@@ -435,7 +465,7 @@ var drawWordcloud = function(scope, element, attrs) {
         .style("font-size", function(d) { return d.size + "px"; })
         .style("font-family", "Open Sans")
         .style("font-weight","600")
-        .style("fill", function(d, i) { return fill(i); })
+        .style("fill", function(d, i) { return getUdadisiColour(i); })
         .attr("text-anchor", "middle")
         .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"; })
         .text(function(d) { return d.text; })
