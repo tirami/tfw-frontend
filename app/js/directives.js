@@ -526,6 +526,8 @@ var setTimespan = function(scope, element, attrs) {
   context.append("g").attr("class", "x axis").attr("transform", "translate(0," + (height-20) + ")")
     .call(xAxis).selectAll("text").attr("y", 4).attr("x", 2).style("text-anchor", "start");
 
+  var diamond = d3.svg.symbol().type('diamond').size(height*4);
+  
   var arc = d3.svg.arc()
     .outerRadius(height / 2)
     .startAngle(0)
@@ -535,7 +537,9 @@ var setTimespan = function(scope, element, attrs) {
   var brush = d3.svg.brush().x(x).on('brushend', brushend);
   var brushg = context.append('g').attr('class', 'x brush').call(brush); 
 
-  brushg.selectAll(".resize").append("path").attr("transform", "translate(0," +  height / 2 + ")").attr("d", arc);
+  brushg.selectAll(".resize").append("path").attr("transform", "translate(0," +  height / 2 + ")").attr("d", diamond).style("stroke", "#FFFFFF");
+
+  //brushg.selectAll(".resize").append("path").attr("transform", "translate(0," +  height / 2 + ")").attr("d", arc);
   brushg.selectAll('rect').attr('y', 0).attr('height', height);
 
   // define our brush extent
