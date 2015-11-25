@@ -57,8 +57,6 @@ udadisiDirectives.directive('nodeGraph',
 );
 
 //TODO: USE COLOURS VIZ OTHER THAN WORDCLOUD
-//TODO: DIAMOND HANDLES FOR TIMESPAN CONTROL
-//TODO: MAKE BRUSH HALF SIZE, NOT OBSCURING DATE LABELLING
 //TODO: CHANGE DATE FORMAT TO BE CLEAR
 
 var colours = { "pa-pink": "#e2014d", 
@@ -512,15 +510,16 @@ var setTimespan = function(scope, element, attrs) {
   var timeExtent = d3.extent(timespan, function(d) { return new Date(d); });
 
   var svg = container.append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom);
+    .attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom);
 
   var context = svg.append('g').attr('class', 'context').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
   var x = d3.time.scale().range([0, width]).domain(timeExtent);
 
   //The x axis & labelling
-  var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(5);
+  var format = d3.time.format("%-d %b");
+  var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(6).tickFormat(format);
   context.append("g").attr("class", "x axis").attr("transform", "translate(0," + (height/2) + ")")
     .call(xAxis).selectAll("text").attr("y", 4).attr("x", 2).style("text-anchor", "start");
 
