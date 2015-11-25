@@ -527,19 +527,12 @@ var setTimespan = function(scope, element, attrs) {
     .call(xAxis).selectAll("text").attr("y", 4).attr("x", 2).style("text-anchor", "start");
 
   var diamond = d3.svg.symbol().type('diamond').size(height*4);
-  
-  var arc = d3.svg.arc()
-    .outerRadius(height / 2)
-    .startAngle(0)
-    .endAngle(function(d, i) { return i ? -Math.PI : Math.PI; });
 
   //The "brush" or selector itself
   var brush = d3.svg.brush().x(x).on('brushend', brushend);
   var brushg = context.append('g').attr('class', 'x brush').call(brush); 
 
   brushg.selectAll(".resize").append("path").attr("transform", "translate(0," +  height / 2 + ")").attr("d", diamond).style("stroke", "#FFFFFF");
-
-  //brushg.selectAll(".resize").append("path").attr("transform", "translate(0," +  height / 2 + ")").attr("d", arc);
   brushg.selectAll('rect').attr('y', 0).attr('height', height);
 
   // define our brush extent
