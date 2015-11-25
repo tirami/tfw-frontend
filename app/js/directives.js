@@ -258,13 +258,11 @@ var drawTimeSeries = function(scope, element, attrs){
       .x(function(d) { return x(d.date); })
       .y(function(d) { return y(d.close); });
 
-    var color = d3.scale.category10();
-
     // Add the valueline path.
-    data.forEach(function(entry){
+    data.forEach(function(entry, i){
       group.append("path")
         .attr("class", "line")
-        .style("stroke", function() { return entry.color = color(entry.term); })
+        .style("stroke", function() { return entry.color = getUdadisiColour(i); })
         .attr("d", valueline(entry.series));
 
         /*.append("text")
@@ -523,7 +521,7 @@ var setTimespan = function(scope, element, attrs) {
 
   //The x axis & labelling
   var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(5);
-  context.append("g").attr("class", "x axis").attr("transform", "translate(0," + (height-20) + ")")
+  context.append("g").attr("class", "x axis").attr("transform", "translate(0," + (height/2) + ")")
     .call(xAxis).selectAll("text").attr("y", 4).attr("x", 2).style("text-anchor", "start");
 
   var diamond = d3.svg.symbol().type('diamond').size(height*4);
@@ -533,7 +531,7 @@ var setTimespan = function(scope, element, attrs) {
   var brushg = context.append('g').attr('class', 'x brush').call(brush); 
 
   brushg.selectAll(".resize").append("path").attr("transform", "translate(0," +  height / 2 + ")").attr("d", diamond).style("stroke", "#FFFFFF");
-  brushg.selectAll('rect').attr('y', 0).attr('height', height);
+  brushg.selectAll('rect').attr('y', 0).attr('height', height/2);//.attr("transform", "translate(0," +  height / 2 + ")");
 
   // define our brush extent
   var selectEnd = new Date(scope.selectStart + (scope.interval*24*60*60*1000))
