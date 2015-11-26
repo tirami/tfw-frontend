@@ -57,7 +57,7 @@ udadisiDirectives.directive('nodeGraph',
 );
 
 //TODO: USE COLOURS VIZ OTHER THAN WORDCLOUD
-//TODO: CHANGE DATE FORMAT TO BE CLEAR
+//TODO: fix bouncy bar graphs
 
 var colours = { "pa-pink": "#e2014d", 
     "pa-yellow": "#ffd600",
