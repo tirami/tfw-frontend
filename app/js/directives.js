@@ -509,14 +509,11 @@ var drawBars = function (scope, element, attrs) {
 };
 
 var setTimespan = function(scope, element, attrs) {
-  var timespan = [scope.start, scope.end];
-
+  
   var container = d3.select(element[0]),
     margin = {top: 0, right: 10, bottom: 0, left: 40},
     height = 50;
   var width = (container.node().offsetWidth) - margin.left - margin.right;
-
-  var timeExtent = d3.extent(timespan, function(d) { return new Date(d); });
 
   var svg = container.append('svg')
     .attr('width', width + margin.left + margin.right)
@@ -524,17 +521,19 @@ var setTimespan = function(scope, element, attrs) {
 
   var context = svg.append('g').attr('class', 'context').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-  var x = d3.time.scale().range([0, width]).domain(timeExtent);
-
   //The x axis & labelling
+  var timespan = [scope.start, scope.end];
+  var timeExtent = d3.extent(timespan, function(d) { return new Date(d); });
+  var x = d3.time.scale().range([0, width]).domain(timeExtent);
   var format = d3.time.format("%-d %b");
   var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(6).tickFormat(format);
   context.append("g").attr("class", "x axis").attr("transform", "translate(0," + (height/2) + ")")
     .call(xAxis).selectAll("text").attr("y", 4).attr("x", 2).style("text-anchor", "start");
 
-  var diamond = d3.svg.symbol().type('diamond').size(height*4);
+  var zoom = d3.behavior.zoom().x(x).scaleExtent([0, width]).on("zoom", zoomed);
 
   //The "brush" or selector itself
+  var diamond = d3.svg.symbol().type('diamond').size(height*4);
   var brush = d3.svg.brush().x(x).on('brushend', brushend);
   var brushg = context.append('g').attr('class', 'x brush').call(brush); 
 
@@ -544,7 +543,6 @@ var setTimespan = function(scope, element, attrs) {
   // define our brush extent
   var selectEnd = new Date(scope.selectStart + (scope.interval*24*60*60*1000))
   brush.extent([new Date(scope.selectStart), selectEnd]);
-  // now draw the brush to match our extent
   brush(d3.select(".brush"));
 
   function brushend(){
@@ -557,6 +555,33 @@ var setTimespan = function(scope, element, attrs) {
       scope.updateFn(scope.location, scope.selectStart.yyyymmdd(), scope.interval);
     }
   }
+
+  function zoomed(e) {
+    svg.select(".x.axis").call(xAxis);
+    /*svg.selectAll('rect.extent').attr("transform", function(d) { 
+      return "translate(" + x(d.point.x) + ",0)"; }
+    );
+    svg.selectAll('g.resize.e').attr("transform", function(d) { 
+      return "translate(" + x(d.point.x) + ",0)"; }
+    );
+    svg.selectAll('g.resize.w').attr("transform", function(d) { 
+      return "translate(" + x(d.point.x) + ",0)"; }
+    );*/
+  }
+
+  d3.select("button.zr").on("click", reset);
+
+  function reset() {
+    d3.transition().duration(750).tween("zoom", function() {
+      var newDomain = [new Date(x.domain()[0]-(86400000*7)), x.domain()[1]]; //set a week hence
+      var ix = d3.interpolate(x.domain(), newDomain);
+      return function(t) {
+        zoom.x(x.domain(ix(t)));
+        zoomed();
+      };
+    });
+  }
+
 }
 
 
