@@ -258,7 +258,9 @@ var drawTimeSeries = function(scope, element, attrs){
 
     // Add the valueline path.
     data.forEach(function(entry, i){
+      
       group.append("path")
+        .attr("data-legend",function(d) { return entry.term; })
         .attr("class", "line")
         .style("stroke", function() { return entry.color = getUdadisiColour(i); })
         .attr("d", valueline(entry.series));
@@ -273,6 +275,13 @@ var drawTimeSeries = function(scope, element, attrs){
 
     //svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
     group.append("g").attr("class", "y axis").call(yAxis);
+
+    var legend = group.append("g")
+      .attr("class","legend")
+      .attr("transform","translate(50,30)")
+      .style("font-size","12px")
+      .call(d3.legend)
+
   });
 };
 

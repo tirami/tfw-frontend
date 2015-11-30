@@ -328,6 +328,10 @@ button.pure-button span.active {
   width: 100%;
 }
 
+rect.legend-box {
+  fill: white;
+}
+
 #wordcloud .land {
   fill: #eaeae1;
 }
