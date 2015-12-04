@@ -1,7 +1,7 @@
 FROM ubuntu
  
 RUN apt-get update -qq
-RUN apt-get install -y build-essential nodejs npm nodejs-legacy vim
+RUN apt-get install -y build-essential nodejs npm nodejs-legacy vim git
  
 RUN mkdir /udadisi-frontend
 ADD . /udadisi-frontend
