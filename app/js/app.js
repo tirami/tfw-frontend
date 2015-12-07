@@ -11,24 +11,28 @@ var udadisiApp = angular.module('udadisiApp', [
 
 udadisiApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.
+    when('/', {
+      templateUrl: 'app/partials/home.html',
+      controller: 'HomeCtrl'
+    }).
     when('/home', {
-      templateUrl: 'partials/home.html',
+      templateUrl: 'app/partials/home.html',
       controller: 'HomeCtrl'
     }).
     when('/about', {
-      templateUrl: 'partials/about.html',
+      templateUrl: 'app/partials/about.html',
       controller: 'HomeCtrl'
     }).
     when('/locations/:location', {
-      templateUrl: 'partials/location-profile.html',
+      templateUrl: 'app/partials/location-profile.html',
       controller: 'LocationsCtrl'
     }).
     when('/trends/:trend', {
-      templateUrl: 'partials/trend-profile.html',
+      templateUrl: 'app/partials/trend-profile.html',
       controller: 'TrendsCtrl'
     }).
     when('/trend-explorer', {
-      templateUrl: 'partials/trend-explorer.html',
+      templateUrl: 'app/partials/trend-explorer.html',
       controller: 'ExplorerCtrl'
     }).
     otherwise({redirectTo: '/home'});
