@@ -78,7 +78,7 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
   
   $scope.query = "";
   $scope.search = function(){
-    $window.location.href = '/app/#/trends/'+$scope.query;
+    $window.location.href = '#/trends/'+$scope.query;
   };
 
 }]);
