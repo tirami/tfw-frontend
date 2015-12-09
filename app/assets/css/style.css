@@ -372,10 +372,48 @@ rect.legend-box {
   width: auto;
   padding-left: 5px;
   padding-right: 5px;
-  background-color: #333;
+  background-color: #0c1444;
   color: white;
   text-align: center;
   z-index: 101;
+}
+#graph-container .trendPanel h4 {
+  text-transform: capitalize;
+  font-size: 2.5em;
+  font-weight: 400;
+  margin: 0;
+}
+#graph-container .trendPanel p {
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 0.25em;
+  float: left;
+  width: 100%;
+  text-align: center;
+}
+#graph-container .trendPanel a.close {
+  font-size: 28px;
+  position: absolute;
+  z-index: 10000;
+  right: -10px;
+  top: -0.5em;
+  line-height: 0;
+  background: #0c1444;
+  padding: 0;
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  border-radius: 3em;
+}
+#graph-container .trendPanel a.close i {
+  position: relative;
+  top: 3px;
+  left: 0;
+}
+#graph-container .trendPanel a.close:hover {
+  cursor: pointer;
+}
+#graph-container .trendPanel a.close:hover i {
+  color: #fc1921;
 }
 #graph-container .trendPanel.active {
   display: block;
@@ -402,11 +440,14 @@ rect.legend-box {
 }
 
 #graph-container.wordcloud-container .trendPanel {
-  width: 33%;
+  min-width: 200px;
+  width: 30%;
   top: 33%;
   margin: 0 auto;
   text-align: center;
   left: 33%;
+  padding: 1em;
+  border-radius: 5px;
 }
 
 #series-container path {
