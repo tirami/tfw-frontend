@@ -87,12 +87,24 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
 //Location profile
 udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParams', '$log', 'Stats', 'LocationTrends', function($scope, $route, $routeParams, $log, Stats, LocationTrends) { 
   $scope.setActivePage($route.current.originalPath);
-
-  $scope.trends = $scope.generateExampleTrends();
-
+  
   $scope.getTrends = function(location, fromDate, interval){ 
     LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval }, 
-      function(data) { $scope.trends = data; }, 
+      function(data) {
+        $scope.dataAvailable = true;
+        if (data.length == 0){
+          $log.log("Series data empty, keeping existing values.");
+          data = $scope.generateExampleTrends();
+          $scope.dataAvailable = false;
+        }
+        else if (data[0].series == undefined) {
+          $log.log("Object has no series, generating values.");
+          data.forEach(function(entry){  
+            entry.series = $scope.generateSeries();
+          }); 
+        }
+        $scope.trends = data;
+      },
       function(error){ 
         $log.log("No trends returned for "+location.name);
         $scope.trends = $scope.generateExampleTrends();
@@ -113,7 +125,7 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
   $scope.spanEnd   = today-1;
   $scope.spanStart = today-(91*day);
   $scope.interval = 1;
-
+  $scope.dataAvailable = true;
   $scope.getStats($scope.location);
   $scope.getTrends($scope.location, new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
 }]);

@@ -501,7 +501,6 @@ var drawBars = function (scope, element, attrs) {
     chart.append("div").attr("class", "chart")
       .selectAll('div')
       .data(data).enter().append("div")
-      .transition().ease("elastic")
       .style("width", function(d) { return (d.occurrences/extents[1]*100) + "%"; })
       .style("height", "1.8em")
       .text(function(d) { return d.term; });

@@ -320,8 +320,8 @@ button.pure-button span.active { color:white;background-color:#333; }
   shape-rendering:crispEdges;
 }
 .tick {
-	 fill: white;
-	}
+  fill: white;
+}
 
 .axis line,.axis path {
   fill: none;
@@ -332,6 +332,17 @@ button.pure-button span.active { color:white;background-color:#333; }
 #series-container { 
   height:50vh;
   width:100%;
+  position:relative;
+}
+
+div.unavailableOverlay {
+  width: 100%; 
+  z-index: 10; 
+  background-color: rgba(90,90,90,0.3); 
+  height: 100%; 
+  position: absolute;
+
+  p { text-align: center; top:40%; position:relative; color:white; font-size:1.6em; }
 }
 
 rect.legend-box { 
@@ -343,7 +354,7 @@ rect.legend-box {
 }
 
 #graph-container {
-	background: $pa-cream;
+  background: $pa-cream;
   position: absolute;
   height:93.5vh;
   right: 0;
