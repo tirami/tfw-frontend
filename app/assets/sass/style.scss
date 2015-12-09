@@ -294,8 +294,8 @@ button.pure-button span.active { color:white;background-color:#333; }
   shape-rendering:crispEdges;
 }
 .tick {
-	 fill: white;
-	}
+  fill: white;
+}
 
 .axis line,.axis path {
   fill: none;
@@ -328,7 +328,7 @@ rect.legend-box {
 }
 
 #graph-container {
-	background: $pa-cream;
+  background: $pa-cream;
   position: absolute;
   height:93.5vh;
   right: 0;
