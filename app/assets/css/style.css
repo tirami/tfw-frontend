@@ -475,6 +475,15 @@ rect.legend-box {
   stroke-width: 1.5px;
 }
 
+@media (max-width: 1200px) {
+  .mediumscr-hide {
+    display: none;
+  }
+
+  div.locationPanel.mediumscr-hide {
+    display: none;
+  }
+}
 @media screen and (min-width: 48em) {
   .container {
     max-width: 750px;

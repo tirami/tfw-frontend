@@ -460,17 +460,21 @@ rect.legend-box {
   }
 }
 
+@media (max-width: 1200px) { 
+  .mediumscr-hide { display:none; }
+  div.locationPanel.mediumscr-hide { display:none; }
+}
+
 @media screen and (min-width:35.5em){
 
 }
-  
   
 @media screen and (min-width:48em){
 
   .container {
     max-width: 750px;
   }
-
+  
 }
 
 @media screen and (min-width:64em){
@@ -480,7 +484,7 @@ rect.legend-box {
   }
 
 }
-  
+
 @media screen and (min-width:80em){
   
   .container {
