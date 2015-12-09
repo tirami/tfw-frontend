@@ -240,7 +240,7 @@ var drawTimeSeries = function(scope, element, attrs){
   scope.$watch('seriesData', function (data, oldData) { 
     group.selectAll('*').remove();
     if (!data) { return; }
-
+    
     data.forEach(function(entry){
       entry.series.forEach(function(d){
         d.date = parseDate(d.date).getTime();

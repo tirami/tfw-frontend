@@ -87,18 +87,24 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
 //Location profile
 udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParams', '$log', 'Stats', 'LocationTrends', function($scope, $route, $routeParams, $log, Stats, LocationTrends) { 
   $scope.setActivePage($route.current.originalPath);
-
   $scope.trends = $scope.generateExampleTrends();
 
   $scope.getTrends = function(location, fromDate, interval){ 
     LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval }, 
-      function(data) {        
-        if (data.length == 0) { 
-          $log.log("Series data empty, using dummy values.")
+      function(data) {
+        if (data.length == 0)
+          $log.log("Series data empty, keeping existing values.");
+        else if (data[0].series == undefined) {
+          $log.log("Object has no series, generating values.");
+          data.forEach(function(entry){  
+            entry.series = $scope.generateSeries();
+          });
+          $scope.trends = data;
         } else {
           $scope.trends = data;
         }
-      }, 
+
+      },
       function(error){ 
         $log.log("No trends returned for "+location.name);
         $scope.trends = $scope.generateExampleTrends();
