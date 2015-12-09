@@ -132,6 +132,7 @@ body.trend-explorer footer {
   position: relative;
   left: 3px;
   width: 400px;
+  color: #333;
 }
 #searchbox button {
   border-radius: 0 4px 4px 0;
