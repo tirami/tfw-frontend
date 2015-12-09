@@ -111,7 +111,7 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
   
   $scope.selectionStart = today-(1*day);
   $scope.spanEnd   = today-1;
-  $scope.spanStart = today-(31*day);
+  $scope.spanStart = today-(91*day);
   $scope.interval = 1;
 
   $scope.getStats($scope.location);
@@ -163,7 +163,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
 
   $scope.selectionStart = today-(1*day);
   $scope.spanEnd   = today-1;
-  $scope.spanStart = today-(31*day);
+  $scope.spanStart = today-(91*day);
   $scope.interval = 1;
   
   $scope.locations.forEach(function(location){
@@ -180,7 +180,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
 
   //today = 1440111600000; // CHANGE TO startOfToday(); to get up to date info
   $scope.spanEnd   = today-1; //at 23:59:59
-  $scope.spanStart = today-(31*day);
+  $scope.spanStart = today-(91*day);
   
   $scope.selectionStart = today-(1*day);
   $scope.location = { name: "all" };

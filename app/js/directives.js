@@ -526,7 +526,7 @@ var setTimespan = function(scope, element, attrs) {
   var timeExtent = d3.extent(timespan, function(d) { return new Date(d); });
   var x = d3.time.scale().range([0, width]).domain(timeExtent);
   var format = d3.time.format("%-d %b");
-  var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(6).tickFormat(format);
+  var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(10).tickFormat(format);
   context.append("g").attr("class", "x axis").attr("transform", "translate(0," + (height/2) + ")")
     .call(xAxis).selectAll("text").attr("y", 4).attr("x", 2).style("text-anchor", "start");
 
