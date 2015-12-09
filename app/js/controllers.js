@@ -92,7 +92,13 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
 
   $scope.getTrends = function(location, fromDate, interval){ 
     LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval }, 
-      function(data) { $scope.trends = data; }, 
+      function(data) {        
+        if (data.length == 0) { 
+          $log.log("Series data empty, using dummy values.")
+        } else {
+          $scope.trends = data;
+        }
+      }, 
       function(error){ 
         $log.log("No trends returned for "+location.name);
         $scope.trends = $scope.generateExampleTrends();
