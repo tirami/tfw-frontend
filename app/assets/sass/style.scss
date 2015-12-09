@@ -53,8 +53,34 @@ body {
   .pure-menu-has-children>.pure-menu-link:after {
    content: "\f078";
    font-family: FontAwesome;
-  } 
-}
+  }
+  
+  .pure-menu-link {
+	  &:hover, &:active, &:focus {
+		  background: none;
+		  color: $pa-turquoise;
+	  }
+  }
+  
+ }
+
+
+body.home .pure-menu-link.home-btn,
+body.trend-explorer .pure-menu-link.te-btn,
+body.locations-location .pure-menu-link.location-btn,
+body.about .pure-menu-link.about-btn  {
+
+  &:before {
+    position: absolute;
+    right: 47%;
+    top: 42px;
+    margin-top: -12px;
+    font-family: FontAwesome;
+    content: "\f0d8";
+    font-size: 31px;
+    color: $navy-blue;
+  }
+} 
 
 .pure-menu-link {
 	color: $navy-blue;
