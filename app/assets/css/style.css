@@ -374,10 +374,10 @@ rect.legend-box {
 #graph-container {
   background: #f9f9f5;
   position: absolute;
-  height: 93.5vh;
+  height: 92vh;
   right: 0;
   width: 80%;
-  top: 6.5vh;
+  top: 8vh;
 }
 #graph-container .ui-brush {
   position: absolute;
@@ -392,7 +392,7 @@ rect.legend-box {
 #graph-container #list {
   display: none;
 }
-#graph-container #block {
+#graph-container #treemap {
   display: none;
 }
 #graph-container .trendPanel {
@@ -465,8 +465,16 @@ rect.legend-box {
   display: block;
 }
 
-#graph-container.block-container #block {
+#graph-container.treemap-container #treemap {
   display: block;
+}
+#graph-container.treemap-container #treemap .node {
+  border: solid 1px white;
+  font: 10px sans-serif;
+  line-height: 12px;
+  overflow: hidden;
+  position: absolute;
+  text-indent: 2px;
 }
 
 #graph-container.scatterplot-container .trendPanel .pure-button {

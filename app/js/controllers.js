@@ -204,7 +204,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
       $scope.trends = data;
     }, function(error){
       $scope.trendsMessage = "No trends received from remote server, using examples: ";
-      $scope.trends = [{"term":"water-pump","occurrences":452},{"term":"solar","occurrences":442},{"term":"battery","occurrences":407}]; 
+      $scope.trends = [{"term":"water-pump","occurrences":552},{"term":"solar","occurrences":442},{"term":"battery","occurrences":407}]; 
     });
   };
 
@@ -228,7 +228,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
     $("#graph-container").removeClass("wordcloud-container");
     $("#graph-container").removeClass("scatterplot-container");
     $("#graph-container").removeClass("list-container");
-    $("#graph-container").removeClass("block-container");
+    $("#graph-container").removeClass("treemap-container");
     $("#graph-container").addClass(view + "-container");
   };
 

@@ -26,6 +26,12 @@ udadisiDirectives.directive('scatterPlot',
   }
 );
 
+udadisiDirectives.directive('treemap', 
+  function($parse) {
+    return { restrict: 'A', scope: { trends: '=' }, link: drawTreemap }
+  }
+);
+
 udadisiDirectives.directive('timespan', 
   function($parse) {
     return { restrict: 'A', scope: { selectStart: '=', location: '=', interval: '=', start: '=', end: '=', updateFn: '=' }, link: setTimespan }
@@ -582,6 +588,62 @@ var setTimespan = function(scope, element, attrs) {
   }
 
 }
+
+var drawTreemap = function(scope, element, attrs){
+
+  function position() {
+    this.style("left", function(d) { return d.x + "px"; })
+    .style("top", function(d) { return d.y + "px"; })
+    .style("width", function(d) { return Math.max(0, d.dx - 1) + "px"; })
+    .style("height", function(d) { return Math.max(0, d.dy - 1) + "px"; });
+  }
+  
+  var bbox = d3.select('#graph-container').node().getBoundingClientRect();
+  var margin = {top: 0, right: 0, bottom: 50, left: 0};
+  var width = bbox.width - margin.left - margin.right;
+  var height = bbox.height - margin.bottom - margin.top;
+  var color = d3.scale.category20c();
+  
+  scope.$watch('trends', function (data, oldData){
+    if (!data)  { return; }
+
+    $(element[0].children).remove();
+
+    var treemap = d3.layout.treemap()
+      .size([width, height])
+      .sticky(true)
+      .value(function(d) { return d.size; });
+
+    var div = d3.select(element[0]).append("div")
+      .style("position", "relative")
+      .style("width", (width) + "px")
+      .style("height", (height) + "px");
+
+    data.forEach(function(entry){
+      entry.size = entry.occurrences;
+    });
+
+    var data = { "term": "cluster", "children": data };
+
+    console.log(data);
+
+    var node = div.datum(data).selectAll(".node")
+      .data(treemap.nodes)
+      .enter().append("div")
+      .attr("class", "node")
+      .call(position)
+      .style("background", function(d) { return d.children ? color(d.term) : null; })
+      .text(function(d) { return d.children ? null : d.term; });
+
+    /*
+    d3.selectAll("input").on("change", function change() {
+      var value = this.value === "count" ? function() { return 1; } : function(d) { return d.size; };
+      node.data(treemap.value(value).nodes).transition().duration(1500).call(position);
+    });*/
+
+  });
+
+};
 
 
 Date.prototype.yyyymmdd = function() {

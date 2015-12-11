@@ -357,17 +357,17 @@ rect.legend-box {
 #graph-container {
   background: $pa-cream;
   position: absolute;
-  height:93.5vh;
+  height:92vh;
   right: 0;
   width: 80%;
-  top: 6.5vh;
+  top: 8vh;
 
   .ui-brush { position:absolute; } 
 
   #wordcloud { margin-top: 0em; display:none; }
   #scatterplot { display:none; }
   #list { display:none; }
-  #block { display:none; }
+  #treemap { display:none; }
 
   .trendPanel {
     display:none; 
@@ -441,8 +441,17 @@ rect.legend-box {
   #list { display:block; } 
 }
 
-#graph-container.block-container {
-  #block { display:block; }
+#graph-container.treemap-container {
+  #treemap { display:block; 
+    .node {
+      border: solid 1px white;
+      font: 10px sans-serif;
+      line-height: 12px;
+      overflow: hidden;
+      position: absolute;
+      text-indent: 2px;
+    }
+  }
 }
 
 #graph-container.scatterplot-container {
@@ -503,9 +512,7 @@ rect.legend-box {
   div.locationPanel.mediumscr-hide { display:none; }
 }
 
-@media screen and (min-width:35.5em){
-
-}
+@media screen and (min-width:35.5em){}
   
 @media screen and (min-width:48em){
 
