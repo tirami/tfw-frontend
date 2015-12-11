@@ -3,7 +3,7 @@
   <div class="splash" style="">
 
     <div id="searchbox" class="container">
-	    <h1>Search for specific trends or see how trends compare globally with our Trend Explorer</h1>
+      <h1>Search for specific trends or see how trends compare globally with our Trend Explorer</h1>
       <form class="pure-form">
         <input ng-model="query" type="text" placeholder="Search for a trend">
         <button ng-click="search()" class="pure-button pure-button-primary"><i class="fa fa-search"></i></button>
@@ -14,32 +14,32 @@
 
   <div map-projection map-scale="1" style="width:100%;height:auto;" id="mapContainer">
     <div class="locationPanel mediumscr-hide" data-latitude="23.0300" data-longitude="72.5800">
-	    <h3>About Ahmedabad</h3>
-	    <dl>
-							<dt>Country</dt><dd>India</dd>
-							<dt>Urban Area</dt><dd>800 km<sup>2</sup></dd>
-							<dt>Metro Area</dt><dd>2,819.3 km<sup>2</sup></dd>
-							<dt>Population</dt><dd>8,852,000</dd>
+      <h3>About Ahmedabad</h3>
+      <dl>
+              <dt>Country</dt><dd>India</dd>
+              <dt>Urban Area</dt><dd>800 km<sup>2</sup></dd>
+              <dt>Metro Area</dt><dd>2,819.3 km<sup>2</sup></dd>
+              <dt>Population</dt><dd>8,852,000</dd>
       <a class="capitalize pure-button" href="#/locations/ahmedabad">Ahmedabad Profile</a>
-	    </dl>
-	    </div>
+      </dl>
+      </div>
     <div class="locationPanel mediumscr-hide" data-latitude="-12.0433" data-longitude="-77.0283">
-	    <h3>About Lima</h3>
-	    <dl>
-							<dt>Country</dt><dd>Peru</dd>
-							<dt>Urban Area</dt><dd>800 km<sup>2</sup></dd>
-							<dt>Metro Area</dt><dd>2,819.3 km<sup>2</sup></dd>
-							<dt>Population</dt><dd>8,852,000</dd>
-	    </dl>
+      <h3>About Lima</h3>
+      <dl>
+              <dt>Country</dt><dd>Peru</dd>
+              <dt>Urban Area</dt><dd>800 km<sup>2</sup></dd>
+              <dt>Metro Area</dt><dd>2,819.3 km<sup>2</sup></dd>
+              <dt>Population</dt><dd>8,852,000</dd>
+      </dl>
       <a class="capitalize pure-button" href="#/locations/lima">Lima Profile</a>
-	   </div>
+     </div>
     <div class="locationPanel mediumscr-hide" data-latitude="-1.2833" data-longitude="36.8167">
-	    <h3>About Nairobi</h3>
-	    <dl>
-							<dt>Country</dt><dd>Kenya</dd>
-							<dt>City Area</dt><dd>696 km<sup>2</sup></dd>
-							<dt>Population</dt><dd>3,138,369</dd>
-	    </dl>
+      <h3>About Nairobi</h3>
+      <dl>
+              <dt>Country</dt><dd>Kenya</dd>
+              <dt>City Area</dt><dd>696 km<sup>2</sup></dd>
+              <dt>Population</dt><dd>3,138,369</dd>
+      </dl>
       <a class="capitalize pure-button" href="#/locations/nairobi">Nairobi Profile</a>
     </div>
   </div>
@@ -48,15 +48,15 @@
   <a id="pa-logo" href="http://practicalaction.org/"><img src="app/assets/images/practical-action-logo.png" alt="Practical Action"></a>
   <a id="edu" href="http://www.ed.ac.uk/"><img src="app/assets/images/university-edinburgh-logo.png" alt="University of Edinburgh"></a>
 
-	  <h1>Udadisi is a data visualisation tool created in a partnership between Practical Action and Edinburgh University</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eleifend sapien non purus accumsan, aliquet tempus ligula mollis. Donec efficitur et mauris id ornare. Curabitur nec arcu non vitae lorem. Aliquam porttitor sem quis mauris pellentesque semper.</p>
-	  
+    <h1>Udadisi is a data visualisation tool created in a partnership between Practical Action and Edinburgh University</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eleifend sapien non purus accumsan, aliquet tempus ligula mollis. Donec efficitur et mauris id ornare. Curabitur nec arcu non vitae lorem. Aliquam porttitor sem quis mauris pellentesque semper.</p>
+    
   </div>
   
 
   <div id="top-trends">
-	  <div class="container">
-		  <div class="pure-g">
+    <div class="container">
+      <div class="pure-g">
     <div ng-repeat="location in locations" class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
       <h4 class="capitalize">Top {{ location.name | allAsGlobal }} Trends</h4>
       <ul><li ng-repeat="trend in location.trends">{{ trend.term }}</li></ul>
