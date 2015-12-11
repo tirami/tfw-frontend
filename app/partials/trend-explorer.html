@@ -12,11 +12,10 @@
 
           <h3>View</h3>
 
-          <button class="pure-button" ng-click="toggleView()">
-            <span class="{{ showTextView | boolAsActive }}">Text view</span>|
-            <span class="{{ !showTextView | boolAsActive }}">Chart view</span>
-            <span class="{{ !showTextView | boolAsActive }}">Block view</span>
-          </button>
+          <button class="pure-button" ng-click="toggleView('wordcloud')">Wordcloud</button>
+          <button class="pure-button" ng-click="toggleView('scatterplot')">Chart</button>
+          <button class="pure-button" ng-click="toggleView('block')">Block</button>
+          <button class="pure-button" ng-click="toggleView('list')">List</button>
           
           <h3>Location Options</h3>
           
@@ -46,8 +45,13 @@
 
 
   <div id="graph-container" class="wordcloud-container" style = "float:right; width:80%;">
-    <div wordcloud id="wordcloud" style="" map-scale="1" ng-hide="!showTextView" trends="trends"></div>
-    <div scatter-plot ng-hide="showTextView" trends="trends"></div>
+    <div wordcloud id="wordcloud" style="" map-scale="1" trends="trends"></div>
+    <div scatter-plot id="scatterplot" trends="trends"></div>
+    <div block-viz id="block" trends="trends"></div>
+    <div id="list">
+      <ul><li ng-repeat="trend in trends"> {{ trend.term }}  {{ trend.occurrences }}  </li></ul>
+    </div>
+
     <div timespan location="location" select-start="selectionStart" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
     <div ng-visible="true" ng-click="resetPanels()" id="overlay"></div>
     <div ng-repeat="(idx,trend) in trends" class="trendPanel" id="trend-panel-{{ idx }}">

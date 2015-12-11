@@ -364,7 +364,10 @@ rect.legend-box {
 
   .ui-brush { position:absolute; } 
 
-  #wordcloud { margin-top: 0em; }
+  #wordcloud { margin-top: 0em; display:none; }
+  #scatterplot { display:none; }
+  #list { display:none; }
+  #block { display:none; }
 
   .trendPanel {
     display:none; 
@@ -393,33 +396,31 @@ rect.legend-box {
     }
     
     a.close {
-    font-size: 28px;
-    position: absolute;
-    z-index: 10000;
-    right: -10px;
-    top: -0.5em;
-    line-height: 0;
-    background: $navy-blue;
-    padding: 0;
-    width: 35px;
-    height: 35px;
-    text-align: center;
-    border-radius: 3em;    
-    
-    i {
-	  position: relative;
-      top: 3px;
-      left: 0;
-    }
-    
-    &:hover {
-	    cursor: pointer;
-	    i {color: $pa-red;}
-    }
-    
-    }
-    
-    }
+      font-size: 28px;
+      position: absolute;
+      z-index: 10000;
+      right: -10px;
+      top: -0.5em;
+      line-height: 0;
+      background: $navy-blue;
+      padding: 0;
+      width: 35px;
+      height: 35px;
+      text-align: center;
+      border-radius: 3em;    
+      
+      i {
+      position: relative;
+        top: 3px;
+        left: 0;
+      }
+      
+      &:hover {
+        cursor: pointer;
+        i {color: $pa-red;}
+      }
+    }  
+  }
 
   .trendPanel.active { display:block; }
 
@@ -436,14 +437,24 @@ rect.legend-box {
   #overlay.active { display:block; }
 }
 
+#graph-container.list-container {
+  #list { display:block; } 
+}
+
+#graph-container.block-container {
+  #block { display:block; }
+}
+
 #graph-container.scatterplot-container {
   .trendPanel { 
     .pure-button { display:none; } 
   }
   #overlay.active { display: none; }
+  #scatterplot { display:block; }
 }
 
 #graph-container.wordcloud-container {
+  #wordcloud { display:block; }
   .trendPanel {
     min-width: 200px;
     width: 30%;

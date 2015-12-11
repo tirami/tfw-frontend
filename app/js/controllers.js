@@ -216,15 +216,20 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
     $.each(data, function(idx, item){  $scope.locations.push(item.Name);  });
   });
 
-  $scope.showTextView = true;
+  $scope.currentView = 'wordcloud';
+
   $scope.resetPanels = function(){
     $('.trendPanel, #overlay').removeClass("active");
-    $('.trendPanel').attr("style", ""); 
-  }
+    $('.trendPanel').attr("style", "");
+  };
 
-  $scope.toggleView = function(){
+  $scope.toggleView = function(view){
     $scope.resetPanels();
-    $("#graph-container").toggleClass("wordcloud-container");
-    $("#graph-container").toggleClass("scatterplot-container");   
-    $scope.showTextView = $scope.showTextView === false ? true: false; };
+    $("#graph-container").removeClass("wordcloud-container");
+    $("#graph-container").removeClass("scatterplot-container");
+    $("#graph-container").removeClass("list-container");
+    $("#graph-container").removeClass("block-container");
+    $("#graph-container").addClass(view + "-container");
+  };
+
 }]);

@@ -384,6 +384,16 @@ rect.legend-box {
 }
 #graph-container #wordcloud {
   margin-top: 0em;
+  display: none;
+}
+#graph-container #scatterplot {
+  display: none;
+}
+#graph-container #list {
+  display: none;
+}
+#graph-container #block {
+  display: none;
 }
 #graph-container .trendPanel {
   display: none;
@@ -451,13 +461,27 @@ rect.legend-box {
   display: block;
 }
 
+#graph-container.list-container #list {
+  display: block;
+}
+
+#graph-container.block-container #block {
+  display: block;
+}
+
 #graph-container.scatterplot-container .trendPanel .pure-button {
   display: none;
 }
 #graph-container.scatterplot-container #overlay.active {
   display: none;
 }
+#graph-container.scatterplot-container #scatterplot {
+  display: block;
+}
 
+#graph-container.wordcloud-container #wordcloud {
+  display: block;
+}
 #graph-container.wordcloud-container .trendPanel {
   min-width: 200px;
   width: 30%;
