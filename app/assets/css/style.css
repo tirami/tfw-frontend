@@ -302,12 +302,17 @@ body.trend-explorer footer {
 }
 #side-menu ul.filter button.selected {
   color: white;
+  font-weight: bold;
 }
 #side-menu ul.filter button:hover {
   background: black;
 }
 #side-menu ul.filter button:focus {
   outline: none;
+}
+#side-menu ul.filter button.active {
+  background-color: #E6E6E6;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 button.pure-button span.active {

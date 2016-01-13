@@ -279,7 +279,7 @@ body.trend-explorer footer {
   min-width: 100px;
   position: fixed;
   top: 0;
- left: 20%;
+  left: 20%;
   bottom: 0;
   z-index: 50; /* so the menu or its navicon stays above all content */
   background: $navy-blue;
@@ -298,10 +298,11 @@ body.trend-explorer footer {
         border: 0; 
         padding: 0.25em;
         @include rounded(0.25em);
-        &.selected {color: white;}
+        &.selected {color: white; font-weight:bold;}
         &:hover {background: black;}
         &:focus { outline:none }
       }
+      button.active { background-color: #E6E6E6; color: rgba(0, 0, 0, 0.8); }
     }
 }
 
