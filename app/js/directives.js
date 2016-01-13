@@ -134,8 +134,6 @@ var drawNodes = function(scope, element, attrs){
   function update() {
     var nodes = flatten(root);
     var links = d3.layout.tree().links(nodes);
-
-    console.log(nodes);
     
     // Restart the force layout.
     force.nodes(nodes).links(links).start();
@@ -624,8 +622,6 @@ var drawTreemap = function(scope, element, attrs){
     });
 
     var data = { "term": "cluster", "children": data };
-
-    console.log(data);
 
     var node = div.datum(data).selectAll(".node")
       .data(treemap.nodes)

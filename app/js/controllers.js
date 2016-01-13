@@ -143,14 +143,13 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     {name: "durban",  trend: { name: $routeParams.trend }, prevalence: Math.random()*10, latitude: -29.8833, longitude: 31.0500}];
 
   $scope.getRelatedTrends = function(location, trend, fromDate, interval) {
-    RelatedTrends.query(
-      { location: location.name, term: trend.name, limit: 5, from: fromDate, interval: interval }, 
+    RelatedTrends.query({ location: location.name, term: trend.name, limit: 5, from: fromDate, interval: interval }, 
       function(data){ 
-        location.trend.word_counts = data[0].word_counts; 
-        location.trend.sources = data[0].sources; 
+        location.trend.word_counts = data[0].word_counts;
+        location.trend.sources = data[0].sources;
         if ($scope.location === location){ $scope.relatedTrends = data[0].word_counts; }
       },
-      function(error){ $log.log("No trends returned for "+trend.name); });
+      function(error){ $log.log("Error returning trend data for "+trend.name); });
   };
 
   $scope.getSources = function(){
@@ -158,6 +157,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     $scope.sources.forEach(function(s){
       s.series = $scope.generateSeries();
     });
+    $scope.dataAvailable=false;
   };
 
   /*
@@ -177,6 +177,8 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   $scope.spanEnd   = today-1;
   $scope.spanStart = today-(91*day);
   $scope.interval = 1;
+
+  $scope.dataAvailable = true;
   
   $scope.locations.forEach(function(location){
     $scope.getRelatedTrends(location, $scope.trend, "", 0); //new Date($scope.selectionStart).yyyymmdd(), $scope.interval);

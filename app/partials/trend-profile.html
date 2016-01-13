@@ -53,6 +53,9 @@
       <h2>Overview of current {{ trend.name }} trends</h2>
       <div id = "series-container">
         <!--<button class="zr" style="position: relative; right: 30px; top: 30px;">Reset</button>-->
+        <div ng-hide="dataAvailable" class="unavailableOverlay">
+          <p>Data unavailable for selection</p>
+        </div>
         <div time-series series-data="sources"></div>
       </div>
       <div timespan location="location" select-start="selectionStart" interval="interval" start="spanStart" end="spanEnd" update-fn='getSources' class='ui-brush'></div>
