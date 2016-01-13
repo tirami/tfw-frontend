@@ -423,8 +423,8 @@ var setLocation = function(scope, element, attrs) {
   element.on('click', function(event) {
     scope.location = { name: this.getAttribute("target-location") };
     scope.$apply();
-    $('.locationToggle').removeClass('active');
-    $(this).toggleClass('active');
+    $('.locationToggle').removeClass('selected');
+    $(this).toggleClass('selected');
     var date = scope.selectStart;
     if (!(date instanceof Date)) { date = new Date(date); }
     scope.updateFn(scope.location, date.yyyymmdd(), scope.interval);
