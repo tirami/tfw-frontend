@@ -40,7 +40,7 @@ udadisiDirectives.directive('timespan',
 
 udadisiDirectives.directive('locationToggle', 
   function($parse) {
-    return { restrict: 'C', scope: { selectStart: '=', location: '=', interval: '=', updateFn: '=' }, link: setLocation }
+    return { restrict: 'C', scope: { selectStart: '=', location: '=', interval: '=', updateFn: '=', setLocation: '=' }, link: toggleLocation }
   }
 );
 
@@ -419,15 +419,19 @@ var drawMap = function(scope,element,attrs){
   //svg.append("path").datum(graticule).attr("class", "graticule").attr("d", path); 
 };
 
-var setLocation = function(scope, element, attrs) {
+var toggleLocation = function(scope, element, attrs) {
   element.on('click', function(event) {
-    scope.location = { name: this.getAttribute("target-location") };
-    scope.$apply();
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    scope.setLocation(element[0].getAttribute("target-location"));
+
     $('.locationToggle').removeClass('selected');
-    $(this).toggleClass('selected');
+    $(element[0]).toggleClass('selected');
     var date = scope.selectStart;
     if (!(date instanceof Date)) { date = new Date(date); }
     scope.updateFn(scope.location, date.yyyymmdd(), scope.interval);
+    
   });
 };
 
@@ -512,7 +516,6 @@ var drawBars = function (scope, element, attrs) {
 };
 
 var setTimespan = function(scope, element, attrs) {
-  
   var container = d3.select(element[0]),
     margin = {top: 0, right: 10, bottom: 0, left: 40},
     height = 50;
@@ -551,7 +554,7 @@ var setTimespan = function(scope, element, attrs) {
   function brushend(){
     if (brush.empty()) {
       console.log("brush empty, doing nowt");
-    } else {  
+    } else { 
       scope.selectStart = brush.extent()[0];
       scope.interval = Math.ceil((brush.extent()[1] - brush.extent()[0]) / (24*60*60*1000));
       scope.$apply();

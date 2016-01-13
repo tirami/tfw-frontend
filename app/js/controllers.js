@@ -202,8 +202,12 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
   $scope.location = { name: "all" };
   $scope.interval = 1;
 
-  $scope.getTrends = function(location, fromDate, interval){ 
-    $log.log(location);
+  $scope.setLocation = function(name) {
+    $scope.location = { name: name }
+    $scope.$apply();
+  };
+
+  $scope.getTrends = function(location, fromDate, interval){
     LocationTrends.query({ location: location.name, limit: 10, from: fromDate, interval: interval }, function(data) {
       $scope.dataAvailable = true;
       if (data.length == 0){
