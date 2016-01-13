@@ -190,6 +190,8 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
 udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'LocationTrends', 'Locations', function($scope, $route, $log, LocationTrends, Locations) { 
   $scope.setActivePage($route.current.originalPath);
 
+  $scope.dataAvailable = true;
+
   //today = 1440111600000; // CHANGE TO startOfToday(); to get up to date info
   $scope.spanEnd   = today-1; //at 23:59:59
   $scope.spanStart = today-(91*day);
@@ -201,10 +203,16 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
   $scope.getTrends = function(location, fromDate, interval){ 
     $log.log(location);
     LocationTrends.query({ location: location.name, limit: 10, from: fromDate, interval: interval }, function(data) {
+      $scope.dataAvailable = true;
+      if (data.length == 0){
+        data = $scope.generateExampleTrends();
+        $scope.dataAvailable = false;
+      }
       $scope.trends = data;
     }, function(error){
-      $scope.trendsMessage = "No trends received from remote server, using examples: ";
-      $scope.trends = [{"term":"water-pump","occurrences":552},{"term":"solar","occurrences":442},{"term":"battery","occurrences":407}]; 
+      $scope.dataAvailable = false;
+      $log.log("Server error finding trends.");
+      $scope.trends = $scope.generateExampleTrends();
     });
   };
 

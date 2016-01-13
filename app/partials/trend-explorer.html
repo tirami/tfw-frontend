@@ -45,6 +45,9 @@
 
 
   <div id="graph-container" class="wordcloud-container" style = "float:right; width:80%;">
+    <div ng-hide="dataAvailable" class="unavailableOverlay">
+      <p>Data unavailable for selection</p>
+    </div>
     <div wordcloud id="wordcloud" style="" map-scale="1" trends="trends"></div>
     <div scatter-plot id="scatterplot" trends="trends"></div>
     <div treemap id="treemap" trends="trends"></div>
