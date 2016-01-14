@@ -241,10 +241,8 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
   $scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval);
 
   $scope.locations = [{ name: "all" }, { name: "lima" }, { name: "nairobi" }, { name: "durban" }];
-
   Locations.query({}, function(data){
-    $scope.locations = [];
-    $.each(data, function(idx, item){  $scope.locations.push(item.name); });
+    $scope.locations = data;    
   });
 
 }]);
