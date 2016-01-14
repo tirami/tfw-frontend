@@ -651,6 +651,15 @@ var drawTreemap = function(scope, element, attrs){
 
 };
 
+Array.prototype.velocity = function(){
+  var count = 0;
+  this.forEach(function(e){
+    count = count + e;
+  });
+  var avg = count/this.length;
+  return this[this.length-1] / avg;
+};
+
 Date.prototype.toTimeString = function() {
   var yyyy = this.getFullYear().toString();
   var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
