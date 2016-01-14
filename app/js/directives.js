@@ -430,7 +430,7 @@ var toggleLocation = function(scope, element, attrs) {
     $(element[0]).toggleClass('selected');
     var date = scope.selectStart;
     if (!(date instanceof Date)) { date = new Date(date); }
-    scope.updateFn(scope.location, date.yyyymmdd(), scope.interval);
+    scope.updateFn(scope.location, date.toTimeString(), scope.interval);
     
   });
 };
@@ -554,11 +554,18 @@ var setTimespan = function(scope, element, attrs) {
   function brushend(){
     if (brush.empty()) {
       console.log("brush empty, doing nowt");
-    } else { 
+    } else {
       scope.selectStart = brush.extent()[0];
-      scope.interval = Math.ceil((brush.extent()[1] - brush.extent()[0]) / (24*60*60*1000));
-      scope.$apply();
-      scope.updateFn(scope.location, scope.selectStart.yyyymmdd(), scope.interval);
+      scope.selectEnd = brush.extent()[1];
+      
+      var daysdiff = Math.ceil((brush.extent()[1] - brush.extent()[0]) / (24*60*60*1000));
+      console.log(daysdiff);
+
+      if (daysdiff < 7) { daysdiff = (daysdiff * 2) + 2; } //increase resolution of interval if smaller amount of time
+      scope.interval = daysdiff;
+      console.log(scope.interval);
+
+      scope.updateFn(scope.location, scope.selectStart.toTimeString(), scope.selectEnd.toTimeString(), scope.interval);
     }
   }
 
@@ -644,7 +651,7 @@ var drawTreemap = function(scope, element, attrs){
 
 };
 
-Date.prototype.yyyymmdd = function() {
+Date.prototype.toTimeString = function() {
   var yyyy = this.getFullYear().toString();
   var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
   var dd  = this.getDate().toString();
