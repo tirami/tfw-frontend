@@ -559,12 +559,10 @@ var setTimespan = function(scope, element, attrs) {
       scope.selectEnd = brush.extent()[1];
       
       var daysdiff = Math.ceil((brush.extent()[1] - brush.extent()[0]) / (24*60*60*1000));
-      console.log(daysdiff);
-
+      
       if (daysdiff < 7) { daysdiff = (daysdiff * 2) + 2; } //increase resolution of interval if smaller amount of time
       scope.interval = daysdiff;
-      console.log(scope.interval);
-
+      
       scope.updateFn(scope.location, scope.selectStart.toTimeString(), scope.selectEnd.toTimeString(), scope.interval);
     }
   }
