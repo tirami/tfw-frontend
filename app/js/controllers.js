@@ -42,9 +42,9 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', function ($scope,
   };
 
   $scope.generateExampleTrends = function(){
-    var trends = [{"term":"water-pump","occurrences":452, "velocity": 5, "series":[]},
-    {"term":"solar","occurrences":442, "velocity": 1.3, "series":[]},
-    {"term":"battery","occurrences":407, "velocity": 3.4, "series":[]}];
+    var trends = [{"term":"water-pump","occurrences":452, "velocity": 2.4, "series":[]},
+    {"term":"solar","occurrences":442, "velocity": 0.3, "series":[]},
+    {"term":"battery","occurrences":407, "velocity": 5.4, "series":[]}];
 
     trends.forEach(function(t){
       t.series = $scope.generateSeries();

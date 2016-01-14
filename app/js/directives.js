@@ -124,7 +124,7 @@ var drawNodes = function(scope, element, attrs){
 
     relatedTrends.forEach(function(entry){ 
       if (entry.term != trend.name){
-        root.children.push({ "name": entry.term, "size":entry.occurrences }); 
+        root.children.push({ "name": entry.term, "size":entry.velocity }); 
       }
     });
     
@@ -311,7 +311,7 @@ var drawScatterPlot = function(scope, element, attrs){
       .append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     
     var trends = newVal.map(function(trend, idx) {
-      return { x: trend.occurrences, y: trend.term.length, elementId: ("#trend-panel-"+idx) };
+      return { x: trend.velocity, y: trend.term.length, elementId: ("#trend-panel-"+idx) };
     });
 
     // Compute the scales’ domains.
@@ -454,16 +454,19 @@ var drawWordcloud = function(scope, element, attrs) {
     if (!newVal) { return; }
 
     //Set word size factor
-    var totalLength = 0;
-    var average = 0;
-    scope.trends.map(function(t) { totalLength += t.term.length; average += t.occurrences; });
-    average = average / scope.trends.length;
-    var maxSize = Math.sqrt((cloudSize[0]*0.74)*(cloudSize[1]*0.74) / totalLength);
-    var extents = d3.extent(scope.trends, function(t) { return t.occurrences; });
-    var sizeFactor = (maxSize / extents[1]) * (extents[1] / average);
+    var averageLength = 0;
+    scope.trends.map(function(t) { averageLength += t.term.length; });
+    averageLength = averageLength / scope.trends.length;
 
+    var maxSize = cloudSize[0]/averageLength;
+    var extents = d3.extent(scope.trends, function(t) { return t.velocity; });
+    var sizeFactor = (maxSize / extents[1]) * 1.2;
+
+    console.log(maxSize); 
+    console.log(sizeFactor);
+    
     //Setup words
-    var trendWords = scope.trends.map(function(trend, idx) { return {text: trend.term, size: (trend.occurrences * sizeFactor), elementId: ("#trend-panel-"+idx) }; });
+    var trendWords = scope.trends.map(function(trend, idx) { return {text: trend.term, size: (trend.velocity * sizeFactor), elementId: ("#trend-panel-"+idx) }; });
     var layout = d3.layout.cloud().size(cloudSize).words(trendWords)
       .padding(5).rotate(function() { return 0; }) //return ~~(Math.random() * 2) * 90;
       .font("Open Sans").fontWeight("600").fontSize(function(d) { return d.size; })
@@ -504,12 +507,12 @@ var drawBars = function (scope, element, attrs) {
     if (!newVal) { return; }
 
     var data = newVal;
-    var extents = d3.extent(data, function(t) { return t.occurrences; });
+    var extents = d3.extent(data, function(t) { return t.velocity; });
   
     chart.append("div").attr("class", "chart")
       .selectAll('div')
       .data(data).enter().append("div")
-      .style("width", function(d) { return (d.occurrences/extents[1]*100) + "%"; })
+      .style("width", function(d) { return (d.velocity/extents[1]*100) + "%"; })
       .style("height", "1.8em")
       .text(function(d) { return d.term; });
    });
@@ -626,7 +629,7 @@ var drawTreemap = function(scope, element, attrs){
       .style("height", (height) + "px");
 
     data.forEach(function(entry){
-      entry.size = entry.occurrences;
+      entry.size = entry.velocity;
     });
 
     var data = { "term": "cluster", "children": data };
