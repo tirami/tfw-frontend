@@ -27,7 +27,7 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', function ($scope,
     var day = new Date();
     for(var i=0; i < 10; i++){
       day.setDate(day.getDate() + 1);
-      series.push({ date: day.yyyymmdd(), close: Math.random()*100 });
+      series.push({ date: day.toTimeString(), close: Math.random()*100 });
     }
     return series;
   };
@@ -71,7 +71,7 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
       var location = {name: item.Name, trends:[], trendscount: 0 };
       $scope.locations.push(location);
       if (location.name == "all"){ $scope.globalLocation = location; }
-      $scope.getTrends(location, new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
+      $scope.getTrends(location, new Date($scope.selectionStart).toTimeString(), $scope.interval);
       $scope.getStats(location);
     });
   });
@@ -127,7 +127,7 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
   $scope.interval = 1;
   $scope.dataAvailable = true;
   $scope.getStats($scope.location);
-  $scope.getTrends($scope.location, new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
+  $scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), $scope.interval);
 }]);
 
 
@@ -181,7 +181,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   $scope.dataAvailable = true;
   
   $scope.locations.forEach(function(location){
-    $scope.getRelatedTrends(location, $scope.trend, "", 0); //new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
+    $scope.getRelatedTrends(location, $scope.trend, "", 0); //new Date($scope.selectionStart).toTimeString(), $scope.interval);
   });
 
   $scope.getSources();
@@ -190,25 +190,27 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
 
 //Trend Explorer
 udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'LocationTrends', 'Locations', function($scope, $route, $log, LocationTrends, Locations) { 
+  
   $scope.setActivePage($route.current.originalPath);
+  $scope.currentView = 'wordcloud';
 
   $scope.dataAvailable = true;
 
-  //today = 1440111600000; // CHANGE TO startOfToday(); to get up to date info
   $scope.spanEnd   = today-1; //at 23:59:59
   $scope.spanStart = today-(91*day);
-  
   $scope.selectionStart = today-(1*day);
+  $scope.selectionEnd = today-1;
+
   $scope.location = { name: "all" };
-  $scope.interval = 1;
+  $scope.interval = 4;
 
   $scope.setLocation = function(name) {
     $scope.location = { name: name }
     $scope.$apply();
   };
 
-  $scope.getTrends = function(location, fromDate, interval){
-    LocationTrends.query({ location: location.name, limit: 10, from: fromDate, interval: interval }, function(data) {
+  $scope.getTrends = function(location, fromDate, toDate, interval){
+    LocationTrends.query({ location: location.name, limit: 10, from: fromDate, to: toDate, interval: interval }, function(data) {
       $scope.dataAvailable = true;
       if (data.length == 0){
         data = $scope.generateExampleTrends();
@@ -221,16 +223,6 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
       $scope.trends = $scope.generateExampleTrends();
     });
   };
-
-  $scope.getTrends($scope.location, new Date($scope.selectionStart).yyyymmdd(), $scope.interval);
-
-  $scope.locations = [{ name: "all" }, { name: "lima" }, { name: "nairobi" }, { name: "durban" }];
-  Locations.query({}, function(data){
-    $scope.locations = [];
-    $.each(data, function(idx, item){  $scope.locations.push(item.Name);  });
-  });
-
-  $scope.currentView = 'wordcloud';
 
   $scope.resetPanels = function(){
     $('.trendPanel, #overlay').removeClass("active");
@@ -245,5 +237,14 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
     $("#graph-container").removeClass("treemap-container");
     $("#graph-container").addClass(view + "-container");
   };
+
+  $scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval);
+
+  $scope.locations = [{ name: "all" }, { name: "lima" }, { name: "nairobi" }, { name: "durban" }];
+  
+  Locations.query({}, function(data){
+    $scope.locations = [];
+    $.each(data, function(idx, item){  $scope.locations.push(item.Name); });
+  });
 
 }]);
