@@ -5,6 +5,15 @@ var startOfToday = function(){
   return Date.now() - (Date.now() % (24*60*60*1000));
 }
 
+var calculateVelocity = function(series){
+  var count = 0;
+  series.forEach(function(e){
+    count = count + e;
+  });
+  var avg = count/series.length;
+  return series[series.length-1] / avg;
+};
+
 var day   = 24*60*60*1000;
 var today = startOfToday(); // CHANGE TO startOfToday(); to get up to date info
 
@@ -33,10 +42,14 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', function ($scope,
   };
 
   $scope.generateExampleTrends = function(){
-    var trends = [{"term":"water-pump","occurrences":452, "series":[]},{"term":"solar","occurrences":442,"series":[]},{"term":"battery","occurrences":407,"series":[]}];
+    var trends = [{"term":"water-pump","occurrences":452, "velocity": 5, "series":[]},
+    {"term":"solar","occurrences":442, "velocity": 1.3, "series":[]},
+    {"term":"battery","occurrences":407, "velocity": 3.4, "series":[]}];
+
     trends.forEach(function(t){
       t.series = $scope.generateSeries();
     });
+
     return trends;
   };
 
@@ -212,11 +225,18 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
   $scope.getTrends = function(location, fromDate, toDate, interval){
     LocationTrends.query({ location: location.name, limit: 10, from: fromDate, to: toDate, interval: interval }, function(data) {
       $scope.dataAvailable = true;
+      
       if (data.length == 0){
         data = $scope.generateExampleTrends();
         $scope.dataAvailable = false;
       }
+
+      data.forEach(function(e){
+        if (!isNaN(e.series[0])){ e.velocity = calculateVelocity(e.series); }
+      });
+
       $scope.trends = data;
+
     }, function(error){
       $scope.dataAvailable = false;
       $log.log("Server error finding trends.");
@@ -242,7 +262,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
 
   $scope.locations = [{ name: "all" }, { name: "lima" }, { name: "nairobi" }, { name: "durban" }];
   Locations.query({}, function(data){
-    $scope.locations = data;    
+    $scope.locations = data;
   });
 
 }]);
