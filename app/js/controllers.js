@@ -68,7 +68,7 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
   Locations.query({}, function(data){
     $scope.locations = [];
     $.each(data, function(idx, item){
-      var location = {name: item.Name, trends:[], trendscount: 0 };
+      var location = {name: item.name, trends:[], trendscount: 0 };
       $scope.locations.push(location);
       if (location.name == "all"){ $scope.globalLocation = location; }
       $scope.getTrends(location, new Date($scope.selectionStart).toTimeString(), $scope.interval);
@@ -164,7 +164,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   Locations.query({}, function(data){
     $scope.locations = [];
     $.each(data, function(idx, item){
-      var location = {name: item.Name, trend: {}, prevalence: Math.random()*10 };
+      var location = {name: item.name, trend: {}, prevalence: Math.random()*10 };
       $scope.locations.push(location);
     });
   }); */
@@ -241,10 +241,10 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
   $scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval);
 
   $scope.locations = [{ name: "all" }, { name: "lima" }, { name: "nairobi" }, { name: "durban" }];
-  
+
   Locations.query({}, function(data){
     $scope.locations = [];
-    $.each(data, function(idx, item){  $scope.locations.push(item.Name); });
+    $.each(data, function(idx, item){  $scope.locations.push(item.name); });
   });
 
 }]);
