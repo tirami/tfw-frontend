@@ -236,7 +236,6 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
       });
 
       $scope.trends = data;
-
     }, function(error){
       $scope.dataAvailable = false;
       $log.log("Server error finding trends.");
