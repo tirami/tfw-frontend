@@ -640,6 +640,7 @@ var drawTreemap = function(scope, element, attrs){
       .style("height", (height) + "px");
 
     data.forEach(function(entry){
+      console.log(entry);
       entry.size = entry.velocity;
     });
 

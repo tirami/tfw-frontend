@@ -21,7 +21,7 @@ var udadisiControllers = angular.module('udadisiControllers', ['ngRoute']);
 
 
 //Main Controller
-udadisiControllers.controller('MainCtrl', ['$scope', '$route', function ($scope, $route) {
+udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', function ($scope, $route, Locations) {
   // $scope.setActivePage will be available to all children 
   // scopes of this controller
 
@@ -53,13 +53,18 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', function ($scope,
     return trends;
   };
 
+  $scope.locations = [{ name: "all" }];
+  Locations.query({}, function(data){
+    $scope.locations = data;
+  });
+
 }]);
 
 
 //Home Controller
-udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window', 'Locations', 'Stats', 'LocationTrends', function($scope, $route, $log, $window, Locations, Stats, LocationTrends) { 
+udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window', 'Stats', 'LocationTrends', function($scope, $route, $log, $window, Stats, LocationTrends) { 
   $scope.setActivePage($route.current.originalPath);
-
+  
   $scope.getTrends = function(location, fromDate, interval){ 
     LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval }, 
       function(data) { location.trends = data; }, 
@@ -72,27 +77,20 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
       function(error){ $log.log("No stats returned for "+location.name); });
   };
 
-  var exampleTrends = [{"term":"water-pump","occurrences":452},{"term":"solar","occurrences":442},{"term":"battery","occurrences":407}];
-  $scope.locations = [{name:"all", trends:exampleTrends, trendscount: 100}, {name: "dhaka", trends:exampleTrends, trendscount: 100}, {name: "lima", trends:exampleTrends, trendscount: 100}, {name: "nairobi", trends:exampleTrends, trendscount: 100}];
-  $scope.selectionStart = today-(1*day);
-  $scope.interval = 1;
-  $scope.globalLocation = undefined;
-
-  Locations.query({}, function(data){
-    $scope.locations = [];
-    $.each(data, function(idx, item){
-      var location = {name: item.name, trends:[], trendscount: 0 };
-      $scope.locations.push(location);
-      if (location.name == "all"){ $scope.globalLocation = location; }
-      $scope.getTrends(location, new Date($scope.selectionStart).toTimeString(), $scope.interval);
-      $scope.getStats(location);
-    });
-  });
-  
-  $scope.query = "";
   $scope.search = function(){
     $window.location.href = '#/trends/'+$scope.query;
   };
+
+  $scope.selectionStart = today-(1*day);
+  $scope.interval = 1;
+  $scope.globalLocation = undefined;
+  $scope.query = "";
+  
+  $.each($scope.locations, function(idx, item){
+    if (item.name == "all"){ $scope.globalLocation = item; }
+    $scope.getTrends(item, new Date($scope.selectionStart).toTimeString(), $scope.interval);
+    $scope.getStats(item);
+  });
 
 }]);
 
@@ -100,7 +98,7 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
 //Location profile
 udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParams', '$log', 'Stats', 'LocationTrends', function($scope, $route, $routeParams, $log, Stats, LocationTrends) { 
   $scope.setActivePage($route.current.originalPath);
-  
+  $log.log($scope.locations);
   $scope.getTrends = function(location, fromDate, interval){ 
     LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval }, 
       function(data) {
@@ -145,9 +143,9 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
 
 
 //Trend Profile
-udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$routeParams', 'Locations', 'RelatedTrends', function($scope, $log, $route, $routeParams, Locations, RelatedTrends) { 
+udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$routeParams', 'RelatedTrends', function($scope, $log, $route, $routeParams, RelatedTrends) { 
   $scope.setActivePage($route.current.originalPath);
-
+  $log.log($scope.locations);
   //{name: "dhaka", prevalence: Math.random()*10, latitude: 23.7000, longitude: 90.3667 }, 
   $scope.locations = [
     {name: "all",     trend: { name: $routeParams.trend }, prevalence: Math.random()*10 }, 
@@ -173,15 +171,6 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     $scope.dataAvailable=false;
   };
 
-  /*
-  Locations.query({}, function(data){
-    $scope.locations = [];
-    $.each(data, function(idx, item){
-      var location = {name: item.name, trend: {}, prevalence: Math.random()*10 };
-      $scope.locations.push(location);
-    });
-  }); */
-
   $scope.location = $scope.locations[0];
   $scope.trend = $scope.locations[0].trend;
   $scope.relatedTrends = [];
@@ -202,8 +191,8 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
 
 
 //Trend Explorer
-udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'LocationTrends', 'Locations', function($scope, $route, $log, LocationTrends, Locations) { 
-  
+udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'LocationTrends', function($scope, $route, $log, LocationTrends) { 
+  $log.log($scope.locations);
   $scope.setActivePage($route.current.originalPath);
   $scope.currentView = 'wordcloud';
 
@@ -258,10 +247,5 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
   };
 
   $scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval);
-
-  $scope.locations = [{ name: "all" }, { name: "lima" }, { name: "nairobi" }, { name: "durban" }];
-  Locations.query({}, function(data){
-    $scope.locations = data;
-  });
 
 }]);
