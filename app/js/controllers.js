@@ -98,7 +98,7 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
 //Location profile
 udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParams', '$log', 'Stats', 'LocationTrends', function($scope, $route, $routeParams, $log, Stats, LocationTrends) { 
   $scope.setActivePage($route.current.originalPath);
-  $log.log($scope.locations);
+
   $scope.getTrends = function(location, fromDate, interval){ 
     LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval }, 
       function(data) {
@@ -145,7 +145,7 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
 //Trend Profile
 udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$routeParams', 'RelatedTrends', function($scope, $log, $route, $routeParams, RelatedTrends) { 
   $scope.setActivePage($route.current.originalPath);
-  $log.log($scope.locations);
+
   //{name: "dhaka", prevalence: Math.random()*10, latitude: 23.7000, longitude: 90.3667 }, 
   $scope.locations = [
     {name: "all",     trend: { name: $routeParams.trend }, prevalence: Math.random()*10 }, 
@@ -192,7 +192,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
 
 //Trend Explorer
 udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'LocationTrends', function($scope, $route, $log, LocationTrends) { 
-  $log.log($scope.locations);
+
   $scope.setActivePage($route.current.originalPath);
   $scope.currentView = 'wordcloud';
 
