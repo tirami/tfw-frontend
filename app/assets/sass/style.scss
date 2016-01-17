@@ -465,8 +465,19 @@ rect.legend-box {
   .trendPanel { 
     .pure-button { display:none; } 
   }
+
   #overlay.active { display: none; }
-  #scatterplot { display:block; }
+
+  #scatterplot { 
+    display:block; 
+    .axis { 
+      stroke: gray;
+      stroke-width: 1px;
+      shape-rendering: crispEdges;
+      .tick { font-size: 0.8em; }
+    }
+    line, path { stroke-width: 1px; stroke: gray; }
+  }
 }
 
 #graph-container.wordcloud-container {

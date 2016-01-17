@@ -62,9 +62,6 @@ udadisiDirectives.directive('nodeGraph',
   }
 );
 
-//TODO: USE COLOURS VIZ OTHER THAN WORDCLOUD
-//TODO: fix bouncy bar graphs
-
 var colours = { "pa-pink": "#e2014d", 
     "pa-yellow": "#ffd600",
     "pa-turquoise": "#008e8f",
@@ -292,10 +289,10 @@ var drawTimeSeries = function(scope, element, attrs){
 var drawScatterPlot = function(scope, element, attrs){
 
   var bbox = d3.select('#graph-container').node().getBoundingClientRect();
-  var margin = {top: 20, right: 20, bottom: 100, left: 40};
+  var margin = {top: 20, right: 20, bottom: 100, left: 60};
   var width = bbox.width - margin.left - margin.right;
   var height = bbox.height - margin.top - margin.bottom;
-    
+  
   var x = d3.scale.linear().range([0, width]);
   var y = d3.scale.linear().range([height, 0]);
   var z = d3.scale.category10();
@@ -311,7 +308,7 @@ var drawScatterPlot = function(scope, element, attrs){
       .append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     
     var trends = newVal.map(function(trend, idx) {
-      return { x: trend.velocity, y: trend.term.length, elementId: ("#trend-panel-"+idx) };
+      return { x: trend.velocity, y: trend.occurrences, elementId: ("#trend-panel-"+idx) };
     });
 
     // Compute the scales’ domains.
@@ -328,15 +325,28 @@ var drawScatterPlot = function(scope, element, attrs){
     y.domain(yext);
 
     // Add the x-axis.
-    svg.append("g")
+    var xAxis = svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.svg.axis().scale(x).orient("bottom"));
 
+    xAxis.append('g')
+      .attr('transform', 'translate(' + width/2 + ', ' + (margin.bottom/2.4) + ')')
+      .append('text')
+      .attr('text-anchor', 'middle')
+      .text('Velocity');
+
     // Add the y-axis.
-    svg.append("g")
+    var yAxis = svg.append("g")
       .attr("class", "y axis")
       .call(d3.svg.axis().scale(y).orient("left"));
+
+    yAxis.append('g')
+      .attr('transform', 'translate(' + (margin.left/2)*-1 + ', ' + height/2 + ')')
+      .append('text')
+      .attr('text-anchor', 'middle')
+      .attr('transform', 'rotate(-90)')
+      .text('Occurrences');
 
     var xPosition = 10; 
     var yPosition = 10;
@@ -461,12 +471,13 @@ var drawWordcloud = function(scope, element, attrs) {
     var maxSize = cloudSize[0]/averageLength;
     var extents = d3.extent(scope.trends, function(t) { return t.velocity; });
     var sizeFactor = (maxSize / extents[1]) * 1.2;
-
-    console.log(maxSize); 
-    console.log(sizeFactor);
     
     //Setup words
-    var trendWords = scope.trends.map(function(trend, idx) { return {text: trend.term, size: (trend.velocity * sizeFactor), elementId: ("#trend-panel-"+idx) }; });
+    var trendWords = scope.trends.map(function(trend, idx) { 
+      var fontSize = (trend.velocity * sizeFactor); 
+      if (fontSize < 14) { fontSize = 12; }
+      return {text: trend.term, size: fontSize, elementId: ("#trend-panel-"+idx) }; 
+    });
     var layout = d3.layout.cloud().size(cloudSize).words(trendWords)
       .padding(5).rotate(function() { return 0; }) //return ~~(Math.random() * 2) * 90;
       .font("Open Sans").fontWeight("600").fontSize(function(d) { return d.size; })

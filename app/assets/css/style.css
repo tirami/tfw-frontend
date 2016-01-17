@@ -496,6 +496,18 @@ rect.legend-box {
 #graph-container.scatterplot-container #scatterplot {
   display: block;
 }
+#graph-container.scatterplot-container #scatterplot .axis {
+  stroke: gray;
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
+#graph-container.scatterplot-container #scatterplot .axis .tick {
+  font-size: 0.8em;
+}
+#graph-container.scatterplot-container #scatterplot line, #graph-container.scatterplot-container #scatterplot path {
+  stroke-width: 1px;
+  stroke: gray;
+}
 
 #graph-container.wordcloud-container #wordcloud {
   display: block;
