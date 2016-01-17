@@ -146,21 +146,10 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
 udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$routeParams', 'RelatedTrends', function($scope, $log, $route, $routeParams, RelatedTrends) { 
   $scope.setActivePage($route.current.originalPath);
 
-  //{name: "dhaka", prevalence: Math.random()*10, latitude: 23.7000, longitude: 90.3667 }, 
-  $scope.locations = [
-    {name: "all",     trend: { name: $routeParams.trend }, prevalence: Math.random()*10 }, 
-    {name: "lima",    trend: { name: $routeParams.trend }, prevalence: Math.random()*10, latitude:-12.0433, longitude: -77.0283 }, 
-    {name: "nairobi", trend: { name: $routeParams.trend }, prevalence: Math.random()*10, latitude: -1.2833, longitude: 36.8167}, 
-    {name: "durban",  trend: { name: $routeParams.trend }, prevalence: Math.random()*10, latitude: -29.8833, longitude: 31.0500}];
-
   $scope.getRelatedTrends = function(location, trend, fromDate, interval) {
-    RelatedTrends.query({ location: location.name, term: trend.name, limit: 5, from: fromDate, interval: interval }, 
-      function(data){ 
-        location.trend.word_counts = data[0].word_counts;
-        location.trend.sources = data[0].sources;
-        if ($scope.location === location){ $scope.relatedTrends = data[0].word_counts; }
-      },
-      function(error){ $log.log("Error returning trend data for "+trend.name); });
+    RelatedTrends.query({ location: location.name, term: trend, limit: 5, from: fromDate, interval: interval }, 
+      function(data){ location.trend = data; $scope.relatedTrends = data.related; },
+      function(error){ $log.log("Error returning trend data for "+trend); });
   };
 
   $scope.getSources = function(){
@@ -172,18 +161,18 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   };
 
   $scope.location = $scope.locations[0];
-  $scope.trend = $scope.locations[0].trend;
+  $scope.trend = $routeParams.trend;
   $scope.relatedTrends = [];
 
   $scope.selectionStart = today-(1*day);
   $scope.spanEnd   = today-1;
   $scope.spanStart = today-(91*day);
-  $scope.interval = 1;
+  $scope.interval = 4;
 
   $scope.dataAvailable = true;
   
   $scope.locations.forEach(function(location){
-    $scope.getRelatedTrends(location, $scope.trend, "", 0); //new Date($scope.selectionStart).toTimeString(), $scope.interval);
+    $scope.getRelatedTrends(location, $scope.trend, new Date($scope.selectionStart).toTimeString(), $scope.interval); //, $scope.interval);
   });
 
   $scope.getSources();

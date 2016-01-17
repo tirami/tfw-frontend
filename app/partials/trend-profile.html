@@ -22,7 +22,7 @@
 	        <h4>Related Trends</h4>
 	        <ul>
 		        <li ng-repeat="related_trend in relatedTrends | limitTo:5">
-              <a href="#/trends/{{ related_trend.term | urlEncode  }}">{{ related_trend.term }}</a>
+              <a href="#/trends/{{ related_trend | urlEncode  }}">{{ related_trend }}</a>
             </li>
 	        </ul>
 	      </div>

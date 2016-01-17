@@ -32,7 +32,7 @@ udadisiServices.factory('Stats', ['$resource','$log',
 udadisiServices.factory('RelatedTrends', ['$resource','$log',
   function($resource, $log){
     return $resource(host+'v1/locations/:location/trends/:term', {}, {
-      query: { method:'GET', params:{ location:'all', limit:10, from: "20150821", interval: 3 }, isArray:true }
+      query: { method:'GET', params:{ location:'all', limit:10, from: "201601010000", interval: 4 }, isArray:false }
     });
   }]);
 
