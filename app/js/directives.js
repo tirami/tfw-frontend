@@ -242,33 +242,31 @@ var drawTimeSeries = function(scope, element, attrs){
   scope.$watch('seriesData', function (data, oldData) { 
     group.selectAll('*').remove();
     if (!data) { return; }
+
+    console.log(data);
     
     x.domain(d3.extent([0, data[0].series.length]));
-    y.domain(data[0].series);
+    y.domain(d3.extent([0, 10]));
 
     // Define the line
     var i = -1;
-    var valueline = d3.svg.line().x(function(d) { return i++; }).y(function(d) { return y(d); });
+    var valueline = d3.svg.line().x(function(d){ return d.x; }).y(function(d){ return y(d.y); });
 
     // Add the valueline path.
     data.forEach(function(entry, i){
-      
+
+      entry.series = [{x:0,y:Math.random()*10}, {x:width/4,y: Math.random()*10}, {x:width/2,y:Math.random()*10}, {x:width,y:Math.random()*10}];
+
       group.append("path")
         .attr("data-legend",function(d) { return entry.term; })
         .attr("class", "line")
         .style("stroke", function() { return entry.color = getUdadisiColour(i); })
         .attr("d", valueline(entry.series));
 
-        /*.append("text")
-          .style("font-size", function(entry) { return "10px"; })
-          .style("font-family", "Open Sans")
-          .style("font-weight", "600")
-          .attr("text-anchor", "middle")
-          .text(function(d) { return entry.term; })*/
     });
 
-    //svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
     group.append("g").attr("class", "y axis").call(yAxis);
+    group.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
 
     var legend = group.append("g")
       .attr("class","legend")

@@ -150,9 +150,11 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   $scope.getRelatedTrends = function(location, fromDate, toDate, interval) {
     RelatedTrends.query({ location: location.name, term: $scope.trend, limit: 5, from: fromDate, interval: interval }, 
       function(data){
+        data.series = [1,2,3,2,6,4,2];
         location.trend = data;
-        $scope.relatedTrends = data.related; 
+        $scope.relatedTrends = data.related;
         $scope.sources.forEach(function(s){ s.series = data.series; });
+        
         if ((data.series ===undefined) || (data.series.length === 0)){ $scope.dataAvailable = false; }
       },
       function(error){ $log.log("Error returning trend data for "+trend); });
