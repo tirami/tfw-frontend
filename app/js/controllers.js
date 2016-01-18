@@ -160,7 +160,9 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     $scope.dataAvailable=false;
   };
 
-  $scope.location = $scope.locations[0];
+  if ($routeParams.location === undefined){ $scope.location = { name: "all" }; } 
+  else { $scope.location = { name: $routeParams.location }; }
+
   $scope.trend = $routeParams.trend;
   $scope.relatedTrends = [];
 
