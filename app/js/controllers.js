@@ -100,7 +100,7 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
   $scope.setActivePage($route.current.originalPath);
 
   $scope.getTrends = function(location, fromDate, interval){ 
-    LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval }, 
+    LocationTrends.query({ location: location.name, limit: 5, from: fromDate, to: toDate, interval: interval }, 
       function(data) {
         $scope.dataAvailable = true;
         if (data.length == 0){
@@ -133,12 +133,13 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
   $scope.location = { name: n, trendscount: 0 }
   
   $scope.selectionStart = today-(1*day);
+  $scope.selectionEnd = today-1;
   $scope.spanEnd   = today-1;
   $scope.spanStart = today-(91*day);
   $scope.interval = 1;
   $scope.dataAvailable = true;
   $scope.getStats($scope.location);
-  $scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), $scope.interval);
+  $scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval);
 }]);
 
 
@@ -154,11 +155,11 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
         if ((data === undefined) || (data.series === undefined) || (data.series.length === 0)){ 
           $scope.dataAvailable = false; 
         } else {
+          $scope.trendData = data;
           $scope.relatedTrends = data.related;
           data.series = [Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10]; //until andrew fix
           var src =  [{term: "All", series:[]}, {term: "Twitter", series:[]}, {term: "Blogs", series:[]}, {term: "News", series:[]}, {term: "Academia", series:[]}]; 
           src.forEach(function(s){ s.series = [Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10]; });
-          $log.log(data);
           $scope.sources = src;
           $scope.dataAvailable = true;
         }
@@ -169,10 +170,12 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   if ($routeParams.location === undefined){ $scope.location = { name: "all" }; } 
   else { $scope.location = { name: $routeParams.location }; }
 
+  $scope.trendData = { term: $routeParams.trend, velocity:0 };
   $scope.trend = $routeParams.trend;
   $scope.relatedTrends = [];
 
   $scope.selectionStart = today-(1*day);
+  $scope.selectionEnd = today-1;
   $scope.spanEnd   = today-1;
   $scope.spanStart = today-(91*day);
   $scope.interval = 4;
