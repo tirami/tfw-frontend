@@ -46,7 +46,7 @@ udadisiDirectives.directive('locationToggle',
 
 udadisiDirectives.directive('barGraph', 
   function($parse) {
-    return { priority: 0, restrict: 'A', scope: { trends: '=' }, link: drawBars }
+    return { priority: 0, restrict: 'A', scope: { collection: '=', property: '=' }, link: drawBars }
   }
 );
 
@@ -501,17 +501,22 @@ var drawBars = function (scope, element, attrs) {
   
   var chart = d3.select(element[0]);  
 
-  scope.$watch('trends', function (newVal, oldVal) { 
+  scope.$watch('collection', function (data, oldVal) {
     chart.selectAll('*').remove();
-    if (!newVal) { return; }
+    if (!data) { return; }
 
-    var data = newVal;
-    var extents = d3.extent(data, function(t) { return t.velocity; });
-  
+    var extents = d3.extent(data, function(t) {  return t[scope.property]; });
+    data.sort(function(a,b){return b[scope.property] - a[scope.property]});
+
+    var cleaned = [];
+    data.forEach(function(e){
+      if(e[scope.property] > 0){ cleaned.push(e); }
+    });
+
     chart.append("div").attr("class", "chart")
       .selectAll('div')
-      .data(data).enter().append("div")
-      .style("width", function(d) { return (d.velocity/extents[1]*100) + "%"; })
+      .data(cleaned).enter().append("div")
+      .style("width", function(d) { return (d[scope.property]/extents[1]*100) + "%"; })
       .style("height", "1.8em")
       .text(function(d) { return d.term; });
    });

@@ -99,21 +99,23 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
 udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParams', '$log', 'Stats', 'LocationTrends', function($scope, $route, $routeParams, $log, Stats, LocationTrends) { 
   $scope.setActivePage($route.current.originalPath);
 
-  $scope.getTrends = function(location, fromDate, interval){ 
-    LocationTrends.query({ location: location.name, limit: 5, from: fromDate, to: toDate, interval: interval }, 
+  $scope.getTrends = function(location, fromDate, toDate, interval){ 
+    LocationTrends.query({ location: location.name, limit: 10, from: fromDate, to: toDate, interval: interval }, 
       function(data) {
         $scope.dataAvailable = true;
         if (data.length == 0){
           $log.log("Series data empty, keeping existing values.");
           data = $scope.generateExampleTrends();
           $scope.dataAvailable = false;
-        }
-        else if (data[0].series == undefined) {
+        } else if (data[0].series == undefined) {
           $log.log("Object has no series, generating values.");
           data.forEach(function(entry){  
             entry.series = $scope.generateSeries();
-          }); 
+          });
         }
+        data.forEach(function(entry){  
+          entry.topval = entry.velocity * entry.occurrences;
+        });
         $scope.trends = data;
       },
       function(error){ 
@@ -131,12 +133,16 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
   var n = $routeParams.location;
   if(n == "global") { n = "all"; }
   $scope.location = { name: n, trendscount: 0 }
-  
+
   $scope.selectionStart = today-(1*day);
   $scope.selectionEnd = today-1;
   $scope.spanEnd   = today-1;
   $scope.spanStart = today-(91*day);
-  $scope.interval = 1;
+
+  $scope.interval = 2;
+
+  //$scope.topTrends = $scope.trends.forEach(function(e){ e.vo = e.occurrences * e.velocity; })
+
   $scope.dataAvailable = true;
   $scope.getStats($scope.location);
   $scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval);
