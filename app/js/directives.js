@@ -112,16 +112,18 @@ var drawNodes = function(scope, element, attrs){
     }]}]};
 
   scope.$watchGroup(['trend', 'relatedTrends'], function(data, oldValues, scope) {
-    if (!data) { return; }
+    if ((!data) || (!data[1])) { return; }
 
     var trend = data[0];
     var relatedTrends = data[1];
 
-    root = { "name": trend.name, "children":[] };
+    root = { "name": trend, "children":[] };
 
+    var i = 0;
     relatedTrends.forEach(function(entry){ 
-      if (entry.term != trend.name){
-        root.children.push({ "name": entry.term, "size":entry.velocity }); 
+      if ((entry != trend) && (i <11)){
+        root.children.push({ "name": entry, "size":1 });
+        i++;
       }
     });
     
@@ -214,7 +216,6 @@ var drawNodes = function(scope, element, attrs){
 };
 
 var drawTimeSeries = function(scope, element, attrs){
-  //var trends = { term: "battery", timeseries: [100000:100, 100000:100] }
   var bbox = d3.select('#series-container').node().getBoundingClientRect();
   var margin = {top: 10, right: 10, bottom: 10, left: 40};
 
@@ -222,7 +223,7 @@ var drawTimeSeries = function(scope, element, attrs){
   var height = bbox.height - margin.top - margin.bottom;
 
   // Set the ranges
-  var x = d3.time.scale().range([0, width]);
+  var x = d3.scale.linear().range([0, width]);
   var y = d3.scale.linear().range([height, 0]);
 
   // Define the axes
@@ -241,21 +242,13 @@ var drawTimeSeries = function(scope, element, attrs){
   scope.$watch('seriesData', function (data, oldData) { 
     group.selectAll('*').remove();
     if (!data) { return; }
-
-    data.forEach(function(entry){
-      entry.series.forEach(function(d){
-        d.date = parseDate(d.date).getTime();
-        d.close = +d.close;
-      });
-    });
     
-    x.domain(d3.extent(data[0].series, function(d) { return d.date; }));
-    y.domain([0, 100]);
+    x.domain(d3.extent([0, data[0].series.length]));
+    y.domain(data[0].series);
 
     // Define the line
-    var valueline = d3.svg.line()
-      .x(function(d) { return x(d.date); })
-      .y(function(d) { return y(d.close); });
+    var i = -1;
+    var valueline = d3.svg.line().x(function(d) { return i++; }).y(function(d) { return y(d); });
 
     // Add the valueline path.
     data.forEach(function(entry, i){

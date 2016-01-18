@@ -145,19 +145,17 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
 //Trend Profile
 udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$routeParams', 'RelatedTrends', function($scope, $log, $route, $routeParams, RelatedTrends) { 
   $scope.setActivePage($route.current.originalPath);
+  $scope.sources = [{term: "All", series:[]}, {term: "Twitter", series:[]}, {term: "Blogs", series:[]}, {term: "News", series:[]}, {term: "Academia", series:[]}];
 
-  $scope.getRelatedTrends = function(location, trend, fromDate, interval) {
-    RelatedTrends.query({ location: location.name, term: trend, limit: 5, from: fromDate, interval: interval }, 
-      function(data){ location.trend = data; $scope.relatedTrends = data.related; },
+  $scope.getRelatedTrends = function(location, fromDate, toDate, interval) {
+    RelatedTrends.query({ location: location.name, term: $scope.trend, limit: 5, from: fromDate, interval: interval }, 
+      function(data){
+        location.trend = data;
+        $scope.relatedTrends = data.related; 
+        $scope.sources.forEach(function(s){ s.series = data.series; });
+        if ((data.series ===undefined) || (data.series.length === 0)){ $scope.dataAvailable = false; }
+      },
       function(error){ $log.log("Error returning trend data for "+trend); });
-  };
-
-  $scope.getSources = function(){
-    $scope.sources = [{term: "All", series:[]}, {term: "Twitter", series:[]}, {term: "Blogs", series:[]}, {term: "News", series:[]}, {term: "Academia", series:[]}];
-    $scope.sources.forEach(function(s){
-      s.series = $scope.generateSeries();
-    });
-    $scope.dataAvailable=false;
   };
 
   if ($routeParams.location === undefined){ $scope.location = { name: "all" }; } 
@@ -174,10 +172,8 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   $scope.dataAvailable = true;
   
   $scope.locations.forEach(function(location){
-    $scope.getRelatedTrends(location, $scope.trend, new Date($scope.selectionStart).toTimeString(), $scope.interval); //, $scope.interval);
+    $scope.getRelatedTrends(location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval); //, $scope.interval);
   });
-
-  $scope.getSources();
 }]);
 
 
