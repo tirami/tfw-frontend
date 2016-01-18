@@ -140,9 +140,6 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
   $scope.spanStart = today-(91*day);
 
   $scope.interval = 2;
-
-  //$scope.topTrends = $scope.trends.forEach(function(e){ e.vo = e.occurrences * e.velocity; })
-
   $scope.dataAvailable = true;
   $scope.getStats($scope.location);
   $scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval);
@@ -158,14 +155,20 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   $scope.getRelatedTrends = function(location, fromDate, toDate, interval) {
     RelatedTrends.query({ location: location.name, term: $scope.trend, limit: 5, from: fromDate, interval: interval }, 
       function(data){
-        if ((data === undefined) || (data.series === undefined) || (data.series.length === 0)){ 
+        if ((data === undefined) || (data.series === undefined) || (data.series.length === 0)){           
+          var src = [{term: "All", series:[]}, {term: "Twitter", series:[]}, {term: "Blogs", series:[]}, {term: "News", series:[]}, {term: "Academia", series:[]}]; 
+          data = { velocity: 0, series: [Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10] };
+          src.forEach(function(s){ s.series = data.series });
+          data.occurrences = data.series.reduce(function(a, b){return a+b;});
+          $scope.sources = src;
+          $scope.trendData = data;
           $scope.dataAvailable = false; 
         } else {
+          data.occurrences = data.series.reduce(function(a, b){return a+b;});
           $scope.trendData = data;
           $scope.relatedTrends = data.related;
-          data.series = [Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10]; //until andrew fix
-          var src =  [{term: "All", series:[]}, {term: "Twitter", series:[]}, {term: "Blogs", series:[]}, {term: "News", series:[]}, {term: "Academia", series:[]}]; 
-          src.forEach(function(s){ s.series = [Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10]; });
+          var src = [{term: "Twitter", series:[]}];
+          src[0].series = data.series;
           $scope.sources = src;
           $scope.dataAvailable = true;
         }

@@ -9,13 +9,13 @@
 				<div id="trendInfo" class="pure-g">
 
 	      <div id="trendChange" class="pure-u-1-3 column">
-	        <h4>Increase</h4>
-	        <span id="change">30<sup>%</sup></span>
+	        <h4>Occurrences</h4>
+	        <span id="change">{{ trendData.occurrences.toFixed(0) }}</span>
 	      </div>
 	
 	      <div id="trendVelocity" class="pure-u-1-3 column">
 	        <h4>Velocity</h4>
-	        <span id="rate">{{ trendData.velocity }}</span>
+	        <span id="rate">{{ trendData.velocity.toFixed(2) }}</span>
 	      </div>
 	
 	      <div id="relatedTrends" class="pure-u-1-3 column">
