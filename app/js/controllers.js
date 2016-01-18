@@ -203,8 +203,13 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
   $scope.getTrends = function(location, fromDate, toDate, interval){
     LocationTrends.query({ location: location.name, limit: 10, from: fromDate, to: toDate, interval: interval }, function(data) {
       $scope.dataAvailable = true;
-      
-      if (data.length == 0){
+
+      var totalVelocity = 0;
+      data.forEach(function(entry){
+        totalVelocity = totalVelocity + entry.velocity;
+      });
+
+      if ((data.length == 0) || (totalVelocity === 0)){
         data = $scope.generateExampleTrends();
         $scope.dataAvailable = false;
       }
