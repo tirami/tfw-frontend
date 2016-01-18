@@ -241,21 +241,18 @@ var drawTimeSeries = function(scope, element, attrs){
 
   scope.$watch('seriesData', function (data, oldData) { 
     group.selectAll('*').remove();
-    if (!data) { return; }
+    if ((!data || data.length===0)) { return; }
 
-    console.log(data);
-    
-    x.domain(d3.extent([0, data[0].series.length]));
-    y.domain(d3.extent([0, 10]));
-
-    // Define the line
-    var i = -1;
-    var valueline = d3.svg.line().x(function(d){ return d.x; }).y(function(d){ return y(d.y); });
+    x.domain([0,(data[0].series.length-1)]);
+    var allSeries = []
+    data.forEach(function(e){ allSeries = allSeries.concat(e.series); });
+    y.domain(d3.extent(allSeries));
 
     // Add the valueline path.
     data.forEach(function(entry, i){
 
-      entry.series = [{x:0,y:Math.random()*10}, {x:width/4,y: Math.random()*10}, {x:width/2,y:Math.random()*10}, {x:width,y:Math.random()*10}];
+      var tmp = 0;
+      var valueline = d3.svg.line().x(function(d){ return x(tmp++); }).y(function(d){ return y(d); });
 
       group.append("path")
         .attr("data-legend",function(d) { return entry.term; })
