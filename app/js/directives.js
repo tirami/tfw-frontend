@@ -554,7 +554,7 @@ var setTimespan = function(scope, element, attrs) {
   brushg.selectAll('rect').attr('y', 0).attr('height', height/2);//.attr("transform", "translate(0," +  height / 2 + ")");
 
   // define our brush extent
-  brush.extent([new Date(scope.selectStart), new Date(scope.end)]);
+  brush.extent([new Date(scope.selectStart), new Date(scope.selectEnd)]);
   brush(d3.select(".brush"));
 
   function brushend(){
