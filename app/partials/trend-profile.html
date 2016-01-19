@@ -44,11 +44,15 @@
     <li ng-repeat="location in locations"><a href="#/trends/{{ trend }}?location={{ location.name }}" class="upcase"><i class="fa fa-map-marker"></i>{{ location.name | allAsGlobal }}</a></li>
     </ul>
   </div>
- 
-
-  <div id="trendTimeline">
-    <section>
-      <h2>Overview of current {{ trend.name }} trends</h2>
+  
+  
+  <div id="tabs">
+  <button class="pure-button" ng-click="toggleView('history')">History</button>
+  <button class="pure-button" ng-click="toggleView('sources')">Sources</button>
+  <button class="pure-button" ng-click="toggleView('related')">Related</button>
+  <div id="trend-graphs" class="history-container">
+    <section class="history">
+      <h2>History of {{ trend.name }} trend</h2>
       <div id = "series-container">
         <!--<button class="zr" style="position: relative; right: 30px; top: 30px;">Reset</button>-->
         <div ng-hide="dataAvailable" class="unavailableOverlay">
@@ -58,7 +62,40 @@
       </div>
       <div timespan location="location" select-start="selectionStart" select-end="selectionEnd" interval="interval" start="spanStart" end="spanEnd" update-fn='getRelatedTrends' class='ui-brush'></div>
     </section>
+    
+    <section class="sources">
+      <h2>Sources breakdown of {{ trend.name }} trend</h2>
+      <div id = "series-container">
+        <!--<button class="zr" style="position: relative; right: 30px; top: 30px;">Reset</button>-->
+        <div ng-hide="dataAvailable" class="unavailableOverlay">
+          <p>Data unavailable for selection</p>
+        </div>
+        <div time-series series-data="sources"></div>
+      </div>
+      <div timespan location="location" select-start="selectionStart" select-end="selectionEnd" interval="interval" start="spanStart" end="spanEnd" update-fn='getRelatedTrends' class='ui-brush'></div>
+    </section>
+    
+    <section class="related">
+      <h2>Comparison of {{ trend.name }} related trends</h2>
+      <div id = "series-container">
+        <!--<button class="zr" style="position: relative; right: 30px; top: 30px;">Reset</button>-->
+        <div ng-hide="dataAvailable" class="unavailableOverlay">
+          <p>Data unavailable for selection</p>
+        </div>
+        <div time-series series-data="sources"></div>
+      </div>
+      <div timespan location="location" select-start="selectionStart" select-end="selectionEnd" interval="interval" start="spanStart" end="spanEnd" update-fn='getRelatedTrends' class='ui-brush'></div>
+    </section>    
+    
+    </div>
+</div>
+
+
+  <div id="node-container" style="height: 50vh;width: 100%;">
+    <div node-graph trend="trend" related-trends="relatedTrends"></div>
   </div>
+
+ 
 
   <section id="trendSources">
     <h2>Sources</h2>

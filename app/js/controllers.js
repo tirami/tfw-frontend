@@ -206,6 +206,15 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   $scope.locations.forEach(function(location){
     $scope.getRelatedTrends(location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval); //, $scope.interval);
   });
+  
+  $scope.toggleView = function(view){
+    $("#trend-graphs").removeClass("history-container");
+    $("#trend-graphs").removeClass("sources-container");
+    $("#trend-graphs").removeClass("related-container");
+    $("#trend-graphs").addClass(view + "-container");
+  };
+  
+  
 }]);
 
 

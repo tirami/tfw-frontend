@@ -420,7 +420,6 @@ rect.legend-box {
   width: auto;
   padding-left: 5px;
   padding-right: 5px;
-  padding-bottom: 5px;
   background-color: #0c1444;
   color: white;
   text-align: center;
@@ -497,6 +496,9 @@ rect.legend-box {
   text-indent: 2px;
 }
 
+#graph-container.scatterplot-container .trendPanel .pure-button {
+  display: none;
+}
 #graph-container.scatterplot-container #overlay.active {
   display: none;
 }
@@ -552,6 +554,18 @@ body.trends-trend #mapContainer {
 }
 body.trends-trend #mapContainer .land {
   fill: rgba(200, 200, 200, 0.5);
+}
+body.trends-trend #trend-graphs .history, body.trends-trend #trend-graphs .sources, body.trends-trend #trend-graphs .related {
+  display: none;
+}
+body.trends-trend .history-container .history {
+  display: block !important;
+}
+body.trends-trend .sources-container .sources {
+  display: block !important;
+}
+body.trends-trend .related-container .related {
+  display: block !important;
 }
 
 #node-container circle.node {

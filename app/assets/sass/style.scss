@@ -391,7 +391,6 @@ rect.legend-box {
     width:auto; 
     padding-left:5px; 
     padding-right:5px;
-    padding-bottom:5px;
     background-color:$navy-blue; 
     color:white; 
     text-align: center; 
@@ -472,7 +471,10 @@ rect.legend-box {
 }
 
 #graph-container.scatterplot-container {
-  
+  .trendPanel { 
+    .pure-button { display:none; } 
+  }
+
   #overlay.active { display: none; }
 
   #scatterplot { 
@@ -534,6 +536,15 @@ body.trends-trend {
     fill: rgba(200,200,200,0.5);
 }
  }
+ 
+ #trend-graphs {
+  .history, .sources, .related {display: none;}
+ }
+ 
+ .history-container .history {display: block !important;}
+ .sources-container .sources {display: block!important;}
+ .related-container .related {display: block!important;}
+ 
 }
 
 
