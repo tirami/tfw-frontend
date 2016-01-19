@@ -92,6 +92,10 @@ body.trend-explorer footer {
   display: none;
 }
 
+h3 a {
+  color: white;
+}
+
 /*  Home Page –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 #mapContainer {
   background: #0c1444;
