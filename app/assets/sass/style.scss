@@ -248,13 +248,20 @@ h3 a {color: white}
    
    #trendInfo {
      padding-top: 2em;
-      h4 {margin: 0;}
+      h4 {
+       margin: 0; 
+       text-align: center;
+       }
        #trendChange {
-         span {font-size: 3em;}
+         span {font-size: 3em; display: block;}
          p {margin: 0;}
        }
-       #trendVelocity {
-         #rate {font-size: 3em;}
+       .stats {
+         .stat {font-size: 3em; 
+          display: block; 
+          width: 100%; 
+          text-align: center;
+         }
          p {margin: 0;}
        }       
        #relatedTrends {
@@ -510,6 +517,25 @@ rect.legend-box {
 }
 
 /*  Trend Profile  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+body.trends-trend {
+ 
+ #trendInfo {
+  
+ }
+ 
+ #mapContainer {
+   background: transparent;
+   max-height: 220px;
+   overflow-x: hidden;
+   margin: 2em 0 0 0;
+   
+   .land {
+    fill: rgba(200,200,200,0.5);
+}
+ }
+}
+
 
 #node-container { 
   circle.node {

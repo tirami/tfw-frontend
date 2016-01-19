@@ -3,34 +3,35 @@
   <header id="profileHeader">
   
   <div class="pure-g">
-    <div class="pure-u-1-2">
+    <div class="pure-u-7-12">
       <h1><span>Trend breakdown for</span>{{ trendData.term }}</h1>
 						
 				<div id="trendInfo" class="pure-g">
 
-	      <div id="trendChange" class="pure-u-1-3 column">
-	        <h4>Occurrences</h4>
-	        <span id="change">{{ trendData.occurrences.toFixed(0) }}</span>
+	      <div id="trendChange" class="pure-u-1-4 column stats">
+	        <h4>Mentions</h4>
+	        <span class="stat">{{ trendData.occurrences.toFixed(0) }}</span>
 	      </div>
 	
-	      <div id="trendVelocity" class="pure-u-1-3 column">
-	        <h4>Velocity</h4>
-	        <span id="rate">{{ trendData.velocity.toFixed(2) }}</span>
+	      <div id="trendVelocity" class="pure-u-1-4 column stats">
+	        <h4>Score</h4>
+	        <span class="stat">{{ trendData.velocity.toFixed(2) }}</span>
 	      </div>
 	
-	      <div id="relatedTrends" class="pure-u-1-3 column">
-	        <h4>Related Trends</h4>
-	        <ul>
-		        <li ng-repeat="related_trend in relatedTrends | limitTo:5">
-              <a href="#/trends/{{ related_trend | urlEncode  }}?selectionStart={{ selectionStart.getTime() }}&selectionEnd={{ selectionEnd.getTime() }}">{{ related_trend }}</a>
-            </li>
-	        </ul>
+	      <div id="trendHigh" class="pure-u-1-4 column stats">
+	        <h4>90 Day High</h4>
+	        <span class="stat">{{ trendData.velocity.toFixed(2) }}</span>
 	      </div>
 
+	      <div id="trendLow" class="pure-u-1-4 column stats">
+	        <h4>90 Day Low</h4>
+	        <span class="stat">{{ trendData.velocity.toFixed(2) }}</span>
+	      </div>
+	      	      
       </div>
     </div>
-    <div class="pure-u-1-2">
-      <div map-projection map-scale="0.85" style="width:100%;height:auto;" id="mapContainer">
+    <div class="pure-u-5-12">
+      <div map-projection map-scale="1.1" style="width:100%;height:auto;" id="mapContainer">
         <div ng-repeat="location in locations"  ng-if="location.name != 'all'" class="locationPanel" data-spot-size="{{ location.prevalence }}" data-latitude="{{ location.latitude }}" data-longitude="{{ location.longitude }}"> {{ Math.round((location.prevalence/10.0)*100.0) }}% prevalent in {{ location.name }}</div>
       </div>
     </div>
@@ -43,10 +44,7 @@
     <li ng-repeat="location in locations"><a href="#/trends/{{ trend }}?location={{ location.name }}" class="upcase"><i class="fa fa-map-marker"></i>{{ location.name | allAsGlobal }}</a></li>
     </ul>
   </div>
-
-  <div id="node-container" style="height: 50vh;width: 100%;">
-    <div node-graph trend="trend" related-trends="relatedTrends"></div>
-  </div>
+ 
 
   <div id="trendTimeline">
     <section>
@@ -71,3 +69,10 @@
   </section>
  </div>  
  </div>
+ 
+ <script>
+  
+
+  
+  </script>
+ 
