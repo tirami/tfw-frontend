@@ -236,17 +236,22 @@ h3 a {
 }
 #profileHeader #trendInfo h4 {
   margin: 0;
+  text-align: center;
 }
 #profileHeader #trendInfo #trendChange span {
   font-size: 3em;
+  display: block;
 }
 #profileHeader #trendInfo #trendChange p {
   margin: 0;
 }
-#profileHeader #trendInfo #trendVelocity #rate {
+#profileHeader #trendInfo .stats .stat {
   font-size: 3em;
+  display: block;
+  width: 100%;
+  text-align: center;
 }
-#profileHeader #trendInfo #trendVelocity p {
+#profileHeader #trendInfo .stats p {
   margin: 0;
 }
 #profileHeader #trendInfo #relatedTrends ul {
@@ -541,6 +546,16 @@ rect.legend-box {
 }
 
 /*  Trend Profile  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+body.trends-trend #mapContainer {
+  background: transparent;
+  max-height: 220px;
+  overflow-x: hidden;
+  margin: 2em 0 0 0;
+}
+body.trends-trend #mapContainer .land {
+  fill: rgba(200, 200, 200, 0.5);
+}
+
 #node-container circle.node {
   cursor: pointer;
   stroke: #000;
