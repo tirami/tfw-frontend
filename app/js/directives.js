@@ -304,7 +304,7 @@ var drawScatterPlot = function(scope, element, attrs){
     var yext = d3.extent(trends, function(d) { return d.y });
 
     //Add small buffer to extents
-    xext[0] = xext[0]-(1);
+    xext[0] = xext[0];
     xext[1] = xext[1]+(1);
     yext[0] = yext[0]-(1);
     yext[1] = yext[1]+(1);
@@ -322,7 +322,7 @@ var drawScatterPlot = function(scope, element, attrs){
       .attr('transform', 'translate(' + width/2 + ', ' + (margin.bottom/2.4) + ')')
       .append('text')
       .attr('text-anchor', 'middle')
-      .text('Velocity');
+      .text('Velocity (low to high)');
 
     // Add the y-axis.
     var yAxis = svg.append("g")
@@ -334,7 +334,7 @@ var drawScatterPlot = function(scope, element, attrs){
       .append('text')
       .attr('text-anchor', 'middle')
       .attr('transform', 'rotate(-90)')
-      .text('Occurrences');
+      .text('Mentions');
 
     var xPosition = 10; 
     var yPosition = 10;
