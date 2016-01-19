@@ -524,7 +524,7 @@ var drawBars = function (scope, element, attrs) {
 
 var setTimespan = function(scope, element, attrs) {
   var container = d3.select(element[0]),
-    margin = {top: 0, right: 10, bottom: 0, left: 40},
+    margin = {top: 0, right: 95, bottom: 0, left: 40},
     height = 50;
   var width = (container.node().offsetWidth) - margin.left - margin.right;
 
@@ -554,8 +554,7 @@ var setTimespan = function(scope, element, attrs) {
   brushg.selectAll('rect').attr('y', 0).attr('height', height/2);//.attr("transform", "translate(0," +  height / 2 + ")");
 
   // define our brush extent
-  var selectEnd = new Date(scope.selectStart + (scope.interval*24*60*60*1000))
-  brush.extent([new Date(scope.selectStart), selectEnd]);
+  brush.extent([new Date(scope.selectStart), new Date(scope.end)]);
   brush(d3.select(".brush"));
 
   function brushend(){
