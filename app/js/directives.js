@@ -446,7 +446,7 @@ var drawWordcloud = function(scope, element, attrs) {
   drawWorld(mapGroup, cloudSize, scale, []);
 
   var wordGroup = svg.append("g").attr("transform", "translate(" + cloudSize[0] / 2 + "," + cloudSize[1] / 2 + ")");
-  
+
   scope.$watch('trends', function (newVal, oldVal) { 
     wordGroup.selectAll('*').remove();
     if (!newVal) { return; }
@@ -455,17 +455,18 @@ var drawWordcloud = function(scope, element, attrs) {
     var averageLength = 0;
     scope.trends.map(function(t) { averageLength += t.term.length; });
     averageLength = averageLength / scope.trends.length;
-
+    
     var maxSize = cloudSize[0]/averageLength;
     var extents = d3.extent(scope.trends, function(t) { return t.velocity; });
     var sizeFactor = (maxSize / extents[1]) * 1.2;
     
     //Setup words
     var trendWords = scope.trends.map(function(trend, idx) { 
-      var fontSize = (trend.velocity * sizeFactor); 
-      if (fontSize < 14) { fontSize = 12; }
+      var fontSize = (trend.velocity * sizeFactor);
+      if (fontSize < 14) { fontSize = 12; }  
       return {text: trend.term, size: fontSize, elementId: ("#trend-panel-"+idx) }; 
     });
+
     var layout = d3.layout.cloud().size(cloudSize).words(trendWords)
       .padding(5).rotate(function() { return 0; }) //return ~~(Math.random() * 2) * 90;
       .font("Open Sans").fontWeight("600").fontSize(function(d) { return d.size; })
@@ -482,7 +483,7 @@ var drawWordcloud = function(scope, element, attrs) {
         .style("font-weight","600")
         .style("fill", function(d, i) { return getUdadisiColour(i); })
         .attr("text-anchor", "middle")
-        .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"; })
+        .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ") rotate(" + d.rotate + ")"; })
         .text(function(d) { return d.text; })
         .on('click', function(obj){ 
           $('.trendPanel').removeClass('active'); 
@@ -490,9 +491,6 @@ var drawWordcloud = function(scope, element, attrs) {
           $('#overlay').addClass('active');
         });
     };
-
-    //function resize(){}
-    //d3.select(window).on('resize', resize); 
 
   });
 };

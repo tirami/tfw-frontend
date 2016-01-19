@@ -254,7 +254,9 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
         if (!isNaN(e.series[0])){ e.velocity = calculateVelocity(e.series); }
       });
 
+      data.sort(function(a,b){return b.velocity - a.velocity});
       $scope.trends = data;
+      $scope.trends.forEach(function(trend, idx){ $log.log(idx + ' ' + trend.term); });
     }, function(error){
       $scope.dataAvailable = false;
       $log.log("Server error finding trends.");
