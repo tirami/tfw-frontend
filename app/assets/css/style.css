@@ -306,12 +306,17 @@ h3 a {
 }
 #side-menu ul.filter button.selected {
   color: white;
+  font-weight: bold;
 }
 #side-menu ul.filter button:hover {
   background: black;
 }
 #side-menu ul.filter button:focus {
   outline: none;
+}
+#side-menu ul.filter button.active {
+  background-color: #E6E6E6;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 button.pure-button span.active {
@@ -364,7 +369,12 @@ div.unavailableOverlay p {
   top: 40%;
   position: relative;
   color: white;
-  font-size: 1.6em;
+  font-size: 2.4em;
+  text-shadow: 0px 0px 3px gray;
+}
+
+#graph-container div.unavailableOverlay {
+  height: 94%;
 }
 
 rect.legend-box {
@@ -378,16 +388,26 @@ rect.legend-box {
 #graph-container {
   background: #f9f9f5;
   position: absolute;
-  height: 93.5vh;
+  height: 92vh;
   right: 0;
   width: 80%;
-  top: 6.5vh;
+  top: 8vh;
 }
 #graph-container .ui-brush {
   position: absolute;
 }
 #graph-container #wordcloud {
   margin-top: 0em;
+  display: none;
+}
+#graph-container #scatterplot {
+  display: none;
+}
+#graph-container #list {
+  display: none;
+}
+#graph-container #treemap {
+  display: none;
 }
 #graph-container .trendPanel {
   display: none;
@@ -455,13 +475,47 @@ rect.legend-box {
   display: block;
 }
 
+#graph-container.list-container #list {
+  display: block;
+}
+
+#graph-container.treemap-container #treemap {
+  display: block;
+}
+#graph-container.treemap-container #treemap .node {
+  border: solid 1px white;
+  font: 10px sans-serif;
+  line-height: 12px;
+  overflow: hidden;
+  position: absolute;
+  text-indent: 2px;
+}
+
 #graph-container.scatterplot-container .trendPanel .pure-button {
   display: none;
 }
 #graph-container.scatterplot-container #overlay.active {
   display: none;
 }
+#graph-container.scatterplot-container #scatterplot {
+  display: block;
+}
+#graph-container.scatterplot-container #scatterplot .axis {
+  stroke: gray;
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
+#graph-container.scatterplot-container #scatterplot .axis .tick {
+  font-size: 0.8em;
+}
+#graph-container.scatterplot-container #scatterplot line, #graph-container.scatterplot-container #scatterplot path {
+  stroke-width: 1px;
+  stroke: gray;
+}
 
+#graph-container.wordcloud-container #wordcloud {
+  display: block;
+}
 #graph-container.wordcloud-container .trendPanel {
   min-width: 200px;
   width: 30%;
@@ -498,6 +552,15 @@ rect.legend-box {
   stroke-width: 1.5px;
 }
 
+@media (max-width: 1200px) {
+  .mediumscr-hide {
+    display: none;
+  }
+
+  div.locationPanel.mediumscr-hide {
+    display: none;
+  }
+}
 @media screen and (min-width: 48em) {
   .container {
     max-width: 750px;

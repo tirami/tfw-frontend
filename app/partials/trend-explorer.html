@@ -11,19 +11,19 @@
       <div class="padding">
           <h3>View <a href="info"><i class="fa icon-info-sign"></i>TEST</a></h3>
 
-          <button class="pure-button" ng-click="toggleView()">
-
-            <span class="{{ showTextView | boolAsActive }}">Text view</span>|
-            <span class="{{ !showTextView | boolAsActive }}">Chart view</span>
-            <span class="{{ !showTextView | boolAsActive }}">Block view</span>
-          </button>
+          <button class="pure-button" ng-click="toggleView('wordcloud')">Wordcloud</button>
+          <button class="pure-button" ng-click="toggleView('scatterplot')">Chart</button>
+          <button class="pure-button" ng-click="toggleView('treemap')">Block</button>
+          <button class="pure-button" ng-click="toggleView('list')">List</button>
           
           <h3>Location Options</h3>
           
           <ul id="locationOptions" class="filter">
-            <li ng-repeat="location in locations"><button class ="locationToggle" target-location="{{location.name}}" location="location" select-start="selectionStart" interval="interval" update-fn='getTrends'>{{ location.name | allAsGlobal }}</button></li>
+            <li ng-repeat="location in locations">
+              <button ng-class="{selected: location.name === 'all'}" class="locationToggle" target-location="{{location.name}}" location="location" select-start="selectionStart" interval="interval" set-location='setLocation' update-fn='getTrends'>{{ location.name | allAsGlobal }}</button>
+            </li>
           </ul>
-      
+        <!--
           <h3>Source Options</h3>
           
           <ul id="sourceOptions" class="filter">
@@ -40,21 +40,29 @@
               <li><button>Low</button></li>
               <li><button>Medium</button></li>
               <li><button>High</button></li>
-          </ul>
+          </ul> -->
       </div>
     </div>
 
 
   <div id="graph-container" class="wordcloud-container" style = "float:right; width:80%;">
-    <div wordcloud id="wordcloud" style="" map-scale="1" ng-hide="!showTextView" trends="trends"></div>
-    <div scatter-plot ng-hide="showTextView" trends="trends"></div>
-    <div timespan location="location" select-start="selectionStart" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
+    <div ng-hide="dataAvailable" class="unavailableOverlay">
+      <p>Data unavailable for selection</p>
+    </div>
+    <div wordcloud id="wordcloud" style="" map-scale="1" trends="trends"></div>
+    <div scatter-plot id="scatterplot" trends="trends"></div>
+    <div treemap id="treemap" trends="trends"></div>
+    <div id="list">
+      <ul><li ng-repeat="trend in trends"> {{ trend.term }}  {{ trend.occurrences }}  </li></ul>
+    </div>
+
+    <div timespan location="location" select-start="selectionStart" select-end="selectionEnd" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
     <div ng-visible="true" ng-click="resetPanels()" id="overlay"></div>
     <div ng-repeat="(idx,trend) in trends" class="trendPanel" id="trend-panel-{{ idx }}">
       <h4>{{ trend.term }}</h4>
       <p>Would you like to find out more about this trend?</p>
       <a class="pure-button" href="#/trends/{{ trend.term }}">Find out more</a>
-      <a class="close"><i class="fa fa-times-circle-o"></i></a>
+      <a class="close" ng-click="resetPanels()"><i class="fa fa-times-circle-o"></i></a>
     </div>
   </div>
 

@@ -26,6 +26,12 @@ udadisiDirectives.directive('scatterPlot',
   }
 );
 
+udadisiDirectives.directive('treemap', 
+  function($parse) {
+    return { restrict: 'A', scope: { trends: '=' }, link: drawTreemap }
+  }
+);
+
 udadisiDirectives.directive('timespan', 
   function($parse) {
     return { restrict: 'A', scope: { selectStart: '=', location: '=', interval: '=', start: '=', end: '=', updateFn: '=' }, link: setTimespan }
@@ -34,13 +40,13 @@ udadisiDirectives.directive('timespan',
 
 udadisiDirectives.directive('locationToggle', 
   function($parse) {
-    return { restrict: 'C', scope: { selectStart: '=', location: '=', interval: '=', updateFn: '=' }, link: setLocation }
+    return { restrict: 'C', scope: { selectStart: '=', location: '=', interval: '=', updateFn: '=', setLocation: '=' }, link: toggleLocation }
   }
 );
 
 udadisiDirectives.directive('barGraph', 
   function($parse) {
-    return { priority: 0, restrict: 'A', scope: { trends: '=' }, link: drawBars }
+    return { priority: 0, restrict: 'A', scope: { collection: '=', property: '=' }, link: drawBars }
   }
 );
 
@@ -55,9 +61,6 @@ udadisiDirectives.directive('nodeGraph',
     return { priority: 0, restrict: 'A', scope: { trend: "=", relatedTrends: '=' }, link: drawNodes }
   }
 );
-
-//TODO: USE COLOURS VIZ OTHER THAN WORDCLOUD
-//TODO: fix bouncy bar graphs
 
 var colours = { "pa-pink": "#e2014d", 
     "pa-yellow": "#ffd600",
@@ -109,16 +112,18 @@ var drawNodes = function(scope, element, attrs){
     }]}]};
 
   scope.$watchGroup(['trend', 'relatedTrends'], function(data, oldValues, scope) {
-    if (!data) { return; }
+    if ((!data) || (!data[1])) { return; }
 
     var trend = data[0];
     var relatedTrends = data[1];
 
-    root = { "name": trend.name, "children":[] };
+    root = { "name": trend, "children":[] };
 
+    var i = 0;
     relatedTrends.forEach(function(entry){ 
-      if (entry.term != trend.name){
-        root.children.push({ "name": entry.term, "size":entry.occurrences }); 
+      if ((entry != trend) && (i <11)){
+        root.children.push({ "name": entry, "size":1 });
+        i++;
       }
     });
     
@@ -128,8 +133,6 @@ var drawNodes = function(scope, element, attrs){
   function update() {
     var nodes = flatten(root);
     var links = d3.layout.tree().links(nodes);
-
-    console.log(nodes);
     
     // Restart the force layout.
     force.nodes(nodes).links(links).start();
@@ -213,7 +216,6 @@ var drawNodes = function(scope, element, attrs){
 };
 
 var drawTimeSeries = function(scope, element, attrs){
-  //var trends = { term: "battery", timeseries: [100000:100, 100000:100] }
   var bbox = d3.select('#series-container').node().getBoundingClientRect();
   var margin = {top: 10, right: 10, bottom: 10, left: 40};
 
@@ -221,7 +223,7 @@ var drawTimeSeries = function(scope, element, attrs){
   var height = bbox.height - margin.top - margin.bottom;
 
   // Set the ranges
-  var x = d3.time.scale().range([0, width]);
+  var x = d3.scale.linear().range([0, width]);
   var y = d3.scale.linear().range([height, 0]);
 
   // Define the axes
@@ -239,42 +241,29 @@ var drawTimeSeries = function(scope, element, attrs){
 
   scope.$watch('seriesData', function (data, oldData) { 
     group.selectAll('*').remove();
-    if (!data) { return; }
+    if ((!data || data.length===0)) { return; }
 
-    data.forEach(function(entry){
-      entry.series.forEach(function(d){
-        d.date = parseDate(d.date).getTime();
-        d.close = +d.close;
-      });
-    });
-    
-    x.domain(d3.extent(data[0].series, function(d) { return d.date; }));
-    y.domain([0, 100]);
-
-    // Define the line
-    var valueline = d3.svg.line()
-      .x(function(d) { return x(d.date); })
-      .y(function(d) { return y(d.close); });
+    x.domain([0,(data[0].series.length-1)]);
+    var allSeries = []
+    data.forEach(function(e){ allSeries = allSeries.concat(e.series); });
+    y.domain(d3.extent(allSeries));
 
     // Add the valueline path.
     data.forEach(function(entry, i){
-      
+
+      var tmp = 0;
+      var valueline = d3.svg.line().x(function(d){ return x(tmp++); }).y(function(d){ return y(d); });
+
       group.append("path")
         .attr("data-legend",function(d) { return entry.term; })
         .attr("class", "line")
         .style("stroke", function() { return entry.color = getUdadisiColour(i); })
         .attr("d", valueline(entry.series));
 
-        /*.append("text")
-          .style("font-size", function(entry) { return "10px"; })
-          .style("font-family", "Open Sans")
-          .style("font-weight", "600")
-          .attr("text-anchor", "middle")
-          .text(function(d) { return entry.term; })*/
     });
 
-    //svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
     group.append("g").attr("class", "y axis").call(yAxis);
+    group.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
 
     var legend = group.append("g")
       .attr("class","legend")
@@ -288,10 +277,10 @@ var drawTimeSeries = function(scope, element, attrs){
 var drawScatterPlot = function(scope, element, attrs){
 
   var bbox = d3.select('#graph-container').node().getBoundingClientRect();
-  var margin = {top: 20, right: 20, bottom: 100, left: 40};
+  var margin = {top: 20, right: 20, bottom: 100, left: 60};
   var width = bbox.width - margin.left - margin.right;
   var height = bbox.height - margin.top - margin.bottom;
-    
+  
   var x = d3.scale.linear().range([0, width]);
   var y = d3.scale.linear().range([height, 0]);
   var z = d3.scale.category10();
@@ -307,7 +296,7 @@ var drawScatterPlot = function(scope, element, attrs){
       .append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     
     var trends = newVal.map(function(trend, idx) {
-      return { x: trend.occurrences, y: trend.term.length, elementId: ("#trend-panel-"+idx) };
+      return { x: trend.velocity, y: trend.occurrences, elementId: ("#trend-panel-"+idx) };
     });
 
     // Compute the scales’ domains.
@@ -324,15 +313,28 @@ var drawScatterPlot = function(scope, element, attrs){
     y.domain(yext);
 
     // Add the x-axis.
-    svg.append("g")
+    var xAxis = svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.svg.axis().scale(x).orient("bottom"));
 
+    xAxis.append('g')
+      .attr('transform', 'translate(' + width/2 + ', ' + (margin.bottom/2.4) + ')')
+      .append('text')
+      .attr('text-anchor', 'middle')
+      .text('Velocity');
+
     // Add the y-axis.
-    svg.append("g")
+    var yAxis = svg.append("g")
       .attr("class", "y axis")
       .call(d3.svg.axis().scale(y).orient("left"));
+
+    yAxis.append('g')
+      .attr('transform', 'translate(' + (margin.left/2)*-1 + ', ' + height/2 + ')')
+      .append('text')
+      .attr('text-anchor', 'middle')
+      .attr('transform', 'rotate(-90)')
+      .text('Occurrences');
 
     var xPosition = 10; 
     var yPosition = 10;
@@ -415,15 +417,19 @@ var drawMap = function(scope,element,attrs){
   //svg.append("path").datum(graticule).attr("class", "graticule").attr("d", path); 
 };
 
-var setLocation = function(scope, element, attrs) {
+var toggleLocation = function(scope, element, attrs) {
   element.on('click', function(event) {
-    scope.location = { name: this.getAttribute("target-location") };
-    scope.$apply();
-    $('.locationToggle').removeClass('active');
-    $(this).toggleClass('active');
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    scope.setLocation(element[0].getAttribute("target-location"));
+
+    $('.locationToggle').removeClass('selected');
+    $(element[0]).toggleClass('selected');
     var date = scope.selectStart;
     if (!(date instanceof Date)) { date = new Date(date); }
-    scope.updateFn(scope.location, date.yyyymmdd(), scope.interval);
+    scope.updateFn(scope.location, date.toTimeString(), scope.interval);
+    
   });
 };
 
@@ -446,16 +452,20 @@ var drawWordcloud = function(scope, element, attrs) {
     if (!newVal) { return; }
 
     //Set word size factor
-    var totalLength = 0;
-    var average = 0;
-    scope.trends.map(function(t) { totalLength += t.term.length; average += t.occurrences; });
-    average = average / scope.trends.length;
-    var maxSize = Math.sqrt((cloudSize[0]*0.74)*(cloudSize[1]*0.74) / totalLength);
-    var extents = d3.extent(scope.trends, function(t) { return t.occurrences; });
-    var sizeFactor = (maxSize / extents[1]) * (extents[1] / average);
+    var averageLength = 0;
+    scope.trends.map(function(t) { averageLength += t.term.length; });
+    averageLength = averageLength / scope.trends.length;
 
+    var maxSize = cloudSize[0]/averageLength;
+    var extents = d3.extent(scope.trends, function(t) { return t.velocity; });
+    var sizeFactor = (maxSize / extents[1]) * 1.2;
+    
     //Setup words
-    var trendWords = scope.trends.map(function(trend, idx) { return {text: trend.term, size: (trend.occurrences * sizeFactor), elementId: ("#trend-panel-"+idx) }; });
+    var trendWords = scope.trends.map(function(trend, idx) { 
+      var fontSize = (trend.velocity * sizeFactor); 
+      if (fontSize < 14) { fontSize = 12; }
+      return {text: trend.term, size: fontSize, elementId: ("#trend-panel-"+idx) }; 
+    });
     var layout = d3.layout.cloud().size(cloudSize).words(trendWords)
       .padding(5).rotate(function() { return 0; }) //return ~~(Math.random() * 2) * 90;
       .font("Open Sans").fontWeight("600").fontSize(function(d) { return d.size; })
@@ -491,24 +501,28 @@ var drawBars = function (scope, element, attrs) {
   
   var chart = d3.select(element[0]);  
 
-  scope.$watch('trends', function (newVal, oldVal) { 
+  scope.$watch('collection', function (data, oldVal) {
     chart.selectAll('*').remove();
-    if (!newVal) { return; }
+    if (!data) { return; }
 
-    var data = newVal;
-    var extents = d3.extent(data, function(t) { return t.occurrences; });
-  
+    var extents = d3.extent(data, function(t) {  return t[scope.property]; });
+    data.sort(function(a,b){return b[scope.property] - a[scope.property]});
+
+    var cleaned = [];
+    data.forEach(function(e){
+      if(e[scope.property] > 0){ cleaned.push(e); }
+    });
+
     chart.append("div").attr("class", "chart")
       .selectAll('div')
-      .data(data).enter().append("div")
-      .style("width", function(d) { return (d.occurrences/extents[1]*100) + "%"; })
+      .data(cleaned).enter().append("div")
+      .style("width", function(d) { return (d[scope.property]/extents[1]*100) + "%"; })
       .style("height", "1.8em")
       .text(function(d) { return d.term; });
    });
 };
 
 var setTimespan = function(scope, element, attrs) {
-  
   var container = d3.select(element[0]),
     margin = {top: 0, right: 10, bottom: 0, left: 40},
     height = 50;
@@ -547,11 +561,16 @@ var setTimespan = function(scope, element, attrs) {
   function brushend(){
     if (brush.empty()) {
       console.log("brush empty, doing nowt");
-    } else {  
+    } else {
       scope.selectStart = brush.extent()[0];
-      scope.interval = Math.ceil((brush.extent()[1] - brush.extent()[0]) / (24*60*60*1000));
-      scope.$apply();
-      scope.updateFn(scope.location, scope.selectStart.yyyymmdd(), scope.interval);
+      scope.selectEnd = brush.extent()[1];
+      
+      var daysdiff = Math.ceil((brush.extent()[1] - brush.extent()[0]) / (24*60*60*1000));
+      
+      if (daysdiff < 7) { daysdiff = (daysdiff * 2) + 2; } //increase resolution of interval if smaller amount of time
+      scope.interval = daysdiff;
+      
+      scope.updateFn(scope.location, scope.selectStart.toTimeString(), scope.selectEnd.toTimeString(), scope.interval);
     }
   }
 
@@ -583,10 +602,72 @@ var setTimespan = function(scope, element, attrs) {
 
 }
 
+var drawTreemap = function(scope, element, attrs){
 
-Date.prototype.yyyymmdd = function() {
+  function position() {
+    this.style("left", function(d) { return d.x + "px"; })
+    .style("top", function(d) { return d.y + "px"; })
+    .style("width", function(d) { return Math.max(0, d.dx - 1) + "px"; })
+    .style("height", function(d) { return Math.max(0, d.dy - 1) + "px"; });
+  }
+  
+  var bbox = d3.select('#graph-container').node().getBoundingClientRect();
+  var margin = {top: 0, right: 0, bottom: 50, left: 0};
+  var width = bbox.width - margin.left - margin.right;
+  var height = bbox.height - margin.bottom - margin.top;
+  var color = d3.scale.category20c();
+  
+  scope.$watch('trends', function (data, oldData){
+    if (!data)  { return; }
+
+    $(element[0].children).remove();
+
+    var treemap = d3.layout.treemap()
+      .size([width, height])
+      .sticky(true)
+      .value(function(d) { return d.size; });
+
+    var div = d3.select(element[0]).append("div")
+      .style("position", "relative")
+      .style("width", (width) + "px")
+      .style("height", (height) + "px");
+
+    data.forEach(function(entry){
+      entry.size = entry.velocity;
+    });
+
+    var data = { "term": "cluster", "children": data };
+
+    var node = div.datum(data).selectAll(".node")
+      .data(treemap.nodes)
+      .enter().append("div")
+      .attr("class", "node")
+      .call(position)
+      .style("background", function(d) { return d.children ? color(d.term) : null; })
+      .text(function(d) { return d.children ? null : d.term; });
+
+    /*
+    d3.selectAll("input").on("change", function change() {
+      var value = this.value === "count" ? function() { return 1; } : function(d) { return d.size; };
+      node.data(treemap.value(value).nodes).transition().duration(1500).call(position);
+    });*/
+
+  });
+
+};
+
+Date.prototype.toTimeString = function() {
   var yyyy = this.getFullYear().toString();
   var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
   var dd  = this.getDate().toString();
   return yyyy + (mm[1]?mm:"0"+mm[0]) + (dd[1]?dd:"0"+dd[0]); // padding
+};
+
+Date.prototype.toTimeString = function() {
+  var yyyy = this.getFullYear().toString();
+  var month = (this.getMonth()+1).toString(); // getMonth() is zero-based
+  var day = this.getDate().toString();
+  var hh = this.getHours().toString();
+  var mm = this.getMinutes().toString();
+  return yyyy + (month[1]?month:"0"+month[0]) + (day[1]?day:"0"+day[0]) + (hh[1]?hh:"0"+hh[0]) + (mm[1]?mm:"0"+mm[0]); //zero padding
 };

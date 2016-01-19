@@ -36,7 +36,7 @@ body {
 }
 
 #pageHeader {
- 	border-bottom: 10px solid $navy-blue;
+   border-bottom: 10px solid $navy-blue;
   background: $pa-cream;
   padding: 0.5em;
   overflow: visible;
@@ -56,10 +56,10 @@ body {
   }
   
   .pure-menu-link {
-	  &:hover, &:active, &:focus {
-		  background: none;
-		  color: $pa-turquoise;
-	  }
+    &:hover, &:active, &:focus {
+      background: none;
+      color: $pa-turquoise;
+    }
   }
   
  }
@@ -83,7 +83,7 @@ body.about .pure-menu-link.about-btn  {
 } 
 
 .pure-menu-link {
-	color: $navy-blue;
+  color: $navy-blue;
 }
 
 
@@ -109,7 +109,7 @@ footer {
 }
 
 body.trend-explorer footer {
-	display: none;
+  display: none;
 }
 
 h3 a {color: white}
@@ -179,29 +179,29 @@ h3 a {color: white}
 }
 
 #top-trends {
-	background: $pa-turquoise; 
-	color: $pa-cream;
-	padding: 2em 0;
-	
-	h4 {font-size: 1.5em;
-		font-weight: 500;
-		margin: 0;
-		text-transform: capitalize;
-	}
-	
-	ul {
-		list-style-type: none;
-		padding: 0;
-		li {
-			border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-			padding: 0.25em 0;
-			}
-	}
-	
-	a.capitalize {
-		text-transform: capitalize;
-	}
-	
+  background: $pa-turquoise; 
+  color: $pa-cream;
+  padding: 2em 0;
+  
+  h4 {font-size: 1.5em;
+    font-weight: 500;
+    margin: 0;
+    text-transform: capitalize;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    li {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 0.25em 0;
+      }
+  }
+  
+  a.capitalize {
+    text-transform: capitalize;
+  }
+  
 }
 
 
@@ -217,7 +217,7 @@ h3 a {color: white}
 /*  Profile Specific CSS –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 #trendProfile, #cityProfile {
-	background: $navy-blue;
+  background: $navy-blue;
   padding: 3em 0;
   header, section {
    padding: 1em;
@@ -232,46 +232,46 @@ h3 a {color: white}
   padding: 1em;
   img.locationMap {float: left; margin-right: 1em;}
   h1 {
-	  font-size: 5em;
-	  font-weight: 400;
-	  line-height: 1.25em;
-	  text-transform: capitalize;
-	  margin: 0.25em 0 0 0;
-	  span { 
+    font-size: 5em;
+    font-weight: 400;
+    line-height: 1.25em;
+    text-transform: capitalize;
+    margin: 0.25em 0 0 0;
+    span { 
     display: block;
     font-size: 0.2em;
     font-weight: 700;
     line-height: 0.25em;
     text-transform: none;
-		  }  
-	 }
-	 
-	 #trendInfo {
-		 padding-top: 2em;
-			h4 {margin: 0;}
-			 #trendChange {
-				 span {font-size: 3em;}
-				 p {margin: 0;}
-			 }
-			 #trendVelocity {
-				 #rate {font-size: 3em;}
-				 p {margin: 0;}
-			 }			 
-			 #relatedTrends {
-			 ul {list-style: none; padding: 0; margin: 0;}
-			 }
-		 }
-	 }
+      }  
+   }
+   
+   #trendInfo {
+     padding-top: 2em;
+      h4 {margin: 0;}
+       #trendChange {
+         span {font-size: 3em;}
+         p {margin: 0;}
+       }
+       #trendVelocity {
+         #rate {font-size: 3em;}
+         p {margin: 0;}
+       }       
+       #relatedTrends {
+       ul {list-style: none; padding: 0; margin: 0;}
+       }
+     }
+   }
 
 #filters {
-	ul {list-style: none;
-		li {display: inline-block;
-			a {padding: 1em;
-				i.fa { margin-right: 0.5em;}
-			}
-		}
-	}
-}	
+  ul {list-style: none;
+    li {display: inline-block;
+      a {padding: 1em;
+        i.fa { margin-right: 0.5em;}
+      }
+    }
+  }
+}  
 
 
 /*  Trend Explorer CSS –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -281,30 +281,31 @@ h3 a {color: white}
   min-width: 100px;
   position: fixed;
   top: 0;
- left: 20%;
-	bottom: 0;
-	z-index: 50; /* so the menu or its navicon stays above all content */
-	background: $navy-blue;
-	overflow-y: auto;
-	-webkit-overflow-scrolling: touch;
-	color: #a0abbe;
-		h3 {font-size: 1em;}
-		.padding {	padding: 60px 1em 1em 1em;}
-		
-		ul.filter {
-			list-style-type: none;
-			padding: 0;
-			button {
-				text-transform: capitalize;
-				background: none; 
-				border: 0; 
-				padding: 0.25em;
-				@include rounded(0.25em);
-				&.selected {color: white;}
-				&:hover {background: black;}
-				&:focus { outline:none }
-			}
-		}
+  left: 20%;
+  bottom: 0;
+  z-index: 50; /* so the menu or its navicon stays above all content */
+  background: $navy-blue;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  color: #a0abbe;
+    h3 {font-size: 1em;}
+    .padding {  padding: 60px 1em 1em 1em;}
+    
+    ul.filter {
+      list-style-type: none;
+      padding: 0;
+      button {
+        text-transform: capitalize;
+        background: none; 
+        border: 0; 
+        padding: 0.25em;
+        @include rounded(0.25em);
+        &.selected {color: white; font-weight:bold;}
+        &:hover {background: black;}
+        &:focus { outline:none }
+      }
+      button.active { background-color: #E6E6E6; color: rgba(0, 0, 0, 0.8); }
+    }
 }
 
 button.pure-button span.active { color:white;background-color:#333; }
@@ -339,13 +340,19 @@ button.pure-button span.active { color:white;background-color:#333; }
 }
 
 div.unavailableOverlay {
-  width: 100%; 
+  width: 100%;
   z-index: 10; 
   background-color: rgba(90,90,90,0.3); 
   height: 100%; 
   position: absolute;
 
-  p { text-align: center; top:40%; position:relative; color:white; font-size:1.6em; }
+  p { text-align: center; top:40%; position:relative; color:white; font-size:2.4em;
+    text-shadow: 0px 0px 3px gray;
+  }
+}
+
+#graph-container div.unavailableOverlay{ 
+  height: 94%; 
 }
 
 rect.legend-box { 
@@ -359,14 +366,17 @@ rect.legend-box {
 #graph-container {
   background: $pa-cream;
   position: absolute;
-  height:93.5vh;
+  height:92vh;
   right: 0;
   width: 80%;
-  top: 6.5vh;
+  top: 8vh;
 
   .ui-brush { position:absolute; } 
 
-  #wordcloud { margin-top: 0em; }
+  #wordcloud { margin-top: 0em; display:none; }
+  #scatterplot { display:none; }
+  #list { display:none; }
+  #treemap { display:none; }
 
   .trendPanel {
     display:none; 
@@ -395,33 +405,31 @@ rect.legend-box {
     }
     
     a.close {
-    font-size: 28px;
-    position: absolute;
-    z-index: 10000;
-    right: -10px;
-    top: -0.5em;
-    line-height: 0;
-    background: $navy-blue;
-    padding: 0;
-    width: 35px;
-    height: 35px;
-    text-align: center;
-    border-radius: 3em;    
-    
-    i {
-	  position: relative;
-      top: 3px;
-      left: 0;
-    }
-    
-    &:hover {
-	    cursor: pointer;
-	    i {color: $pa-red;}
-    }
-    
-    }
-    
-    }
+      font-size: 28px;
+      position: absolute;
+      z-index: 10000;
+      right: -10px;
+      top: -0.5em;
+      line-height: 0;
+      background: $navy-blue;
+      padding: 0;
+      width: 35px;
+      height: 35px;
+      text-align: center;
+      border-radius: 3em;    
+      
+      i {
+      position: relative;
+        top: 3px;
+        left: 0;
+      }
+      
+      &:hover {
+        cursor: pointer;
+        i {color: $pa-red;}
+      }
+    }  
+  }
 
   .trendPanel.active { display:block; }
 
@@ -438,14 +446,44 @@ rect.legend-box {
   #overlay.active { display:block; }
 }
 
+#graph-container.list-container {
+  #list { display:block; } 
+}
+
+#graph-container.treemap-container {
+  #treemap { display:block; 
+    .node {
+      border: solid 1px white;
+      font: 10px sans-serif;
+      line-height: 12px;
+      overflow: hidden;
+      position: absolute;
+      text-indent: 2px;
+    }
+  }
+}
+
 #graph-container.scatterplot-container {
   .trendPanel { 
     .pure-button { display:none; } 
   }
+
   #overlay.active { display: none; }
+
+  #scatterplot { 
+    display:block; 
+    .axis { 
+      stroke: gray;
+      stroke-width: 1px;
+      shape-rendering: crispEdges;
+      .tick { font-size: 0.8em; }
+    }
+    line, path { stroke-width: 1px; stroke: gray; }
+  }
 }
 
 #graph-container.wordcloud-container {
+  #wordcloud { display:block; }
   .trendPanel {
     min-width: 200px;
     width: 30%;
@@ -489,17 +527,19 @@ rect.legend-box {
   }
 }
 
-@media screen and (min-width:35.5em){
-
+@media (max-width: 1200px) { 
+  .mediumscr-hide { display:none; }
+  div.locationPanel.mediumscr-hide { display:none; }
 }
-  
+
+@media screen and (min-width:35.5em){}
   
 @media screen and (min-width:48em){
 
   .container {
     max-width: 750px;
   }
-
+  
 }
 
 @media screen and (min-width:64em){
@@ -509,7 +549,7 @@ rect.legend-box {
   }
 
 }
-  
+
 @media screen and (min-width:80em){
   
   .container {

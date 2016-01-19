@@ -2,6 +2,20 @@
 
 An [AngularJS](http://angularjs.org/) web app bootstrapped from the angular-seed repo.
 
+## Running with docker:
+
+Install docker, and pull the latest code then run: `docker build .`
+
+Building will return an id, to run a container: `docker run -d -p 80:80 <built-image-id>`
+
+This should be all you need to run the application. Some useful commands for debugging/checking the container: 
+
+`docker port <container-id>` to check port mapping
+
+`docker inspect <container-id>` to see container environment
+
+`docker exec -i -t <container-id> bash` to use bash in container
+
 ## Getting Started
 
 ### Prerequisites
@@ -157,17 +171,3 @@ http-server -a localhost -p 8000
 
 Alternatively, you can choose to configure your own webserver, such as apache or nginx. Just
 configure your server to serve the files under the `app/` directory.
-
-## Using Docker 
-
-Install docker and build: `docker build .`
-
-Building will return an id, to run a container: `docker run -d -p 80:80 <built-image-id>`
-
-This should be all you need to run the application. Some useful commands for debugging/checking the container: 
-
-`docker port <container-id>` to check port mapping
-
-`docker inspect <container-id>` to see container environment
-
-`docker exec -i -t <container-id> bash` to use bash in container

@@ -1,14 +1,14 @@
 <div id="cityProfile">
-	<div  class="container">
+  <div  class="container">
   <header id="profileHeader" class="pure-g">
   
     <div id="locationMap" class="pure-u-1-5 column">
-		  <div map-projection map-scale="5" style="width: 100%; height: 100%" id="mapContainer">
-		    <div ng-repeat="location in locations"  ng-if="location.name'" class="locationPanel" data-longitude="{{ location.longitude }}"></div>
-		  </div>
-		  </div>
+      <div map-projection map-scale="5" style="width: 100%; height: 100%" id="mapContainer">
+        <div ng-repeat="location in locations"  ng-if="location.name" class="locationPanel" data-longitude="{{ location.longitude }}"></div>
+      </div>
+      </div>
     <div id="cityTitle" class="pure-u-4-5 column">
-	    <h1 class="uppercase"><span>Profile for</span>{{ location.name.toUpperCase() }} TRENDS</h1>
+      <h1 class="uppercase"> {{ location.name | allAsGlobal }} Location Profile</span></h1>
     </div>
    
     <!--<div class="profileStats">
@@ -25,7 +25,7 @@
     <div class="pure-u-1 pure-u-md-1-2">
       <section>
         <h2>Top trends</h2>
-        <div bar-graph trends="trends">
+        <div bar-graph collection="trends" property="'topval'">
         </div>
       </section>
     </div>  <!-- end city top trends --> 
@@ -33,13 +33,13 @@
     <div class="pure-u-1 pure-u-md-1-2">
       <section>
         <h2>Rising trends</h2>
-        <div bar-graph trends="trends">
+        <div bar-graph collection="trends" property="'velocity'">
         </div>
       </section>
     </div>  <!-- end city rising trends --> 
   </div>
   <section>
-    <h2>Overview of all {{ location.name }} trends</h2>
+    <h2>Overview of all {{ location.name | allAsGlobal }} trends</h2>
     <div id = "series-container">
       <div ng-hide="dataAvailable" class="unavailableOverlay">
         <p>Data unavailable for selection</p>
