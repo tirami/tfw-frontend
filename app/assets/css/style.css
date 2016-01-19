@@ -415,6 +415,7 @@ rect.legend-box {
   width: auto;
   padding-left: 5px;
   padding-right: 5px;
+  padding-bottom: 5px;
   background-color: #0c1444;
   color: white;
   text-align: center;
@@ -491,9 +492,6 @@ rect.legend-box {
   text-indent: 2px;
 }
 
-#graph-container.scatterplot-container .trendPanel .pure-button {
-  display: none;
-}
 #graph-container.scatterplot-container #overlay.active {
   display: none;
 }
