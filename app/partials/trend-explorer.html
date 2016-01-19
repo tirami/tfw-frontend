@@ -61,7 +61,7 @@
     <div ng-repeat="(idx,trend) in trends" class="trendPanel" id="trend-panel-{{ idx }}">
       <h4>{{ trend.term }}</h4>
       <p>Would you like to find out more about this trend?</p>
-      <a class="pure-button" href="#/trends/{{ trend.term }}">Find out more</a>
+      <a class="pure-button" href="#/trends/{{ trend.term }}?selectionStart={{ selectionStart.toTimeString() }}&selectionEnd={{ selectionEnd.toTimeString() }}">Find out more</a>
       <a class="close" ng-click="resetPanels()"><i class="fa fa-times-circle-o"></i></a>
     </div>
   </div>

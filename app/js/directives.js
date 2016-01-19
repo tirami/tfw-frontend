@@ -34,7 +34,7 @@ udadisiDirectives.directive('treemap',
 
 udadisiDirectives.directive('timespan', 
   function($parse) {
-    return { restrict: 'A', scope: { selectStart: '=', location: '=', interval: '=', start: '=', end: '=', updateFn: '=' }, link: setTimespan }
+    return { restrict: 'A', scope: { selectStart: '=', selectEnd: '=', location: '=', interval: '=', start: '=', end: '=', updateFn: '=' }, link: setTimespan }
   }
 );
 
@@ -655,7 +655,7 @@ var drawTreemap = function(scope, element, attrs){
 
 };
 
-Date.prototype.toTimeString = function() {
+Date.prototype.yyyymmdd = function() {
   var yyyy = this.getFullYear().toString();
   var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
   var dd  = this.getDate().toString();
