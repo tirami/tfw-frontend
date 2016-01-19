@@ -134,8 +134,14 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
   if(n == "global") { n = "all"; }
   $scope.location = { name: n, trendscount: 0 }
 
-  $scope.selectionStart = today-(1*day);
-  $scope.selectionEnd = today-1;
+  if ($routeParams.selectionStart && $routeParams.selectionEnd){
+    $scope.selectionStart = new Date(parseInt($routeParams.selectionStart));
+    $scope.selectionEnd = new Date(parseInt($routeParams.selectionEnd));
+  } else {
+    $scope.selectionStart = today-(1*day);
+    $scope.selectionEnd = today-1;
+  }
+
   $scope.spanEnd   = today-1;
   $scope.spanStart = today-(91*day);
 
@@ -173,7 +179,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
           $scope.dataAvailable = true;
         }
       },
-      function(error){ $log.log("Error returning trend data for "+trend); });
+      function(error){ $log.log("Error returning trend data for "+$scope.trend); });
   };
 
   if ($routeParams.location === undefined){ $scope.location = { name: "all" }; } 
@@ -183,8 +189,14 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   $scope.trend = $routeParams.trend;
   $scope.relatedTrends = [];
 
-  $scope.selectionStart = today-(1*day);
-  $scope.selectionEnd = today-1;
+  if ($routeParams.selectionStart && $routeParams.selectionEnd){
+    $scope.selectionStart = new Date(parseInt($routeParams.selectionStart));
+    $scope.selectionEnd = new Date(parseInt($routeParams.selectionEnd));
+  } else {
+    $scope.selectionStart = today-(1*day);
+    $scope.selectionEnd = today-1;
+  }
+
   $scope.spanEnd   = today-1;
   $scope.spanStart = today-(91*day);
   $scope.interval = 4;
@@ -198,7 +210,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
 
 
 //Trend Explorer
-udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'LocationTrends', function($scope, $route, $log, LocationTrends) { 
+udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$routeParams', 'LocationTrends', function($scope, $route, $log, $routeParams, LocationTrends) { 
 
   $scope.setActivePage($route.current.originalPath);
   $scope.currentView = 'wordcloud';
@@ -207,8 +219,14 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', 'Loca
 
   $scope.spanEnd   = today-1; //at 23:59:59
   $scope.spanStart = today-(91*day);
-  $scope.selectionStart = today-(1*day);
-  $scope.selectionEnd = today-1;
+  
+  if ($routeParams.selectionStart && $routeParams.selectionEnd){
+    $scope.selectionStart = new Date(parseInt($routeParams.selectionStart));
+    $scope.selectionEnd = new Date(parseInt($routeParams.selectionEnd));
+  } else {
+    $scope.selectionStart = today-(1*day);
+    $scope.selectionEnd = today-1;
+  }
 
   $scope.location = { name: "all" };
   $scope.interval = 4;
