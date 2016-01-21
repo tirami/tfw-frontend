@@ -219,7 +219,7 @@ h3 a {color: white}
 #trendProfile, #cityProfile {
   background: $navy-blue;
   padding: 3em 0;
-  header, section {
+  header.pageHeader, section {
    padding: 1em;
    border: 1px solid #ccc;
  }  
@@ -520,22 +520,25 @@ rect.legend-box {
 
 body.trends-trend {
  
- #trendInfo {
-  
- }
- 
- #mapContainer {
-   background: transparent;
-   max-height: 220px;
-   overflow-y: hidden;
-   margin: 2em 0 0 0;
-   
-   .land {
-    fill: rgba(200,200,200,0.5);
-}
- }
+  #trendInfo {
+    .stats {
+      border-right: 1px solid #e9e9e9;
+      &:last-child {border-right: none;}
+      h4.increasing .fa-caret-down {display: none;}
+      h4.decreading .fa-caret-up {display: none;}
+    }
+  }
+
+  #mapContainer {
+    background: transparent;
+    max-height: 220px;
+    overflow-y: hidden;
+    margin: 2em 0 0 0;
+    .land { fill: rgba(200,200,200,0.5); }
+  }
  
  #trend-graphs {
+  margin: 0 1em 1em 1em;
   background: white;
   .history, .sources, .related {display: none;}
 
@@ -546,6 +549,7 @@ body.trends-trend {
 
 
  #trendSources {
+  margin: 0 1em 1em 1em;
   background: white;
   .allSources, .twitterSources, .academicSources, .newsSources, .blogSources {display: none;}
 
@@ -554,6 +558,34 @@ body.trends-trend {
   &.academic-tab-open .academicSources {display: block!important;}
   &.news-tab-open .newsSources {display: block!important;}
   &.blog-tab-open .blogSources {display: block!important;}
+  
+  ul.sourceList {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+   li {
+    margin-bottom: 1em;
+    span {
+     display: block;
+     font-size: 0.9em;
+    }
+   }
+  }
+  .panelHeader {
+   padding: 1em 0;
+   h2 {display: inline-block; margin: 0;}
+   div.exportButtons {
+    float: right;
+    a {
+     background: $navy-blue;
+     color: white;
+     padding: 0.25em 0.5em;
+     text-decoration: none;
+     display: inline-block;
+    }
+    }
+  }
+  
  } 
 
 

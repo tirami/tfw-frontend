@@ -1,6 +1,6 @@
 <div id="trendProfile">
 	<div class="container page">
-  <header id="profileHeader">
+  <header id="profileHeader" class="pageHeader">
   
   <div class="pure-g">
     <div class="pure-u-7-12">
@@ -14,7 +14,7 @@
 	      </div>
 	
 	      <div id="trendVelocity" class="pure-u-1-4 column stats">
-	        <h4>Score</h4>
+	        <h4 class="increasing">Score <i class="fa fa-caret-down"></i> <i class="fa fa-caret-up"></i></h4>
 	        <span class="stat">{{ trendData.velocity.toFixed(2) }}</span>
 	      </div>
 	
@@ -101,7 +101,7 @@
 
  
   <div id="sourcesTabs" class="tabs">
-   <button class="tab active" ng-click="toggleSources('twitter', $event)">All Sources</button>
+   <button class="tab active" ng-click="toggleSources('all', $event)">All Sources</button>
    <button class="tab" ng-click="toggleSources('twitter', $event)">Twitter Sources</button>
    <button class="tab" ng-click="toggleSources('academic', $event)">Academic Sources</button>
    <button class="tab" ng-click="toggleSources('news', $event)">News Sources</button>
@@ -111,41 +111,72 @@
   <section id="trendSources" class="all-tab-open">
     
     <div class="allSources">
+     <header class="panelHeader">
       <h2>All Sources</h2>
-      <ul>
-        <li ng-repeat="source in trendData.sources"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span> from {{ source.source }} | on {{ source.posted }}</span>
+      <div class="exportButtons">
+       <a href="#">CSV</a>
+       <a href="#">PDF</a>
+      </div>
+     </header>
+      
+      <ul class="sourceList">
+        <li ng-repeat="source in trendData.sources"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
         </li>
       </ul>
     </div>
 
     <div class="twitterSources">
+     <header class="panelHeader">
       <h2>Twitter Sources</h2>
-      <ul>
-        <li ng-repeat="source in trendData.sources"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span> from {{ source.source }} | on {{ source.posted }}</span>
+      <div class="exportButtons">
+       <a href="#">CSV</a>
+       <a href="#">PDF</a>
+      </div>
+     </header>
+      <ul class="sourceList">
+        <li ng-repeat="source in trendData.sources"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span class="sourceMeta"> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
         </li>
       </ul>
     </div>
 
     <div class="academicSources">
+     <header class="panelHeader">
       <h2>Academic Sources</h2>
-      <ul>
-        <li ng-repeat="source in trendData.sources"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span> from {{ source.source }} | on {{ source.posted }}</span>
+      <div class="exportButtons">
+       <a href="#">CSV</a>
+       <a href="#">PDF</a>
+      </div>
+     </header>
+      <ul class="sourceList">
+        <li ng-repeat="source in trendData.sources"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span class="sourceMeta"> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
         </li>
       </ul>
     </div>
 
     <div class="newsSources">
+     <header class="panelHeader">
       <h2>News Sources</h2>
-      <ul>
-        <li ng-repeat="source in trendData.sources"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span> from {{ source.source }} | on {{ source.posted }}</span>
+      <div class="exportButtons">
+       <a href="#">CSV</a>
+       <a href="#">PDF</a>
+      </div>
+     </header>
+      <ul class="sourceList">
+        <li ng-repeat="source in trendData.sources"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span class="sourceMeta"> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
         </li>
       </ul>
     </div>
     
      <div class="blogSources">
+     <header class="panelHeader">
       <h2>Blog Sources</h2>
-      <ul>
-        <li ng-repeat="source in trendData.sources"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span> from {{ source.source }} | on {{ source.posted }}</span>
+      <div class="exportButtons">
+       <a href="#">CSV</a>
+       <a href="#">PDF</a>
+      </div>
+     </header>
+      <ul class="sourceList">
+        <li ng-repeat="source in trendData.sources"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span class="sourceMeta"> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
         </li>
       </ul>
     </div>   
