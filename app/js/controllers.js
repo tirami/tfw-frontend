@@ -209,7 +209,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   
   $scope.toggleView = function(view, clickEvent){
     $("#graphTabs button").removeClass("active");
-    $(clickEvent.toElement).addClass("active");
+    $(clickEvent.target).addClass("active");
     $("#trend-graphs").removeClass("history-tab-open");
     $("#trend-graphs").removeClass("sources-tab-open");
     $("#trend-graphs").removeClass("related-tab-open");
@@ -219,7 +219,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
 
   $scope.toggleSources = function(view, clickEvent){
     $("#sourcesTabs button").removeClass("active");
-    $(clickEvent.toElement).addClass("active");
+    $(clickEvent.target).addClass("active");
     $("#trendSources").removeClass("all-tab-open");
     $("#trendSources").removeClass("twitter-tab-open");
     $("#trendSources").removeClass("academic-tab-open");
