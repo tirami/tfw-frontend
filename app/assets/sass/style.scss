@@ -766,23 +766,52 @@ body.home {
 
 /*  MOBILE: TRENDS EXPLORER  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
-#toggleViews {
- display: none;
-}
+  #toggleViews {
+   display: none;
+  }
 
-#graph-container {
- width: 100% !important;
-}
+  #side-menu {display: none !important;}
 
-#side-menu {display: none !important;}
+  
+  #graph-container {
+   width: 100% !important;
+  }
+  
+  #graph-container {
+   top: auto;
+   
+   
+   #list {
+    ul {
+     margin: 0;
+     padding: 0;
+     list-style: none;
+     li {
+      border-bottom: 1px solid #e9e9e9;
+      font-size: 2em;
+      line-height: 1;
+      font-weight: bold;
+      padding: 10px 20px;
+     }
+    }
+   }
+  }
+  
+  
+  #graph-container.wordcloud-container #wordcloud {
+   display: none !important;
+  }
+  
+  #graph-container.wordcloud-container #list {
+   display: block !important;
+  }
+  
+  .ui-brush {
+   .tick:nth-child(2n+0), .tick:nth-child(3n+0) {
+      display: none;
+   }
+  }
 
-#graph-container.wordcloud-container #wordcloud {
- display: none !important;
-}
-
-#graph-container.wordcloud-container #list {
- display: block !important;
-}
 
 }
 
