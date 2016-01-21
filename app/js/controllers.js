@@ -207,13 +207,26 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     $scope.getRelatedTrends(location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval); //, $scope.interval);
   });
   
-  $scope.toggleView = function(view){
-    $("#trend-graphs").removeClass("history-container");
-    $("#trend-graphs").removeClass("sources-container");
-    $("#trend-graphs").removeClass("related-container");
-    $("#trend-graphs").addClass(view + "-container");
+  $scope.toggleView = function(view, clickEvent){
+    $("#graphTabs button").removeClass("active");
+    $(clickEvent.toElement).addClass("active");
+    $("#trend-graphs").removeClass("history-tab-open");
+    $("#trend-graphs").removeClass("sources-tab-open");
+    $("#trend-graphs").removeClass("related-tab-open");
+    $("#trend-graphs").addClass(view + "-tab-open");
   };
-  
+
+
+  $scope.toggleSources = function(view, clickEvent){
+    $("#sourcesTabs button").removeClass("active");
+    $(clickEvent.toElement).addClass("active");
+    $("#trendSources").removeClass("all-tab-open");
+    $("#trendSources").removeClass("twitter-tab-open");
+    $("#trendSources").removeClass("academic-tab-open");
+    $("#trendSources").removeClass("news-tab-open");
+    $("#trendSources").removeClass("blog-tab-open");
+    $("#trendSources").addClass(view + "-tab-open");
+  };  
   
 }]);
 

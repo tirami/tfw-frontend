@@ -556,22 +556,46 @@ rect.legend-box {
 body.trends-trend #mapContainer {
   background: transparent;
   max-height: 220px;
-  overflow-x: hidden;
+  overflow-y: hidden;
   margin: 2em 0 0 0;
 }
 body.trends-trend #mapContainer .land {
   fill: rgba(200, 200, 200, 0.5);
 }
+body.trends-trend #trend-graphs {
+  background: white;
+}
 body.trends-trend #trend-graphs .history, body.trends-trend #trend-graphs .sources, body.trends-trend #trend-graphs .related {
   display: none;
 }
-body.trends-trend .history-container .history {
+body.trends-trend #trend-graphs.history-tab-open .history {
   display: block !important;
 }
-body.trends-trend .sources-container .sources {
+body.trends-trend #trend-graphs.sources-tab-open .sources {
   display: block !important;
 }
-body.trends-trend .related-container .related {
+body.trends-trend #trend-graphs.related-tab-open .related {
+  display: block !important;
+}
+body.trends-trend #trendSources {
+  background: white;
+}
+body.trends-trend #trendSources .allSources, body.trends-trend #trendSources .twitterSources, body.trends-trend #trendSources .academicSources, body.trends-trend #trendSources .newsSources, body.trends-trend #trendSources .blogSources {
+  display: none;
+}
+body.trends-trend #trendSources.all-tab-open .allSources {
+  display: block !important;
+}
+body.trends-trend #trendSources.twitter-tab-open .twitterSources {
+  display: block !important;
+}
+body.trends-trend #trendSources.academic-tab-open .academicSources {
+  display: block !important;
+}
+body.trends-trend #trendSources.news-tab-open .newsSources {
+  display: block !important;
+}
+body.trends-trend #trendSources.blog-tab-open .blogSources {
   display: block !important;
 }
 
@@ -584,6 +608,29 @@ body.trends-trend .related-container .related {
   fill: none;
   stroke: #9ecae1;
   stroke-width: 1.5px;
+}
+
+/*  Tabs  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+.tabs {
+  padding: 1em 1em 0 1em;
+}
+
+button.tab {
+  padding: 0.5em 1em;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  background: #e9e9e9;
+  border-radius: 3px 3px 0 0;
+  position: relative;
+  bottom: -1px;
+}
+
+button.tab:focus {
+  outline: none;
+}
+
+button.tab.active {
+  background: white;
 }
 
 @media (max-width: 1200px) {
