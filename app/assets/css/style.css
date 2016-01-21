@@ -31,10 +31,6 @@ body {
   width: auto;
   font-weight: 700;
 }
-#main-menu .pure-menu-has-children > .pure-menu-link:after {
-  content: "\f078";
-  font-family: FontAwesome;
-}
 #main-menu .pure-menu-link:hover, #main-menu .pure-menu-link:active, #main-menu .pure-menu-link:focus {
   background: none;
   color: #008e8f;
@@ -82,7 +78,7 @@ body.about .pure-menu-link.about-btn:before {
 footer {
   background: #634400;
   text-align: center;
-  padding: 1em;
+  padding: 1em 20px;
 }
 footer p {
   margin: 0;
@@ -707,6 +703,15 @@ button.tab.active {
   }
   #main-menu ul.pure-menu-list li {
     display: block;
+  }
+  #main-menu ul.pure-menu-list ul.pure-menu-children {
+    position: relative !important;
+    padding-left: 1em;
+    display: block;
+  }
+  #main-menu ul.pure-menu-list .pure-menu-has-children > .pure-menu-link:after {
+    content: none;
+    color: red;
   }
 
   /*  MOBILE: Home Page  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */

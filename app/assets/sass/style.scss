@@ -50,10 +50,6 @@ body {
   width: auto;
   font-weight: 700;  
 
-  .pure-menu-has-children>.pure-menu-link:after {
-   content: "\f078";
-   font-family: FontAwesome;
-  }
   
   .pure-menu-link {
     &:hover, &:active, &:focus {
@@ -105,7 +101,7 @@ body.about .pure-menu-link.about-btn  {
 footer {
   background: $pa-brown;
   text-align: center;
-  padding: 1em;
+  padding: 1em 20px;
   p {margin: 0; padding: 0; color: $pa-cream;}
 }
 
@@ -658,6 +654,17 @@ button.tab.active {
    display: none;
 
    li {display: block;}
+   ul.pure-menu-children {
+    position: relative !important;
+    padding-left: 1em;
+    display: block;
+   }
+   
+   .pure-menu-has-children>.pure-menu-link:after {
+    content: none;
+    color: red;
+   }
+   
    
    }
  }

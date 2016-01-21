@@ -59,9 +59,15 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', func
   });
   
   
-    $scope.toggleMenu = function(view, clickEvent){
-    alert('sdfsdfsd');
-    };
+    $scope.toggleMenu = function(view, clickEvent){     
+     if ($(".open")[0]){
+         $('ul.pure-menu-list').slideUp();
+         $(clickEvent.target).removeClass("open");
+     } else {
+         $('ul.pure-menu-list').slideDown();
+         $(clickEvent.target).addClass("open");
+     }
+     };
 
 
 }]);
