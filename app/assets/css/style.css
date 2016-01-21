@@ -39,8 +39,10 @@ body {
   background: none;
   color: #008e8f;
 }
+#main-menu #toggle {
+  display: none;
+}
 
-body.home .pure-menu-link.home-btn:before,
 body.trend-explorer .pure-menu-link.te-btn:before,
 body.locations-location .pure-menu-link.location-btn:before,
 body.about .pure-menu-link.about-btn:before {
@@ -80,11 +82,11 @@ body.about .pure-menu-link.about-btn:before {
 footer {
   background: #634400;
   text-align: center;
-  padding-bottom: 1em;
+  padding: 1em;
 }
 footer p {
-  margin-top: 0;
-  padding-top: 1em;
+  margin: 0;
+  padding: 0;
   color: #f9f9f5;
 }
 
@@ -122,7 +124,6 @@ h3 a {
 }
 
 #searchbox {
-  height: 0;
   text-align: center;
   color: #f9f9f5;
   max-width: 800px;
@@ -163,6 +164,13 @@ h3 a {
 #introduction {
   text-align: center;
   padding: 3em 0;
+}
+#introduction #pa-logo {
+  display: inline-block;
+  margin-left: 188px;
+}
+#introduction #edu {
+  display: inline-block;
 }
 
 #top-trends {
@@ -682,6 +690,70 @@ button.tab.active {
 }
 
 @media (max-width: 600px) {
+  /*  MOBILE: Layout  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+  #main-menu {
+    width: 100%;
+    float: none;
+    background: white;
+  }
+  #main-menu #toggle {
+    display: block;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+  }
+  #main-menu ul.pure-menu-list {
+    display: none;
+  }
+  #main-menu ul.pure-menu-list li {
+    display: block;
+  }
+
+  /*  MOBILE: Home Page  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+  body.home .splash {
+    position: relative;
+    height: auto;
+    background: #0c1444;
+    top: inherit;
+  }
+  body.home .splash #searchbox {
+    padding: 20px;
+  }
+  body.home .splash #searchbox h1 {
+    margin: 0 0 1em 0;
+    font-size: 1.35em;
+  }
+  body.home .splash #searchbox form {
+    position: relative;
+  }
+  body.home .splash #searchbox form input[type="text"] {
+    width: 95% !important;
+  }
+  body.home .splash #searchbox form button {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  body.home #introduction {
+    padding: 3em 20px;
+  }
+  body.home #introduction img {
+    max-width: 80%;
+    height: auto;
+  }
+  body.home #introduction #pa-logo {
+    display: block;
+    margin-left: 0px;
+    margin-bottom: 1em;
+  }
+  body.home #introduction #edu img {
+    max-width: 80%;
+  }
+  body.home #top-trends {
+    text-align: center;
+  }
+
+  /*  Tabs  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
   #graph-container {
     width: 100% !important;
   }
