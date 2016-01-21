@@ -539,27 +539,26 @@ rect.legend-box {
   border-radius: 5px;
 }
 
-#series-container, .series-container {
+#series-container {
   height: 50vh;
   width: 100%;
   position: relative;
 }
-#series-container .label, .series-container .label {
+#series-container .label {
   stroke: lightgrey;
   font-size: 0.9em;
 }
-#series-container .tick, .series-container .tick {
+#series-container .tick {
   stroke: lightgrey;
   opacity: 0.7;
   font-size: 0.9em;
 }
-#series-container path, .series-container path {
+#series-container path {
   stroke-width: 2;
   fill: none;
 }
 #series-container .axis path,
-#series-container .axis line, .series-container .axis path,
-.series-container .axis line {
+#series-container .axis line {
   fill: none;
   stroke: lightgrey;
   stroke-width: 1;
@@ -692,6 +691,19 @@ button.tab.active {
 
 @media (max-width: 600px) {
   /*  MOBILE: Layout  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+  body.trend-explorer .pure-menu-link.te-btn:before,
+  body.locations-location .pure-menu-link.location-btn:before,
+  body.about .pure-menu-link.about-btn:before {
+    position: relative;
+    right: inherit;
+    top: inherit;
+    margin-top: inherit;
+    font-family: FontAwesome;
+    content: none;
+    font-size: inherit;
+    color: #0c1444;
+  }
+
   #main-menu {
     width: 100%;
     float: none;
@@ -709,6 +721,11 @@ button.tab.active {
   #main-menu ul.pure-menu-list li {
     display: block;
   }
+  #main-menu ul.pure-menu-list ul.pure-menu-children {
+    position: relative !important;
+    padding-left: 1em;
+    display: block;
+  }
 
   /*  MOBILE: Home Page  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
   body.home .splash {
@@ -718,11 +735,11 @@ button.tab.active {
     top: inherit;
   }
   body.home .splash #searchbox {
-    padding: 20px;
+    padding: 20px 20px 40px;
   }
   body.home .splash #searchbox h1 {
     margin: 0 0 1em 0;
-    font-size: 1.35em;
+    font-size: 1.25em;
   }
   body.home .splash #searchbox form {
     position: relative;
@@ -734,6 +751,10 @@ button.tab.active {
     position: absolute;
     top: 0;
     right: 0;
+  }
+  body.home .splash #searchbox a#cta {
+    width: 99%;
+    font-size: 1em;
   }
   body.home #introduction {
     padding: 3em 20px;

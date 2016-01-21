@@ -506,7 +506,7 @@ rect.legend-box {
   }
 }
 
-#series-container, .series-container {
+#series-container {
   height:50vh;
   width:100%;
   position:relative;
@@ -642,6 +642,25 @@ button.tab.active {
 @media (max-width: 600px) {
  
 /*  MOBILE: Layout  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+ body.trend-explorer .pure-menu-link.te-btn,
+ body.locations-location .pure-menu-link.location-btn,
+ body.about .pure-menu-link.about-btn  {
+ 
+   &:before {
+     position: relative;
+     right: inherit;
+     top: inherit;
+     margin-top: inherit;
+     font-family: FontAwesome;
+     content: none;
+     font-size: inherit;
+     color: $navy-blue;
+   }
+ } 
+
+
+
  #main-menu {
   width: 100%;
   float: none;
@@ -658,6 +677,12 @@ button.tab.active {
    display: none;
 
    li {display: block;}
+   ul.pure-menu-children {
+    position: relative !important;
+    padding-left: 1em;
+    display: block;
+   }
+      
    
    }
  }
@@ -675,11 +700,11 @@ body.home {
  
  #searchbox {
   
-  padding: 20px;
+  padding: 20px 20px 40px;
  
    h1 {
     margin: 0 0 1em 0;
-    font-size: 1.35em;
+    font-size: 1.25em;
    }
    form {
     position: relative;
@@ -693,6 +718,10 @@ body.home {
        top: 0;
        right: 0;
      }
+    }
+    a#cta {
+     width: 99%;
+     font-size: 1em;
     }
   }
  }
