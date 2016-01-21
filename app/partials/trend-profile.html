@@ -113,16 +113,23 @@
   <section id="trendSources" class="all-tab-open">
     
     <div class="allSources">
-     <header class="panelHeader">
-      <h2>All Sources</h2>
-      <div class="exportButtons">
-       <a href="#">CSV</a>
-       <a href="#">PDF</a>
+      <header class="panelHeader">
+        <h2>All Sources</h2>
+        <div class="exportButtons">
+          <a href="#">CSV</a>
+          <a href="#">PDF</a>
+        </div>
+      </header>
+      
+      <div paging
+        page="0"
+        page-size="pageSize"
+        total="trendData.sources.length"
+        paging-action="foob(page)">
       </div>
-     </header>
       
       <ul class="sourceList">
-        <li ng-repeat="source in trendData.sources"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
+        <li ng-repeat="source in trendData.sources | limitTo:pageSize:pageIdx"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
         </li>
       </ul>
     </div>

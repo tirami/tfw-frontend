@@ -239,6 +239,12 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     $("#trendSources").removeClass("blog-tab-open");
     $("#trendSources").addClass(view + "-tab-open");
   };  
+
+  $scope.pageSize = 10;
+  $scope.pageIdx = 0;
+  $scope.foob = function(page){
+    $scope.pageIdx = (page-1)*$scope.pageSize;
+  };
   
 }]);
 
