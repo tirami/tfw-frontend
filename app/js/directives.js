@@ -226,7 +226,7 @@ var drawNodes = function(scope, element, attrs){
 };
 
 var drawTimeSeries = function(scope, element, attrs){
-  var bbox = d3.select('#series-container').node().getBoundingClientRect();
+  var bbox = d3.select('.series-container').node().getBoundingClientRect();
   var margin = {top: 10, right: 10, bottom: 10, left: 50};
 
   var width = bbox.width - margin.left - margin.right;
@@ -240,9 +240,12 @@ var drawTimeSeries = function(scope, element, attrs){
   var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(5);
   var yAxis = d3.svg.axis().scale(y).orient("left").ticks(5);
 
+
   var svg = d3.select(element[0]).append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom);
+    .attr("width", '100%')
+    .attr("height", '100%')
+    .attr('viewBox','0 0 '+(width + margin.left + margin.right)+' '+(height + margin.top + margin.bottom))
+    .attr('preserveAspectRatio','xMinYMin');
 
   var group = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
