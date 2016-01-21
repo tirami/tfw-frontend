@@ -327,25 +327,22 @@ button.pure-button span.active { color:white;background-color:#333; }
   height:50px;
   width:100%;
   margin: 0 auto;
+  .tick {
+    fill: white;
+  }
 }
 .brush .extent {
   fill: $pa-turquoise;
   shape-rendering:crispEdges;
 }
-.tick {
-  fill: white;
-}
-
 .axis line,.axis path {
   fill: none;
   stroke: white;
   shape-rendering: crispEdges;
 }
 
-#series-container { 
-  height:50vh;
-  width:100%;
-  position:relative;
+.grid {
+  path { stroke-width: 0; }
 }
 
 div.unavailableOverlay {
@@ -506,15 +503,16 @@ rect.legend-box {
 }
 
 #series-container {
-  path { 
-    stroke: steelblue;
-    stroke-width: 2;
-    fill: none;
-  }
+  height:50vh;
+  width:100%;
+  position:relative;
+  .label { stroke:lightgrey; font-size:0.9em; }
+  .tick { stroke: lightgrey; opacity: 0.7; font-size:0.9em; } 
+  path { stroke-width: 2; fill: none; }
   .axis path,
   .axis line {
     fill: none;
-    stroke: grey;
+    stroke: lightgrey;
     stroke-width: 1;
     shape-rendering: crispEdges;
   }
@@ -524,28 +522,22 @@ rect.legend-box {
 
 body.trends-trend {
  
- #trendInfo {
-  .stats {
-   border-right: 1px solid #e9e9e9;
-   &:last-child {border-right: none;}
-   
-   h4.increasing .fa-caret-down {display: none;}
-   h4.decreading .fa-caret-up {display: none;}
-   
+  #trendInfo {
+    .stats {
+      border-right: 1px solid #e9e9e9;
+      &:last-child {border-right: none;}
+      h4.increasing .fa-caret-down {display: none;}
+      h4.decreading .fa-caret-up {display: none;}
+    }
   }
-  
- }
- 
- #mapContainer {
-   background: transparent;
-   max-height: 220px;
-   overflow-y: hidden;
-   margin: 2em 0 0 0;
-   
-   .land {
-    fill: rgba(200,200,200,0.5);
-}
- }
+
+  #mapContainer {
+    background: transparent;
+    max-height: 220px;
+    overflow-y: hidden;
+    margin: 2em 0 0 0;
+    .land { fill: rgba(200,200,200,0.5); }
+  }
  
  #trend-graphs {
   margin: 0 1em 1em 1em;
