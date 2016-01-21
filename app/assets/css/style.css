@@ -539,26 +539,27 @@ rect.legend-box {
   border-radius: 5px;
 }
 
-#series-container {
+#series-container, .series-container {
   height: 50vh;
   width: 100%;
   position: relative;
 }
-#series-container .label {
+#series-container .label, .series-container .label {
   stroke: lightgrey;
   font-size: 0.9em;
 }
-#series-container .tick {
+#series-container .tick, .series-container .tick {
   stroke: lightgrey;
   opacity: 0.7;
   font-size: 0.9em;
 }
-#series-container path {
+#series-container path, .series-container path {
   stroke-width: 2;
   fill: none;
 }
 #series-container .axis path,
-#series-container .axis line {
+#series-container .axis line, .series-container .axis path,
+.series-container .axis line {
   fill: none;
   stroke: lightgrey;
   stroke-width: 1;
