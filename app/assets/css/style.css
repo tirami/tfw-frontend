@@ -207,7 +207,7 @@ h3 a {
   background: #f9f9f5;
 }
 #trendProfile #locationMap, #cityProfile #locationMap {
-  height: 200px;
+  height: 150px;
 }
 
 #profileHeader {
@@ -222,7 +222,7 @@ h3 a {
   font-weight: 400;
   line-height: 1.25em;
   text-transform: capitalize;
-  margin: 0.25em 0 0 0;
+  margin: 0.25em;
 }
 #profileHeader h1 span {
   display: block;
@@ -230,6 +230,8 @@ h3 a {
   font-weight: 700;
   line-height: 0.25em;
   text-transform: none;
+  position: relative;
+  right: -0.5em;
 }
 #profileHeader #trendInfo {
   padding-top: 2em;
@@ -679,6 +681,23 @@ button.tab.active {
   background: white;
 }
 
+@media (max-width: 600px) {
+  #graph-container {
+    width: 100% !important;
+  }
+
+  #side-menu {
+    display: none !important;
+  }
+
+  #graph-container.wordcloud-container #wordcloud {
+    display: none !important;
+  }
+
+  #graph-container.wordcloud-container #list {
+    display: block !important;
+  }
+}
 @media (max-width: 1200px) {
   .mediumscr-hide {
     display: none;
