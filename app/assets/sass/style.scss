@@ -62,10 +62,11 @@ body {
     }
   }
   
+  #toggle {display: none;} 
+
  }
 
 
-body.home .pure-menu-link.home-btn,
 body.trend-explorer .pure-menu-link.te-btn,
 body.locations-location .pure-menu-link.location-btn,
 body.about .pure-menu-link.about-btn  {
@@ -104,8 +105,8 @@ body.about .pure-menu-link.about-btn  {
 footer {
   background: $pa-brown;
   text-align: center;
-  padding-bottom: 1em;
-  p {margin-top: 0; padding-top: 1em; color: $pa-cream;}
+  padding: 1em;
+  p {margin: 0; padding: 0; color: $pa-cream;}
 }
 
 body.trend-explorer footer {
@@ -136,7 +137,6 @@ h3 a {color: white}
 }
 
 #searchbox {
-  height: 0;
   text-align: center;
   color: $pa-cream;
   max-width: 800px;
@@ -176,6 +176,10 @@ h3 a {color: white}
 #introduction {
  text-align: center;
  padding: 3em 0;
+ 
+ #pa-logo {display: inline-block; margin-left: 188px;} 
+ #edu {display: inline-block;}
+
 }
 
 #top-trends {
@@ -636,6 +640,83 @@ button.tab.active {
 
 
 @media (max-width: 600px) {
+ 
+/*  MOBILE: Layout  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+ #main-menu {
+  width: 100%;
+  float: none;
+  background: white;
+  
+  #toggle {
+    display: block;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+  }
+  
+  ul.pure-menu-list{
+   display: none;
+
+   li {display: block;}
+   
+   }
+ }
+ 
+ 
+/*  MOBILE: Home Page  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+body.home {
+
+.splash {
+ position: relative;
+ height: auto;
+ background: #0c1444;
+ top: inherit;
+ 
+ #searchbox {
+  
+  padding: 20px;
+ 
+   h1 {
+    margin: 0 0 1em 0;
+    font-size: 1.35em;
+   }
+   form {
+    position: relative;
+ 
+     input[type="text"] {
+      width: 95% !important;
+     }
+     
+     button {
+       position: absolute;
+       top: 0;
+       right: 0;
+     }
+    }
+  }
+ }
+ 
+ #introduction {
+  padding: 3em 20px;
+  img {
+   max-width: 80%;
+   height: auto; 
+   }
+  #pa-logo {display: block; margin-left: 0px; margin-bottom: 1em;} 
+  #edu img{ max-width: 80%;}
+  
+ }
+ 
+ #top-trends {
+  text-align: center;
+ }
+ 
+}
+
+
+/*  Tabs  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+
 
 #graph-container {
  width: 100% !important;

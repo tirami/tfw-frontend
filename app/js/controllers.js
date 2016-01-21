@@ -57,6 +57,12 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', func
   Locations.query({}, function(data){
     $scope.locations = data;
   });
+  
+  
+    $scope.toggleMenu = function(view, clickEvent){
+    alert('sdfsdfsd');
+    };
+
 
 }]);
 
