@@ -98,6 +98,11 @@ h3 a {
   color: white;
 }
 
+/*  Typography & Buttons  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+.pure-button {
+  font-weight: 600;
+}
+
 /*  Home Page –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 #mapContainer {
   background: #0c1444;
@@ -302,6 +307,9 @@ h3 a {
 }
 #side-menu h3 {
   font-size: 1em;
+  font-weight: 600;
+  color: white;
+  text-transform: uppercase;
 }
 #side-menu .padding {
   padding: 60px 1em 1em 1em;
@@ -309,29 +317,27 @@ h3 a {
 #side-menu ul.filter {
   list-style-type: none;
   padding: 0;
+  margin-bottom: 2em;
 }
-#side-menu ul.filter button {
+#side-menu ul.filter li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5em 0;
+}
+#side-menu ul.filter li button {
   text-transform: capitalize;
+  display: block;
   background: none;
-  border: 0;
-  padding: 0.25em;
-  -webkit-border-radius: 0.25em;
-  -moz-border-radius: 0.25em;
-  border-radius: 0.25em;
+  border: none;
 }
-#side-menu ul.filter button.selected {
-  color: white;
-  font-weight: bold;
+#side-menu ul.filter li button.active {
+  color: #ffd600;
+  font-weight: 400;
 }
-#side-menu ul.filter button:hover {
-  background: black;
-}
-#side-menu ul.filter button:focus {
+#side-menu ul.filter li button:focus {
   outline: none;
 }
-#side-menu ul.filter button.active {
-  background-color: #E6E6E6;
-  color: rgba(0, 0, 0, 0.8);
+#side-menu ul.filter li:first-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 button.pure-button span.active {
@@ -431,6 +437,8 @@ rect.legend-box {
   color: white;
   text-align: center;
   z-index: 101;
+  padding: 1em;
+  border-radius: 5px;
 }
 #graph-container .trendPanel h4 {
   text-transform: capitalize;
@@ -441,8 +449,6 @@ rect.legend-box {
 #graph-container .trendPanel p {
   color: rgba(255, 255, 255, 0.75);
   margin-top: 0.25em;
-  float: left;
-  width: 100%;
   text-align: center;
 }
 #graph-container .trendPanel a.close {
@@ -503,9 +509,6 @@ rect.legend-box {
   text-indent: 2px;
 }
 
-#graph-container.scatterplot-container .trendPanel .pure-button {
-  display: none;
-}
 #graph-container.scatterplot-container #overlay.active {
   display: none;
 }
@@ -776,7 +779,11 @@ button.tab.active {
     text-align: center;
   }
 
-  /*  Tabs  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+  /*  MOBILE: TRENDS EXPLORER  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+  #toggleViews {
+    display: none;
+  }
+
   #graph-container {
     width: 100% !important;
   }

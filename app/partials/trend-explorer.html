@@ -9,12 +9,16 @@
     <div id="side-menu">
       
       <div class="padding">
+       
+       <section id="toggleViews">
           <h3>View</h3>
 
-          <button class="pure-button" ng-click="toggleView('wordcloud')">Wordcloud</button>
-          <button class="pure-button" ng-click="toggleView('scatterplot')">Chart</button>
-          <button class="pure-button" ng-click="toggleView('treemap')">Block</button>
-          <button class="pure-button" ng-click="toggleView('list')">List</button>
+          <ul id="viewOptions" class="filter">
+            <li><button id="wordCloudView" ng-click="toggleExplorer('wordcloud')" class="active">Wordcloud</button></li>
+            <li><button id="chartView" ng-click="toggleExplorer('scatterplot')">Chart</button></li>
+            <li><button id="blockView" ng-click="toggleExplorer('treemap')">Block</button></li>
+            <li><button id="listView" ng-click="toggleExplorer('list')">List</button></li>
+          </ul>
           
           <h3>Location Options</h3>
           
@@ -23,6 +27,9 @@
               <button ng-class="{selected: location.name === 'all'}" class="locationToggle" target-location="{{location.name}}" location="location" select-start="selectionStart" interval="interval" set-location='setLocation' update-fn='getTrends'>{{ location.name | allAsGlobal }}</button>
             </li>
           </ul>
+          
+       </section>
+
         <!--
           <h3>Source Options</h3>
           
@@ -35,7 +42,7 @@
           </ul>
       
           <h3>Velocity</h3>
-          <ul id="sourceOptions" class="filter">
+          <ul id="velocityOptions" class="filter">
               <li><button class="selected">All</button></li>
               <li><button>Low</button></li>
               <li><button>Medium</button></li>

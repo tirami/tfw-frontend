@@ -116,6 +116,13 @@ body.trend-explorer footer {
 h3 a {color: white}
 
 
+/*  Typography & Buttons  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.pure-button {
+ font-weight: 600;
+}
+
+
 /*  Home Page –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 #mapContainer {
@@ -301,24 +308,37 @@ h3 a {color: white}
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   color: #a0abbe;
-    h3 {font-size: 1em;}
+    h3 {font-size: 1em; font-weight: 600; color: white; text-transform: uppercase;}
     .padding {  padding: 60px 1em 1em 1em;}
     
     ul.filter {
       list-style-type: none;
       padding: 0;
-      button {
-        text-transform: capitalize;
-        background: none; 
-        border: 0; 
-        padding: 0.25em;
-        @include rounded(0.25em);
-        &.selected {color: white; font-weight:bold;}
-        &:hover {background: black;}
-        &:focus { outline:none }
-      }
-      button.active { background-color: #E6E6E6; color: rgba(0, 0, 0, 0.8); }
-    }
+      margin-bottom: 2em;
+      li {
+       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+       padding: 0.5em 0;
+        button {
+         text-transform: capitalize;
+         display: block;
+         background: none;
+         border: none;
+         
+         &.active {
+          color: $pa-yellow;
+          font-weight: 400;
+          }
+         &:focus {outline: none;}
+        }
+
+        &:first-child {
+         border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+       }
+     }
+    
+   
 }
 
 button.pure-button span.active { color:white;background-color:#333; }
@@ -398,7 +418,9 @@ rect.legend-box {
     color:white; 
     text-align: center; 
     z-index: 101; 
-    
+    padding: 1em;
+    border-radius: 5px;
+        
     h4 {
      text-transform: capitalize;
      font-size: 2.5em;
@@ -409,8 +431,6 @@ rect.legend-box {
     p {
      color: rgba(255, 255, 255, 0.75);
      margin-top: 0.25em;
-     float: left;
-     width: 100%;
      text-align: center;
     }
     
@@ -475,7 +495,7 @@ rect.legend-box {
 
 #graph-container.scatterplot-container {
   .trendPanel { 
-    .pure-button { display:none; } 
+
   }
 
   #overlay.active { display: none; }
@@ -744,8 +764,11 @@ body.home {
 }
 
 
-/*  Tabs  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+/*  MOBILE: TRENDS EXPLORER  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
+#toggleViews {
+ display: none;
+}
 
 #graph-container {
  width: 100% !important;

@@ -309,7 +309,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
     $('.trendPanel').attr("style", "");
   };
 
-  $scope.toggleView = function(view){
+  $scope.toggleExplorer = function(view){
     $scope.resetPanels();
     $("#graph-container").removeClass("wordcloud-container");
     $("#graph-container").removeClass("scatterplot-container");
