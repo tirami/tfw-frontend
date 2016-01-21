@@ -340,14 +340,13 @@ button.pure-button span.active {
   width: 100%;
   margin: 0 auto;
 }
+.ui-brush .tick {
+  fill: white;
+}
 
 .brush .extent {
   fill: #008e8f;
   shape-rendering: crispEdges;
-}
-
-.tick {
-  fill: white;
 }
 
 .axis line, .axis path {
@@ -356,18 +355,8 @@ button.pure-button span.active {
   shape-rendering: crispEdges;
 }
 
-.grid .tick {
-  stroke: lightgrey;
-  opacity: 0.7;
-}
 .grid path {
   stroke-width: 0;
-}
-
-#series-container {
-  height: 50vh;
-  width: 100%;
-  position: relative;
 }
 
 div.unavailableOverlay {
@@ -540,6 +529,20 @@ rect.legend-box {
   border-radius: 5px;
 }
 
+#series-container {
+  height: 50vh;
+  width: 100%;
+  position: relative;
+}
+#series-container .label {
+  stroke: lightgrey;
+  font-size: 0.9em;
+}
+#series-container .tick {
+  stroke: lightgrey;
+  opacity: 0.7;
+  font-size: 0.9em;
+}
 #series-container path {
   stroke-width: 2;
   fill: none;
@@ -547,7 +550,7 @@ rect.legend-box {
 #series-container .axis path,
 #series-container .axis line {
   fill: none;
-  stroke: grey;
+  stroke: lightgrey;
   stroke-width: 1;
   shape-rendering: crispEdges;
 }

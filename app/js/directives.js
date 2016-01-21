@@ -227,7 +227,7 @@ var drawNodes = function(scope, element, attrs){
 
 var drawTimeSeries = function(scope, element, attrs){
   var bbox = d3.select('#series-container').node().getBoundingClientRect();
-  var margin = {top: 10, right: 10, bottom: 10, left: 40};
+  var margin = {top: 10, right: 10, bottom: 10, left: 50};
 
   var width = bbox.width - margin.left - margin.right;
   var height = bbox.height - margin.top - margin.bottom;
@@ -257,10 +257,22 @@ var drawTimeSeries = function(scope, element, attrs){
     y.domain(yExtent);
 
     //Draw grid
-    group.append("g").attr("class", "grid").attr("transform", "translate(0," + height + ")")
+    var xGrid = group.append("g").attr("class", "grid").attr("transform", "translate(0," + height + ")")
       .call(make_x_axis(x, (data[0].series.length-1)).tickSize(-height, 0, 0).tickFormat(""));
-    group.append("g").attr("class", "grid")
-      .call(make_y_axis(y, yExtent[1]).tickSize(-width, 0, 0).tickFormat(""));
+    var yGrid = group.append("g").attr("class", "grid")
+      .call(make_y_axis(y, yExtent[1]*2).tickSize(-width, 0, 0).tickFormat(""))
+    
+    //Y label
+    group.append('g')
+      .attr("class", "label")
+      .attr('transform', 'translate(' + (-margin.left/2 - 5) + ', ' + height/2 + ')')
+      .append('text')
+      .attr('text-anchor', 'middle')
+      .attr('transform', 'rotate(-90)')
+      .text('Mentions');
+
+    //Add Y scale
+    group.append("g").attr("class", "y axis").call(yAxis);
 
     // Add the valueline path.
     data.forEach(function(entry, i){
