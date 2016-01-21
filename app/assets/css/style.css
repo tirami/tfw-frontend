@@ -356,6 +356,14 @@ button.pure-button span.active {
   shape-rendering: crispEdges;
 }
 
+.grid .tick {
+  stroke: lightgrey;
+  opacity: 0.7;
+}
+.grid path {
+  stroke-width: 0;
+}
+
 #series-container {
   height: 50vh;
   width: 100%;
@@ -533,7 +541,6 @@ rect.legend-box {
 }
 
 #series-container path {
-  stroke: steelblue;
   stroke-width: 2;
   fill: none;
 }

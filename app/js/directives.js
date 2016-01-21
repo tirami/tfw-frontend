@@ -80,7 +80,7 @@ var getColoursArray = function() {
       c.push(value);
   }
   return c;
-}
+};
 
 var getUdadisiColour = function(i){
   var arr = getColoursArray();
@@ -89,6 +89,16 @@ var getUdadisiColour = function(i){
   }
   return arr[i];
 };
+
+function make_x_axis(x, ticks) {
+  if (ticks === undefined) { ticks = 5; }
+  return d3.svg.axis().scale(x).orient("bottom").ticks(ticks);
+};
+
+function make_y_axis(y, ticks) {
+  if (ticks === undefined) { ticks = 5; }
+  return d3.svg.axis().scale(y).orient("left").ticks(ticks);
+}
 
 var drawNodes = function(scope, element, attrs){
   var bbox = d3.select('#node-container').node().getBoundingClientRect();
@@ -230,9 +240,6 @@ var drawTimeSeries = function(scope, element, attrs){
   var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(5);
   var yAxis = d3.svg.axis().scale(y).orient("left").ticks(5);
 
-  // Parse the date / time
-  var parseDate = d3.time.format("%Y%m%d").parse;
-
   var svg = d3.select(element[0]).append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom);
@@ -246,11 +253,17 @@ var drawTimeSeries = function(scope, element, attrs){
     x.domain([0,(data[0].series.length-1)]);
     var allSeries = []
     data.forEach(function(e){ allSeries = allSeries.concat(e.series); });
-    y.domain(d3.extent(allSeries));
+    var yExtent = d3.extent(allSeries);
+    y.domain(yExtent);
+
+    //Draw grid
+    group.append("g").attr("class", "grid").attr("transform", "translate(0," + height + ")")
+      .call(make_x_axis(x, (data[0].series.length-1)).tickSize(-height, 0, 0).tickFormat(""));
+    group.append("g").attr("class", "grid")
+      .call(make_y_axis(y, yExtent[1]).tickSize(-width, 0, 0).tickFormat(""));
 
     // Add the valueline path.
     data.forEach(function(entry, i){
-
       var tmp = 0;
       var valueline = d3.svg.line().x(function(d){ return x(tmp++); }).y(function(d){ return y(d); });
 
@@ -259,17 +272,13 @@ var drawTimeSeries = function(scope, element, attrs){
         .attr("class", "line")
         .style("stroke", function() { return entry.color = getUdadisiColour(i); })
         .attr("d", valueline(entry.series));
-
     });
-
-    group.append("g").attr("class", "y axis").call(yAxis);
-    group.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis);
 
     var legend = group.append("g")
       .attr("class","legend")
       .attr("transform","translate(50,30)")
       .style("font-size","12px")
-      .call(d3.legend)
+      .call(d3.legend);
 
   });
 };
