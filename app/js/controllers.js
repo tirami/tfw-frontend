@@ -187,18 +187,16 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
           data = { velocity: 0, series: [Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10] };
           src.forEach(function(s){ s.series = data.series });
           data.occurrences = data.series.reduce(function(a, b){return a+b;});
-          $scope.sources = src;
-          $scope.trendData = data;
           $scope.dataAvailable = false; 
         } else {
-          data.occurrences = data.series.reduce(function(a, b){return a+b;});
-          $scope.trendData = data;
-          $scope.relatedTrends = data.related;
           var src = [{term: "Twitter", series:[]}];
+          data.occurrences = data.series.reduce(function(a, b){return a+b;});
+          $scope.relatedTrends = data.related;
           src[0].series = data.series;
-          $scope.sources = src;
           $scope.dataAvailable = true;
         }
+        $scope.trendData = data;
+        $scope.sources = src;
         $scope.prevalences[location.name] = { occurrences: data.occurrences };
         $scope.occurrences.push(data.occurrences);
         $scope.calculatePrevalences();
