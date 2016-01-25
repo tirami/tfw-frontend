@@ -7,7 +7,7 @@ var udadisiApp = angular.module('udadisiApp', [
   'udadisiControllers',
   'udadisiDirectives',
   'udadisiFilters',
-  'bw.paging'
+  'bw.paging',
 ]);
 
 udadisiApp.config(['$routeProvider', function($routeProvider) {

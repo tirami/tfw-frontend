@@ -594,6 +594,7 @@ body.trends-trend {
    padding: 0;
    li {
     margin-bottom: 1em;
+    word-wrap: break-word;
     span {
      display: block;
      font-size: 0.9em;
@@ -651,6 +652,7 @@ button.tab {
  border-radius: 3px 3px 0 0;
  position: relative;
  bottom: -1px;
+ cursor: pointer;
 }
 
 button.tab:focus {
@@ -834,7 +836,15 @@ body.home {
   }
   
   
+/*  MOBILE: TRENDS PROFILE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
+#profileHeader h1 {
+ margin: 0;
+}
+
+button.tab span {
+ display: none;
+}
 
 }
 
