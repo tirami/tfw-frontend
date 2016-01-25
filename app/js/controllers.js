@@ -21,7 +21,7 @@ var udadisiControllers = angular.module('udadisiControllers', ['ngRoute']);
 
 
 //Main Controller
-udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', function ($scope, $route, Locations) {
+udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', '$log', function ($scope, $route, Locations, $log) {
   // $scope.setActivePage will be available to all children 
   // scopes of this controller
 
@@ -53,11 +53,13 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', func
     return trends;
   };
 
-  $scope.locations = [{ name: "all" }];
-  Locations.query({}, function(data){
-    $scope.locations = data;
-  });
-  
+  $scope.locations = [];
+  $scope.getLocations = function(){
+    Locations.query({}, 
+      function(data){ $scope.locations = data; }, 
+      function(error){ $scope.locations = [{ name: "all" }]; });
+  };
+  $scope.getLocations();
   
     $scope.toggleMenu = function(view, clickEvent){     
      if ($(".open")[0]){
@@ -160,8 +162,10 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
 
   $scope.interval = 2;
   $scope.dataAvailable = true;
+
   $scope.getStats($scope.location);
   $scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval);
+  
 }]);
 
 
@@ -169,7 +173,11 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
 udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$routeParams', 'RelatedTrends', function($scope, $log, $route, $routeParams, RelatedTrends) { 
   $scope.setActivePage($route.current.originalPath);
 
-  $scope.sources = [{term: "All", series:[]}, {term: "Twitter", series:[]}, {term: "Blogs", series:[]}, {term: "News", series:[]}, {term: "Academia", series:[]}];
+  $scope.calculatePrevalences = function(){
+    if ($scope.occurrences.length != $scope.locations.length){ return; }
+    var max = $scope.occurrences.sort().reverse()[0];
+    jQuery.each($scope.prevalences, function(k,l){ l.prevalence = l.occurrences/max; });
+  };
 
   $scope.getRelatedTrends = function(location, fromDate, toDate, interval) {
     RelatedTrends.query({ location: location.name, term: $scope.trend, limit: 5, from: fromDate, interval: interval }, 
@@ -191,8 +199,15 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
           $scope.sources = src;
           $scope.dataAvailable = true;
         }
+        $scope.prevalences[location.name] = { occurrences: data.occurrences };
+        $scope.occurrences.push(data.occurrences);
+        $scope.calculatePrevalences();
       },
-      function(error){ $log.log("Error returning trend data for "+$scope.trend); });
+      function(error){
+        $scope.occurrences = [];
+        $scope.calculatePrevalences();
+        $log.log("Error returning trend data for "+$scope.trend); 
+      });
   };
 
   if ($routeParams.location === undefined){ $scope.location = { name: "all" }; } 
@@ -214,10 +229,15 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   $scope.spanStart = today-(91*day);
   $scope.interval = 4;
 
-  $scope.dataAvailable = true;
-  
-  $scope.locations.forEach(function(location){
-    $scope.getRelatedTrends(location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval); //, $scope.interval);
+  $scope.dataAvailable = false;
+  $scope.sources = [{term: "All", series:[]}, {term: "Twitter", series:[]}, {term: "Blogs", series:[]}, {term: "News", series:[]}, {term: "Academia", series:[]}];
+  $scope.prevalences = {};
+  $scope.occurrences = [];
+
+  $scope.$watch('locations', function(newValue, oldValue) {
+    $scope.locations.forEach(function(location){
+      $scope.getRelatedTrends(location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval);
+    });
   });
   
   $scope.toggleView = function(view, clickEvent){
@@ -297,7 +317,6 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
 
       data.sort(function(a,b){return b.velocity - a.velocity});
       $scope.trends = data;
-      $scope.trends.forEach(function(trend, idx){ $log.log(idx + ' ' + trend.term); });
     }, function(error){
       $scope.dataAvailable = false;
       $log.log("Server error finding trends.");
