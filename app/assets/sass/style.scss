@@ -637,6 +637,28 @@ body.trends-trend {
 }
 
 
+/*  Location Profile  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+body.locations-location {
+
+  #cityTitle {
+   float: right;
+  }
+
+  #mapContainer {
+    float: right;
+    background: transparent;
+    max-height: 220px;
+    overflow-y: hidden;
+    margin: 0 0 0 0;
+
+   .land {
+    fill: rgba(200,200,200,0.5);
+   }
+
+ }
+}
+
 
 /*  Tabs  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
@@ -696,6 +718,11 @@ button.tab.active {
     position: absolute;
     top: 0.5em;
     right: 0.5em;
+    margin: 0.25em;
+    
+    i {font-size: 2em;
+     color: $navy-blue;
+    }
   }
   
   ul.pure-menu-list{
@@ -839,14 +866,28 @@ body.home {
 /*  MOBILE: TRENDS PROFILE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 #profileHeader h1 {
- margin: 0;
+ margin: 0.25em 0 0 0;
 }
 
 button.tab span {
  display: none;
 }
 
+/*  MOBILE: LOCATION PROFILE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+
+body.locations-location {
+ section h2 {margin-top: 0;}
+ div.chart {
+  width: 100%;  
+  div {padding: 0.25em;}
+ }
 }
+
+
+
+
+} /* End of Mobile Styles    */
 
 
 

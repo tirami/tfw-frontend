@@ -1,15 +1,17 @@
 <div id="cityProfile">
   <div  class="container">
   <header id="profileHeader" class="pageHeader pure-g">
-  
-    <div id="locationMap" class="pure-u-1-6 column">
+
+    <div id="cityTitle" class="pure-u-1 pure-u-md-4-5 column">
+      <h1><span>Trends overview for </span>{{ location.name | allAsGlobal }}</h1>
+    </div>
+      
+    <div id="locationMap" class="pure-u-1 pure-u-md-1-5 column">
       <div map-projection map-scale="5" style="width: 100%; height: 100%" id="mapContainer">
         <div ng-repeat="location in locations"  ng-if="location.name" class="locationPanel" data-longitude="{{ location.longitude }}"></div>
       </div>
-      </div>
-    <div id="cityTitle" class="pure-u-4-5 column">
-      <h1><span>Trends overview for </span>{{ location.name | allAsGlobal }}</h1>
     </div>
+
    
     <!--<div class="profileStats">
             <dl>
