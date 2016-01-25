@@ -305,6 +305,9 @@ h3 a {
   -webkit-overflow-scrolling: touch;
   color: #a0abbe;
 }
+#side-menu a#showFiltersMobile {
+  display: none;
+}
 #side-menu h3 {
   font-size: 1em;
   font-weight: 600;
@@ -780,12 +783,26 @@ button.tab.active {
   }
 
   /*  MOBILE: TRENDS EXPLORER  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
-  #toggleViews {
+  #side-menu {
+    width: 100%;
+    position: absolute;
+    bottom: auto;
+  }
+  #side-menu .padding {
+    padding-top: 80px;
+  }
+  #side-menu #viewOptions {
     display: none;
   }
-
-  #side-menu {
-    display: none !important;
+  #side-menu button#showFiltersMobile {
+    display: block;
+    width: 100%;
+    background: #ffd600;
+    text-align: center;
+    text-decoration: none;
+  }
+  #side-menu #toggleViews {
+    display: none;
   }
 
   #graph-container {

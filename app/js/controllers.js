@@ -67,8 +67,7 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', func
          $('ul.pure-menu-list').slideDown();
          $(clickEvent.target).addClass("open");
      }
-     };
-
+    };
 
 }]);
 
@@ -103,6 +102,8 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
     $scope.getTrends(item, new Date($scope.selectionStart).toTimeString(), $scope.interval);
     $scope.getStats(item);
   });
+  
+  
 
 }]);
 
@@ -319,5 +320,15 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
   };
 
   $scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval);
+  
+  $scope.toggleFilters = function(view, clickEvent){     
+     if ($(".open")[0]){
+         $('#toggleViews').slideUp();
+         $(clickEvent.target).removeClass("open");
+     } else {
+         $('#toggleViews').slideDown();
+         $(clickEvent.target).addClass("open");
+     }
+    };
 
 }]);

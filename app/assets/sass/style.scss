@@ -308,6 +308,9 @@ h3 a {color: white}
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   color: #a0abbe;
+  
+  a#showFiltersMobile {display: none;}
+  
     h3 {font-size: 1em; font-weight: 600; color: white; text-transform: uppercase;}
     .padding {  padding: 60px 1em 1em 1em;}
     
@@ -703,7 +706,6 @@ button.tab.active {
     display: block;
    }
       
-   
    }
  }
  
@@ -766,11 +768,28 @@ body.home {
 
 /*  MOBILE: TRENDS EXPLORER  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
-  #toggleViews {
-   display: none;
-  }
+  #side-menu {
+   width: 100%;
+   position: absolute;
+   bottom: auto;
+   
+   .padding { padding-top: 80px; }
 
-  #side-menu {display: none !important;}
+   #viewOptions { display: none; }
+   
+   button#showFiltersMobile {
+    display: block;
+    width: 100%;
+    background: $pa-yellow;
+    text-align: center;
+    text-decoration: none;
+   }
+   
+   #toggleViews {display: none;}
+
+
+   }
+
 
   
   #graph-container {
@@ -811,6 +830,8 @@ body.home {
       display: none;
    }
   }
+  
+  
 
 
 }

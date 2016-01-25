@@ -10,44 +10,53 @@
       
       <div class="padding">
        
+       <button id="showFiltersMobile" ng-click="toggleFilters('open' , $event)" class="pure-button" href="#">Show filters</button>
+       
        <section id="toggleViews">
-          <h3>View</h3>
+          <div id="viewOptions">
+            <h3>View</h3>
+            <ul class="filter">
+              <li><button id="wordCloudView" ng-click="toggleExplorer('wordcloud')" class="active">Wordcloud</button></li>
+              <li><button id="chartView" ng-click="toggleExplorer('scatterplot')">Chart</button></li>
+              <li><button id="blockView" ng-click="toggleExplorer('treemap')">Block</button></li>
+              <li><button id="listView" ng-click="toggleExplorer('list')">List</button></li>
+            </ul>
+          </div>
 
-          <ul id="viewOptions" class="filter">
-            <li><button id="wordCloudView" ng-click="toggleExplorer('wordcloud')" class="active">Wordcloud</button></li>
-            <li><button id="chartView" ng-click="toggleExplorer('scatterplot')">Chart</button></li>
-            <li><button id="blockView" ng-click="toggleExplorer('treemap')">Block</button></li>
-            <li><button id="listView" ng-click="toggleExplorer('list')">List</button></li>
-          </ul>
+          <div id="locationOptions">
+            <h3>Location Options</h3>
+            
+            <ul class="filter">
+              <li ng-repeat="location in locations">
+                <button ng-class="{selected: location.name === 'all'}" class="locationToggle" target-location="{{location.name}}" location="location" select-start="selectionStart" interval="interval" set-location='setLocation' update-fn='getTrends'>{{ location.name | allAsGlobal }}</button>
+              </li>
+            </ul>
+          </div>
           
-          <h3>Location Options</h3>
-          
-          <ul id="locationOptions" class="filter">
-            <li ng-repeat="location in locations">
-              <button ng-class="{selected: location.name === 'all'}" class="locationToggle" target-location="{{location.name}}" location="location" select-start="selectionStart" interval="interval" set-location='setLocation' update-fn='getTrends'>{{ location.name | allAsGlobal }}</button>
-            </li>
-          </ul>
-          
-       </section>
 
-        <!--
+         <div id="sourceOptions">
           <h3>Source Options</h3>
-          
-          <ul id="sourceOptions" class="filter">
+          <ul class="filter">
               <li><button class="selected">All sources</button></li>
               <li><button>Blogs</button></li>
               <li><button>News</button></li>
               <li><button>Academia</button></li>
               <li><button>Twitter</button></li>
           </ul>
-      
-          <h3>Velocity</h3>
-          <ul id="velocityOptions" class="filter">
-              <li><button class="selected">All</button></li>
-              <li><button>Low</button></li>
-              <li><button>Medium</button></li>
-              <li><button>High</button></li>
-          </ul> -->
+          </div>
+          
+          <div id="velocityOptions">
+            <h3>Velocity</h3>
+            <ul class="filter">
+                <li><button class="selected">All</button></li>
+                <li><button>Low</button></li>
+                <li><button>Medium</button></li>
+                <li><button>High</button></li>
+            </ul>
+          </div>
+
+       </section>
+
       </div>
     </div>
 
