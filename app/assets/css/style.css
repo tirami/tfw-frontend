@@ -812,10 +812,14 @@ button.tab.active {
   #graph-container {
     top: auto;
   }
+  #graph-container #list {
+    padding-top: 4em;
+  }
   #graph-container #list ul {
     margin: 0;
     padding: 0;
     list-style: none;
+    text-align: center;
   }
   #graph-container #list ul li {
     border-bottom: 1px solid #e9e9e9;
