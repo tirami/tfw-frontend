@@ -3,34 +3,34 @@
   <header id="profileHeader" class="pageHeader">
   
   <div class="pure-g">
-    <div class="pure-u-7-12">
+    <div class=" pure-u-1 pure-u-md-7-12">
       <h1><span>Trend breakdown for</span>{{ trendData.term }}</h1>
 						
 				<div id="trendInfo" class="pure-g">
 
-	      <div id="trendChange" class="pure-u-1-4 column stats">
+	      <div id="trendChange" class="pure-u-1-2 pure-u-md-1-4 column stats">
 	        <h4>Mentions</h4>
 	        <span class="stat">{{ trendData.occurrences.toFixed(0) }}</span>
 	      </div>
 	
-	      <div id="trendVelocity" class="pure-u-1-4 column stats">
+	      <div id="trendVelocity" class="pure-u-1-2 pure-u-md-1-4 column stats">
 	        <h4 class="increasing">Score <i class="fa fa-caret-down"></i> <i class="fa fa-caret-up"></i></h4>
 	        <span class="stat">{{ trendData.velocity.toFixed(2) }}</span>
 	      </div>
 	
-	      <div id="trendHigh" class="pure-u-1-4 column stats">
+	      <div id="trendHigh" class="pure-u-1-2 pure-u-md-1-4 column stats">
 	        <h4>90 Day High</h4>
 	        <span class="stat">{{ trendData.velocity.toFixed(2) }}</span>
 	      </div>
 
-	      <div id="trendLow" class="pure-u-1-4 column stats">
+	      <div id="trendLow" class="pure-u-1-2 pure-u-md-1-4 column stats">
 	        <h4>90 Day Low</h4>
 	        <span class="stat">{{ trendData.velocity.toFixed(2) }}</span>
 	      </div>
 	      	      
       </div>
     </div>
-    <div class="pure-u-5-12">
+    <div class="pure-u-1 pure-u-md-5-12">
       <div map-projection map-scale="1.1" style="width:100%;height:auto;" id="mapContainer">
         <div ng-repeat="location in locations"  ng-if="location.name != 'all'" class="locationPanel" data-spot-size="{{ location.prevalence }}" data-latitude="{{ location.latitude }}" data-longitude="{{ location.longitude }}"> {{ Math.round((location.prevalence/10.0)*100.0) }}% prevalent in {{ location.name }}</div>
       </div>
@@ -46,9 +46,9 @@
   </div>
   
   <div id="graphTabs" class="tabs">
-   <button class="tab active" ng-click="toggleView('history', $event)">Trend history</button>
-   <button class="tab" ng-click="toggleView('sources', $event)">Trend sources</button>
-   <button class="tab" ng-click="toggleView('related', $event)">Related trends</button>
+   <button class="tab active" ng-click="toggleView('history', $event)"><span>Trend </span>History</button>
+   <button class="tab" ng-click="toggleView('sources', $event)"><span>Trend </span>Sources</button>
+   <button class="tab" ng-click="toggleView('related', $event)">Related<span> Trends</span> </button>
   </div>
 
   <section id="trend-graphs" class="section history-tab-open">
@@ -121,7 +121,7 @@
         </div>
       </header>
       
-      <div paging
+      <div id="pagination" paging
         page="0"
         page-size="pageSize"
         total="trendData.sources.length"

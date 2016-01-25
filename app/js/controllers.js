@@ -70,6 +70,13 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', '$lo
          $(clickEvent.target).addClass("open");
      }
     };
+    
+    $scope.closeMenu = function(view, clickEvent){     
+      if($(window).width() <= 600) {
+         $('ul.pure-menu-list').delay( 500 ).slideUp();
+      };
+    };
+
 
 }]);
 
