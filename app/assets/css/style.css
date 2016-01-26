@@ -233,18 +233,18 @@ h3 a {
 #profileHeader h1 {
   font-size: 5em;
   font-weight: 400;
-  line-height: 1.25em;
+  line-height: 0;
   text-transform: capitalize;
   margin: 0.25em;
 }
-#profileHeader h1 span {
+#profileHeader h1 span.description {
   display: block;
   font-size: 0.2em;
   font-weight: 700;
-  line-height: 0.25em;
+  line-height: 1;
   text-transform: none;
   position: relative;
-  right: -0.5em;
+  right: -0.25em;
 }
 #profileHeader #trendInfo {
   padding-top: 2em;
