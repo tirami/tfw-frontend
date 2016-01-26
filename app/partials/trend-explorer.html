@@ -69,7 +69,7 @@
     <div scatter-plot id="scatterplot" trends="trends"></div>
     <div treemap id="treemap" trends="trends"></div>
     <div id="list">
-      <ul><li ng-repeat="trend in trends"> {{ trend.term }}  {{ trend.occurrences }}  </li></ul>
+      <ul><li ng-repeat="trend in trends">  <a href="#/trends/{{ trend.term | urlEncode }}?selectionStart={{ selectionStart.getTime() }}&selectionEnd={{ selectionEnd.getTime() }}"> {{ trend.velocity }} </li></ul>
     </div>
 
     <div timespan location="location" select-start="selectionStart" select-end="selectionEnd" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
