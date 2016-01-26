@@ -180,6 +180,17 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
 udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$routeParams', 'RelatedTrends', function($scope, $log, $route, $routeParams, RelatedTrends) { 
   $scope.setActivePage($route.current.originalPath);
 
+  var generateFakeSources = function(){
+    jQuery.each($scope.tabs, function(k,v){
+      var i = 0;
+      while (i < 23) {
+        v.push({ posted: (new Date), source: k, source_uri: "http://bbc.co.uk/"+k+"/"+i });
+        $scope.trendData.sources.push({ posted: (new Date), source: k, source_uri: "http://bbc.co.uk/"+k+"/"+i });
+        i++;
+      }
+    });
+  };
+  
   $scope.calculatePrevalences = function(){
     if ($scope.occurrences.length != $scope.locations.length){ return; }
     var max = $scope.occurrences.sort().reverse()[0];
@@ -325,7 +336,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
 
       if ((data.length == 0) || (totalVelocity === 0)){
         data = $scope.generateExampleTrends();
-        $scope.dataAvailable = true;
+        $scope.dataAvailable = false;
       }
 
       data.forEach(function(e){
@@ -335,7 +346,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
       data.sort(function(a,b){return b.velocity - a.velocity});
       $scope.trends = data;
     }, function(error){
-      $scope.dataAvailable = true;
+      $scope.dataAvailable = false;
       $log.log("Server error finding trends.");
       $scope.trends = $scope.generateExampleTrends();
     });
