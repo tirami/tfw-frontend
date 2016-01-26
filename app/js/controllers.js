@@ -325,7 +325,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
 
       if ((data.length == 0) || (totalVelocity === 0)){
         data = $scope.generateExampleTrends();
-        $scope.dataAvailable = false;
+        $scope.dataAvailable = true;
       }
 
       data.forEach(function(e){
@@ -335,7 +335,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
       data.sort(function(a,b){return b.velocity - a.velocity});
       $scope.trends = data;
     }, function(error){
-      $scope.dataAvailable = false;
+      $scope.dataAvailable = true;
       $log.log("Server error finding trends.");
       $scope.trends = $scope.generateExampleTrends();
     });

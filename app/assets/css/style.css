@@ -233,18 +233,18 @@ h3 a {
 #profileHeader h1 {
   font-size: 5em;
   font-weight: 400;
-  line-height: 1.25em;
+  line-height: 0;
   text-transform: capitalize;
   margin: 0.25em;
 }
-#profileHeader h1 span {
+#profileHeader h1 span.description {
   display: block;
   font-size: 0.2em;
   font-weight: 700;
-  line-height: 0.25em;
+  line-height: 1;
   text-transform: none;
   position: relative;
-  right: -0.5em;
+  right: -0.25em;
 }
 #profileHeader #trendInfo {
   padding-top: 2em;
@@ -305,7 +305,7 @@ h3 a {
   -webkit-overflow-scrolling: touch;
   color: #a0abbe;
 }
-#side-menu a#showFiltersMobile {
+#side-menu button#showFiltersMobile {
   display: none;
 }
 #side-menu h3 {
@@ -674,6 +674,24 @@ body.trends-trend #trendSources .panelHeader div.exportButtons a {
   stroke-width: 1.5px;
 }
 
+/*  Location Profile  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+body.locations-location #cityTitle {
+  float: right;
+}
+body.locations-location #mapContainer {
+  float: right;
+  background: transparent;
+  max-height: 220px;
+  overflow-y: hidden;
+  margin: 0 0 0 0;
+}
+body.locations-location #mapContainer .land {
+  fill: rgba(200, 200, 200, 0.5);
+}
+body.locations-location div.chart div {
+  padding: 0.25em;
+}
+
 /*  Tabs  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 .tabs {
   padding: 1em 1em 0 1em;
@@ -723,6 +741,11 @@ button.tab.active {
     position: absolute;
     top: 0.5em;
     right: 0.5em;
+    margin: 0.25em;
+  }
+  #main-menu #toggle i {
+    font-size: 2em;
+    color: #0c1444;
   }
   #main-menu ul.pure-menu-list {
     display: none;
@@ -845,13 +868,22 @@ button.tab.active {
 
   /*  MOBILE: TRENDS PROFILE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
   #profileHeader h1 {
-    margin: 0;
+    margin: 0.25em 0 0 0;
   }
 
   button.tab span {
     display: none;
   }
+
+  /*  MOBILE: LOCATION PROFILE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+  body.locations-location section h2 {
+    margin-top: 0;
+  }
+  body.locations-location div.chart {
+    width: 100%;
+  }
 }
+/* End of Mobile Styles    */
 @media (max-width: 1200px) {
   .mediumscr-hide {
     display: none;
