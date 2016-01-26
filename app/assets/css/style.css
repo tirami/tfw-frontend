@@ -25,6 +25,9 @@ body {
   margin: 0.5em;
   display: inline-block;
 }
+#pageHeader #toggle {
+  display: none;
+}
 
 #main-menu {
   float: right;
@@ -38,9 +41,6 @@ body {
 #main-menu .pure-menu-link:hover, #main-menu .pure-menu-link:active, #main-menu .pure-menu-link:focus {
   background: none;
   color: #008e8f;
-}
-#main-menu #toggle {
-  display: none;
 }
 
 body.trend-explorer .pure-menu-link.te-btn:before,
@@ -73,6 +73,7 @@ body.about .pure-menu-link.about-btn:before {
 
 .ng-scope {
   z-index: 0;
+  line-height: 1 !important;
 }
 
 .container {
@@ -718,6 +719,21 @@ button.tab.active {
 
 @media (max-width: 600px) {
   /*  MOBILE: Layout  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+  body {
+    padding-top: 50px;
+  }
+
+  #pageHeader {
+    border-bottom-width: 0 !important;
+    position: absolute;
+    width: 100%;
+    padding: 0;
+    top: 0;
+  }
+  #pageHeader #logo {
+    margin: 10px 20px;
+  }
+
   body.trend-explorer .pure-menu-link.te-btn:before,
   body.locations-location .pure-menu-link.location-btn:before,
   body.about .pure-menu-link.about-btn:before {
@@ -731,32 +747,45 @@ button.tab.active {
     color: #0c1444;
   }
 
-  #main-menu {
-    width: 100%;
-    float: none;
-    background: white;
-  }
-  #main-menu #toggle {
-    display: block;
+  #toggle {
+    display: block !important;
     position: absolute;
     top: 0.5em;
     right: 0.5em;
     margin: 0.25em;
   }
-  #main-menu #toggle i {
+  #toggle i {
     font-size: 2em;
     color: #0c1444;
   }
-  #main-menu ul.pure-menu-list {
+
+  #main-menu {
+    width: 100%;
+    float: none;
+    background: #f9f9f5;
     display: none;
+    height: 100vh;
+    margin-top: -50px;
+    padding: 70px 0;
+    text-align: center;
+  }
+  #main-menu ul.pure-menu-list {
+    font-size: 1.5em;
   }
   #main-menu ul.pure-menu-list li {
     display: block;
   }
   #main-menu ul.pure-menu-list ul.pure-menu-children {
+    background: #f9f9f5;
     position: relative !important;
-    padding-left: 1em;
     display: block;
+  }
+  #main-menu ul.pure-menu-list ul.pure-menu-children .pure-menu-link:after {
+    content: none !important;
+  }
+
+  #main-menu .pure-menu-has-children > .pure-menu-link:after {
+    content: none !important;
   }
 
   /*  MOBILE: Home Page  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -810,11 +839,11 @@ button.tab.active {
   /*  MOBILE: TRENDS EXPLORER  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
   #side-menu {
     width: 100%;
-    position: absolute;
+    position: relative;
     bottom: auto;
   }
   #side-menu .padding {
-    padding-top: 80px;
+    padding-top: 1em;
   }
   #side-menu #viewOptions {
     display: none;
@@ -836,9 +865,8 @@ button.tab.active {
 
   #graph-container {
     top: auto;
-  }
-  #graph-container #list {
-    padding-top: 4em;
+    bottom: 0;
+    padding-top: 6em;
   }
   #graph-container #list ul {
     margin: 0;
@@ -862,8 +890,11 @@ button.tab.active {
     display: block !important;
   }
 
-  .ui-brush .tick:nth-child(2n+0), .ui-brush .tick:nth-child(3n+0) {
+  .ui-brush .tick {
     display: none;
+  }
+  .ui-brush .tick:nth-child(3n+1) {
+    display: block;
   }
 
   /*  MOBILE: TRENDS PROFILE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */

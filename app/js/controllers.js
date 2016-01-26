@@ -63,10 +63,10 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', '$lo
   
     $scope.toggleMenu = function(view, clickEvent){     
      if ($(".open")[0]){
-         $('ul.pure-menu-list').slideUp();
+         $('nav#main-menu').slideUp();
          $(clickEvent.target).removeClass("open");
      } else {
-         $('ul.pure-menu-list').slideDown();
+         $('nav#main-menu').slideDown();
          $(clickEvent.target).addClass("open");
      }
     };

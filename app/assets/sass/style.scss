@@ -43,6 +43,7 @@ body {
   position: relative;
   z-index: 100;  
   #logo {margin: 0.5em; display: inline-block;}
+  #toggle {display: none;} 
 }
 
 #main-menu {
@@ -62,8 +63,6 @@ body {
     }
   }
   
-  #toggle {display: none;} 
-
  }
 
 
@@ -96,7 +95,7 @@ body.about .pure-menu-link.about-btn  {
   position: absolute;
 }
 
-.ng-scope { z-index: 0;}
+.ng-scope { z-index: 0; line-height: 1 !important;}
 
 .container {
   margin: 0 auto;
@@ -695,6 +694,24 @@ button.tab.active {
  
 /*  MOBILE: Layout  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
+body {
+ padding-top: 50px;
+}
+
+  #pageHeader {
+	  border-bottom-width: 0 !important; 
+	  position: absolute; 
+	  width: 100%;
+	  padding: 0;
+	  top: 0;
+	  
+	  #logo {
+ 	  margin: 10px 20px;
+	  }
+	  
+	 }
+
+
  body.trend-explorer .pure-menu-link.te-btn,
  body.locations-location .pure-menu-link.location-btn,
  body.about .pure-menu-link.about-btn  {
@@ -711,15 +728,8 @@ button.tab.active {
    }
  } 
 
-
-
- #main-menu {
-  width: 100%;
-  float: none;
-  background: white;
-  
   #toggle {
-    display: block;
+    display: block !important;
     position: absolute;
     top: 0.5em;
     right: 0.5em;
@@ -729,19 +739,36 @@ button.tab.active {
      color: $navy-blue;
     }
   }
+
+
+ #main-menu {
+  width: 100%;
+  float: none;
+  background: $pa-cream;
+  display: none;
+  height: 100vh;
+  margin-top: -50px;
+  padding: 70px 0;
+  text-align: center;
   
   ul.pure-menu-list{
-   display: none;
+   
+   font-size: 1.5em;
 
-   li {display: block;}
+   li {display: block;
+    a {}
+   }
    ul.pure-menu-children {
+   background: $pa-cream;
     position: relative !important;
-    padding-left: 1em;
     display: block;
+    .pure-menu-link:after {content: none !important;}
    }
       
    }
  }
+ 
+ #main-menu .pure-menu-has-children > .pure-menu-link:after {content: none !important }
  
  
 /*  MOBILE: Home Page  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -801,13 +828,13 @@ body.home {
 
 
 /*  MOBILE: TRENDS EXPLORER  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
-
+ 
   #side-menu {
    width: 100%;
-   position: absolute;
+   position: relative;
    bottom: auto;
    
-   .padding { padding-top: 80px; }
+   .padding { padding-top: 1em; }
 
    #viewOptions { display: none; }
    
@@ -832,10 +859,10 @@ body.home {
   
   #graph-container {
    top: auto;
-   
+   bottom: 0;   
+   padding-top: 6em;
    
    #list {
-    padding-top: 4em;
     ul {
      margin: 0;
      padding: 0;
@@ -862,8 +889,9 @@ body.home {
   }
   
   .ui-brush {
-   .tick:nth-child(2n+0), .tick:nth-child(3n+0) {
-      display: none;
+   .tick {display: none;}
+   .tick:nth-child(3n+1) {
+      display: block;
    }
   }
   
