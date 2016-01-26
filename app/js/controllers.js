@@ -207,6 +207,14 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
         $scope.prevalences[location.name] = { occurrences: data.occurrences };
         $scope.occurrences.push(data.occurrences);
         $scope.calculatePrevalences();
+
+        $scope.trendData.sources.forEach(function(src){
+          if ($scope.tabs[src.source] === undefined){
+            $scope.tabs[src.source] = [src];
+          } else {
+            $scope.tabs[src.source].push(src);
+          }
+        });        
       },
       function(error){
         $scope.occurrences = [];
@@ -218,7 +226,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   if ($routeParams.location === undefined){ $scope.location = { name: "all" }; } 
   else { $scope.location = { name: $routeParams.location }; }
 
-  $scope.trendData = { term: $routeParams.trend, velocity:0 };
+  $scope.trendData = { term: $routeParams.trend, velocity:0, sources:[] };
   $scope.trend = $routeParams.trend;
   $scope.relatedTrends = [];
 
@@ -238,6 +246,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   $scope.sources = [{term: "All", series:[]}, {term: "Twitter", series:[]}, {term: "Blogs", series:[]}, {term: "News", series:[]}, {term: "Academia", series:[]}];
   $scope.prevalences = {};
   $scope.occurrences = [];
+  $scope.tabs = { "twitter":[], "blogs":[], "academic":[], "news":[] };
 
   $scope.$watch('locations', function(newValue, oldValue) {
     $scope.locations.forEach(function(location){
@@ -264,11 +273,14 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     $("#trendSources").removeClass("news-tab-open");
     $("#trendSources").removeClass("blog-tab-open");
     $("#trendSources").addClass(view + "-tab-open");
+    $scope.pageSize = 10;
+    $scope.pageIdx = 0;
+    $scope.changePage(1);
   };  
 
   $scope.pageSize = 10;
   $scope.pageIdx = 0;
-  $scope.foob = function(page){
+  $scope.changePage = function(page){
     $scope.pageIdx = (page-1)*$scope.pageSize;
   };
   
