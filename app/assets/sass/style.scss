@@ -309,7 +309,7 @@ h3 a {color: white}
   -webkit-overflow-scrolling: touch;
   color: #a0abbe;
   
-  a#showFiltersMobile {display: none;}
+  button#showFiltersMobile {display: none;}
   
     h3 {font-size: 1em; font-weight: 600; color: white; text-transform: uppercase;}
     .padding {  padding: 60px 1em 1em 1em;}
@@ -657,6 +657,11 @@ body.locations-location {
    }
 
  }
+ 
+ div.chart {
+  div {padding: 0.25em;}
+ }
+
 }
 
 
@@ -880,7 +885,6 @@ body.locations-location {
  section h2 {margin-top: 0;}
  div.chart {
   width: 100%;  
-  div {padding: 0.25em;}
  }
 }
 

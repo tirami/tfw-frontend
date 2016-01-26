@@ -305,7 +305,7 @@ h3 a {
   -webkit-overflow-scrolling: touch;
   color: #a0abbe;
 }
-#side-menu a#showFiltersMobile {
+#side-menu button#showFiltersMobile {
   display: none;
 }
 #side-menu h3 {
@@ -688,6 +688,9 @@ body.locations-location #mapContainer {
 body.locations-location #mapContainer .land {
   fill: rgba(200, 200, 200, 0.5);
 }
+body.locations-location div.chart div {
+  padding: 0.25em;
+}
 
 /*  Tabs  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 .tabs {
@@ -878,9 +881,6 @@ button.tab.active {
   }
   body.locations-location div.chart {
     width: 100%;
-  }
-  body.locations-location div.chart div {
-    padding: 0.25em;
   }
 }
 /* End of Mobile Styles    */
