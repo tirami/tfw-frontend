@@ -223,6 +223,16 @@ h3 a {
 #trendProfile #locationMap, #cityProfile #locationMap {
   height: 150px;
 }
+#trendProfile #graph-container, #cityProfile #graph-container {
+  width: 100%;
+  position: relative;
+  height: 50vh;
+  right: auto;
+  top: 0px;
+}
+#trendProfile #graph-container .unavailableOverlay, #cityProfile #graph-container .unavailableOverlay {
+  height: 100%;
+}
 
 #profileHeader {
   padding: 1em;

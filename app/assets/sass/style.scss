@@ -230,13 +230,23 @@ h3 a {color: white}
   background: $navy-blue;
   padding: 3em 0;
   header.pageHeader, section {
-   padding: 1em;
-   border: 1px solid #ccc;
- }  
- .container {background: $pa-cream;}
+    padding: 1em;
+    border: 1px solid #ccc;
+  }
+  .container {background: $pa-cream;}
  
- #locationMap {height: 150px;}
+  #locationMap {height: 150px;}
+
+  #graph-container {
+    width:100%;
+    position:relative; 
+    height:50vh;
+    right:auto;
+    top:0px;
+    .unavailableOverlay { height: 100%; }
+  }
 }
+
 
 #profileHeader {
   padding: 1em;

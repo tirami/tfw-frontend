@@ -33,7 +33,7 @@ udadisiDirectives.directive('mapProjection', ['$templateRequest', '$parse', mapD
 
 udadisiDirectives.directive('wordcloud', 
   function($parse) {
-    return { restrict: 'A', scope: { trends: '=', mapScale: '=' }, link: drawWordcloud }
+    return { restrict: 'A', scope: { trends: '=', mapScale: '=', property: '=' }, link: drawWordcloud }
   }
 );
 
@@ -475,10 +475,16 @@ var toggleLocation = function(scope, element, attrs) {
 };
 
 var drawWordcloud = function(scope, element, attrs) {
-  var vis = d3.select(element[0]); //TODO: getting: "mutating the [[Prototype]] of an object..." (may be browser vers)
+  var vis = d3.select(element[0]);
   var bbox = d3.select('#graph-container').node().getBoundingClientRect();
-  var cloudSize = [bbox.width, bbox.height-60];
-  var svg = vis.append("svg").attr("width", cloudSize[0]).attr("height", cloudSize[1]);
+  var cloudSize = [bbox.width, bbox.height];
+  //var svg = vis.append("svg").attr("width", cloudSize[0]).attr("height", cloudSize[1]);
+
+  var svg = vis.append("svg")
+    .attr("width", '100%')
+    .attr("height", '100%')
+    .attr('viewBox','0 0 '+(cloudSize[0])+' '+(cloudSize[1]))
+    .attr('preserveAspectRatio','xMinYMin');
 
   //Add map
   var widthScaleFactor = 0.15625;
@@ -486,7 +492,7 @@ var drawWordcloud = function(scope, element, attrs) {
   var mapGroup = svg.append("g");
   drawWorld(mapGroup, cloudSize, scale, []);
 
-  var wordGroup = svg.append("g").attr("transform", "translate(" + cloudSize[0] / 2 + "," + cloudSize[1] / 2 + ")");
+  var wordGroup = svg.append("g").attr("class", "wordgroup");
 
   scope.$watch('trends', function (newVal, oldVal) { 
     wordGroup.selectAll('*').remove();
@@ -494,17 +500,16 @@ var drawWordcloud = function(scope, element, attrs) {
 
     //Set word size factor
     var averageLength = 0;
-    scope.trends.map(function(t) { averageLength += t.term.length; });
-    averageLength = averageLength / scope.trends.length;
-    
-    var maxSize = cloudSize[0]/averageLength;
-    var extents = d3.extent(scope.trends, function(t) { return t.velocity; });
-    var sizeFactor = (maxSize / extents[1]) * 1.2;
+    newVal.map(function(t) { averageLength += t.term.length; });
+    averageLength = averageLength / newVal.length;
+    var maxSize = (cloudSize[0]/averageLength)/(newVal.length/2);
+    var extents = d3.extent(newVal, function(t) { return t[scope.property]; });
+    var sizeFactor = (maxSize / extents[1]) * 2.5;
     
     //Setup words
-    var trendWords = scope.trends.map(function(trend, idx) { 
-      var fontSize = (trend.velocity * sizeFactor);
-      if (fontSize < 14) { fontSize = 12; }  
+    var trendWords = newVal.map(function(trend, idx) {
+      var fontSize = (trend[scope.property] * sizeFactor);
+      if (fontSize < 14) { fontSize = 12; }
       return {text: trend.term, size: fontSize, elementId: ("#trend-panel-"+idx) }; 
     });
 
@@ -514,7 +519,12 @@ var drawWordcloud = function(scope, element, attrs) {
       .on("end", draw);
     
     layout.start();
-    
+
+    var wrdSize = wordGroup.node().getBoundingClientRect();
+    //console.log(wrdSize);
+    //wordGroup.attr("transform", "translate(" + (cloudSize[0] - wrdSize.width)/2 + "," + (cloudSize[1] - wrdSize.height)/2 + ")");
+    wordGroup.attr("transform", "translate(" + cloudSize[0] / 2 + "," + cloudSize[1] / 1.9 + ")");
+
     function draw(words) {
       wordGroup.selectAll("text")
         .data(words)

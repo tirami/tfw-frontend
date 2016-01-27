@@ -79,13 +79,12 @@
     </div>
      
     <div class="related">
-      <h2>Comparison of {{ trend.name }} related trends</h2>
-      <div class = "series-container">   
-         <!--<button class="zr" style="position: relative; right: 30px; top: 30px;">Reset</button>-->
+      <h2>Wordcloud of {{ trend.name }} related trends</h2>
+      <div id = "graph-container" class = "wordcloud-container" style="">   
          <div ng-hide="dataAvailable" class="unavailableOverlay">
            <p>Data unavailable for selection</p>
          </div>
-         <div time-series series-data="sources"></div>
+         <div wordcloud id="wordcloud" property="'occurrences'" style="" map-scale="0.8" trends="relatedTrends"></div>
       </div>   
     </div>
     
@@ -94,15 +93,6 @@
   <div class="timespan-container" style="margin: 1em 1em;">
     <div timespan location="location" select-start="selectionStart" select-end="selectionEnd" interval="interval" start="spanStart" end="spanEnd" update-fn='getRelatedTrends' class='ui-brush'></div>
   </div>
-
-    <section id="relatedTrands">
-      <h2>Related trend relationships</h2>
-
-      <div id="node-container" style="height: 50vh; width: 100%;">
-        <div node-graph trend="trend" related-trends="relatedTrends"></div>
-      </div>
-    </section>
-
  
   <div id="sourcesTabs" class="tabs">
    <button class="tab active" ng-click="toggleSources('all', $event)">All Sources</button>

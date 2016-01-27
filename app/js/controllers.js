@@ -206,11 +206,12 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
           data = { velocity: 0, series: [Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10] };
           src.forEach(function(s){ s.series = data.series });
           data.occurrences = data.series.reduce(function(a, b){return a+b;});
+          $scope.relatedTrends = $scope.generateExampleTrends();
           $scope.dataAvailable = false; 
         } else {
           var src = [{term: "Twitter", series:[]}];
           data.occurrences = data.series.reduce(function(a, b){return a+b;});
-          $scope.relatedTrends = data.related;
+          $scope.relatedTrends = data.related.slice(0,10);
           src[0].series = data.series;
           $scope.dataAvailable = true;
         }
@@ -346,8 +347,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
         if (!isNaN(e.series[0])){ e.velocity = calculateVelocity(e.series); }
       });
 
-      data.sort(function(a,b){return b.velocity - a.velocity});
-      $scope.trends = data;
+      $scope.trends = data.slice(0,10);
     }, function(error){
       $scope.dataAvailable = false;
       $log.log("Server error finding trends.");
