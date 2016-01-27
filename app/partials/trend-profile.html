@@ -123,12 +123,14 @@
         </div>
       </header>
       
-      <div paging page="0" page-size="pageSize" total="trendData.sources.length" paging-action="changePage(page)"></div>
       
       <ul class="sourceList">
         <li ng-repeat="source in trendData.sources | limitTo:pageSize:pageIdx"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
         </li>
       </ul>
+
+      <div paging page="0" page-size="pageSize" total="trendData.sources.length" paging-action="changePage(page)"></div>
+
     </div>
 
     <div class="twitterSources">
@@ -140,12 +142,14 @@
       </div>
      </header>
 
-      <div paging page="0" page-size="pageSize" total="tabs.twitter.length" paging-action="changePage(page)"></div>
 
       <ul class="sourceList">
         <li ng-repeat="source in tabs.twitter | limitTo:pageSize:pageIdx"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span class="sourceMeta"> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
         </li>
       </ul>
+
+      <div paging page="0" page-size="pageSize" total="tabs.twitter.length" paging-action="changePage(page)"></div>
+
     </div>
 
     <div class="academicSources">
@@ -157,12 +161,13 @@
       </div>
      </header>
 
-     <div paging page="0" page-size="pageSize" total="tabs.academic.length" paging-action="changePage(page)"></div>
-
       <ul class="sourceList">
         <li ng-repeat="source in tabs.academic | limitTo:pageSize:pageIdx"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span class="sourceMeta"> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
         </li>
       </ul>
+
+     <div paging page="0" page-size="pageSize" total="tabs.academic.length" paging-action="changePage(page)"></div>
+
     </div>
 
     <div class="newsSources">
@@ -174,12 +179,14 @@
       </div>
      </header>
 
-     <div paging page="0" page-size="pageSize" total="tabs.news.length" paging-action="changePage(page)"></div>
 
       <ul class="sourceList">
         <li ng-repeat="source in tabs.news | limitTo:pageSize:pageIdx"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span class="sourceMeta"> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
         </li>
       </ul>
+
+     <div paging page="0" page-size="pageSize" total="tabs.news.length" paging-action="changePage(page)"></div>
+
     </div>
     
      <div class="blogSources">
@@ -191,12 +198,13 @@
       </div>
      </header>
 
-     <div paging page="0" page-size="pageSize" total="tabs.blogs.length" paging-action="changePage(page)"></div>
-
       <ul class="sourceList">
         <li ng-repeat="source in tabs.blogs | limitTo:pageSize:pageIdx"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span class="sourceMeta"> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
         </li>
       </ul>
+
+     <div paging page="0" page-size="pageSize" total="tabs.blogs.length" paging-action="changePage(page)"></div>
+
     </div>   
 
   </section>
