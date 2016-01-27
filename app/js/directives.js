@@ -536,7 +536,7 @@ var drawWordcloud = function(scope, element, attrs) {
         .attr("text-anchor", "middle")
         .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ") rotate(" + d.rotate + ")"; })
         .text(function(d) { return d.text; })
-        .on('click', function(obj){ 
+        .on('click', function(obj){
           $('.trendPanel').removeClass('active'); 
           $(obj.elementId).addClass('active');
           $('#overlay').addClass('active');
