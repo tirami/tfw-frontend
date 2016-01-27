@@ -135,9 +135,14 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
             entry.series = $scope.generateSeries();
           });
         }
+
+        data.sort(function(a,b){return b.velocity - a.velocity});
+        data = data.slice(0,10);
+
         data.forEach(function(entry){  
           entry.topval = entry.velocity * entry.occurrences;
         });
+
         $scope.trends = data;
       },
       function(error){ 
