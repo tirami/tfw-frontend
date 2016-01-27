@@ -1,7 +1,24 @@
 'use strict';
 
-/* Directives */
 var udadisiDirectives = angular.module('udadisiDirectives', []);
+
+udadisiApp.factory('IntervalService', function(){
+  var IntervalService = {};
+  
+  IntervalService.calculateInterval = function(selectStart, selectEnd){
+    var hoursdiff = Math.round((selectEnd - selectStart) / (60*60*1000));
+    var interval = 3;
+    if (hoursdiff < 24){ return 2; } 
+    else if (hoursdiff < (5*24)){ interval = Math.round(hoursdiff/12); }
+    else if (hoursdiff <= (10*24)){ interval = Math.round(hoursdiff/24); }
+    else if (hoursdiff <= (28*24)){ interval = Math.round(hoursdiff/48); }
+    else if (hoursdiff >= (28*24)){ interval = Math.round((hoursdiff/24)/5); }
+    else { interval = 3; }
+    return interval;
+  };
+
+  return IntervalService;
+});
 
 var mapDirective = function($templateRequest, $compile, $parse) {
   return {
@@ -32,9 +49,9 @@ udadisiDirectives.directive('treemap',
   }
 );
 
-udadisiDirectives.directive('timespan', 
-  function($parse) {
-    return { restrict: 'A', scope: { selectStart: '=', selectEnd: '=', location: '=', interval: '=', start: '=', end: '=', updateFn: '=' }, link: setTimespan }
+udadisiDirectives.directive('timespan', function($parse, IntervalService) {
+    return { restrict: 'A', scope: { selectStart: '=', selectEnd: '=', location: '=', interval: '=', start: '=', end: '=', updateFn: '=' }, 
+      link: function(scope, element, attrs){ setTimespan(scope, element, attrs, IntervalService); } }
   }
 );
 
@@ -544,7 +561,7 @@ var drawBars = function (scope, element, attrs) {
    });
 };
 
-var setTimespan = function(scope, element, attrs) {
+var setTimespan = function(scope, element, attrs, IntervalService) {
   var container = d3.select(element[0]),
     margin = {top: 0, right: 20, bottom: 0, left: 40},
     height = 50;
@@ -584,12 +601,7 @@ var setTimespan = function(scope, element, attrs) {
     } else {
       scope.selectStart = brush.extent()[0];
       scope.selectEnd = brush.extent()[1];
-      
-      var daysdiff = Math.ceil((brush.extent()[1] - brush.extent()[0]) / (24*60*60*1000));
-      
-      if (daysdiff < 7) { daysdiff = (daysdiff * 2) + 2; } //increase resolution of interval if smaller amount of time
-      scope.interval = daysdiff;
-      
+      scope.interval = IntervalService.calculateInterval(scope.selectStart, scope.selectEnd);     
       scope.updateFn(scope.location, scope.selectStart.toTimeString(), scope.selectEnd.toTimeString(), scope.interval);
     }
   }

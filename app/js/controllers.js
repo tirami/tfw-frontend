@@ -118,7 +118,7 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
 
 
 //Location profile
-udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParams', '$log', 'Stats', 'LocationTrends', function($scope, $route, $routeParams, $log, Stats, LocationTrends) { 
+udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParams', '$log', 'Stats', 'LocationTrends', 'IntervalService', function($scope, $route, $routeParams, $log, Stats, LocationTrends, IntervalService) { 
   $scope.setActivePage($route.current.originalPath);
 
   $scope.getTrends = function(location, fromDate, toDate, interval){ 
@@ -159,15 +159,16 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
   if ($routeParams.selectionStart && $routeParams.selectionEnd){
     $scope.selectionStart = new Date(parseInt($routeParams.selectionStart));
     $scope.selectionEnd = new Date(parseInt($routeParams.selectionEnd));
+    $scope.interval = IntervalService.calculateInterval($scope.selectionStart, $scope.selectionEnd);
   } else {
     $scope.selectionStart = today-(1*day);
     $scope.selectionEnd = today-1;
+    $scope.interval = 2;
   }
 
   $scope.spanEnd   = today-1;
   $scope.spanStart = today-(91*day);
 
-  $scope.interval = 2;
   $scope.dataAvailable = true;
 
   $scope.getStats($scope.location);
@@ -177,7 +178,7 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
 
 
 //Trend Profile
-udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$routeParams', 'RelatedTrends', function($scope, $log, $route, $routeParams, RelatedTrends) { 
+udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$routeParams', 'RelatedTrends', 'IntervalService', function($scope, $log, $route, $routeParams, RelatedTrends, IntervalService) { 
   $scope.setActivePage($route.current.originalPath);
 
   var generateFakeSources = function(){
@@ -244,14 +245,15 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   if ($routeParams.selectionStart && $routeParams.selectionEnd){
     $scope.selectionStart = new Date(parseInt($routeParams.selectionStart));
     $scope.selectionEnd = new Date(parseInt($routeParams.selectionEnd));
+    $scope.interval = IntervalService.calculateInterval($scope.selectionStart, $scope.selectionEnd);
   } else {
     $scope.selectionStart = today-(1*day);
     $scope.selectionEnd = today-1;
+    $scope.interval = 2;
   }
 
   $scope.spanEnd   = today-1;
   $scope.spanStart = today-(91*day);
-  $scope.interval = 4;
 
   $scope.dataAvailable = false;
   $scope.sources = [{term: "All", series:[]}, {term: "Twitter", series:[]}, {term: "Blogs", series:[]}, {term: "News", series:[]}, {term: "Academia", series:[]}];
@@ -299,7 +301,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
 
 
 //Trend Explorer
-udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$routeParams', 'LocationTrends', function($scope, $route, $log, $routeParams, LocationTrends) { 
+udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$routeParams', 'LocationTrends', 'IntervalService', function($scope, $route, $log, $routeParams, LocationTrends, IntervalService) { 
 
   $scope.setActivePage($route.current.originalPath);
   $scope.currentView = 'wordcloud';
@@ -312,13 +314,14 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
   if ($routeParams.selectionStart && $routeParams.selectionEnd){
     $scope.selectionStart = new Date(parseInt($routeParams.selectionStart));
     $scope.selectionEnd = new Date(parseInt($routeParams.selectionEnd));
+    $scope.interval = IntervalService.calculateInterval($scope.selectionStart, $scope.selectionEnd);
   } else {
     $scope.selectionStart = today-(1*day);
     $scope.selectionEnd = today-1;
+    $scope.interval = 2;
   }
 
   $scope.location = { name: "all" };
-  $scope.interval = 4;
 
   $scope.setLocation = function(name) {
     $scope.location = { name: name }
