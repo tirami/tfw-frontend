@@ -477,11 +477,7 @@ var toggleLocation = function(scope, element, attrs) {
 var drawWordcloud = function(scope, element, attrs) {
   var vis = d3.select(element[0]);
   var bbox = d3.select('#graph-container').node().getBoundingClientRect();
-  
-  var cloudSize = [jQuery('#graph-container').width(), jQuery('#graph-container').height()];    
-  console.log(cloudSize);
   var cloudSize = [bbox.width, bbox.height];
-  console.log(cloudSize);
   //var svg = vis.append("svg").attr("width", cloudSize[0]).attr("height", cloudSize[1]);
   
   var svg = vis.append("svg")
@@ -602,7 +598,8 @@ var setTimespan = function(scope, element, attrs, IntervalService) {
   var brush = d3.svg.brush().x(x).on('brushend', brushend);
   var brushg = context.append('g').attr('class', 'x brush').call(brush); 
 
-  brushg.selectAll(".resize").append("rect").attr("width", 16).attr("rx", 2).attr("ry", 2).attr("height", 21).attr("transform", "translate(-8,2)");
+  svg.append("defs").append("pattern").attr("height", 21).attr("width", 16).attr("id", "grip").append("image").attr("xlink:href", "app/assets/images/grip.png").attr("height", 21).attr("width", 16);
+  brushg.selectAll(".resize").append("rect").attr("width", 16).attr("rx", 2).attr("ry", 2).attr("height", 21).attr("transform", "translate(-8,0)").style("fill", "url(#grip)");
   brushg.selectAll('rect').attr('y', 0).attr('height', height/2);//.attr("transform", "translate(0," +  height / 2 + ")");
 
   // define our brush extent
