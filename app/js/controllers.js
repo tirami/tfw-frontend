@@ -5,20 +5,10 @@ var startOfToday = function(){
   return Date.now() - (Date.now() % (24*60*60*1000));
 }
 
-var calculateVelocity = function(series){
-  var count = 0;
-  series.forEach(function(e){
-    count = count + e;
-  });
-  var avg = count/series.length;
-  return series[series.length-1] / avg;
-};
-
 var day   = 24*60*60*1000;
 var today = startOfToday(); // CHANGE TO startOfToday(); to get up to date info
 
 var udadisiControllers = angular.module('udadisiControllers', ['ngRoute']);
-
 
 //Main Controller
 udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', '$log', function ($scope, $route, Locations, $log) {
@@ -348,10 +338,6 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
         $scope.dataAvailable = false;
       }
 
-      data.forEach(function(e){
-        if (!isNaN(e.series[0])){ e.velocity = calculateVelocity(e.series); }
-      });
-      data.sort(function(a,b){return b.velocity - a.velocity});
       $scope.trends = data.slice(0,10);
     }, function(error){
       $scope.dataAvailable = false;
