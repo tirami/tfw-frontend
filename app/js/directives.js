@@ -425,7 +425,7 @@ var drawWorld = function(group, size, mapScale, places, latlng){
         place.element.css("top", (d3.event.pageY + 10) + "px").css("left", (d3.event.pageX + 10) + "px");
       });
 
-    var coordinates = projection([scope.latlng[1], scope.latlng[0]]);
+    var coordinates = projection([latlng[1],latlng[0]]);
     group.attr("transform", "translate(" + (-coordinates[0]+(size[0]/2)) + "," + (-coordinates[1]+(size[1]/2)) + ")");
 
     //Borders
