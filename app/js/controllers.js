@@ -32,9 +32,9 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', '$lo
   };
 
   $scope.generateExampleTrends = function(){
-    var trends = [{"term":"water-pump","occurrences":452, "velocity": 2.4, "series":[]},
-    {"term":"solar","occurrences":442, "velocity": 0.3, "series":[]},
-    {"term":"battery","occurrences":407, "velocity": 5.4, "series":[]}];
+    var trends = [{"term":"water-pump","occurrences":122, "velocity": 2.4, "series":[]},
+    {"term":"solar","occurrences":92, "velocity": 1.3, "series":[]},
+    {"term":"battery","occurrences":57, "velocity": 5.4, "series":[]}];
 
     trends.forEach(function(t){
       t.series = $scope.generateSeries();
@@ -233,6 +233,9 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
             $scope.trendData = data;
             $scope.relatedTrends = data.related.slice(0,10);
           } else {
+            $log.log("-------");
+            $log.log(location);
+            $log.log(source);
             $scope.location.sourcesData.push({ term: source, series: data.series });
           }
         }
@@ -259,7 +262,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   if ($routeParams.location === undefined){ $scope.location = { name: "all" }; }
   else { $scope.location = { name: $routeParams.location }; }
   $scope.location.seriesData = [{term:"All Sources", series:generateFakeData().series}];
-  $scope.location.sourcesData = [{term:"twitter", series:generateFakeData().series}]; //, {"blogs":[]}, {"academic":[]}, {"news":[]}];
+  $scope.location.sourcesData = [{term:"twitter", series:generateFakeData().series}, {term:"blogs", series:generateFakeData().series}, {term:"academic", series: generateFakeData().series}, {term:"news", series: generateFakeData().series}];
 
   if ($routeParams.selectionStart && $routeParams.selectionEnd){
     $scope.selectionStart = new Date(parseInt($routeParams.selectionStart));
