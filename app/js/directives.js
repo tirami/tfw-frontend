@@ -598,7 +598,7 @@ var setTimespan = function(scope, element, attrs, IntervalService) {
   var brush = d3.svg.brush().x(x).on('brushend', brushend);
   var brushg = context.append('g').attr('class', 'x brush').call(brush); 
 
-  brushg.selectAll(".resize").append("rect").attr("width", 8).attr("height", height).attr("transform", "translate(-4,0)");
+  brushg.selectAll(".resize").append("rect").attr("width", 16).attr("rx", 2).attr("ry", 2).attr("height", 21).attr("transform", "translate(-8,2)");
   brushg.selectAll('rect').attr('y', 0).attr('height', height/2);//.attr("transform", "translate(0," +  height / 2 + ")");
 
   // define our brush extent
