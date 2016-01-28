@@ -22,7 +22,7 @@ udadisiApp.factory('IntervalService', function(){
 
 var mapDirective = function($templateRequest, $compile, $parse) {
   return {
-    restrict: 'A', scope: { mapScale: '=' },
+    restrict: 'A', scope: { mapScale: '=', latlng: '=' },
     link: function(scope, element, attrs){
       setTimeout(function(){ drawMap(scope,element,attrs); }, 10);
     }
@@ -397,7 +397,7 @@ var drawScatterPlot = function(scope, element, attrs){
   });
 };
 
-var drawWorld = function(group, size, mapScale, places){
+var drawWorld = function(group, size, mapScale, places, latlng){
   var projection = d3.geo.equirectangular().scale(mapScale).translate([size[0] / 2, size[1] / 2]).precision(.1);
   var path = d3.geo.path().projection(projection);
 
@@ -425,6 +425,9 @@ var drawWorld = function(group, size, mapScale, places){
         place.element.css("top", (d3.event.pageY + 10) + "px").css("left", (d3.event.pageX + 10) + "px");
       });
 
+    var coordinates = projection([scope.latlng[1], scope.latlng[0]]);
+    group.attr("transform", "translate(" + (-coordinates[0]+(size[0]/2)) + "," + (-coordinates[1]+(size[1]/2)) + ")");
+
     //Borders
     /*svg.insert("path", ".graticule")
       .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
@@ -435,8 +438,9 @@ var drawWorld = function(group, size, mapScale, places){
 
 var drawMap = function(scope,element,attrs){
   var bbox = d3.select(element[0]).node().getBoundingClientRect();
-  var width = bbox.width-13;
-  var height = width*(0.5*scope.mapScale);
+
+  var width = bbox.width;
+  var height = bbox.height;
   var widthScaleFactor = 0.15625;
   var scale = width*(widthScaleFactor*scope.mapScale);
 
@@ -451,7 +455,8 @@ var drawMap = function(scope,element,attrs){
 
   //Append svg
   var svg = d3.select(element[0]).append("svg").attr("width", width).attr("height", height);
-  drawWorld(svg, [width,height], scale, places);
+  if (scope.latlng === undefined){ scope.latlng = [0.0,0.0] } 
+  drawWorld(svg, [width,height], scale, places, scope.latlng);
 
   //Grid
   //var graticule = d3.geo.graticule();
@@ -490,7 +495,7 @@ var drawWordcloud = function(scope, element, attrs) {
   var widthScaleFactor = 0.15625;
   var scale = cloudSize[0]*(widthScaleFactor*scope.mapScale);
   var mapGroup = svg.append("g");
-  drawWorld(mapGroup, cloudSize, scale, []);
+  drawWorld(mapGroup, cloudSize, scale, [], [0.0,0.0]);
 
   var wordGroup = svg.append("g").attr("class", "wordgroup");
 

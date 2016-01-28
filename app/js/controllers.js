@@ -143,13 +143,18 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
 
   $scope.getStats = function(location){
     Stats.get({ location: location.name },
-      function(result){ location.trendscount = result.trendscount; },
+      function(result){ 
+        location.trendscount = result.trendscount;
+        $log.log(result);
+        if (location.name === "all") { location.latitude = 0.0; location.longitude = 0.0; location.scale=0.9;  }
+        else { location.latitude = result.geo_coord.latitude; location.longitude = result.geo_coord.longitude; location.scale=5; }
+      },
       function(error){ $log.log("No stats returned for "+location.name); });
   };
 
   var n = $routeParams.location;
   if(n == "global") { n = "all"; }
-  $scope.location = { name: n, trendscount: 0 }
+  $scope.location = { name: n, trendscount: 0, latitude: 0.0, longitude: 0.0, scale:0.9 }
 
   if ($routeParams.selectionStart && $routeParams.selectionEnd){
     $scope.selectionStart = new Date(parseInt($routeParams.selectionStart));
@@ -167,7 +172,7 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
   $scope.dataAvailable = true;
 
   $scope.getStats($scope.location);
-  $scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval);
+  //$scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval);
   
 }]);
 
@@ -217,30 +222,27 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
 
     RelatedTrends.query({ location: location.name, term: $scope.trend, limit: 5, from: fromDate, interval: interval, source: sourceParam }, 
       function(data){
-
+        
         if ((data === undefined) || (data.series === undefined) || (data.series.length === 0)){
           data = generateFakeData();
           $scope.dataAvailable = false;
         } else {
           $scope.dataAvailable = true;
         }
-
+        
         data.occurrences = data.series.reduce(function(a, b){return a+b;});
-
+        
         if ($scope.location.name === location.name){
           if ((source === "") || (source === "all")){
             $scope.location.seriesData = [{term:"All Sources", series: data.series }];
             $scope.trendData = data;
             $scope.relatedTrends = data.related.slice(0,10);
           } else {
-            $log.log("-------");
-            $log.log(location);
-            $log.log(source);
+            $scope.sourcesDataAvailable = true;
+            if ($scope.location.sourcesData.length == 4){ $scope.location.sourcesData = []; }
             $scope.location.sourcesData.push({ term: source, series: data.series });
           }
         }
-
-        $log.log($scope.location);
 
         if ((source === "") || (source === "all")){
           $scope.prevalences[location.name].occurrences = data.occurrences;
@@ -255,6 +257,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   };
     
   $scope.dataAvailable = false;
+  $scope.sourcesDataAvailable = false;
   $scope.trendData = { term: $routeParams.trend, velocity:0, sources:[], series: [] };
   $scope.trend = $routeParams.trend;
   $scope.relatedTrends = [];

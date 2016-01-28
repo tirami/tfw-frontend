@@ -72,7 +72,7 @@
       <h2>Sources breakdown of {{ trend.name }} trend</h2>
       <div class = "series-container"> 
          <!--<button class="zr" style="position: relative; right: 30px; top: 30px;">Reset</button>-->
-        <div ng-hide="dataAvailable" class="unavailableOverlay">
+        <div ng-hide="sourcesDataAvailable" class="unavailableOverlay">
            <p>Data unavailable for selection</p>
         </div>
         <div time-series series-data="location.sourcesData"></div>
