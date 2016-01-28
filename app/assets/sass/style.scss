@@ -496,9 +496,17 @@ body.trends-trend {
     border: 1px solid #ccc;
   }
   .container {background: $pa-cream;}
+  
+  #graph-container {
+    width:100%;
+    position:relative; 
+    height:50vh;
+    right:auto;
+    top:0px;
+    .unavailableOverlay { height: 100%; }
+  }
 
-
-#profileHeader {
+  #profileHeader {
   padding: 1em;
   img.locationMap {float: left; margin-right: 1em;}
   h1 {
@@ -508,15 +516,15 @@ body.trends-trend {
     text-transform: capitalize;
     margin: 0.25em;
     span.description { 
-    display: block;
-    font-size: 0.2em;
-    font-weight: 700;
-    line-height: 1;
-    text-transform: none;
-    position: relative;
-    right: -0.25em;
-      }
-   }
+      display: block;
+      font-size: 0.2em;
+      font-weight: 700;
+      line-height: 1;
+      text-transform: none;
+      position: relative;
+      right: -0.25em;
+    }
+  }
    
    #trendInfo {
      padding-top: 2em;
@@ -591,7 +599,7 @@ body.trends-trend {
  #trend-graphs {
   margin: 0 1em 1em 1em;
   background: white;
-  .history, .sources, .related {display: none;}
+  .history, .sources, .related {display: none; position:relative;}
 
   &.history-tab-open .history {display: block !important;}
   &.sources-tab-open .sources {display: block!important;}

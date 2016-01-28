@@ -43,7 +43,7 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', '$lo
     return trends;
   };
 
-  $scope.locations = [];
+  $scope.locations = [{ name: "all" }];
   $scope.getLocations = function(){
     Locations.query({}, 
       function(data){ $scope.locations = data; }, 

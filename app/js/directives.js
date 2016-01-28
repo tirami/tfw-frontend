@@ -270,8 +270,6 @@ var drawTimeSeries = function(scope, element, attrs){
     group.selectAll('*').remove();
     if ((!data || data.length===0)) { return; }
 
-    console.log(data);
-    
     x.domain([0,(data[0].series.length-1)]);
     var allSeries = [];
     data.forEach(function(e){ allSeries = allSeries.concat(e.series); });
@@ -479,9 +477,13 @@ var toggleLocation = function(scope, element, attrs) {
 var drawWordcloud = function(scope, element, attrs) {
   var vis = d3.select(element[0]);
   var bbox = d3.select('#graph-container').node().getBoundingClientRect();
+  
+  var cloudSize = [jQuery('#graph-container').width(), jQuery('#graph-container').height()];    
+  console.log(cloudSize);
   var cloudSize = [bbox.width, bbox.height];
+  console.log(cloudSize);
   //var svg = vis.append("svg").attr("width", cloudSize[0]).attr("height", cloudSize[1]);
-
+  
   var svg = vis.append("svg")
     .attr("width", '100%')
     .attr("height", '100%')
@@ -526,26 +528,26 @@ var drawWordcloud = function(scope, element, attrs) {
     //console.log(wrdSize);
     //wordGroup.attr("transform", "translate(" + (cloudSize[0] - wrdSize.width)/2 + "," + (cloudSize[1] - wrdSize.height)/2 + ")");
     wordGroup.attr("transform", "translate(" + cloudSize[0] / 2 + "," + cloudSize[1] / 1.9 + ")");
-
-    function draw(words) {
-      wordGroup.selectAll("text")
-        .data(words)
-        .enter().append("text")
-        .style("font-size", function(d) { return d.size + "px"; })
-        .style("font-family", "Open Sans")
-        .style("font-weight","600")
-        .style("fill", function(d, i) { return getUdadisiColour(i); })
-        .attr("text-anchor", "middle")
-        .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ") rotate(" + d.rotate + ")"; })
-        .text(function(d) { return d.text; })
-        .on('click', function(obj){
-          $('.trendPanel').removeClass('active'); 
-          $(obj.elementId).addClass('active');
-          $('#overlay').addClass('active');
-        });
-    };
-
   });
+
+  function draw(words) {
+    wordGroup.selectAll("text")
+      .data(words)
+      .enter().append("text")
+      .style("font-size", function(d) { return d.size + "px"; })
+      .style("font-family", "Open Sans")
+      .style("font-weight","600")
+      .style("fill", function(d, i) { return getUdadisiColour(i); })
+      .attr("text-anchor", "middle")
+      .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ") rotate(" + d.rotate + ")"; })
+      .text(function(d) { return d.text; })
+      .on('click', function(obj){
+        $('.trendPanel').removeClass('active'); 
+        $(obj.elementId).addClass('active');
+        $('#overlay').addClass('active');
+      });
+  };
+
 };
 
 var drawBars = function (scope, element, attrs) {

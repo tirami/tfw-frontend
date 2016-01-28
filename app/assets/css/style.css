@@ -508,6 +508,16 @@ body.trends-trend #trendProfile header.pageHeader, body.trends-trend #trendProfi
 body.trends-trend #trendProfile .container {
   background: #f9f9f5;
 }
+body.trends-trend #trendProfile #graph-container {
+  width: 100%;
+  position: relative;
+  height: 50vh;
+  right: auto;
+  top: 0px;
+}
+body.trends-trend #trendProfile #graph-container .unavailableOverlay {
+  height: 100%;
+}
 body.trends-trend #trendProfile #profileHeader {
   padding: 1em;
 }
@@ -613,6 +623,7 @@ body.trends-trend #trend-graphs {
 }
 body.trends-trend #trend-graphs .history, body.trends-trend #trend-graphs .sources, body.trends-trend #trend-graphs .related {
   display: none;
+  position: relative;
 }
 body.trends-trend #trend-graphs.history-tab-open .history {
   display: block !important;
