@@ -292,7 +292,7 @@ button.pure-button span.active { color:white;background-color:#333; }
   }
 }
 .brush .extent {
-  fill: $pa-turquoise;
+  fill: $pa-yellow;
   shape-rendering:crispEdges;
 }
 .axis line,.axis path {
@@ -556,6 +556,20 @@ body.trends-trend {
 }
 
 
+#filters {
+ padding: 1em;
+ text-align: center;
+ ul {
+  padding: 0; margin: 0;
+  display: inline;
+  li {list-style: none;
+   display: inline-block;
+   margin: 0 1em;
+   a {}
+  }
+ }
+}
+
  
   #trendInfo {
     .stats {
@@ -582,6 +596,19 @@ body.trends-trend {
   &.history-tab-open .history {display: block !important;}
   &.sources-tab-open .sources {display: block!important;}
   &.related-tab-open .related {display: block!important;}
+ }
+ 
+ .timespan-container {
+  .ui-brush {
+   background: $pa-cream;
+   fill:white;
+   .tick { fill: $navy-blue; }
+    path, line {stroke: $navy-blue; }
+    g.axis {filter: $navy-blue;}
+    .background { fill: #e9e9e5; visibility: visible !important;
+    }
+    g.resize rect {   stroke: #e9e9e9; height: 20px !important; background: url('../images/grip.png ')}
+  }
  } 
 
 
@@ -921,7 +948,6 @@ body.home {
    }
    
    #toggleViews {display: none;}
-
 
    }
 
