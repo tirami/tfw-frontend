@@ -57,6 +57,7 @@ body {
   }
   
   .pure-menu-link {
+   padding: 1em;
     &:hover, &:active, &:focus {
       background: none;
       color: $pa-turquoise;
@@ -72,9 +73,10 @@ body.about .pure-menu-link.about-btn  {
 
   &:before {
     position: absolute;
-    right: 47%;
+    right: 50%;
+    margin-right: -10px;
     top: 42px;
-    margin-top: -12px;
+    margin-top: -0.25em;
     font-family: FontAwesome;
     content: "\f0d8";
     font-size: 31px;

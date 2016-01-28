@@ -38,6 +38,9 @@ body {
   content: "\f078";
   font-family: FontAwesome;
 }
+#main-menu .pure-menu-link {
+  padding: 1em;
+}
 #main-menu .pure-menu-link:hover, #main-menu .pure-menu-link:active, #main-menu .pure-menu-link:focus {
   background: none;
   color: #008e8f;
@@ -47,9 +50,10 @@ body.trend-explorer .pure-menu-link.te-btn:before,
 body.locations-location .pure-menu-link.location-btn:before,
 body.about .pure-menu-link.about-btn:before {
   position: absolute;
-  right: 47%;
+  right: 50%;
+  margin-right: -10px;
   top: 42px;
-  margin-top: -12px;
+  margin-top: -0.25em;
   font-family: FontAwesome;
   content: "\f0d8";
   font-size: 31px;
