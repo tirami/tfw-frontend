@@ -186,57 +186,80 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
       }
     });
   };
+
+  var generateFakeData = function(){   
+    return { velocity: 1, series: [Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10], related: $scope.generateExampleTrends() };
+  };
   
   $scope.calculatePrevalences = function(){
-    if ($scope.occurrences.length != $scope.locations.length){ return; }
-    var max = $scope.occurrences.sort().reverse()[0];
-    jQuery.each($scope.prevalences, function(k,l){ l.prevalence = l.occurrences/max; });
+    var occurrences = [];
+    jQuery.each($scope.prevalences, function(k,l){
+      occurrences.push(l.occurrences);
+    });
+    var max = occurrences.sort().reverse()[0];
+    jQuery.each($scope.prevalences, function(k,l){
+      l.prevalence = l.occurrences/max;
+    });
   };
 
-  $scope.getRelatedTrends = function(location, fromDate, toDate, interval) {
-    RelatedTrends.query({ location: location.name, term: $scope.trend, limit: 5, from: fromDate, interval: interval }, 
+  $scope.populateSourcesTabs = function(sources){
+    if (sources ===undefined){ generateFakeSources(); return; }
+    sources.forEach(function(src){
+      if ($scope.tabs[src.source] === undefined) { $scope.tabs[src.source] = [src]; } 
+      else { $scope.tabs[src.source].push(src); }
+    });
+  };
+
+  $scope.getRelatedTrends = function(location, fromDate, toDate, interval, source) {
+    
+    var sourceParam = source;
+    if (source === "all"){ sourceParam = "" }
+
+    RelatedTrends.query({ location: location.name, term: $scope.trend, limit: 5, from: fromDate, interval: interval, source: sourceParam }, 
       function(data){
-        if ((data === undefined) || (data.series === undefined) || (data.series.length === 0)){           
-          var src = [{term: "All", series:[]}, {term: "Twitter", series:[]}, {term: "Blogs", series:[]}, {term: "News", series:[]}, {term: "Academia", series:[]}]; 
-          data = { velocity: 0, series: [Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10] };
-          src.forEach(function(s){ s.series = data.series });
-          data.occurrences = data.series.reduce(function(a, b){return a+b;});
-          $scope.relatedTrends = $scope.generateExampleTrends();
-          $scope.dataAvailable = false; 
+
+        if ((data === undefined) || (data.series === undefined) || (data.series.length === 0)){
+          data = generateFakeData();
+          $scope.dataAvailable = false;
         } else {
-          var src = [{term: "Twitter", series:[]}];
-          data.occurrences = data.series.reduce(function(a, b){return a+b;});
-          $scope.relatedTrends = data.related.slice(0,10);
-          src[0].series = data.series;
           $scope.dataAvailable = true;
         }
-        $scope.trendData = data;
-        $scope.sources = src;
-        $scope.prevalences[location.name] = { occurrences: data.occurrences };
-        $scope.occurrences.push(data.occurrences);
-        $scope.calculatePrevalences();
 
-        $scope.trendData.sources.forEach(function(src){
-          if ($scope.tabs[src.source] === undefined){
-            $scope.tabs[src.source] = [src];
+        data.occurrences = data.series.reduce(function(a, b){return a+b;});
+
+        if ($scope.location.name === location.name){
+          if ((source === "") || (source === "all")){
+            $scope.location.seriesData = [{term:"All Sources", series: data.series }];
+            $scope.trendData = data;
+            $scope.relatedTrends = data.related.slice(0,10);
           } else {
-            $scope.tabs[src.source].push(src);
+            $scope.location.sourcesData.push({ term: source, series: data.series });
           }
-        });        
+        }
+
+        $log.log($scope.location);
+
+        if ((source === "") || (source === "all")){
+          $scope.prevalences[location.name].occurrences = data.occurrences;
+          $scope.calculatePrevalences();
+        }
+
       },
       function(error){
-        $scope.occurrences = [];
         $scope.calculatePrevalences();
         $log.log("Error returning trend data for "+$scope.trend); 
       });
   };
-
-  if ($routeParams.location === undefined){ $scope.location = { name: "all" }; } 
-  else { $scope.location = { name: $routeParams.location }; }
-
-  $scope.trendData = { term: $routeParams.trend, velocity:0, sources:[] };
+    
+  $scope.dataAvailable = false;
+  $scope.trendData = { term: $routeParams.trend, velocity:0, sources:[], series: [] };
   $scope.trend = $routeParams.trend;
   $scope.relatedTrends = [];
+
+  if ($routeParams.location === undefined){ $scope.location = { name: "all" }; }
+  else { $scope.location = { name: $routeParams.location }; }
+  $scope.location.seriesData = [{term:"All Sources", series:generateFakeData().series}];
+  $scope.location.sourcesData = [{term:"twitter", series:generateFakeData().series}]; //, {"blogs":[]}, {"academic":[]}, {"news":[]}];
 
   if ($routeParams.selectionStart && $routeParams.selectionEnd){
     $scope.selectionStart = new Date(parseInt($routeParams.selectionStart));
@@ -245,22 +268,23 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   } else {
     $scope.selectionStart = today-(1*day);
     $scope.selectionEnd = today-1;
-    $scope.interval = 2;
+    $scope.interval = 3;
   }
-
   $scope.spanEnd   = today-1;
   $scope.spanStart = today-(91*day);
 
-  $scope.dataAvailable = false;
-  $scope.sources = [{term: "All", series:[]}, {term: "Twitter", series:[]}, {term: "Blogs", series:[]}, {term: "News", series:[]}, {term: "Academia", series:[]}];
-  $scope.prevalences = {};
-  $scope.occurrences = [];
   $scope.tabs = { "twitter":[], "blogs":[], "academic":[], "news":[] };
+  $scope.prevalences = {};
 
   $scope.$watch('locations', function(newValue, oldValue) {
     $scope.locations.forEach(function(location){
-      $scope.getRelatedTrends(location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval);
+      $scope.prevalences[location.name] = location;
+      $scope.getRelatedTrends(location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval, "all");
     });
+    /*disabled until we have more sources
+    jQuery.each($scope.location.sourcesData, function(k,v){
+      $scope.getRelatedTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval, k);
+    });*/
   });
   
   $scope.toggleView = function(view, clickEvent){

@@ -270,8 +270,10 @@ var drawTimeSeries = function(scope, element, attrs){
     group.selectAll('*').remove();
     if ((!data || data.length===0)) { return; }
 
+    console.log(data);
+    
     x.domain([0,(data[0].series.length-1)]);
-    var allSeries = []
+    var allSeries = [];
     data.forEach(function(e){ allSeries = allSeries.concat(e.series); });
     var yExtent = d3.extent(allSeries);
     y.domain(yExtent);

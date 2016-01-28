@@ -10,7 +10,7 @@ udadisiServices.factory('LocationTrends', ['$resource','$log',
   function($resource, $log){
     //http://localhost:8080/v1/all/trends?from=200601021504&interval=3&limit=10
     return $resource(host+'v1/locations/:location/trends', {}, {
-      query: { method:'GET', params:{ location:'all', limit:10, from: "201601010000", interval: 6}, isArray:true }
+      query: { method:'GET', params:{ location:'all', limit:10, from: "201601010000", interval: 6, source: ""}, isArray:true }
     });
   }]);
 
@@ -32,7 +32,7 @@ udadisiServices.factory('Stats', ['$resource','$log',
 udadisiServices.factory('RelatedTrends', ['$resource','$log',
   function($resource, $log){
     return $resource(host+'v1/locations/:location/trends/:term', {}, {
-      query: { method:'GET', params:{ location:'all', limit:10, from: "201601010000", interval: 4 }, isArray:false }
+      query: { method:'GET', params:{ location:'all', limit:10, from: "201601010000", interval: 4, source:"" }, isArray:false }
     });
   }]);
 
