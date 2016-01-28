@@ -50,20 +50,34 @@ body {
   float: right;
   width: auto;
   font-weight: 700;  
-
-  .pure-menu-has-children>.pure-menu-link:after {
-   content: "\f078";
-   font-family: FontAwesome;
-  }
   
-  .pure-menu-link {
-   padding: 1em;
-    &:hover, &:active, &:focus {
-      background: none;
-      color: $pa-turquoise;
+  .pure-menu-list {
+
+    .pure-menu-has-children>.pure-menu-link:after {
+     content: "\f078";
+     font-family: FontAwesome;
+    }
+   
+    
+    .pure-menu-link {
+     padding: 1em;
+      &:hover, &:active, &:focus {
+        background: none;
+        color: $pa-turquoise;
+      }
+    }
+    ul.pure-menu-children {
+     width: 100%!important;
+     background: $navy-blue;
+     li.pure-menu-item {
+      display: block;
+      a {     color: $pa-cream;
+text-decoration: none;
+       &:hover {color: $pa-turquoise;}
+      }
+     }
     }
   }
-  
  }
 
 
@@ -495,6 +509,7 @@ body.trends-trend {
     padding: 1em;
     border: 1px solid #ccc;
   }
+<<<<<<< Updated upstream
   .container {background: $pa-cream;}
   
   #graph-container {
@@ -505,6 +520,9 @@ body.trends-trend {
     top:0px;
     .unavailableOverlay { height: 100%; }
   }
+=======
+  .container {background: $pa-cream; padding-bottom: 1em;}
+>>>>>>> Stashed changes
 
   #profileHeader {
   padding: 1em;
