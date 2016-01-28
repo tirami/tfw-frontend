@@ -2,13 +2,13 @@
   <div  class="container">
   <header id="profileHeader" class="pageHeader pure-g">
 
-    <div id="cityTitle" class="pure-u-1 pure-u-md-1-2 column">
+    <div id="cityTitle" class="pure-u-1 pure-u-md-1-3 column">
       <h1><span class="description">Trends overview for </span> <span data-fittext>{{ location.name | allAsGlobal }}</span></h1>
     </div>
-    <div class="pure-u-1 pure-u-md-1-4 column">
+    <div class="pure-u-1 pure-u-md-1-3 column">
     </div>
       
-    <div id="locationMap" class="pure-u-1 pure-u-md-1-4 column">
+    <div id="locationMap" class="pure-u-1 pure-u-md-1-3 column">
       <div map-projection map-scale="5" style="width: 100%; height: 100%" id="mapContainer">
         <div ng-repeat="location in locations"  ng-if="location.name" class="locationPanel" data-longitude="{{ location.longitude }}"></div>
       </div>

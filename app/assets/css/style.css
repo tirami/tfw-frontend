@@ -208,97 +208,6 @@ h3 a {
   margin: 0 auto;
 }
 
-/*  Profile Specific CSS –––––––––––––––––––––––––––––––––––––––––––––––––– */
-#trendProfile, #cityProfile {
-  background: #0c1444;
-  padding: 3em 0;
-}
-#trendProfile header.pageHeader, #trendProfile section, #cityProfile header.pageHeader, #cityProfile section {
-  padding: 1em;
-  border: 1px solid #ccc;
-}
-#trendProfile .container, #cityProfile .container {
-  background: #f9f9f5;
-}
-#trendProfile #locationMap, #cityProfile #locationMap {
-  height: 150px;
-}
-#trendProfile #graph-container, #cityProfile #graph-container {
-  width: 100%;
-  position: relative;
-  height: 50vh;
-  right: auto;
-  top: 0px;
-}
-#trendProfile #graph-container .unavailableOverlay, #cityProfile #graph-container .unavailableOverlay {
-  height: 100%;
-}
-
-#profileHeader {
-  padding: 1em;
-}
-#profileHeader img.locationMap {
-  float: left;
-  margin-right: 1em;
-}
-#profileHeader h1 {
-  font-size: 5em;
-  font-weight: 400;
-  line-height: 0;
-  text-transform: capitalize;
-  margin: 0.25em;
-}
-#profileHeader h1 span.description {
-  display: block;
-  font-size: 0.2em;
-  font-weight: 700;
-  line-height: 1;
-  text-transform: none;
-  position: relative;
-  right: -0.25em;
-}
-#profileHeader #trendInfo {
-  padding-top: 2em;
-}
-#profileHeader #trendInfo h4 {
-  margin: 0;
-  text-align: center;
-}
-#profileHeader #trendInfo #trendChange span {
-  font-size: 3em;
-  display: block;
-}
-#profileHeader #trendInfo #trendChange p {
-  margin: 0;
-}
-#profileHeader #trendInfo .stats .stat {
-  font-size: 3em;
-  display: block;
-  width: 100%;
-  text-align: center;
-}
-#profileHeader #trendInfo .stats p {
-  margin: 0;
-}
-#profileHeader #trendInfo #relatedTrends ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#filters ul {
-  list-style: none;
-}
-#filters ul li {
-  display: inline-block;
-}
-#filters ul li a {
-  padding: 1em;
-}
-#filters ul li a i.fa {
-  margin-right: 0.5em;
-}
-
 /*  Trend Explorer CSS –––––––––––––––––––––––––––––––––––––––––––––––––– */
 #side-menu {
   margin-left: -20%;
@@ -584,6 +493,81 @@ rect.legend-box {
 }
 
 /*  Trend Profile  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+body.trends-trend #trendProfile {
+  background: #0c1444;
+  padding: 3em 0;
+}
+body.trends-trend #trendProfile header.pageHeader, body.trends-trend #trendProfile section {
+  padding: 1em;
+  border: 1px solid #ccc;
+}
+body.trends-trend #trendProfile .container {
+  background: #f9f9f5;
+}
+body.trends-trend #trendProfile #profileHeader {
+  padding: 1em;
+}
+body.trends-trend #trendProfile #profileHeader img.locationMap {
+  float: left;
+  margin-right: 1em;
+}
+body.trends-trend #trendProfile #profileHeader h1 {
+  font-size: 5em;
+  font-weight: 400;
+  line-height: 0;
+  text-transform: capitalize;
+  margin: 0.25em;
+}
+body.trends-trend #trendProfile #profileHeader h1 span.description {
+  display: block;
+  font-size: 0.2em;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: none;
+  position: relative;
+  right: -0.25em;
+}
+body.trends-trend #trendProfile #profileHeader #trendInfo {
+  padding-top: 2em;
+}
+body.trends-trend #trendProfile #profileHeader #trendInfo h4 {
+  margin: 0;
+  text-align: center;
+}
+body.trends-trend #trendProfile #profileHeader #trendInfo #trendChange span {
+  font-size: 3em;
+  display: block;
+}
+body.trends-trend #trendProfile #profileHeader #trendInfo #trendChange p {
+  margin: 0;
+}
+body.trends-trend #trendProfile #profileHeader #trendInfo .stats .stat {
+  font-size: 3em;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+body.trends-trend #trendProfile #profileHeader #trendInfo .stats p {
+  margin: 0;
+}
+body.trends-trend #trendProfile #profileHeader #trendInfo #relatedTrends ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+body.trends-trend #trendProfile #locationMap {
+  height: 150px;
+}
+body.trends-trend #trendProfile #graph-container {
+  width: 100%;
+  position: relative;
+  height: 50vh;
+  right: auto;
+  top: 0px;
+}
+body.trends-trend #trendProfile #graph-container .unavailableOverlay {
+  height: 100%;
+}
 body.trends-trend #trendInfo .stats {
   border-right: 1px solid #e9e9e9;
 }
@@ -686,8 +670,80 @@ body.trends-trend #trendSources .panelHeader div.exportButtons a {
 }
 
 /*  Location Profile  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
-body.locations-location #cityTitle {
-  float: right;
+body.locations-location #cityProfile {
+  background: #0c1444;
+  padding: 3em 0;
+}
+body.locations-location #cityProfile header.pageHeader, body.locations-location #cityProfile section {
+  padding: 1em;
+  border: 1px solid #ccc;
+}
+body.locations-location #cityProfile #profileHeader {
+  padding: 1em;
+}
+body.locations-location #cityProfile #profileHeader img.locationMap {
+  float: left;
+  margin-right: 1em;
+}
+body.locations-location #cityProfile #profileHeader h1 {
+  font-size: 5em;
+  font-weight: 400;
+  line-height: 0;
+  text-transform: capitalize;
+  margin: 0.25em;
+}
+body.locations-location #cityProfile #profileHeader h1 span.description {
+  display: block;
+  font-size: 0.2em;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: none;
+  position: relative;
+  right: -0.25em;
+}
+body.locations-location #cityProfile #profileHeader #trendInfo {
+  padding-top: 2em;
+}
+body.locations-location #cityProfile #profileHeader #trendInfo h4 {
+  margin: 0;
+  text-align: center;
+}
+body.locations-location #cityProfile #profileHeader #trendInfo #trendChange span {
+  font-size: 3em;
+  display: block;
+}
+body.locations-location #cityProfile #profileHeader #trendInfo #trendChange p {
+  margin: 0;
+}
+body.locations-location #cityProfile #profileHeader #trendInfo .stats .stat {
+  font-size: 3em;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+body.locations-location #cityProfile #profileHeader #trendInfo .stats p {
+  margin: 0;
+}
+body.locations-location #cityProfile #profileHeader #trendInfo #relatedTrends ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+body.locations-location #cityProfile .container {
+  background: #f9f9f5;
+}
+body.locations-location #cityProfile #locationMap {
+  height: 150px;
+}
+body.locations-location #cityProfile #graph-container {
+  width: 100%;
+  position: relative;
+  height: 50vh;
+  right: auto;
+  top: 0px;
+}
+body.locations-location #cityProfile #graph-container .unavailableOverlay {
+  height: 100%;
 }
 body.locations-location #mapContainer {
   float: right;
