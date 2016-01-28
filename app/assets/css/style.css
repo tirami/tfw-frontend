@@ -34,15 +34,29 @@ body {
   width: auto;
   font-weight: 700;
 }
-#main-menu .pure-menu-has-children > .pure-menu-link:after {
+#main-menu .pure-menu-list .pure-menu-has-children > .pure-menu-link:after {
   content: "\f078";
   font-family: FontAwesome;
 }
-#main-menu .pure-menu-link {
+#main-menu .pure-menu-list .pure-menu-link {
   padding: 1em;
 }
-#main-menu .pure-menu-link:hover, #main-menu .pure-menu-link:active, #main-menu .pure-menu-link:focus {
+#main-menu .pure-menu-list .pure-menu-link:hover, #main-menu .pure-menu-list .pure-menu-link:active, #main-menu .pure-menu-list .pure-menu-link:focus {
   background: none;
+  color: #008e8f;
+}
+#main-menu .pure-menu-list ul.pure-menu-children {
+  width: 100% !important;
+  background: #0c1444;
+}
+#main-menu .pure-menu-list ul.pure-menu-children li.pure-menu-item {
+  display: block;
+}
+#main-menu .pure-menu-list ul.pure-menu-children li.pure-menu-item a {
+  color: #f9f9f5;
+  text-decoration: none;
+}
+#main-menu .pure-menu-list ul.pure-menu-children li.pure-menu-item a:hover {
   color: #008e8f;
 }
 
@@ -507,6 +521,7 @@ body.trends-trend #trendProfile header.pageHeader, body.trends-trend #trendProfi
 }
 body.trends-trend #trendProfile .container {
   background: #f9f9f5;
+  padding-bottom: 1em;
 }
 body.trends-trend #trendProfile #graph-container {
   width: 100%;
@@ -652,8 +667,6 @@ body.trends-trend .timespan-container .ui-brush .background {
   visibility: visible !important;
 }
 body.trends-trend .timespan-container .ui-brush g.resize rect {
-  stroke: #e9e9e9;
-  height: 20px !important;
   background: url("../images/grip.png ");
 }
 body.trends-trend #trendSources {
