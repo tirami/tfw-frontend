@@ -46,7 +46,7 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', '$lo
   $scope.locations = [{ name: "all" }];
   $scope.getLocations = function(){
     Locations.query({}, 
-      function(data){ $scope.locations = data; }, 
+      function(data){  $scope.locations = data; }, 
       function(error){ $scope.locations = [{ name: "all" }]; });
   };
   $scope.getLocations();
@@ -329,7 +329,8 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
   $scope.setActivePage($route.current.originalPath);
   $scope.currentView = 'wordcloud';
 
-  $scope.dataAvailable = true;
+  $scope.dataAvailable = false;
+  $scope.trends = $scope.generateExampleTrends();
 
   $scope.spanEnd   = today-1; //at 23:59:59
   $scope.spanStart = today-(91*day);
@@ -355,15 +356,15 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
     LocationTrends.query({ location: location.name, limit: 10, from: fromDate, to: toDate, interval: interval }, function(data) {
       $scope.dataAvailable = true;
 
+      if ((data === null) || (data.length == 0) || (totalVelocity === 0)){
+        data = $scope.generateExampleTrends();
+        $scope.dataAvailable = false;
+      }
+
       var totalVelocity = 0;
       data.forEach(function(entry){
         totalVelocity = totalVelocity + entry.velocity;
       });
-
-      if ((data.length == 0) || (totalVelocity === 0)){
-        data = $scope.generateExampleTrends();
-        $scope.dataAvailable = false;
-      }
 
       $scope.trends = data.slice(0,10);
     }, function(error){
