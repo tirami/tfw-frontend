@@ -51,22 +51,21 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', '$lo
   };
   $scope.getLocations();
   
-    $scope.toggleMenu = function(view, clickEvent){     
-     if ($(".open")[0]){
-         $('nav#main-menu').slideUp();
-         $(clickEvent.target).removeClass("open");
-     } else {
-         $('nav#main-menu').slideDown();
-         $(clickEvent.target).addClass("open");
-     }
+  $scope.toggleMenu = function(view, clickEvent){     
+    if ($(".open")[0]){
+      $('nav#main-menu').slideUp();
+      $(clickEvent.target).removeClass("open");
+    } else {
+      $('nav#main-menu').slideDown();
+      $(clickEvent.target).addClass("open");
+    }
+  };
+  
+  $scope.closeMenu = function(view, clickEvent){     
+    if($(window).width() <= 600) {
+       $('ul.pure-menu-list').delay( 500 ).slideUp();
     };
-    
-    $scope.closeMenu = function(view, clickEvent){     
-      if($(window).width() <= 600) {
-         $('ul.pure-menu-list').delay( 500 ).slideUp();
-      };
-    };
-
+  };
 
 }]);
 
@@ -101,8 +100,6 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
     $scope.getTrends(item, new Date($scope.selectionStart).toTimeString(), $scope.interval);
     $scope.getStats(item);
   });
-  
-  
 
 }]);
 
@@ -172,7 +169,7 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
   $scope.dataAvailable = true;
 
   $scope.getStats($scope.location);
-  //$scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval);
+  $scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval);
   
 }]);
 
@@ -302,7 +299,6 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     $("#trend-graphs").addClass(view + "-tab-open");
   };
 
-
   $scope.toggleSources = function(view, clickEvent){
     $("#sourcesTabs button").removeClass("active");
     $(clickEvent.target).addClass("active");
@@ -391,16 +387,16 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
     $("#graph-container").addClass(view + "-container");
   };
 
-  $scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval);
-  
   $scope.toggleFilters = function(view, clickEvent){     
-     if ($(".open")[0]){
-         $('#toggleViews').slideUp();
-         $(clickEvent.target).removeClass("open");
-     } else {
-         $('#toggleViews').slideDown();
-         $(clickEvent.target).addClass("open");
-     }
-    };
+    if ($(".open")[0]){
+      $('#toggleViews').slideUp();
+      $(clickEvent.target).removeClass("open");
+    } else {
+      $('#toggleViews').slideDown();
+      $(clickEvent.target).addClass("open");
+    }
+  };
+
+  $scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval); 
 
 }]);
