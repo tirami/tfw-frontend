@@ -438,7 +438,7 @@ var drawWorld = function(group, size, mapScale, places, latlng){
 
 var drawMap = function(scope,element,attrs){
   var bbox = d3.select(element[0]).node().getBoundingClientRect();
-
+  
   var width = bbox.width;
   var height = bbox.height;
   var widthScaleFactor = 0.15625;

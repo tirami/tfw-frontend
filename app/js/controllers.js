@@ -76,7 +76,7 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
   
   $scope.getTrends = function(location, fromDate, interval){ 
     LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval }, 
-      function(data) { location.trends = data; }, 
+      function(data) { data = data.slice(0,10); location.trends = data; }, 
       function(error){ $log.log("No trends returned for "+location.name); });
   };
 
@@ -91,7 +91,7 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
   };
 
   $scope.selectionStart = today-(1*day);
-  $scope.interval = 1;
+  $scope.interval = 2;
   $scope.globalLocation = undefined;
   $scope.query = "";
   
