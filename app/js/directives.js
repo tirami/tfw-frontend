@@ -438,7 +438,7 @@ var drawWorld = function(group, size, mapScale, places, latlng){
 
 var drawMap = function(scope,element,attrs){
   var bbox = d3.select(element[0]).node().getBoundingClientRect();
-  
+
   var width = bbox.width;
   var height = bbox.height;
   var widthScaleFactor = 0.15625;
@@ -455,6 +455,7 @@ var drawMap = function(scope,element,attrs){
 
   //Append svg
   var svg = d3.select(element[0]).append("svg").attr("width", width).attr("height", height);
+  
   if (scope.latlng === undefined){ scope.latlng = [0.0,0.0] } 
   drawWorld(svg, [width,height], scale, places, scope.latlng);
 

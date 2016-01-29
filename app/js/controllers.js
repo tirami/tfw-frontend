@@ -43,11 +43,11 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', '$lo
     return trends;
   };
 
-  $scope.locations = [{ name: "all" }];
+  $scope.locations = [{ name: "all", geo_coord: { latitude: 0.0, longitude: 0.0 }, scale: 0.9 }];
   $scope.getLocations = function(){
     Locations.query({}, 
       function(data){  $scope.locations = data; }, 
-      function(error){ $scope.locations = [{ name: "all" }]; });
+      function(error){ $scope.locations = [{ name: "all", geo_coord: { latitude: 0.0, longitude: 0.0 }, scale: 0.9 }]; });
   };
   $scope.getLocations();
   
@@ -140,19 +140,20 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
 
   $scope.getStats = function(location){
     Stats.get({ location: location.name },
-      function(result){ 
-        location.trendscount = result.trendscount;
-        $log.log(result);
-        if (location.name === "all") { location.latitude = 0.0; location.longitude = 0.0; location.scale=0.9;  }
-        else { location.latitude = result.geo_coord.latitude; location.longitude = result.geo_coord.longitude; location.scale=5; }
-      },
+      function(result){ location.trendscount = result.trendscount; },
       function(error){ $log.log("No stats returned for "+location.name); });
   };
 
+  //Set current location
   var n = $routeParams.location;
   if(n == "global") { n = "all"; }
-  $scope.location = { name: n, trendscount: 0, latitude: 0.0, longitude: 0.0, scale:0.9 }
+  $scope.location = { name: n, geo_coord: { latitude: 0.0, longitude: 0.0 }, scale: 0.9 };
+  $scope.locations.forEach(function(l){
+    if (n === l.name){ $scope.location = l; return; }
+  });
+  if ($scope.location.name != "all"){ $scope.location.scale = 5; }
 
+  //Setup timeselection 
   if ($routeParams.selectionStart && $routeParams.selectionEnd){
     $scope.selectionStart = new Date(parseInt($routeParams.selectionStart));
     $scope.selectionEnd = new Date(parseInt($routeParams.selectionEnd));
@@ -160,9 +161,8 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
   } else {
     $scope.selectionStart = today-(1*day);
     $scope.selectionEnd = today-1;
-    $scope.interval = 2;
+    $scope.interval = 3;
   }
-
   $scope.spanEnd   = today-1;
   $scope.spanStart = today-(91*day);
 
