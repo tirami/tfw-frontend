@@ -72,7 +72,6 @@ body {
      li.pure-menu-item {
       display: block;
       a {     
-       color: $pa-cream;
        text-decoration: none;
        &:hover {color: $pa-turquoise;}
       }
@@ -108,6 +107,7 @@ body.about .pure-menu-link.about-btn  {
   top: 100px;
   width: 100%;
   position: absolute;
+      z-index: 1000;
 }
 
 .ng-scope { z-index: 0; line-height: 1 !important;}
@@ -618,7 +618,7 @@ body.trends-trend {
       border-right: 1px solid #e9e9e9;
       &:last-child {border-right: none;}
       h4.increasing .fa-caret-down {display: none;}
-      h4.decreading .fa-caret-up {display: none;}
+      h4.decreasing .fa-caret-up {display: none;}
     }
   }
 
@@ -885,7 +885,27 @@ body {
  	  margin: 10px 20px;
 	  }
 	  
-	 }
+	  #main-menu ul.pure-menu-list li {
+ 	  border-bottom: 1px solid grey;
+	  }
+	 .pure-menu-has-children {
+ 	 padding-bottom: 1em;
+ 	 & > a {
+  	 color: grey;
+  	 font-size: 0.5em;
+  	 text-transform: uppercase;
+  	 font-weight: 400;
+  	 padding-top: 2em !important;
+ 	 }
+   li {
+     	  border-bottom: none !important;
+ 	 a {  	
+  	  padding: 0.5em !important;
+     }
+    }
+   } 
+	  
+	}
 
 
  body.trend-explorer .pure-menu-link.te-btn,

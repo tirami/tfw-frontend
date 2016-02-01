@@ -53,7 +53,6 @@ body {
   display: block;
 }
 #main-menu .pure-menu-list ul.pure-menu-children li.pure-menu-item a {
-  color: #f9f9f5;
   text-decoration: none;
 }
 #main-menu .pure-menu-list ul.pure-menu-children li.pure-menu-item a:hover {
@@ -86,6 +85,7 @@ body.about .pure-menu-link.about-btn:before {
   top: 100px;
   width: 100%;
   position: absolute;
+  z-index: 1000;
 }
 
 .ng-scope {
@@ -642,7 +642,7 @@ body.trends-trend #trendInfo .stats:last-child {
 body.trends-trend #trendInfo .stats h4.increasing .fa-caret-down {
   display: none;
 }
-body.trends-trend #trendInfo .stats h4.decreading .fa-caret-up {
+body.trends-trend #trendInfo .stats h4.decreasing .fa-caret-up {
   display: none;
 }
 body.trends-trend #mapContainer {
@@ -915,6 +915,25 @@ button.tab.active {
   }
   #pageHeader #logo {
     margin: 10px 20px;
+  }
+  #pageHeader #main-menu ul.pure-menu-list li {
+    border-bottom: 1px solid grey;
+  }
+  #pageHeader .pure-menu-has-children {
+    padding-bottom: 1em;
+  }
+  #pageHeader .pure-menu-has-children > a {
+    color: grey;
+    font-size: 0.5em;
+    text-transform: uppercase;
+    font-weight: 400;
+    padding-top: 2em !important;
+  }
+  #pageHeader .pure-menu-has-children li {
+    border-bottom: none !important;
+  }
+  #pageHeader .pure-menu-has-children li a {
+    padding: 0.5em !important;
   }
 
   body.trend-explorer .pure-menu-link.te-btn:before,
