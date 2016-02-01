@@ -107,6 +107,7 @@ body.about .pure-menu-link.about-btn  {
   top: 100px;
   width: 100%;
   position: absolute;
+      z-index: 1000;
 }
 
 .ng-scope { z-index: 0; line-height: 1 !important;}

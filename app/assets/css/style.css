@@ -85,6 +85,7 @@ body.about .pure-menu-link.about-btn:before {
   top: 100px;
   width: 100%;
   position: absolute;
+  z-index: 1000;
 }
 
 .ng-scope {
