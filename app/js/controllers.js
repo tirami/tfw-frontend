@@ -299,6 +299,11 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     });*/
   });
   
+  $scope.resetPanels = function(){
+    $('.trendPanel, #overlay').removeClass("active");
+    $('.trendPanel').attr("style", "");
+  };
+
   $scope.toggleView = function(view, clickEvent){
     $("#graphTabs button").removeClass("active");
     $(clickEvent.target).addClass("active");

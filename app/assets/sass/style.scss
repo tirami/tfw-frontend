@@ -265,37 +265,35 @@ a {color: $pa-royal-blue;;
   
   button#showFiltersMobile {display: none;}
   
-    h3 {font-size: 1em; font-weight: 600; color: white; text-transform: uppercase;}
-    .padding {  padding: 60px 1em 1em 1em;}
-    
-    ul.filter {
-      list-style-type: none;
-      padding: 0;
-      margin-bottom: 2em;
-      li {
-       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-       padding: 0.5em 0;
-        button {
-         text-transform: capitalize;
-         display: block;
-         background: none;
-         border: none;
-         
-         &.active {
-          color: $pa-yellow;
-          font-weight: 400;
-          }
-         &:focus {outline: none;}
+  h3 {font-size: 1em; font-weight: 600; color: white; text-transform: uppercase;}
+  .padding {  padding: 60px 1em 1em 1em;}
+  
+  ul.filter {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 2em;
+    li {
+     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+     padding: 0.5em 0;
+      button {
+       text-transform: capitalize;
+       display: block;
+       background: none;
+       border: none;
+       
+       &.active {
+        color: $pa-yellow;
+        font-weight: 400;
         }
+       &:focus {outline: none;}
+      }
 
-        &:first-child {
-         border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
+      &:first-child {
+       border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
 
-       }
      }
-    
-   
+   }
 }
 
 button.pure-button span.active { color:white;background-color:#333; }
@@ -353,6 +351,61 @@ rect.legend-box {
   .land { fill: #eaeae1; }
 }
 
+.trendPanel {
+  display:none; 
+  position:absolute; 
+  width:auto; 
+  padding-left:5px; 
+  padding-right:5px;
+  background-color:$navy-blue; 
+  color:white; 
+  text-align: center; 
+  z-index: 101; 
+  padding: 1em;
+  border-radius: 5px;
+      
+  h4 {
+    text-transform: capitalize;
+    font-size: 2.5em;
+    font-weight: 400;
+    margin: 0;
+  }
+  
+  p {
+    color: rgba(255, 255, 255, 0.75);
+    margin-top: 0.25em;
+    text-align: center;
+  }
+  
+  a.close {
+    font-size: 28px;
+    position: absolute;
+    z-index: 10000;
+    right: -10px;
+    top: -0.5em;
+    line-height: 0;
+    background: $navy-blue;
+    padding: 0;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    border-radius: 3em;    
+    
+    i {
+    position: relative;
+      top: 3px;
+      left: 0;
+    }
+    
+    &:hover {
+      cursor: pointer;
+      i {color: $pa-red;}
+    }
+  }  
+}
+
+.trendPanel.active { display:block; }
+
 #graph-container {
   background: $pa-cream;
   position: absolute;
@@ -367,62 +420,6 @@ rect.legend-box {
   #scatterplot { display:none; }
   #list { display:none; }
   #treemap { display:none; }
-
-  .trendPanel {
-    display:none; 
-    position:absolute; 
-    width:auto; 
-    padding-left:5px; 
-    padding-right:5px;
-    background-color:$navy-blue; 
-    color:white; 
-    text-align: center; 
-    z-index: 101; 
-    padding: 1em;
-    border-radius: 5px;
-        
-    h4 {
-     text-transform: capitalize;
-     font-size: 2.5em;
-     font-weight: 400;
-     margin: 0;
-    }
-    
-    p {
-     color: rgba(255, 255, 255, 0.75);
-     margin-top: 0.25em;
-     text-align: center;
-    }
-    
-    a.close {
-      font-size: 24px;
-      position: absolute;
-      z-index: 10000;
-      right: -10px;
-      top: -0.5em;
-      line-height: 0;
-      background: $navy-blue;
-      padding: 0;
-      width: 27px;
-      height: 29px;
-      text-align: center;
-      border-radius: 3em;
-      color: white;    
-      
-      i {
-      position: relative;
-        top: 3px;
-        left: 0;
-      }
-      
-      &:hover {
-        cursor: pointer;
-        i {color: $pa-red;}
-      }
-    }  
-  }
-
-  .trendPanel.active { display:block; }
 
   #overlay {  
     width: 100%;

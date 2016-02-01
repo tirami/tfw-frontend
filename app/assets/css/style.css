@@ -355,6 +355,60 @@ rect.legend-box {
   fill: #eaeae1;
 }
 
+.trendPanel {
+  display: none;
+  position: absolute;
+  width: auto;
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: #0c1444;
+  color: white;
+  text-align: center;
+  z-index: 101;
+  padding: 1em;
+  border-radius: 5px;
+}
+.trendPanel h4 {
+  text-transform: capitalize;
+  font-size: 2.5em;
+  font-weight: 400;
+  margin: 0;
+}
+.trendPanel p {
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 0.25em;
+  text-align: center;
+}
+.trendPanel a.close {
+  font-size: 28px;
+  position: absolute;
+  z-index: 10000;
+  right: -10px;
+  top: -0.5em;
+  line-height: 0;
+  background: #0c1444;
+  padding: 0;
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  border-radius: 3em;
+}
+.trendPanel a.close i {
+  position: relative;
+  top: 3px;
+  left: 0;
+}
+.trendPanel a.close:hover {
+  cursor: pointer;
+}
+.trendPanel a.close:hover i {
+  color: #fc1921;
+}
+
+.trendPanel.active {
+  display: block;
+}
+
 #graph-container {
   background: #f9f9f5;
   position: absolute;
@@ -378,59 +432,6 @@ rect.legend-box {
 }
 #graph-container #treemap {
   display: none;
-}
-#graph-container .trendPanel {
-  display: none;
-  position: absolute;
-  width: auto;
-  padding-left: 5px;
-  padding-right: 5px;
-  background-color: #0c1444;
-  color: white;
-  text-align: center;
-  z-index: 101;
-  padding: 1em;
-  border-radius: 5px;
-}
-#graph-container .trendPanel h4 {
-  text-transform: capitalize;
-  font-size: 2.5em;
-  font-weight: 400;
-  margin: 0;
-}
-#graph-container .trendPanel p {
-  color: rgba(255, 255, 255, 0.75);
-  margin-top: 0.25em;
-  text-align: center;
-}
-#graph-container .trendPanel a.close {
-  font-size: 24px;
-  position: absolute;
-  z-index: 10000;
-  right: -10px;
-  top: -0.5em;
-  line-height: 0;
-  background: #0c1444;
-  padding: 0;
-  width: 27px;
-  height: 29px;
-  text-align: center;
-  border-radius: 3em;
-  color: white;
-}
-#graph-container .trendPanel a.close i {
-  position: relative;
-  top: 3px;
-  left: 0;
-}
-#graph-container .trendPanel a.close:hover {
-  cursor: pointer;
-}
-#graph-container .trendPanel a.close:hover i {
-  color: #fc1921;
-}
-#graph-container .trendPanel.active {
-  display: block;
 }
 #graph-container #overlay {
   width: 100%;
