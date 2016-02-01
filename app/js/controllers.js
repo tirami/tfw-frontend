@@ -213,8 +213,9 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
 
   $scope.populateSourcesTabs = function(sources){
     if (sources ===undefined){ generateFakeSources(); return; }
+    $scope.tabs = { "twitter":[], "blogs":[], "academic":[], "news":[] };
     sources.forEach(function(src){
-      if ($scope.tabs[src.source] === undefined) { $scope.tabs[src.source] = [src]; } 
+      if ($scope.tabs[src.source] === undefined) { $scope.tabs[src.source] = [src]; }
       else { $scope.tabs[src.source].push(src); }
     });
   };
@@ -237,6 +238,8 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
         
         data.occurrences = data.series.reduce(function(a, b){return a+b;});
         
+        if (location.name === "all"){ $scope.populateSourcesTabs(data.sources); }
+
         if ($scope.location.name === location.name){
           if ((source === "") || (source === "all")){
             $scope.location.seriesData = [{term:"All Sources", series: data.series }];
@@ -311,6 +314,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     $("#trend-graphs").removeClass("sources-tab-open");
     $("#trend-graphs").removeClass("related-tab-open");
     $("#trend-graphs").addClass(view + "-tab-open");
+    changePage(0);
   };
 
   $scope.toggleSources = function(view, clickEvent){
@@ -324,8 +328,9 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     $("#trendSources").addClass(view + "-tab-open");
     $scope.pageSize = 10;
     $scope.pageIdx = 0;
-    $scope.changePage(1);
-  };  
+    $("ul.pagination li").removeClass("active");
+    $("section."+view+"-tab-open ul.pagination li:first-of-type").addClass("active");
+  };
 
   $scope.pageSize = 10;
   $scope.pageIdx = 0;
