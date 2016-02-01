@@ -136,6 +136,11 @@ h3 a {color: white}
  font-weight: 600;
 }
 
+a {color: $pa-royal-blue;;
+ &:hover {
+  color: $pa-turquoise;
+ }
+}
 
 /*  Home Page –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
@@ -579,15 +584,28 @@ body.trends-trend {
 
 #filters {
  padding: 1em;
- text-align: center;
+ background: #ecece5;;
  ul {
   padding: 0; margin: 0;
   display: inline;
   li {list-style: none;
    display: inline-block;
    margin: 0 1em;
-   a {}
+   a { 
+    text-decoration: none;
+    padding: 0.25em 0.5em;
+    border: $pa-turquoise solid 1px;
+    color: $pa-turquoise;
+    }
+  &.selected {
+   a {
+    background: $pa-turquoise; 
+    color: white;
+    border-radius: 2px;
+    }
+    }
   }
+  
  }
 }
 
@@ -649,11 +667,13 @@ body.trends-trend {
    margin: 0;
    padding: 0;
    li {
-    margin-bottom: 1em;
+    padding: 0.5em 0;
     word-wrap: break-word;
+    border-top: 1px solid #e9e9e9;
     span {
      display: block;
      font-size: 0.9em;
+     margin-top: 0.5em;
     }
    }
   }
@@ -668,12 +688,43 @@ body.trends-trend {
      padding: 0.25em 0.5em;
      text-decoration: none;
      display: inline-block;
+     &:hover {
+      background: $pa-turquoise;
+     }
     }
     }
   }
   
  } 
 
+.pagination {
+ padding: 0;
+ li {
+  margin-right: 0.5em;
+  list-style: none;
+  display: inline-block;
+  a {
+   text-decoration: none;
+   border: 1px solid $pa-royal-blue;;
+   color: $pa-royal-blue;;
+   font-weight: 600;
+   padding: 0.25em 0.5em;
+   border-radius: 2px;
+   &:hover {
+    background: $pa-turquoise;
+    border-color: $pa-turquoise;
+    color: white;
+   }
+  }
+  &.active {
+   a {
+    background: $pa-turquoise;
+    border-color: $pa-turquoise;
+    color: white;
+   }
+  }
+ }
+}
 
 }
 
@@ -795,8 +846,7 @@ body.locations-location {
 button.tab {
  padding: 0.5em 1em;
  border: 1px solid #ccc;
- border-bottom: none;
- background: #e9e9e9;
+ background: #ecece3;
  border-radius: 3px 3px 0 0;
  position: relative;
  bottom: -1px;
@@ -809,6 +859,7 @@ button.tab:focus {
 
 button.tab.active {
  background: white;
+ border-bottom-color: white;
 }
 
 
