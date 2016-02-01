@@ -225,6 +225,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
           $scope.dataAvailable = false;
         } else {
           $scope.dataAvailable = true;
+          $scope.sourcesDataAvailable = true; // remove when sources appear
         }
         
         data.occurrences = data.series.reduce(function(a, b){return a+b;});
@@ -234,10 +235,11 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
             $scope.location.seriesData = [{term:"All Sources", series: data.series }];
             $scope.trendData = data;
             $scope.relatedTrends = data.related.slice(0,10);
+            $scope.location.sourcesData = [{ term: "Twitter", series: data.series }];  // remove when sources appear
           } else {
             $scope.sourcesDataAvailable = true;
-            if ($scope.location.sourcesData.length == 4){ $scope.location.sourcesData = []; }
-            $scope.location.sourcesData.push({ term: source, series: data.series });
+            //if ($scope.location.sourcesData.length >= 1){ $scope.location.sourcesData = []; }
+            //$scope.location.sourcesData.push({ term: source, series: data.series });
           }
         }
 

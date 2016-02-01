@@ -269,7 +269,7 @@ var drawTimeSeries = function(scope, element, attrs){
   scope.$watch('seriesData', function (data, oldData) { 
     group.selectAll('*').remove();
     if ((!data || data.length===0)) { return; }
-
+    
     x.domain([0,(data[0].series.length-1)]);
     var allSeries = [];
     data.forEach(function(e){ allSeries = allSeries.concat(e.series); });
