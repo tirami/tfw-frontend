@@ -266,37 +266,35 @@ a {color: $pa-royal-blue;;
   
   button#showFiltersMobile {display: none;}
   
-    h3 {font-size: 1em; font-weight: 600; color: white; text-transform: uppercase;}
-    .padding {  padding: 60px 1em 1em 1em;}
-    
-    ul.filter {
-      list-style-type: none;
-      padding: 0;
-      margin-bottom: 2em;
-      li {
-       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-       padding: 0.5em 0;
-        button {
-         text-transform: capitalize;
-         display: block;
-         background: none;
-         border: none;
-         
-         &.active {
-          color: $pa-yellow;
-          font-weight: 400;
-          }
-         &:focus {outline: none;}
+  h3 {font-size: 1em; font-weight: 600; color: white; text-transform: uppercase;}
+  .padding {  padding: 60px 1em 1em 1em;}
+  
+  ul.filter {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 2em;
+    li {
+     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+     padding: 0.5em 0;
+      button {
+       text-transform: capitalize;
+       display: block;
+       background: none;
+       border: none;
+       
+       &.active {
+        color: $pa-yellow;
+        font-weight: 400;
         }
+       &:focus {outline: none;}
+      }
 
-        &:first-child {
-         border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
+      &:first-child {
+       border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
 
-       }
      }
-    
-   
+   }
 }
 
 button.pure-button span.active { color:white;background-color:#333; }
