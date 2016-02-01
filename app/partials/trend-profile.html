@@ -42,9 +42,9 @@
   </header>
   
   <div id="filters">
-   <i class="fa fa-map-marker"></i>
+   Filter trend by location:
     <ul>
-    <li ng-repeat="location in locations"><a href="#/trends/{{ trend }}?location={{ location.name }}&selectionStart={{ selectionStart.getTime() }}&selectionEnd={{ selectionEnd.getTime() }}" class="upcase">{{ location.name | allAsGlobal }}</a></li>
+    <li ng-repeat="loc in locations" ng-class="{selected: location.name === loc.name}"><a href="#/trends/{{ trend }}?location={{ loc.name }}&selectionStart={{ selectionStart.getTime() }}&selectionEnd={{ selectionEnd.getTime() }}" class="upcase"><i class="fa fa-map-marker"></i> {{ loc.name | allAsGlobal }}</a></li>
     </ul>
   </div>
   
@@ -109,8 +109,8 @@
       <header class="panelHeader">
         <h2>All Sources</h2>
         <div class="exportButtons">
-          <a href="#">CSV</a>
-          <a href="#">PDF</a>
+       <a class="pure-button" href="#"><i class="fa fa-arrow-down"></i>CSV</a>
+       <a class="pure-button" href="#"><i class="fa fa-arrow-down"></i> PDF</a>
         </div>
       </header>
       
@@ -128,8 +128,8 @@
      <header class="panelHeader">
       <h2>Twitter Sources</h2>
       <div class="exportButtons">
-       <a href="#">CSV</a>
-       <a href="#">PDF</a>
+       <a class="pure-button" href="#"><i class="fa fa-arrow-down"></i>CSV</a>
+       <a class="pure-button" href="#"><i class="fa fa-arrow-down"></i> PDF</a>
       </div>
      </header>
 
@@ -147,8 +147,8 @@
      <header class="panelHeader">
       <h2>Academic Sources</h2>
       <div class="exportButtons">
-       <a href="#">CSV</a>
-       <a href="#">PDF</a>
+       <a class="pure-button" href="#"><i class="fa fa-arrow-down"></i>CSV</a>
+       <a class="pure-button" href="#"><i class="fa fa-arrow-down"></i> PDF</a>
       </div>
      </header>
 
@@ -165,8 +165,8 @@
      <header class="panelHeader">
       <h2>News Sources</h2>
       <div class="exportButtons">
-       <a href="#">CSV</a>
-       <a href="#">PDF</a>
+       <a class="pure-button" href="#"><i class="fa fa-arrow-down"></i>CSV</a>
+       <a class="pure-button" href="#"><i class="fa fa-arrow-down"></i> PDF</a>
       </div>
      </header>
 
@@ -184,8 +184,8 @@
      <header class="panelHeader">
       <h2>Blog Sources</h2>
       <div class="exportButtons">
-       <a href="#">CSV</a>
-       <a href="#">PDF</a>
+       <a class="pure-button" href="#"><i class="fa fa-arrow-down"></i>CSV</a>
+       <a class="pure-button" href="#"><i class="fa fa-arrow-down"></i> PDF</a>
       </div>
      </header>
 
