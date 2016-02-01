@@ -47,7 +47,6 @@ body {
 }
 #main-menu .pure-menu-list ul.pure-menu-children {
   width: 100% !important;
-  background: #0c1444;
 }
 #main-menu .pure-menu-list ul.pure-menu-children li.pure-menu-item {
   display: block;
@@ -85,7 +84,7 @@ body.about .pure-menu-link.about-btn:before {
   top: 100px;
   width: 100%;
   position: absolute;
-  z-index: 1000;
+  z-index: 10;
 }
 
 .ng-scope {
@@ -296,6 +295,7 @@ button.pure-button span.active {
 }
 
 .ui-brush {
+  z-index: 1000;
   background: #0c1444;
   color: white;
   position: relative;
@@ -313,6 +313,8 @@ button.pure-button span.active {
 .brush .extent {
   fill: #ffd600;
   shape-rendering: crispEdges;
+  height: 16px;
+  transform: translate(0px, 4px);
 }
 
 .axis line, .axis path {
@@ -402,7 +404,7 @@ rect.legend-box {
   text-align: center;
 }
 #graph-container .trendPanel a.close {
-  font-size: 28px;
+  font-size: 24px;
   position: absolute;
   z-index: 10000;
   right: -10px;
@@ -410,10 +412,11 @@ rect.legend-box {
   line-height: 0;
   background: #0c1444;
   padding: 0;
-  width: 35px;
-  height: 35px;
+  width: 27px;
+  height: 29px;
   text-align: center;
   border-radius: 3em;
+  color: white;
 }
 #graph-container .trendPanel a.close i {
   position: relative;
@@ -445,6 +448,9 @@ rect.legend-box {
 
 #graph-container.list-container #list {
   display: block;
+}
+#graph-container.list-container #list li span {
+  display: block !important;
 }
 
 #graph-container.treemap-container #treemap {
@@ -1076,7 +1082,9 @@ button.tab.active {
   #graph-container {
     top: auto;
     bottom: 0;
-    padding-top: 6em;
+    padding-top: 5em;
+    float: none;
+    overflow: scroll;
   }
   #graph-container #list ul {
     margin: 0;
@@ -1088,8 +1096,19 @@ button.tab.active {
     border-bottom: 1px solid #e9e9e9;
     font-size: 2em;
     line-height: 1;
-    font-weight: bold;
+    font-weight: 400;
     padding: 10px 20px;
+  }
+  #graph-container #list ul li a {
+    text-transform: capitalize;
+    word-wrap: break-word;
+    text-decoration: none;
+  }
+  #graph-container #list ul li a span {
+    font-style: italic;
+    display: block;
+    font-size: 0.5em;
+    font-weight: 600;
   }
 
   #graph-container.wordcloud-container #wordcloud {
@@ -1100,6 +1119,9 @@ button.tab.active {
     display: block !important;
   }
 
+  .ui-brush {
+    position: fixed !important;
+  }
   .ui-brush .tick {
     display: none;
   }
