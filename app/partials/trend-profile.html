@@ -44,7 +44,7 @@
   <div id="filters">
    <i class="fa fa-map-marker"></i>
     <ul>
-    <li ng-repeat="location in locations"><a href="#/trends/{{ trend }}?location={{ location.name }}" class="upcase">{{ location.name | allAsGlobal }}</a></li>
+    <li ng-repeat="location in locations"><a href="#/trends/{{ trend }}?location={{ location.name }}&selectionStart={{ selectionStart.getTime() }}&selectionEnd={{ selectionEnd.getTime() }}" class="upcase">{{ location.name | allAsGlobal }}</a></li>
     </ul>
   </div>
   
