@@ -412,6 +412,8 @@ var addPins = function(projection, group, places){
       for (var i = 0; i < places.length; i++) { places[i].element.removeClass("active"); }
       place.element.toggleClass("active");
       place.element.css("top", (d3.event.pageY + 10) + "px").css("left", (d3.event.pageX + 10) + "px");
+    }).on("mouseout", function(place,e){
+      place.element.removeClass("active");
     });
 };
 
