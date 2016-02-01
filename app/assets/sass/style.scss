@@ -351,6 +351,61 @@ rect.legend-box {
   .land { fill: #eaeae1; }
 }
 
+.trendPanel {
+  display:none; 
+  position:absolute; 
+  width:auto; 
+  padding-left:5px; 
+  padding-right:5px;
+  background-color:$navy-blue; 
+  color:white; 
+  text-align: center; 
+  z-index: 101; 
+  padding: 1em;
+  border-radius: 5px;
+      
+  h4 {
+    text-transform: capitalize;
+    font-size: 2.5em;
+    font-weight: 400;
+    margin: 0;
+  }
+  
+  p {
+    color: rgba(255, 255, 255, 0.75);
+    margin-top: 0.25em;
+    text-align: center;
+  }
+  
+  a.close {
+    font-size: 28px;
+    position: absolute;
+    z-index: 10000;
+    right: -10px;
+    top: -0.5em;
+    line-height: 0;
+    background: $navy-blue;
+    padding: 0;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    border-radius: 3em;    
+    
+    i {
+    position: relative;
+      top: 3px;
+      left: 0;
+    }
+    
+    &:hover {
+      cursor: pointer;
+      i {color: $pa-red;}
+    }
+  }  
+}
+
+.trendPanel.active { display:block; }
+
 #graph-container {
   background: $pa-cream;
   position: absolute;
@@ -365,62 +420,6 @@ rect.legend-box {
   #scatterplot { display:none; }
   #list { display:none; }
   #treemap { display:none; }
-
-  .trendPanel {
-    display:none; 
-    position:absolute; 
-    width:auto; 
-    padding-left:5px; 
-    padding-right:5px;
-    background-color:$navy-blue; 
-    color:white; 
-    text-align: center; 
-    z-index: 101; 
-    padding: 1em;
-    border-radius: 5px;
-        
-    h4 {
-     text-transform: capitalize;
-     font-size: 2.5em;
-     font-weight: 400;
-     margin: 0;
-    }
-    
-    p {
-     color: rgba(255, 255, 255, 0.75);
-     margin-top: 0.25em;
-     text-align: center;
-    }
-    
-    a.close {
-      font-size: 28px;
-      position: absolute;
-      z-index: 10000;
-      right: -10px;
-      top: -0.5em;
-      line-height: 0;
-      background: $navy-blue;
-      padding: 0;
-      width: 35px;
-      height: 35px;
-      text-align: center;
-      border-radius: 3em;    
-      
-      i {
-      position: relative;
-        top: 3px;
-        left: 0;
-      }
-      
-      &:hover {
-        cursor: pointer;
-        i {color: $pa-red;}
-      }
-    }  
-  }
-
-  .trendPanel.active { display:block; }
-
   #overlay {  
     width: 100%;
     height: 100%;
