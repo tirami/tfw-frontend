@@ -22,7 +22,7 @@ udadisiApp.factory('IntervalService', function(){
 
 var mapDirective = function($templateRequest, $compile, $parse) {
   return {
-    restrict: 'A', scope: { mapScale: '=', latlng: '=' },
+    restrict: 'A', scope: { mapScale: '=', latlng: '=', locations: '=' },
     link: function(scope, element, attrs){
       setTimeout(function(){ drawMap(scope,element,attrs); }, 10);
     }
@@ -269,7 +269,7 @@ var drawTimeSeries = function(scope, element, attrs){
   scope.$watch('seriesData', function (data, oldData) { 
     group.selectAll('*').remove();
     if ((!data || data.length===0)) { return; }
-    
+
     x.domain([0,(data[0].series.length-1)]);
     var allSeries = [];
     data.forEach(function(e){ allSeries = allSeries.concat(e.series); });
@@ -397,6 +397,24 @@ var drawScatterPlot = function(scope, element, attrs){
   });
 };
 
+var addPins = function(projection, group, places){
+  group.selectAll(".pin")
+    .data(places)
+    .enter().append("circle")
+    .attr("class", "pin")
+    .attr("r", function(d) { return d.spotSize })
+    .attr("transform", function(d) {
+      return "translate(" + projection([
+        d.location.longitude,
+        d.location.latitude
+      ]) + ")";
+    }).on("mouseover", function(place,e){
+      for (var i = 0; i < places.length; i++) { places[i].element.removeClass("active"); }
+      place.element.toggleClass("active");
+      place.element.css("top", (d3.event.pageY + 10) + "px").css("left", (d3.event.pageX + 10) + "px");
+    });
+};
+
 var drawWorld = function(group, size, mapScale, places, latlng){
   var projection = d3.geo.equirectangular().scale(mapScale).translate([size[0] / 2, size[1] / 2]).precision(.1);
   var path = d3.geo.path().projection(projection);
@@ -410,20 +428,7 @@ var drawWorld = function(group, size, mapScale, places, latlng){
       .attr("d", path);
 
     //Location pins
-    group.selectAll(".pin")
-      .data(places)
-      .enter().append("circle", ".pin")
-      .attr("r", function(d) { return d.spotSize })
-      .attr("transform", function(d) {
-        return "translate(" + projection([
-          d.location.longitude,
-          d.location.latitude
-        ]) + ")";
-      }).on("mouseover", function(place,e){
-        for (var i = 0; i < places.length; i++) { places[i].element.removeClass("active"); }
-        place.element.toggleClass("active");
-        place.element.css("top", (d3.event.pageY + 10) + "px").css("left", (d3.event.pageX + 10) + "px");
-      });
+    addPins(projection, group, places);
 
     var coordinates = projection([latlng[1],latlng[0]]);
     group.attr("transform", "translate(" + (-coordinates[0]+(size[0]/2)) + "," + (-coordinates[1]+(size[1]/2)) + ")");
@@ -434,6 +439,7 @@ var drawWorld = function(group, size, mapScale, places, latlng){
       .attr("class", "boundary")
       .attr("d", path);*/
   });
+  return projection;
 };
 
 var drawMap = function(scope,element,attrs){
@@ -448,16 +454,35 @@ var drawMap = function(scope,element,attrs){
   var places = [];
   for (var i = 0; i < element[0].children.length; i++) {
     var c = angular.element(element[0].children[i]);
-    var spotSize = c.attr('data-spot-size');
-    if (spotSize === undefined){ spotSize = 7 } else { spotSize = spotSize + 1; }
+    var spotSize = parseFloat(c.attr('data-spot-size'));
+    if ((spotSize == undefined) || (isNaN(spotSize))){ spotSize = 7; }
     places.push({ element: c, spotSize: spotSize, location: { latitude: c.attr('data-latitude'), longitude: c.attr('data-longitude') } });
   }
 
   //Append svg
   var svg = d3.select(element[0]).append("svg").attr("width", width).attr("height", height);
   
-  if (scope.latlng === undefined){ scope.latlng = [0.0,0.0] } 
-  drawWorld(svg, [width,height], scale, places, scope.latlng);
+  if (scope.latlng === undefined){ scope.latlng = [0.0,0.0] }
+
+  var projection = drawWorld(svg, [width,height], scale, places, scope.latlng);
+  /*
+  scope.$watch('locations', function (newVal, oldVal) {
+    console.log("Bark");
+    console.log(newVal);
+    svg.selectAll(".pin").remove();
+    places = [];
+    jQuery.each(newVal, function(k,l){
+      if (l.name != "all"){
+        console.log(l);
+        console.log("p");
+        console.log(l.prevalence);
+        var e = angular.element("#loc-"+l.name);
+        if ((spotSize == undefined) || (isNaN(spotSize))){ spotSize = 7; }
+        places.push({ element: e, spotSize: (l.prevalence*20), location: { latitude: l.geo_coord.latitude, longitude: l.geo_coord.longitude } });
+      }
+    });
+    addPins(projection, svg, places);
+  }); */
 
   //Grid
   //var graticule = d3.geo.graticule();
@@ -527,7 +552,6 @@ var drawWordcloud = function(scope, element, attrs) {
     layout.start();
 
     var wrdSize = wordGroup.node().getBoundingClientRect();
-    //console.log(wrdSize);
     //wordGroup.attr("transform", "translate(" + (cloudSize[0] - wrdSize.width)/2 + "," + (cloudSize[1] - wrdSize.height)/2 + ")");
     wordGroup.attr("transform", "translate(" + cloudSize[0] / 2 + "," + cloudSize[1] / 1.9 + ")");
   });
