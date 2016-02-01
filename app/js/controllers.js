@@ -76,7 +76,12 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
   
   $scope.getTrends = function(location, fromDate, interval){ 
     LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval }, 
-      function(data) { data = data.slice(0,10); location.trends = data; }, 
+      function(data) {
+        data = data.slice(0,10); //NB will just be in alphabetical order if all velocities are -1
+        jQuery.each($scope.locations, function(i,l){
+          if(location.name === l.name){ location.trends = data; }
+        });
+      },
       function(error){ $log.log("No trends returned for "+location.name); });
   };
 
@@ -95,11 +100,13 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
   $scope.globalLocation = undefined;
   $scope.query = "";
   
+  //$scope.$watch('locations', function(newValue, oldValue) {
   $.each($scope.locations, function(idx, item){
     if (item.name == "all"){ $scope.globalLocation = item; }
     $scope.getTrends(item, new Date($scope.selectionStart).toTimeString(), $scope.interval);
     $scope.getStats(item);
   });
+  //});
 
 }]);
 
