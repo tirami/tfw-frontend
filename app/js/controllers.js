@@ -90,7 +90,7 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
     $window.location.href = '#/trends/'+$scope.query;
   };
 
-  $scope.selectionStart = today-(1*day);
+  $scope.selectionStart = today-(4*day);
   $scope.interval = 2;
   $scope.globalLocation = undefined;
   $scope.query = "";
