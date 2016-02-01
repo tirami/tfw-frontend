@@ -213,10 +213,12 @@ a {color: $pa-royal-blue;;
   color: $pa-cream;
   padding: 2em 0;
   
-  h4 {font-size: 1.5em;
-    font-weight: 500;
-    margin: 0;
-    text-transform: capitalize;
+  h4 {
+   font-size: 1.5em;
+   font-weight: 500;
+   margin: 0;
+   text-transform: capitalize;
+   color: $pa-yellow;
   }
   
   ul {
@@ -224,12 +226,14 @@ a {color: $pa-royal-blue;;
     padding: 0;
     li {
       border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-      padding: 0.25em 0;
+      padding: 0.5em 0;
       }
   }
   
   a.capitalize {
     text-transform: capitalize;
+    background: $pa-yellow;
+    color: $navy-blue;
   }
   
 }
@@ -949,18 +953,19 @@ body {
 body.home {
 
 .splash {
- position: relative;
+ position: absolute;
  height: auto;
  background: #0c1444;
  top: inherit;
  
  #searchbox {
   
-  padding: 20px 20px 40px;
+  padding: 30px 20px 0 20px;
  
    h1 {
     margin: 0 0 1em 0;
     font-size: 1.25em;
+    line-height: 1.25;
    }
    form {
     position: relative;
@@ -990,11 +995,17 @@ body.home {
    }
   #pa-logo {display: block; margin-left: 0px; margin-bottom: 1em;} 
   #edu img{ max-width: 80%;}
-  
  }
+ 
+  #mapContainer {
+   padding-top: 7.5em;
+  }
+
  
  #top-trends {
   text-align: center;
+  .locationTop {margin-bottom: 2em;}
+  li {border: none;}
  }
  
 }

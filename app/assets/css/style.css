@@ -213,6 +213,7 @@ a:hover {
   font-weight: 500;
   margin: 0;
   text-transform: capitalize;
+  color: #ffd600;
 }
 #top-trends ul {
   list-style-type: none;
@@ -220,10 +221,12 @@ a:hover {
 }
 #top-trends ul li {
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-  padding: 0.25em 0;
+  padding: 0.5em 0;
 }
 #top-trends a.capitalize {
   text-transform: capitalize;
+  background: #ffd600;
+  color: #0c1444;
 }
 
 /*  Mobile Specific Metas –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -968,17 +971,18 @@ button.tab.active {
 
   /*  MOBILE: Home Page  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
   body.home .splash {
-    position: relative;
+    position: absolute;
     height: auto;
     background: #0c1444;
     top: inherit;
   }
   body.home .splash #searchbox {
-    padding: 20px 20px 40px;
+    padding: 30px 20px 0 20px;
   }
   body.home .splash #searchbox h1 {
     margin: 0 0 1em 0;
     font-size: 1.25em;
+    line-height: 1.25;
   }
   body.home .splash #searchbox form {
     position: relative;
@@ -1010,8 +1014,17 @@ button.tab.active {
   body.home #introduction #edu img {
     max-width: 80%;
   }
+  body.home #mapContainer {
+    padding-top: 7.5em;
+  }
   body.home #top-trends {
     text-align: center;
+  }
+  body.home #top-trends .locationTop {
+    margin-bottom: 2em;
+  }
+  body.home #top-trends li {
+    border: none;
   }
 
   /*  MOBILE: TRENDS EXPLORER  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
