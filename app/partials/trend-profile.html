@@ -16,7 +16,7 @@
 	      </div>
 	
 	      <div id="trendVelocity" class="pure-u-1-2 pure-u-md-1-4 column stats">
-	        <h4 class="increasing">Score <i class="fa fa-caret-down"></i> <i class="fa fa-caret-up"></i></h4>
+	        <h4 ng-class="{decreasing: trendData.velocity <= 0}" ng-class="{increasing: trendData.velocity >= 1}">Score <i class="fa fa-caret-down"></i> <i class="fa fa-caret-up"></i></h4>
 	        <span class="stat">{{ trendData.velocity.toFixed(2) }}</span>
 	      </div>
 	
