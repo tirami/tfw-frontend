@@ -697,26 +697,6 @@ body.trends-trend #trend-graphs.sources-tab-open .sources {
 body.trends-trend #trend-graphs.related-tab-open .related {
   display: block !important;
 }
-body.trends-trend .timespan-container .ui-brush {
-  background: #f9f9f5;
-  fill: white;
-}
-body.trends-trend .timespan-container .ui-brush .tick {
-  fill: #0c1444;
-}
-body.trends-trend .timespan-container .ui-brush path, body.trends-trend .timespan-container .ui-brush line {
-  stroke: #0c1444;
-}
-body.trends-trend .timespan-container .ui-brush g.axis {
-  filter: #0c1444;
-}
-body.trends-trend .timespan-container .ui-brush .background {
-  fill: #e9e9e5;
-  visibility: visible !important;
-}
-body.trends-trend .timespan-container .ui-brush g.resize rect {
-  background: url("../images/grip.png ");
-}
 body.trends-trend #trendSources {
   margin: 0 1em 1em 1em;
   background: white;
@@ -937,6 +917,32 @@ body.locations-location div.chart div span {
   top: -1.5em;
   left: -0.25em;
   text-transform: capitalize;
+}
+body.locations-location section#trendsOverview {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/*  Profile Timespan styling  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+#trendProfile .timespan-container .ui-brush, .locations-location .timespan-container .ui-brush {
+  background: #f9f9f5;
+  fill: white;
+}
+#trendProfile .timespan-container .ui-brush .tick, .locations-location .timespan-container .ui-brush .tick {
+  fill: #0c1444;
+}
+#trendProfile .timespan-container .ui-brush path, #trendProfile .timespan-container .ui-brush line, .locations-location .timespan-container .ui-brush path, .locations-location .timespan-container .ui-brush line {
+  stroke: #0c1444;
+}
+#trendProfile .timespan-container .ui-brush g.axis, .locations-location .timespan-container .ui-brush g.axis {
+  filter: #0c1444;
+}
+#trendProfile .timespan-container .ui-brush .background, .locations-location .timespan-container .ui-brush .background {
+  fill: #e9e9e5;
+  visibility: visible !important;
+}
+#trendProfile .timespan-container .ui-brush g.resize rect, .locations-location .timespan-container .ui-brush g.resize rect {
+  background: url("../images/grip.png ");
 }
 
 /*  Tabs  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
