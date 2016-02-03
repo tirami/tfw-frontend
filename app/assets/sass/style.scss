@@ -452,7 +452,7 @@ rect.legend-box {
   #overlay.active { display:block; }
 }
 
-#graph-container.list-container {
+.list-active #graph-container {
   #list { display:block; 
    
    li {
@@ -464,7 +464,7 @@ rect.legend-box {
   } 
 }
 
-#graph-container.treemap-container {
+.treemap-active #graph-container {
   #treemap { display:block; 
     .node {
       border: solid 1px white;
@@ -477,7 +477,7 @@ rect.legend-box {
   }
 }
 
-#graph-container.scatterplot-container {
+.scatterplot-active #graph-container {
   .trendPanel { 
 
   }
@@ -496,7 +496,7 @@ rect.legend-box {
   }
 }
 
-#graph-container.wordcloud-container {
+.wordcloud-active #graph-container {
   #wordcloud { display:block; }
   .trendPanel {
     min-width: 200px;
