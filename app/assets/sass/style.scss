@@ -102,18 +102,15 @@ body.about .pure-menu-link.about-btn  {
 }
 
 .is-center { text-align:center; }
-
-#mapSearchWrapper {
-  background: $navy-blue; 
-}
-
-
 .splash {
   top: 100px;
   width: 100%;
+  position: absolute;
   z-index: 10;
 }
-
+#mapSearchWrapper {
+ background: $navy-blue;
+}
 .ng-scope { z-index: 0; line-height: 1 !important;}
 
 .container {
@@ -150,6 +147,7 @@ a {color: $pa-royal-blue;;
 
 #mapContainer {
   background: #0c1444;
+  padding-top: 3em;
 }
 
 .locationPanel {
@@ -1032,7 +1030,6 @@ body.home {
  
   #mapContainer {
    padding-top: 7.5em;
-   height: 60vh !important;
   }
 
  

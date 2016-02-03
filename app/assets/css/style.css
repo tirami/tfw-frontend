@@ -80,14 +80,15 @@ body.about .pure-menu-link.about-btn:before {
   text-align: center;
 }
 
-#mapSearchWrapper {
-  background: #0c1444;
-}
-
 .splash {
   top: 100px;
   width: 100%;
+  position: absolute;
   z-index: 10;
+}
+
+#mapSearchWrapper {
+  background: #0c1444;
 }
 
 .ng-scope {
@@ -133,6 +134,7 @@ a:hover {
 /*  Home Page –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 #mapContainer {
   background: #0c1444;
+  padding-top: 3em;
 }
 
 .locationPanel {
@@ -1045,7 +1047,6 @@ button.tab.active {
   }
   body.home #mapContainer {
     padding-top: 7.5em;
-    height: 60vh !important;
   }
   body.home #top-trends {
     text-align: center;
