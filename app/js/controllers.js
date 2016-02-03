@@ -429,7 +429,6 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
     $("#explorerWrapper").removeClass("list-active");
     $("#explorerWrapper").removeClass("treemap-active");
     $("#explorerWrapper").addClass(view + "-active");
-    $("ul.filter button").removeClass("active");
     $(clickEvent.target).addClass("active");    
   };
 
