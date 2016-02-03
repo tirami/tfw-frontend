@@ -13,13 +13,22 @@ body {
   font-weight: 300;
 }
 
+#loading-overlay {
+  z-index: 1000;
+  background: rgba(100, 100, 100, 0.4);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+}
+
 #pageHeader {
+  z-index: 1001;
   border-bottom: 10px solid #0c1444;
   background: #f9f9f5;
   padding: 0.5em;
   overflow: visible;
   position: relative;
-  z-index: 100;
 }
 #pageHeader #logo {
   margin: 0.5em;
@@ -97,9 +106,11 @@ body.about .pure-menu-link.about-btn:before {
 }
 
 footer {
+  z-index: 1001;
   background: #634400;
   text-align: center;
   padding: 1em;
+  position: relative;
 }
 footer p {
   margin: 0;
@@ -295,7 +306,7 @@ button.pure-button span.active {
 }
 
 .ui-brush {
-  z-index: 1000;
+  z-index: 999;
   background: #0c1444;
   color: white;
   position: relative;

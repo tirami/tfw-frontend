@@ -94,12 +94,12 @@
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
-  
+
+  <div id="loading-overlay" ng-show="isLoading"> <img style="z-index:1005; left: 45%; position:fixed; margin:0 auto; top:45%; display:block;" src="app/assets/images/loading.gif"></div>
 
   <div ng-view></div>
   
   <footer id="pageFooter">
-	  
 	  <p>  <i class="fa fa-genderless"></i> Practical Action uses technology to challenge poverty, working with poor women and men around the world.</p>
   </footer>
 

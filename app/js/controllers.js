@@ -16,6 +16,11 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', '$lo
   // scopes of this controller
 
   $scope.Math = window.Math;
+  
+  $scope.isLoading = false;
+  $scope.loadingState = function(s){
+    $scope.isLoading = s;
+  };
 
   $scope.setActivePage = function(name) {
     $scope.activePage = name.replace(/\//g, '').replace(':', '-');
@@ -114,10 +119,12 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
 //Location profile
 udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParams', '$log', 'Stats', 'LocationTrends', 'IntervalService', function($scope, $route, $routeParams, $log, Stats, LocationTrends, IntervalService) { 
   $scope.setActivePage($route.current.originalPath);
-
+  $scope.loadingState(false);
   $scope.getTrends = function(location, fromDate, toDate, interval){ 
+    $scope.loadingState(true);
     LocationTrends.query({ location: location.name, limit: 10, from: fromDate, to: toDate, interval: interval }, 
       function(data) {
+        $scope.loadingState(false);
         $scope.dataAvailable = true;
         if (data.length == 0){
           $log.log("Series data empty, keeping existing values.");
@@ -140,6 +147,7 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
         $scope.trends = data;
       },
       function(error){ 
+        $scope.loadingState(false);
         $log.log("No trends returned for "+location.name);
         $scope.trends = $scope.generateExampleTrends();
       });
@@ -221,13 +229,13 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   };
 
   $scope.getRelatedTrends = function(location, fromDate, toDate, interval, source) {
-    
     var sourceParam = source;
     if (source === "all"){ sourceParam = "" }
+    $scope.loadingState(true);
 
     RelatedTrends.query({ location: location.name, term: $scope.trend, limit: 5, from: fromDate, interval: interval, source: sourceParam }, 
       function(data){
-        
+        $scope.loadingState(false);
         if ((data === undefined) || (data.series === undefined) || (data.series.length === 0)){
           data = generateFakeData();
           $scope.dataAvailable = false;
@@ -260,6 +268,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
 
       },
       function(error){
+        $scope.loadingState(false);
         $scope.calculatePrevalences();
         $log.log("Error returning trend data for "+$scope.trend); 
       });
@@ -343,7 +352,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
 
 //Trend Explorer
 udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$routeParams', 'LocationTrends', 'IntervalService', function($scope, $route, $log, $routeParams, LocationTrends, IntervalService) { 
-
+  $scope.loadingState(false);
   $scope.setActivePage($route.current.originalPath);
   $scope.currentView = 'wordcloud';
 
@@ -371,9 +380,10 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
   };
 
   $scope.getTrends = function(location, fromDate, toDate, interval){
+    $scope.loadingState(true);
     LocationTrends.query({ location: location.name, limit: 10, from: fromDate, to: toDate, interval: interval }, function(data) {
       $scope.dataAvailable = true;
-
+      $scope.loadingState(false);
       if ((data === null) || (data.length == 0) || (totalVelocity === 0)){
         data = $scope.generateExampleTrends();
         $scope.dataAvailable = false;
@@ -387,6 +397,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
       $scope.trends = data.slice(0,10);
     }, function(error){
       $scope.dataAvailable = false;
+      $scope.loadingState(false);
       $log.log("Server error finding trends.");
       $scope.trends = $scope.generateExampleTrends();
     });

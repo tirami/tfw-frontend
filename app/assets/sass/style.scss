@@ -35,15 +35,24 @@ body {
  font-weight: 300;
 }
 
+#loading-overlay {
+  z-index: 1000;
+  background: rgba(100,100,100,0.4);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+}
+
 #pageHeader {
-   border-bottom: 10px solid $navy-blue;
+  z-index: 1001;
+  border-bottom: 10px solid $navy-blue;
   background: $pa-cream;
   padding: 0.5em;
   overflow: visible;
   position: relative;
-  z-index: 100;  
   #logo {margin: 0.5em; display: inline-block;}
-  #toggle {display: none;} 
+  #toggle {display: none;}
 }
 
 #main-menu {
@@ -116,9 +125,11 @@ body.about .pure-menu-link.about-btn  {
 }
 
 footer {
+  z-index: 1001;
   background: $pa-brown;
   text-align: center;
   padding: 1em;
+  position:relative;
   p {margin: 0; padding: 0; color: $pa-cream;}
 }
 
@@ -299,7 +310,7 @@ a {color: $pa-royal-blue;;
 button.pure-button span.active { color:white;background-color:#333; }
 
 .ui-brush {
-  z-index: 1000;
+  z-index: 999;
   background:$navy-blue;
   color: white;
   position:relative;
@@ -883,38 +894,38 @@ body {
  padding-top: 50px;
 }
 
-  #pageHeader {
-	  border-bottom-width: 0 !important; 
-	  position: absolute; 
-	  width: 100%;
-	  padding: 0;
-	  top: 0;
-	  
-	  #logo {
- 	  margin: 10px 20px;
-	  }
-	  
-	  #main-menu ul.pure-menu-list li {
- 	  border-bottom: 1px solid grey;
-	  }
-	 .pure-menu-has-children {
- 	 padding-bottom: 1em;
- 	 & > a {
-  	 color: grey;
-  	 font-size: 0.5em;
-  	 text-transform: uppercase;
-  	 font-weight: 400;
-  	 padding-top: 2em !important;
- 	 }
-   li {
-     	  border-bottom: none !important;
- 	 a {  	
-  	  padding: 0.5em !important;
-     }
-    }
-   } 
-	  
-	}
+#pageHeader {
+  border-bottom-width: 0 !important; 
+  position: absolute; 
+  width: 100%;
+  padding: 0;
+  top: 0;
+  
+  #logo {
+	  margin: 10px 20px;
+  }
+  
+  #main-menu ul.pure-menu-list li {
+	  border-bottom: 1px solid grey;
+  }
+ .pure-menu-has-children {
+	 padding-bottom: 1em;
+	 & > a {
+	 color: grey;
+	 font-size: 0.5em;
+	 text-transform: uppercase;
+	 font-weight: 400;
+	 padding-top: 2em !important;
+	 }
+ li {
+   	  border-bottom: none !important;
+	 a {  	
+	  padding: 0.5em !important;
+   }
+  }
+ } 
+
+}
 
 
  body.trend-explorer .pure-menu-link.te-btn,
