@@ -63,12 +63,21 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', '$lo
     } else {
       $('nav#main-menu').slideDown();
       $(clickEvent.target).addClass("open");
+      $('html, body').css({
+          'overflow': 'hidden',
+          'height': '100%'
+      });
     }
   };
   
   $scope.closeMenu = function(view, clickEvent){     
     if($(window).width() <= 600) {
-       $('ul.pure-menu-list').delay( 500 ).slideUp();
+      $('a#toggle .fa').removeClass("open");
+       $('nav#main-menu').delay( 500 ).slideUp();
+       $('html, body').css({
+           'overflow': 'auto',
+           'height': 'auto'
+       });
     };
   };
 
