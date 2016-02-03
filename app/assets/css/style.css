@@ -56,6 +56,7 @@ body {
   color: #008e8f;
 }
 #main-menu .pure-menu-list ul.pure-menu-children {
+  background: #f9f9f5;
   width: 100% !important;
 }
 #main-menu .pure-menu-list ul.pure-menu-children li.pure-menu-item {
