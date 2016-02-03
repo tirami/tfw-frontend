@@ -11,7 +11,7 @@ var today = startOfToday(); // CHANGE TO startOfToday(); to get up to date info
 var udadisiControllers = angular.module('udadisiControllers', ['ngRoute']);
 
 //Main Controller
-udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', '$log', function ($scope, $route, Locations, $log) {
+udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Locations', '$log', function ($scope, $route, $timeout, Locations, $log) {
   // $scope.setActivePage will be available to all children 
   // scopes of this controller
 
@@ -19,7 +19,8 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', 'Locations', '$lo
   
   $scope.isLoading = false;
   $scope.loadingState = function(s){
-    $scope.isLoading = s;
+    if (s){ $scope.isLoading = s; }
+    else { $timeout(function(){$scope.isLoading = s}, 1000); }
   };
 
   $scope.setActivePage = function(name) {
