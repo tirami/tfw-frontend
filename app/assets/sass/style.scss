@@ -448,7 +448,7 @@ rect.legend-box {
 
   .ui-brush { position:absolute; } 
 
-  #wordcloud { margin-top: 0em; display:none; }
+  #wordcloud { margin-top: 0em; display: none;}
   #scatterplot { display:none; }
   #list { display:none; }
   #treemap { display:none; }
@@ -466,7 +466,7 @@ rect.legend-box {
   #overlay.active { display:block; }
 }
 
-.list-active #graph-container {
+#graph-container.list-container {
   #list { display:block; 
    
    li {
@@ -478,7 +478,7 @@ rect.legend-box {
   } 
 }
 
-.treemap-active #graph-container {
+#graph-container.treemap-container {
   #treemap { display:block; 
     .node {
       border: solid 1px white;
@@ -491,7 +491,7 @@ rect.legend-box {
   }
 }
 
-.scatterplot-active #graph-container {
+#graph-container.scatterplot-container {
   .trendPanel { 
 
   }
@@ -510,7 +510,7 @@ rect.legend-box {
   }
 }
 
-.wordcloud-active #graph-container {
+#graph-container.wordcloud-container  {
   #wordcloud { display:block; }
   .trendPanel {
     min-width: 200px;

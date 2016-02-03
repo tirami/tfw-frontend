@@ -6,8 +6,6 @@
         <span></span>
     </a>
     
-    <div id="explorerWrapper" class="wordcloud-active">
-
     <div id="side-menu">
       
       <div class="padding">
@@ -18,7 +16,7 @@
           <div id="viewOptions">
             <h3>View</h3>
             <ul class="filter">
-              <li><button id="wordCloudView" ng-click="toggleExplorer('wordcloud', $event)" class="active">Wordcloud</button></li>
+              <li><button id="wordCloudView" ng-click="toggleExplorer('wordcloud')" class="active">Wordcloud</button></li>
               <li><button id="chartView" ng-click="toggleExplorer('scatterplot', $event)">Chart</button></li>
               <li><button id="blockView" ng-click="toggleExplorer('treemap', $event)">Block</button></li>
               <li id="hidelist"><button id="listView" ng-click="toggleExplorer('list', $event)">List</button></li>
@@ -72,7 +70,6 @@
       <a class="pure-button" href="#/trends/{{ trend.term | urlEncode }}?selectionStart={{ selectionStart.getTime() }}&selectionEnd={{ selectionEnd.getTime() }}">Find out more</a>
       <a class="close" ng-click="resetPanels()"><i class="fa fa-times-circle-o"></i></a>
     </div>
-  </div>
   </div>
 
 </div>

@@ -424,11 +424,12 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
 
   $scope.toggleExplorer = function(view, clickEvent){
     $scope.resetPanels();
-    $("#explorerWrapper").removeClass("wordcloud-active");
-    $("#explorerWrapper").removeClass("scatterplot-active");
-    $("#explorerWrapper").removeClass("list-active");
-    $("#explorerWrapper").removeClass("treemap-active");
-    $("#explorerWrapper").addClass(view + "-active");
+    $("#graph-container").removeClass("wordcloud-container");
+    $("#graph-container").removeClass("scatterplot-container");
+    $("#graph-container").removeClass("list-container");
+    $("#graph-container").removeClass("treemap-container");
+    $("#graph-container").addClass(view + "-container");
+    $("#viewOptions button").removeClass("active");
     $(clickEvent.target).addClass("active");    
   };
 

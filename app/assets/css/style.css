@@ -481,17 +481,17 @@ rect.legend-box {
   display: block;
 }
 
-.list-active #graph-container #list {
+#graph-container.list-container #list {
   display: block;
 }
-.list-active #graph-container #list li span {
+#graph-container.list-container #list li span {
   display: block !important;
 }
 
-.treemap-active #graph-container #treemap {
+#graph-container.treemap-container #treemap {
   display: block;
 }
-.treemap-active #graph-container #treemap .node {
+#graph-container.treemap-container #treemap .node {
   border: solid 1px white;
   font: 10px sans-serif;
   line-height: 12px;
@@ -500,29 +500,29 @@ rect.legend-box {
   text-indent: 2px;
 }
 
-.scatterplot-active #graph-container #overlay.active {
+#graph-container.scatterplot-container #overlay.active {
   display: none;
 }
-.scatterplot-active #graph-container #scatterplot {
+#graph-container.scatterplot-container #scatterplot {
   display: block;
 }
-.scatterplot-active #graph-container #scatterplot .axis {
+#graph-container.scatterplot-container #scatterplot .axis {
   stroke: gray;
   stroke-width: 1px;
   shape-rendering: crispEdges;
 }
-.scatterplot-active #graph-container #scatterplot .axis .tick {
+#graph-container.scatterplot-container #scatterplot .axis .tick {
   font-size: 0.8em;
 }
-.scatterplot-active #graph-container #scatterplot line, .scatterplot-active #graph-container #scatterplot path {
+#graph-container.scatterplot-container #scatterplot line, #graph-container.scatterplot-container #scatterplot path {
   stroke-width: 1px;
   stroke: gray;
 }
 
-.wordcloud-active #graph-container #wordcloud {
+#graph-container.wordcloud-container #wordcloud {
   display: block;
 }
-.wordcloud-active #graph-container .trendPanel {
+#graph-container.wordcloud-container .trendPanel {
   min-width: 200px;
   width: 30%;
   top: 33%;
