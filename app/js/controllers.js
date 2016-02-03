@@ -330,6 +330,12 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     $('.trendPanel').attr("style", "");
   };
 
+  $scope.pageSize = 10;
+  $scope.pageIdx = 0;
+  $scope.changePage = function(page){
+    $scope.pageIdx = (page-1)*$scope.pageSize;
+  };
+
   $scope.toggleView = function(view, clickEvent){
     $("#graphTabs button").removeClass("active");
     $(clickEvent.target).addClass("active");
@@ -337,7 +343,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     $("#trend-graphs").removeClass("sources-tab-open");
     $("#trend-graphs").removeClass("related-tab-open");
     $("#trend-graphs").addClass(view + "-tab-open");
-    changePage(0);
+    $scope.changePage(0);
   };
 
   $scope.toggleSources = function(view, clickEvent){
@@ -355,12 +361,6 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     $("section."+view+"-tab-open ul.pagination li:first-of-type").addClass("active");
   };
 
-  $scope.pageSize = 10;
-  $scope.pageIdx = 0;
-  $scope.changePage = function(page){
-    $scope.pageIdx = (page-1)*$scope.pageSize;
-  };
-  
 }]);
 
 

@@ -520,7 +520,6 @@ var drawWordcloud = function(scope, element, attrs) {
 
   //Add map
   var widthScaleFactor = 0.15625;
-  console.log(scope.mapScale);
   var scale = cloudSize[0]*(widthScaleFactor*scope.mapScale);
   var mapGroup = svg.append("g");
   drawWorld(mapGroup, cloudSize, scale, [], [0.0,0.0]);
