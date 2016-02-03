@@ -598,7 +598,7 @@ var drawBars = function (scope, element, attrs) {
       .selectAll('div')
       .data(cleaned).enter().append("div")
       .style("width", function(d) { return (d[scope.property]/extents[1]*100) + "%"; })
-      .style("height", "1.8em")
+      .style("height", "1.8em").append("span")
       .text(function(d) { return d.term; });
    });
 };
