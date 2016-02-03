@@ -404,10 +404,11 @@ rect.legend-box {
     line-height: 0;
     background: $navy-blue;
     padding: 0;
-    width: 35px;
-    height: 35px;
+    width: 32px;
+    height: 33px;
     text-align: center;
-    border-radius: 3em;    
+    border-radius: 3em;   
+    color: white; 
     
     i {
     position: relative;
