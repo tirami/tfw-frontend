@@ -900,6 +900,43 @@ body.locations-location #mapContainer .land {
 }
 body.locations-location div.chart div {
   padding: 0.25em;
+  margin-top: 2em;
+}
+body.locations-location div.chart div:nth-child(1) {
+  background: #e2014d;
+}
+body.locations-location div.chart div:nth-child(2) {
+  background: #ffd600;
+}
+body.locations-location div.chart div:nth-child(3) {
+  background: #008e8f;
+}
+body.locations-location div.chart div:nth-child(4) {
+  background: #634400;
+}
+body.locations-location div.chart div:nth-child(5) {
+  background: #232690;
+}
+body.locations-location div.chart div:nth-child(6) {
+  background: #fc1921;
+}
+body.locations-location div.chart div:nth-child(7) {
+  background: #faa433;
+}
+body.locations-location div.chart div:nth-child(8) {
+  background: #232690;
+}
+body.locations-location div.chart div:nth-child(9) {
+  background: #98cb99;
+}
+body.locations-location div.chart div:nth-child(10) {
+  background: #66afe9;
+}
+body.locations-location div.chart div span {
+  position: relative;
+  top: -1.5em;
+  left: -0.25em;
+  text-transform: capitalize;
 }
 
 /*  Tabs  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */

@@ -862,7 +862,27 @@ body.locations-location {
  }
  
  div.chart {
-  div {padding: 0.25em;}
+  div {padding: 0.25em;
+   margin-top: 2em;
+
+    &:nth-child(1) {background: $pa-pink; }
+    &:nth-child(2) { background: $pa-yellow; }
+    &:nth-child(3) { background: $pa-turquoise;}
+    &:nth-child(4) { background: $pa-brown;}
+    &:nth-child(5) { background: $pa-royal-blue;}
+    &:nth-child(6) { background: $pa-red;}
+    &:nth-child(7) { background: $pa-orange;};
+    &:nth-child(8) { background: $pa-royal-blue;}
+    &:nth-child(9) { background: $pa-light-green;}
+    &:nth-child(10) { background: $pa-light-blue;}
+
+   span {
+    position: relative;
+    top: -1.5em;
+    left: -0.25em;
+    text-transform: capitalize;
+   }
+  }
  }
 
 }
