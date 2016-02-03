@@ -277,6 +277,9 @@ a:hover {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding: 0.5em 0;
 }
+#side-menu ul.filter li#hidelist {
+  display: none;
+}
 #side-menu ul.filter li button {
   text-transform: capitalize;
   display: block;
