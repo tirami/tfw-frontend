@@ -463,13 +463,12 @@ var drawMap = function(scope,element,attrs){
 
   //Append svg
   var svg = d3.select(element[0]).append("svg").attr("width", width).attr("height", height);
-  
-  if (scope.latlng === undefined){ scope.latlng = [0.0,0.0] }
 
-  var projection = drawWorld(svg, [width,height], scale, places, scope.latlng);
-  /*
-  scope.$watch('locations', function (newVal, oldVal) {
-    console.log("Bark");
+  if (scope.latlng === undefined){ scope.latlng = [0.0,0.0]; scope.mapScale = 0.9; }
+
+  scope.$watch('latlng', function (newVal, oldVal) {
+    var projection = drawWorld(svg, [width,height], scale, places, newVal);
+    /*console.log("Bark");
     console.log(newVal);
     svg.selectAll(".pin").remove();
     places = [];
@@ -483,8 +482,8 @@ var drawMap = function(scope,element,attrs){
         places.push({ element: e, spotSize: (l.prevalence*20), location: { latitude: l.geo_coord.latitude, longitude: l.geo_coord.longitude } });
       }
     });
-    addPins(projection, svg, places);
-  }); */
+    addPins(projection, svg, places);*/
+  });
 
   //Grid
   //var graticule = d3.geo.graticule();
@@ -521,6 +520,7 @@ var drawWordcloud = function(scope, element, attrs) {
 
   //Add map
   var widthScaleFactor = 0.15625;
+  console.log(scope.mapScale);
   var scale = cloudSize[0]*(widthScaleFactor*scope.mapScale);
   var mapGroup = svg.append("g");
   drawWorld(mapGroup, cloudSize, scale, [], [0.0,0.0]);

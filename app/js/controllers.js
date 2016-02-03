@@ -20,7 +20,7 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
   $scope.isLoading = false;
   $scope.loadingState = function(s){
     if (s){ $scope.isLoading = s; }
-    else { $timeout(function(){$scope.isLoading = s}, 1000); }
+    else { $timeout(function(){$scope.isLoading = s}, 800); }
   };
 
   $scope.setActivePage = function(name) {
@@ -173,11 +173,14 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
   var n = $routeParams.location;
   if(n == "global") { n = "all"; }
   $scope.location = { name: n, geo_coord: { latitude: 0.0, longitude: 0.0 }, scale: 0.9 };
-  $scope.locations.forEach(function(l){
-    if (n === l.name){ $scope.location = l; return; }
-  });
-  if ($scope.location.name != "all"){ $scope.location.scale = 5; }
 
+  $scope.$watch('locations', function(newValue, oldValue) {
+    newValue.forEach(function(l){
+      if (n === l.name){ $scope.location = l; return; }
+    });
+    if ($scope.location.name != "all"){ $scope.location.scale = 5; }
+  });
+  
   //Setup timeselection 
   if ($routeParams.selectionStart && $routeParams.selectionEnd){
     $scope.selectionStart = new Date(parseInt($routeParams.selectionStart));
