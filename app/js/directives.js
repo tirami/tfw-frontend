@@ -718,7 +718,7 @@ var drawTreemap = function(scope, element, attrs){
       .enter().append("div")
       .attr("class", "node")
       .call(position)
-      .style("background", function(d) { return d.children ? color(d.term) : null; })
+      //.style("background", function(d) { return d.children ? color(d.term) : null; })
       .text(function(d) { return d.children ? null : d.term; });
 
     /*
