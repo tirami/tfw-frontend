@@ -97,6 +97,10 @@ body.about .pure-menu-link.about-btn:before {
   z-index: 10;
 }
 
+#mapSearchWrapper {
+  background: #0c1444;
+}
+
 .ng-scope {
   z-index: 0;
   line-height: 1 !important;
@@ -142,6 +146,7 @@ a:hover {
 /*  Home Page –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 #mapContainer {
   background: #0c1444;
+  padding-top: 3em;
 }
 
 .locationPanel {
@@ -283,6 +288,9 @@ a:hover {
 #side-menu ul.filter li {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding: 0.5em 0;
+}
+#side-menu ul.filter li#hidelist {
+  display: none;
 }
 #side-menu ul.filter li button {
   text-transform: capitalize;
@@ -1118,6 +1126,7 @@ button.tab.active {
     text-decoration: none;
   }
   #graph-container #list ul li a span {
+    margin-top: 0.25em;
     font-style: italic;
     display: block;
     font-size: 0.5em;

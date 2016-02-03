@@ -8,7 +8,8 @@ var udadisiApp = angular.module('udadisiApp', [
   'udadisiDirectives',
   'udadisiFilters',
   'bw.paging',
-  'ngFitText'
+  'ngFitText',
+  'snap'
   ]);
 
 udadisiApp.config(['$routeProvider', function($routeProvider) {

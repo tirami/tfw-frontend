@@ -1,4 +1,6 @@
 <div ng-controller="HomeCtrl">
+ 
+ <div id="mapSearchWrapper">
 
   <div class="splash" style="">
 
@@ -12,14 +14,16 @@
     </div>
   </div>
 
-  <div map-projection map-scale="1" style="width:100%;height:60vh;" id="mapContainer">
-    <div class="" data-latitude="23.0300" data-longitude="72.5800">
+  <div map-projection map-scale="0.8" style="width:100%;height:60vh;" id="mapContainer">
+    <div class="" data-latitude="23.0300" data-longitude="72.5800" data-spot-size="2">
     </div>
-    <div class="" data-latitude="-12.0433" data-longitude="-77.0283">
+    <div class="" data-latitude="-12.0433" data-longitude="-77.0283" data-spot-size="2">
     </div>
-    <div class="" data-latitude="-1.2833" data-longitude="36.8167">
+    <div class="" data-latitude="-1.2833" data-longitude="36.8167" data-spot-size="2">
     </div>
   </div>
+  
+ </div>
   
   <div id="introduction"  class="container">
   <a id="pa-logo" href="http://practicalaction.org/"><img src="app/assets/images/practical-action-logo.png" alt="Practical Action"></a>
