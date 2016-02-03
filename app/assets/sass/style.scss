@@ -43,6 +43,18 @@ body {
   height: 100%;
   position: fixed;
   top: 0px;
+  .loader-wrapper {
+    width: 150px;
+    position: relative;
+    height: 100%;
+    left: 50%;
+    top: 50%;  
+    img {
+     left: -75px;
+     position: absolute;
+     top: -75px;
+    }
+  }
 }
 
 #pageHeader {
