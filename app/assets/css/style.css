@@ -80,10 +80,13 @@ body.about .pure-menu-link.about-btn:before {
   text-align: center;
 }
 
+#mapSearchWrapper {
+  background: #0c1444;
+}
+
 .splash {
   top: 100px;
   width: 100%;
-  position: absolute;
   z-index: 10;
 }
 
@@ -1042,6 +1045,7 @@ button.tab.active {
   }
   body.home #mapContainer {
     padding-top: 7.5em;
+    height: 60vh !important;
   }
   body.home #top-trends {
     text-align: center;
@@ -1106,6 +1110,7 @@ button.tab.active {
     text-decoration: none;
   }
   #graph-container #list ul li a span {
+    margin-top: 0.25em;
     font-style: italic;
     display: block;
     font-size: 0.5em;

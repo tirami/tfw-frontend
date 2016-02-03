@@ -102,11 +102,16 @@ body.about .pure-menu-link.about-btn  {
 }
 
 .is-center { text-align:center; }
+
+#mapSearchWrapper {
+  background: $navy-blue; 
+}
+
+
 .splash {
   top: 100px;
   width: 100%;
-  position: absolute;
-      z-index: 10;
+  z-index: 10;
 }
 
 .ng-scope { z-index: 0; line-height: 1 !important;}
@@ -1027,6 +1032,7 @@ body.home {
  
   #mapContainer {
    padding-top: 7.5em;
+   height: 60vh !important;
   }
 
  
@@ -1092,6 +1098,7 @@ body.home {
        word-wrap: break-word;
        text-decoration: none;
       span {
+       margin-top: 0.25em;
        font-style: italic;
        display: block; 
        font-size: 0.5em;
