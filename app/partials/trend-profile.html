@@ -123,7 +123,7 @@
       
       
       <ul class="sourceList">
-        <li ng-repeat="source in trendData.sources | limitTo:pageSize:pageIdx"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
+        <li ng-repeat="source in trendData.sources | limitTo:pageSize:pageIdx"><a target="_blank" href="{{ source.source_uri }}">{{ source.source_uri }}</a><span> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
         </li>
       </ul>
 
@@ -142,7 +142,7 @@
 
 
       <ul class="sourceList">
-        <li ng-repeat="source in tabs.twitter | limitTo:pageSize:pageIdx"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span class="sourceMeta"> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
+        <li ng-repeat="source in tabs.twitter | limitTo:pageSize:pageIdx"><a target="_blank" href="{{ source.source_uri }}">{{ source.source_uri }}</a><span class="sourceMeta"> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
         </li>
       </ul>
 
@@ -160,7 +160,7 @@
      </header>
 
       <ul class="sourceList">
-        <li ng-repeat="source in tabs.academic | limitTo:pageSize:pageIdx"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span class="sourceMeta"> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
+        <li ng-repeat="source in tabs.academic | limitTo:pageSize:pageIdx"><a target="_blank" href="{{ source.source_uri }}">{{ source.source_uri }}</a><span class="sourceMeta"> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
         </li>
       </ul>
 
@@ -179,7 +179,7 @@
 
 
       <ul class="sourceList">
-        <li ng-repeat="source in tabs.news | limitTo:pageSize:pageIdx"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span class="sourceMeta"> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
+        <li ng-repeat="source in tabs.news | limitTo:pageSize:pageIdx"><a target="_blank" href="{{ source.source_uri }}">{{ source.source_uri }}</a><span class="sourceMeta"> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
         </li>
       </ul>
 
@@ -197,7 +197,7 @@
      </header>
 
       <ul class="sourceList">
-        <li ng-repeat="source in tabs.blogs | limitTo:pageSize:pageIdx"><a href="{{ source.source_uri }}">{{ source.source_uri }}</a><span class="sourceMeta"> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
+        <li ng-repeat="source in tabs.blogs | limitTo:pageSize:pageIdx"><a target="_blank" href="{{ source.source_uri }}">{{ source.source_uri }}</a><span class="sourceMeta"> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
         </li>
       </ul>
 
