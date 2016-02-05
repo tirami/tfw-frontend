@@ -130,7 +130,7 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
 //Location profile
 udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParams', '$log', 'Stats', 'LocationTrends', 'IntervalService', function($scope, $route, $routeParams, $log, Stats, LocationTrends, IntervalService) { 
   $scope.setActivePage($route.current.originalPath);
-  $scope.loadingState(false);
+  
   $scope.getTrends = function(location, fromDate, toDate, interval){ 
     $scope.loadingState(true);
     LocationTrends.query({ location: location.name, limit: 10, from: fromDate, to: toDate, interval: interval }, 
