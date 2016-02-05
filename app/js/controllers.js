@@ -394,6 +394,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
   };
 
   $scope.getTrends = function(location, fromDate, toDate, interval){
+    
     $scope.loadingState(true);
     LocationTrends.query({ location: location.name, limit: 10, from: fromDate, to: toDate, interval: interval }, function(data) {
       $scope.dataAvailable = true;

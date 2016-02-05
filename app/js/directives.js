@@ -57,7 +57,7 @@ udadisiDirectives.directive('timespan', function($parse, IntervalService) {
 
 udadisiDirectives.directive('locationToggle', 
   function($parse) {
-    return { restrict: 'C', scope: { selectStart: '=', location: '=', interval: '=', updateFn: '=', setLocation: '=' }, link: toggleLocation }
+    return { restrict: 'C', scope: { selectStart: '=', selectEnd: '=', location: '=', interval: '=', updateFn: '=', setLocation: '=' }, link: toggleLocation }
   }
 );
 
@@ -499,10 +499,14 @@ var toggleLocation = function(scope, element, attrs) {
 
     $('.locationToggle').removeClass('selected');
     $(element[0]).toggleClass('selected');
-    var date = scope.selectStart;
-    if (!(date instanceof Date)) { date = new Date(date); }
-    scope.updateFn(scope.location, date.toTimeString(), scope.interval);
     
+    var fromDate = scope.selectStart;
+    var toDate = scope.selectEnd;
+    
+    if (!(fromDate instanceof Date)) { fromDate = new Date(fromDate); }
+    if (!(toDate instanceof Date)) { toDate = new Date(toDate); }
+
+    scope.updateFn(scope.location, fromDate.toTimeString(), toDate.toTimeString(), scope.interval);
   });
 };
 
