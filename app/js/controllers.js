@@ -51,9 +51,9 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
 
   $scope.locations = [{ name: "all", geo_coord: { latitude: 0.0, longitude: 0.0 }, scale: 0.9 }];
   $scope.getLocations = function(){
-    $scope.loadingState(true);
+    
     Locations.query({}, 
-      function(data){  $scope.locations = data; $scope.loadingState(false); }, 
+      function(data){  $scope.locations = data; }, 
       function(error){ $scope.locations = [{ name: "all", geo_coord: { latitude: 0.0, longitude: 0.0 }, scale: 0.9 }]; $scope.loadingState(false); });
   };
   $scope.getLocations();
