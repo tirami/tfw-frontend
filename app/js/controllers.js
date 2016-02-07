@@ -276,7 +276,8 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
           dataAvailable = true;
           $scope.sourcesDataAvailable = true; // remove when sources appear
         }
-                
+        
+        data.occurrences = data.series.reduce(function(a, b){return a+b;});
         if (location.name === "all"){ $scope.populateSourcesTabs(data.sources); }
 
         if ($scope.location.name === location.name){
@@ -294,8 +295,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
         }
 
         if ((dataAvailable) && ((source === "") || (source === "all"))){
-          var o = data.series.reduce(function(a, b){return a+b;});
-          $scope.prevalences[location.name].occurrences = o;
+          $scope.prevalences[location.name].occurrences = data.occurrences;
           $scope.calculatePrevalences();
         }
 

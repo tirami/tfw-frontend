@@ -19,22 +19,12 @@
 	        <h4 ng-class="{decreasing: trendData.velocity <= 0, increasing: trendData.velocity >= 1}">Score <i class="fa fa-caret-down"></i> <i class="fa fa-caret-up"></i></h4>
 	        <span class="stat">{{ trendData.velocity.toFixed(2) }}</span>
 	      </div>
-	
-	      <div id="trendHigh" class="pure-u-1-2 pure-u-md-1-4 column stats">
-	        <h4>90 Day High</h4>
-	        <span class="stat">{{ trendData.velocity.toFixed(2) }}</span>
-	      </div>
 
-	      <div id="trendLow" class="pure-u-1-2 pure-u-md-1-4 column stats">
-	        <h4>90 Day Low</h4>
-	        <span class="stat">{{ trendData.velocity.toFixed(2) }}</span>
-	      </div>
-	      	      
       </div>
     </div>
     <div class="pure-u-1 pure-u-md-5-12">
       <div map-projection map-scale="1.0" style="width:100%;height:40vh;" latlng="[0.0, 0.0]" id="mapContainer" locations="prevalences">
-        <div id="loc-{{ location.name }}" ng-repeat="location in prevalences" ng-if="location.name != 'all'" class="locationPanel" data-spot-size="{{ location.prevalence * 20 }}" data-latitude="{{ location.geo_coord.latitude }}" data-longitude="{{ location.geo_coord.longitude }}"> {{ Math.round((location.prevalence)*100.0) }}% prevalent in {{ location.name }}</div>
+        <div id="loc-{{ location.name }}" ng-repeat="location in prevalences" ng-if="location.name != 'all'" class="locationPanel" data-spot-size="5" data-latitude="{{ location.geo_coord.latitude }}" data-longitude="{{ location.geo_coord.longitude }}"> {{ Math.round((location.prevalence)*100.0) }}% prevalent in {{ location.name }}</div>
       </div>
     </div>
   </div>
