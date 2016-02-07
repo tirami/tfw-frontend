@@ -44,6 +44,7 @@
   <section id="trendsOverview">
     <h2>Overview of all {{ location.name | allAsGlobal }} trends</h2>
     <div class = "series-container">
+      
       <div ng-hide="dataAvailable" class="unavailableOverlay">
         <p>Data unavailable for selection</p>
       </div>
@@ -55,3 +56,5 @@
   </div>
 </div> 
 </div> <!-- end cityProfile content -->
+
+<div id="graph-tooltip" class="tooltip" style="opacity:0;"></div>

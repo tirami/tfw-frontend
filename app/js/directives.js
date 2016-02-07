@@ -257,7 +257,6 @@ var drawTimeSeries = function(scope, element, attrs){
   var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(5);
   var yAxis = d3.svg.axis().scale(y).orient("left").ticks(5);
 
-
   var svg = d3.select(element[0]).append("svg")
     .attr("width", '100%')
     .attr("height", '100%')
@@ -265,6 +264,8 @@ var drawTimeSeries = function(scope, element, attrs){
     .attr('preserveAspectRatio','xMinYMin');
 
   var group = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var div = d3.select("div#graph-tooltip");
 
   scope.$watch('seriesData', function (data, oldData) { 
     group.selectAll('*').remove();
@@ -298,12 +299,32 @@ var drawTimeSeries = function(scope, element, attrs){
     data.forEach(function(entry, i){
       var tmp = 0;
       var valueline = d3.svg.line().x(function(d){ return x(tmp++); }).y(function(d){ return y(d); });
-
       group.append("path")
         .attr("data-legend",function(d) { return entry.term; })
         .attr("class", "line")
         .style("stroke", function() { return entry.color = getUdadisiColour(i); })
         .attr("d", valueline(entry.series));
+
+      var tmp2 = 0;
+      group.selectAll("dot")
+        .data(entry.series)
+        .enter().append("circle").style("fill", getUdadisiColour(i))
+        .attr("r", 5)
+        .attr("data-interval", function(d,i){ return i; })
+        .attr("cx", function(d) { return x(tmp2++); })
+        .attr("cy", function(d) { return y(d); })
+        .on("mouseover", function(d) {
+          var circle = $(d3.event.target);
+          circle.attr("r", 10);
+          div.transition().duration(200).style("opacity", 1);
+          div.style("left", (d3.event.pageX) + "px").style("top", (d3.event.pageY - 28) + "px");
+          div.attr("class", "tooltip timespan-" + circle.attr("data-interval"));
+          div.html(d+" mentions.");
+        })
+        .on("mouseout", function(d) { 
+          $(d3.event.target).attr("r", 5);
+          div.transition().duration(200).style("opacity", 0);
+        });
     });
 
     var legend = group.append("g")
