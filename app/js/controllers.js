@@ -32,7 +32,7 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
     var day = new Date();
     for(var i=0; i < 10; i++){
       day.setDate(day.getDate() + 1);
-      series.push({ date: day.toTimeString(), close: Math.random()*100 });
+      series.push( Math.random()*100 );
     }
     return series;
   };
