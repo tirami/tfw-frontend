@@ -83,6 +83,20 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
     };
   };
 
+  $scope.buildIntervals = function(interval, selectionStart, selectionEnd){
+    var intervalTime = 0;
+    var intervalSpans = [];
+    intervalTime = (selectionEnd - selectionStart) / interval;
+    var i = 0;
+    for (i = 0; i < interval; i++) {
+      intervalSpans.push({
+        start: ((selectionStart-0) + (intervalTime * i)), 
+        end: ((selectionStart-0) + (intervalTime * (i+1)))
+      });
+    }
+    return intervalSpans;
+  };
+
 }]);
 
 
@@ -199,6 +213,10 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
 
   $scope.getStats($scope.location);
   $scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval);
+  
+  $scope.$watch('selectionStart', function(newValue, oldValue) { 
+    $scope.intervalSpans = $scope.buildIntervals($scope.interval, $scope.selectionStart, $scope.selectionEnd);
+  });
   
 }]);
 
@@ -324,7 +342,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
       $scope.getRelatedTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval, k);
     });*/
   });
-  
+    
   $scope.resetPanels = function(){
     $('.trendPanel, #overlay').removeClass("active");
     $('.trendPanel').attr("style", "");
@@ -360,6 +378,10 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     $("ul.pagination li").removeClass("active");
     $("section."+view+"-tab-open ul.pagination li:first-of-type").addClass("active");
   };
+
+  $scope.$watch('selectionStart', function(newValue, oldValue) { 
+    $scope.intervalSpans = $scope.buildIntervals($scope.interval, $scope.selectionStart, $scope.selectionEnd);
+  });
 
 }]);
 

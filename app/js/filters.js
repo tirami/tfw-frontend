@@ -21,11 +21,8 @@ udadisiFilters.filter('urlEncode', [function() {
   return window.encodeURIComponent;
 }]);
 
-/*
-
-udadisiFilters.filter('urlEncode', function() {
-  return function(input) { 
-    return window.encodeURIComponent(input); 
-  }
+udadisiFilters.filter('displayRange', function() {
+  return function(range) {
+    return (new Date(range.start)).toTimeString() + " ~ " + (new Date(range.end)).toTimeString();
+  };
 });
-*/
