@@ -217,7 +217,7 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
   $scope.$watch('selectionStart', function(newValue, oldValue) { 
     $scope.intervalSpans = $scope.buildIntervals($scope.interval, $scope.selectionStart, $scope.selectionEnd);
   });
-  
+
 }]);
 
 
@@ -264,15 +264,16 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     var sourceParam = source;
     if (source === "all"){ sourceParam = "" }
     $scope.loadingState(true);
+    var dataAvailable = false;
 
     RelatedTrends.query({ location: location.name, term: $scope.trend, limit: 5, from: fromDate, interval: interval, source: sourceParam }, 
       function(data){
         $scope.loadingState(false);
         if ((data === undefined) || (data.series === undefined) || (data.series.length === 0)){
           data = generateFakeData();
-          $scope.dataAvailable = false;
+          dataAvailable = false;
         } else {
-          $scope.dataAvailable = true;
+          dataAvailable = true;
           $scope.sourcesDataAvailable = true; // remove when sources appear
         }
         
@@ -281,6 +282,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
         if (location.name === "all"){ $scope.populateSourcesTabs(data.sources); }
 
         if ($scope.location.name === location.name){
+          $scope.dataAvailable = dataAvailable;
           if ((source === "") || (source === "all")){
             $scope.location.seriesData = [{term:"All Sources", series: data.series }];
             $scope.trendData = data;
