@@ -279,8 +279,8 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
 
     RelatedTrends.query({ location: location.name, term: $scope.trend, limit: 5, from: fromDate, interval: interval, source: sourceParam }, 
       function(data){
+        if ($scope.requestCounter++ >= $scope.locations.length){ $scope.loadingState(false); }
         
-        $scope.loadingState(false);
         if ((data === undefined) || (data.series === undefined) || (data.series.length === 0)){
           data = generateFakeData();
           dataAvailable = false;
@@ -316,7 +316,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
         $scope.loadingState(false);
         $scope.calculatePrevalences();
         $log.log("Error returning trend data for "+$scope.trend); 
-        
+        if ($scope.requestCounter++ >= $scope.locations.length){ $scope.loadingState(false); }
       });
   };
     
@@ -347,7 +347,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   $scope.prevalences = {};
 
   $scope.$watch('locations', function(newValue, oldValue) {
-    
+    $scope.requestCounter = 0;    
     $scope.locations.forEach(function(location){
       $scope.prevalences[location.name] = location;
       $scope.getRelatedTrends(location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval, $scope.source);
