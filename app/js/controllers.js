@@ -97,6 +97,17 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
     return intervalSpans;
   };
 
+  $scope.source = "all";
+  $scope.setSource = function(src){
+    $scope.source = src;
+    $scope.$apply();
+  };
+
+  $scope.setLocation = function(name) {
+    $scope.location = { name: name };
+    $scope.$apply();
+  };
+
 }]);
 
 
@@ -105,7 +116,7 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
   $scope.setActivePage($route.current.originalPath);
   
   $scope.getTrends = function(location, fromDate, interval){ 
-    LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval }, 
+    LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval, source: "" }, 
       function(data) {
         data = data.slice(0,10); //NB will just be in alphabetical order if all velocities are -1
         jQuery.each($scope.locations, function(i,l){
@@ -253,7 +264,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
 
   $scope.populateSourcesTabs = function(sources){
     if (sources ===undefined){ generateFakeSources(); return; }
-    $scope.tabs = { "twitter":[], "blogs":[], "academic":[], "news":[] };
+    $scope.tabs = { "twitter":[], "blog":[], "academic":[], "news":[] };
     sources.forEach(function(src){
       if ($scope.tabs[src.source] === undefined) { $scope.tabs[src.source] = [src]; }
       else { $scope.tabs[src.source].push(src); }
@@ -268,6 +279,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
 
     RelatedTrends.query({ location: location.name, term: $scope.trend, limit: 5, from: fromDate, interval: interval, source: sourceParam }, 
       function(data){
+        
         $scope.loadingState(false);
         if ((data === undefined) || (data.series === undefined) || (data.series.length === 0)){
           data = generateFakeData();
@@ -304,6 +316,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
         $scope.loadingState(false);
         $scope.calculatePrevalences();
         $log.log("Error returning trend data for "+$scope.trend); 
+        
       });
   };
     
@@ -316,7 +329,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   if ($routeParams.location === undefined){ $scope.location = { name: "all" }; }
   else { $scope.location = { name: $routeParams.location }; }
   $scope.location.seriesData = [{term:"All Sources", series:generateFakeData().series}];
-  $scope.location.sourcesData = [{term:"twitter", series:generateFakeData().series}, {term:"blogs", series:generateFakeData().series}, {term:"academic", series: generateFakeData().series}, {term:"news", series: generateFakeData().series}];
+  $scope.location.sourcesData = [{term:"twitter", series:generateFakeData().series}, {term:"blog", series:generateFakeData().series}, {term:"academic", series: generateFakeData().series}, {term:"news", series: generateFakeData().series}];
 
   if ($routeParams.selectionStart && $routeParams.selectionEnd){
     $scope.selectionStart = new Date(parseInt($routeParams.selectionStart));
@@ -330,13 +343,14 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   $scope.spanEnd   = today-1;
   $scope.spanStart = today-(91*day);
 
-  $scope.tabs = { "twitter":[], "blogs":[], "academic":[], "news":[] };
+  $scope.tabs = { "twitter":[], "blog":[], "academic":[], "news":[] };
   $scope.prevalences = {};
 
   $scope.$watch('locations', function(newValue, oldValue) {
+    
     $scope.locations.forEach(function(location){
       $scope.prevalences[location.name] = location;
-      $scope.getRelatedTrends(location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval, "all");
+      $scope.getRelatedTrends(location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval, $scope.source);
     });
     /*disabled until we have more sources
     jQuery.each($scope.location.sourcesData, function(k,v){
@@ -411,15 +425,11 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
 
   $scope.location = { name: "all" };
 
-  $scope.setLocation = function(name) {
-    $scope.location = { name: name }
-    $scope.$apply();
-  };
+  $scope.getTrends = function(location, fromDate, toDate, interval, source){
+    if ((source === undefined) || (source == "all")){ source = "" }
 
-  $scope.getTrends = function(location, fromDate, toDate, interval){
-    
     $scope.loadingState(true);
-    LocationTrends.query({ location: location.name, limit: 10, from: fromDate, to: toDate, interval: interval }, function(data) {
+    LocationTrends.query({ location: location.name, limit: 10, from: fromDate, to: toDate, interval: interval, source: source }, function(data) {
       $scope.dataAvailable = true;
       $scope.loadingState(false);
       if ((data === null) || (data.length == 0) || (totalVelocity === 0)){
@@ -467,6 +477,6 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
     }
   };
 
-  $scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval); 
+  $scope.getTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval, $scope.source);
 
 }]);

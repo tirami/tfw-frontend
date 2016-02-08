@@ -50,14 +50,20 @@ udadisiDirectives.directive('treemap',
 );
 
 udadisiDirectives.directive('timespan', function($parse, IntervalService) {
-    return { restrict: 'A', scope: { selectStart: '=', selectEnd: '=', location: '=', interval: '=', start: '=', end: '=', updateFn: '=' }, 
+    return { restrict: 'A', scope: { selectStart: '=', selectEnd: '=', location: '=', source: '=', interval: '=', start: '=', end: '=', updateFn: '=' }, 
       link: function(scope, element, attrs){ setTimespan(scope, element, attrs, IntervalService); } }
   }
 );
 
 udadisiDirectives.directive('locationToggle', 
   function($parse) {
-    return { restrict: 'C', scope: { selectStart: '=', selectEnd: '=', location: '=', interval: '=', updateFn: '=', setLocation: '=' }, link: toggleLocation }
+    return { restrict: 'C', scope: { selectStart: '=', selectEnd: '=', location: '=', source: '=', interval: '=', updateFn: '=', setLocation: '=' }, link: toggleLocation }
+  }
+);
+
+udadisiDirectives.directive('sourceSelect', 
+  function($parse) {
+    return { restrict: 'C', scope: { selectStart: '=', selectEnd: '=', location: '=', source: '=', interval: '=', updateFn: '=', setSource: '=' }, link: selectSource }
   }
 );
 
@@ -527,7 +533,27 @@ var toggleLocation = function(scope, element, attrs) {
     if (!(fromDate instanceof Date)) { fromDate = new Date(fromDate); }
     if (!(toDate instanceof Date)) { toDate = new Date(toDate); }
 
-    scope.updateFn(scope.location, fromDate.toTimeString(), toDate.toTimeString(), scope.interval);
+    scope.updateFn(scope.location, fromDate.toTimeString(), toDate.toTimeString(), scope.interval, scope.source);
+  });
+};
+
+var selectSource = function(scope, element, attrs) {
+  element.on('click', function(event) {
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    scope.setSource(element[0].getAttribute("target-source"));
+
+    $('.sourceSelect').removeClass('selected');
+    $(element[0]).toggleClass('selected');
+    
+    var fromDate = scope.selectStart;
+    var toDate = scope.selectEnd;
+    
+    if (!(fromDate instanceof Date)) { fromDate = new Date(fromDate); }
+    if (!(toDate instanceof Date)) { toDate = new Date(toDate); }
+
+    scope.updateFn(scope.location, fromDate.toTimeString(), toDate.toTimeString(), scope.interval, scope.source);
   });
 };
 
@@ -669,7 +695,7 @@ var setTimespan = function(scope, element, attrs, IntervalService) {
       scope.selectStart = brush.extent()[0];
       scope.selectEnd = brush.extent()[1];
       scope.interval = IntervalService.calculateInterval(scope.selectStart, scope.selectEnd);     
-      scope.updateFn(scope.location, scope.selectStart.toTimeString(), scope.selectEnd.toTimeString(), scope.interval);
+      scope.updateFn(scope.location, scope.selectStart.toTimeString(), scope.selectEnd.toTimeString(), scope.interval, scope.source);
     }
   }
 

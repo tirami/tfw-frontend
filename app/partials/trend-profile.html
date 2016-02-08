@@ -89,7 +89,7 @@
   </section>
 
   <div class="timespan-container" style="margin: 1em 0.5em;">
-    <div timespan location="location" select-start="selectionStart" select-end="selectionEnd" interval="interval" start="spanStart" end="spanEnd" update-fn='getRelatedTrends' class='ui-brush'></div>
+    <div timespan location="location" source="source" select-start="selectionStart" select-end="selectionEnd" interval="interval" start="spanStart" end="spanEnd" update-fn='getRelatedTrends' class='ui-brush'></div>
   </div>
  
   <div id="sourcesTabs" class="tabs">
@@ -187,7 +187,7 @@
      </header>
 
       <ul class="sourceList">
-        <li ng-repeat="source in tabs.blogs | limitTo:pageSize:pageIdx"><a target="_blank" href="{{ source.source_uri }}">{{ source.source_uri }}</a><span class="sourceMeta"> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
+        <li ng-repeat="source in tabs.blog | limitTo:pageSize:pageIdx"><a target="_blank" href="{{ source.source_uri }}">{{ source.source_uri }}</a><span class="sourceMeta"> from {{ source.source }} | on {{ source.posted | date:'yyyy-MM-dd HH:mm'}}</span>
         </li>
       </ul>
 

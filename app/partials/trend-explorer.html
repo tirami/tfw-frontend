@@ -28,7 +28,7 @@
             
             <ul class="filter">
               <li ng-repeat="location in locations">
-                <button ng-class="{selected: location.name === 'all'}" class="locationToggle" target-location="{{location.name}}" location="location" interval="interval" set-location='setLocation' select-start="selectionStart" select-end="selectionEnd" update-fn='getTrends'>{{ location.name | allAsGlobal }}</button>
+                <button ng-class="{selected: location.name === 'all'}" class="locationToggle" target-location="{{location.name}}" location="location" source="source" interval="interval" set-location='setLocation' select-start="selectionStart" select-end="selectionEnd" update-fn='getTrends'>{{ location.name | allAsGlobal }}</button>
               </li>
             </ul>
           </div>
@@ -37,11 +37,11 @@
          <div id="sourceOptions">
           <h3>Source Options</h3>
           <ul class="filter">
-              <li><button class="selected">All sources</button></li>
-              <li><button>Blogs</button></li>
-              <li><button>News</button></li>
-              <li><button>Academia</button></li>
-              <li><button>Twitter</button></li>
+              <li><button class="sourceSelect" location="location" source="source" interval="interval" target-source='all' set-source='setSource' select-start="selectionStart" select-end="selectionEnd" update-fn='getTrends'>All sources</button></li>
+              <li><button class="sourceSelect" location="location" source="source" interval="interval" target-source='blog' set-source='setSource' select-start="selectionStart" select-end="selectionEnd" update-fn='getTrends'>Blogs</button></li>
+              <li><button class="sourceSelect" location="location" source="source" interval="interval" target-source='news' set-source='setSource' select-start="selectionStart" select-end="selectionEnd" update-fn='getTrends'>News</button></li>
+              <li><button class="sourceSelect" location="location" source="source" interval="interval" target-source='academia' set-source='setSource' select-start="selectionStart" select-end="selectionEnd" disabled="disabled" update-fn='getTrends'>Academia</button></li>
+              <li><button class="sourceSelect" location="location" source="source" interval="interval" target-source='twitter' set-source='setSource' select-start="selectionStart" select-end="selectionEnd" update-fn='getTrends'>Twitter</button></li>
           </ul>
           </div>
           
@@ -62,7 +62,7 @@
       <ul><li ng-repeat="trend in trends">  <a href="#/trends/{{ trend.term | urlEncode }}?selectionStart={{ selectionStart.getTime() }}&selectionEnd={{ selectionEnd.getTime() }}"> {{ trend.term }} <span>Score: {{ trend.velocity.toFixed(2) }}</span></a></li></ul>
     </div>
 
-    <div timespan location="location" select-start="selectionStart" select-end="selectionEnd" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
+    <div timespan location="location" source="source" select-start="selectionStart" select-end="selectionEnd" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
     <div ng-visible="true" ng-click="resetPanels()" id="overlay"></div>
     <div ng-repeat="(idx,trend) in trends | orderBy:'-velocity'" class="trendPanel" id="trend-panel-{{ idx }}">
       <h4>{{ trend.term }}</h4>
