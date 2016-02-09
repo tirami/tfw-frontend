@@ -436,15 +436,16 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
     LocationTrends.query({ location: location.name, limit: 10, from: fromDate, to: toDate, interval: interval, source: source }, function(data) {
       $scope.dataAvailable = true;
       $scope.loadingState(false);
-      if ((data === null) || (data.length == 0) || (totalVelocity === 0)){
-        data = $scope.generateExampleTrends();
-        $scope.dataAvailable = false;
-      }
 
       var totalVelocity = 0;
       data.forEach(function(entry){
         totalVelocity = totalVelocity + entry.velocity;
       });
+      
+      if ((data === null) || (data.length == 0) || (totalVelocity === 0)){
+        data = $scope.generateExampleTrends();
+        $scope.dataAvailable = false;
+      }
 
       $scope.trends = data.slice(0,10);
     }, function(error){
