@@ -263,8 +263,8 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   };
 
   $scope.populateSourcesTabs = function(sources){
-    if (sources ===undefined){ generateFakeSources(); return; }
     $scope.tabs = { "twitter":[], "blog":[], "academic":[], "news":[] };
+    if (sources ===undefined){ generateFakeSources(); return; }
     sources.forEach(function(src){
       if ($scope.tabs[src.source] === undefined) { $scope.tabs[src.source] = [src]; }
       else { $scope.tabs[src.source].push(src); }
@@ -277,7 +277,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     $scope.loadingState(true);
     var dataAvailable = false;
 
-    RelatedTrends.query({ location: location.name, term: $scope.trend, limit: 5, from: fromDate, interval: interval, source: sourceParam }, 
+    RelatedTrends.query({ location: location.name, term: $scope.trend, limit: 5, from: fromDate, to: toDate, interval: interval, source: sourceParam }, 
       function(data){
         $scope.requestCounter++;
         if ($scope.requestCounter >= $scope.locations.length){ $scope.loadingState(false); }
