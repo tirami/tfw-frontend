@@ -335,12 +335,10 @@ button.pure-button span.active { color:white;background-color:#333; }
   color: white;
   position:relative;
   bottom:0;right:0;left:0;
-  height:50px;
+  height:70px;
   width:100%;
   margin: 0 auto;
-  .tick {
-    fill: white;
-  }
+  .tick { fill: white; }
 }
 .brush .extent {
   fill: $pa-yellow;

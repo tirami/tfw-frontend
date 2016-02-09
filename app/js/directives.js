@@ -662,7 +662,7 @@ var drawBars = function (scope, element, attrs) {
 var setTimespan = function(scope, element, attrs, IntervalService) {
   var container = d3.select(element[0]),
     margin = {top: 0, right: 20, bottom: 0, left: 20},
-    height = 50;
+    height = 70;
   var width = (container.node().offsetWidth) - margin.left - margin.right;
 
   var svg = container.append('svg')
@@ -686,7 +686,7 @@ var setTimespan = function(scope, element, attrs, IntervalService) {
     
     var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(10).tickFormat(format);
     context.append("g").attr("class", "x axis").attr("transform", "translate(0," + (height/2) + ")")
-      .call(xAxis).selectAll("text").attr("y", 4).attr("x", 2).style("text-anchor", "start");
+      .call(xAxis).selectAll("text").attr("y", 4).attr("x", 2).style("text-anchor", "start").attr("transform", "rotate(+20)" );
 
     //The "brush" or selector itself
     var brush = d3.svg.brush().x(x).on('brushend', brushend);
@@ -694,7 +694,7 @@ var setTimespan = function(scope, element, attrs, IntervalService) {
 
     svg.append("defs").append("pattern").attr("height", 21).attr("width", 16).attr("id", "grip").append("image").attr("xlink:href", "app/assets/images/grip.png").attr("height", 25).attr("width", 16);
     brushg.selectAll(".resize").append("rect").attr("width", 16).attr("height", 20).attr("transform", "translate(-8,0)").style("fill", "url(#grip)");
-    brushg.selectAll('rect').attr('y', 0).attr('height', 23);//.attr("transform", "translate(0," +  height / 2 + ")");
+    brushg.selectAll('rect').attr('y', 0).attr('height', 30);//.attr("transform", "translate(0," +  height / 2 + ")");
 
     // define our brush extent
     brush.extent([new Date(scope.selectStart), new Date(scope.selectEnd)]);
