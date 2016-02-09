@@ -240,8 +240,10 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     jQuery.each($scope.tabs, function(k,v){
       var i = 0;
       while (i < 23) {
-        v.push({ posted: (new Date), source: k, source_uri: "http://bbc.co.uk/"+k+"/"+i });
-        $scope.trendData.sources.push({ posted: (new Date), source: k, source_uri: "http://bbc.co.uk/"+k+"/"+i });
+        var newSrc = { posted: (new Date), source: k, source_uri: "http://bbc.co.uk/"+k+"/"+i };
+        v.push(newSrc);
+        if ($.isArray($scope.trendData.sources)){ $scope.trendData.sources.push(newSrc); } 
+        else { $scope.trendData.sources = [newSrc]; }
         i++;
       }
     });
@@ -291,6 +293,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
         }
         
         data.occurrences = data.series.reduce(function(a, b){return a+b;});
+
         if (location.name === "all"){ $scope.populateSourcesTabs(data.sources); }
 
         if ($scope.location.name === location.name){
@@ -311,7 +314,6 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
           $scope.prevalences[location.name].occurrences = data.occurrences;
           $scope.calculatePrevalences();
         }
-
       },
       function(error){
         $scope.loadingState(false);
