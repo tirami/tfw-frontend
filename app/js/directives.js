@@ -284,10 +284,10 @@ var drawTimeSeries = function(scope, element, attrs){
     y.domain(yExtent);
 
     //Draw grid
-    var xGrid = group.append("g").attr("class", "grid").attr("transform", "translate(0," + height + ")")
-      .call(make_x_axis(x, (data[0].series.length-1)).tickSize(-height, 0, 0).tickFormat(""));
-    var yGrid = group.append("g").attr("class", "grid")
-      .call(make_y_axis(y, yExtent[1]*2).tickSize(-width, 0, 0).tickFormat(""))
+    var xGrid = group.append("g").attr("class", "xgrid grid").attr("transform", "translate(0," + height + ")")
+      .call(make_x_axis(x, 25).tickSize(-height, 0, 0).tickFormat(""));
+    var yGrid = group.append("g").attr("class", "ygrid grid")
+      .call(make_y_axis(y, 15).tickSize(-width, 0, 0).tickFormat(""));
     
     //Y label
     group.append('g')
