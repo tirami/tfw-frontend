@@ -279,7 +279,8 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
 
     RelatedTrends.query({ location: location.name, term: $scope.trend, limit: 5, from: fromDate, interval: interval, source: sourceParam }, 
       function(data){
-        if ($scope.requestCounter++ >= $scope.locations.length){ $scope.loadingState(false); }
+        $scope.requestCounter++;
+        if ($scope.requestCounter >= $scope.locations.length){ $scope.loadingState(false); }
         
         if ((data === undefined) || (data.series === undefined) || (data.series.length === 0)){
           data = generateFakeData();
