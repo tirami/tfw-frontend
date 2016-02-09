@@ -317,7 +317,8 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
         $scope.loadingState(false);
         $scope.calculatePrevalences();
         $log.log("Error returning trend data for "+$scope.trend); 
-        if ($scope.requestCounter++ >= $scope.locations.length){ $scope.loadingState(false); }
+        $scope.requestCounter++
+        if ($scope.requestCounter >= $scope.locations.length){ $scope.loadingState(false); }
       });
   };
     
