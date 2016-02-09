@@ -258,6 +258,10 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     return { velocity: 1, series: [Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10], related: $scope.generateExampleTrends() };
   };
   
+  var generateFakeSourcesData = function(){
+    return [{term:"twitter", series:generateFakeData().series}, {term:"blog", series:generateFakeData().series}, {term:"academic", series: generateFakeData().series}, {term:"news", series: generateFakeData().series}];
+  }
+
   $scope.calculatePrevalences = function(){
     var occurrences = [];
     jQuery.each($scope.prevalences, function(k,l){
@@ -278,7 +282,57 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     });
   };
 
+  var calculateTotalLength = function(sourcesData){
+    var totalLength = 0;
+    sourcesData.forEach(function(entry){
+      totalLength = totalLength + entry.series.length;
+    });
+    return totalLength;
+  };
+
+  $scope.lastSourcesRequest = [];
+  $scope.getRelatedSources = function(location, fromDate, toDate, interval) {   
+    if ($scope.lastSourcesRequest[0] == fromDate && $scope.lastSourcesRequest[1] == toDate){ return; }
+    $scope.lastSourcesRequest = [fromDate, toDate];
+
+    $scope.loadingState(true);
+    var tempData = [];
+    $.each($scope.location.sourcesData, function(idx, sourceData){
+      RelatedTrends.query({ location: location.name, term: $scope.trend, limit: 5, from: fromDate, to: toDate, interval: interval, source: sourceData.term }, 
+        function(data){
+          if ((data === undefined) || (data.series === undefined) || (data.series.length === 0)){ data.series = []; }
+          tempData.push({ term: sourceData.term, series: data.series });
+          if (tempData.length >= location.sourcesData.length){
+            $scope.loadingState(false);
+            if (calculateTotalLength(tempData) > 0){ 
+              $scope.location.sourcesData = tempData;
+              $scope.sourcesDataAvailable = true;
+            } else {
+              $scope.location.sourcesData = generateFakeSourcesData();
+              $scope.sourcesDataAvailable = false;
+            }
+          }
+        },
+        function(error){
+          $log.log(error);
+          tempData.push({ term: sourceData.term, series: [] });
+          if (tempData.length >= location.sourcesData.length) { 
+            if (calculateTotalLength(tempData) > 0){ $scope.location.sourcesData = tempData; } 
+            else { $scope.location.sourcesData = generateFakeSourcesData(); }
+            $scope.loadingState(false);
+            $scope.sourcesDataAvailable = false;
+          }
+        });
+    });
+  };
+
+  $scope.lastRelatedRequest = [];
   $scope.getRelatedTrends = function(location, fromDate, toDate, interval, source) {
+    if (($scope.lastRelatedRequest[0] == fromDate) && ($scope.lastRelatedRequest[1] == toDate) && ($scope.lastRelatedRequest[2] == location.name)){ 
+      return; 
+    }
+    $scope.lastRelatedRequest = [fromDate, toDate, location.name];
+
     var sourceParam = source;
     if (source === "all"){ sourceParam = "" }
     $scope.loadingState(true);
@@ -294,7 +348,6 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
           dataAvailable = false;
         } else {
           dataAvailable = true;
-          $scope.sourcesDataAvailable = true; // remove when sources appear
         }
         
         data.occurrences = data.series.reduce(function(a, b){return a+b;});
@@ -307,11 +360,6 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
             $scope.location.seriesData = [{term:"All Sources", series: data.series }];
             $scope.trendData = data;
             $scope.relatedTrends = data.related.slice(0,10);
-            $scope.location.sourcesData = [{ term: "Twitter", series: data.series }];  // remove when sources appear
-          } else {
-            $scope.sourcesDataAvailable = true;
-            //if ($scope.location.sourcesData.length >= 1){ $scope.location.sourcesData = []; }
-            //$scope.location.sourcesData.push({ term: source, series: data.series });
           }
         }
 
@@ -338,7 +386,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   if ($routeParams.location === undefined){ $scope.location = { name: "all" }; }
   else { $scope.location = { name: $routeParams.location }; }
   $scope.location.seriesData = [{term:"All Sources", series:generateFakeData().series}];
-  $scope.location.sourcesData = [{term:"twitter", series:generateFakeData().series}, {term:"blog", series:generateFakeData().series}, {term:"academic", series: generateFakeData().series}, {term:"news", series: generateFakeData().series}];
+  $scope.location.sourcesData = generateFakeSourcesData();
 
   if ($routeParams.selectionStart && $routeParams.selectionEnd){
     $scope.selectionStart = new Date(parseInt($routeParams.selectionStart));
@@ -353,16 +401,14 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   $scope.tabs = { "twitter":[], "blog":[], "academic":[], "news":[] };
   $scope.prevalences = {};
 
+  $scope.updateFn = $scope.getRelatedTrends;
+
   $scope.$watch('locations', function(newValue, oldValue) {
     $scope.requestCounter = 0;    
     $scope.locations.forEach(function(location){
       $scope.prevalences[location.name] = location;
-      $scope.getRelatedTrends(location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval, $scope.source);
+      $scope.getRelatedTrends(location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval, "all");
     });
-    /*disabled until we have more sources
-    jQuery.each($scope.location.sourcesData, function(k,v){
-      $scope.getRelatedTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval, k);
-    });*/
   });
     
   $scope.resetPanels = function(){
@@ -382,6 +428,15 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     $("#trend-graphs").removeClass("history-tab-open");
     $("#trend-graphs").removeClass("sources-tab-open");
     $("#trend-graphs").removeClass("related-tab-open");
+
+    if (view == "sources"){
+      $scope.updateFn = $scope.getRelatedSources;
+      $scope.getRelatedSources($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval);
+    } else {
+      $scope.updateFn = $scope.getRelatedTrends;
+      $scope.getRelatedTrends($scope.location, new Date($scope.selectionStart).toTimeString(), new Date($scope.selectionEnd).toTimeString(), $scope.interval, "all");
+    }
+
     $("#trend-graphs").addClass(view + "-tab-open");
     $scope.changePage(0);
   };
@@ -441,7 +496,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
       data.forEach(function(entry){
         totalVelocity = totalVelocity + entry.velocity;
       });
-      
+
       if ((data === null) || (data.length == 0) || (totalVelocity === 0)){
         data = $scope.generateExampleTrends();
         $scope.dataAvailable = false;
