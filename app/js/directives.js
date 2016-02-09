@@ -55,6 +55,12 @@ udadisiDirectives.directive('timespan', function($parse, IntervalService) {
   }
 );
 
+udadisiDirectives.directive('zoomControl', function($parse, IntervalService) {
+    return { restrict: 'C', scope: { selectStart: '=', selectEnd: '=', start: '=', end: '=', updateFn: '=' },
+      link: function(scope, element, attrs){ timespanZoom(scope, element, attrs); } }
+  }
+);
+
 udadisiDirectives.directive('locationToggle', 
   function($parse) {
     return { restrict: 'C', scope: { selectStart: '=', selectEnd: '=', location: '=', source: '=', interval: '=', updateFn: '=', setLocation: '=' }, link: toggleLocation }
@@ -665,67 +671,75 @@ var setTimespan = function(scope, element, attrs, IntervalService) {
 
   var context = svg.append('g').attr('class', 'context').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-  //The x axis & labelling
-  var timespan = [scope.start, scope.end];
-  var timeExtent = d3.extent(timespan, function(d) { return new Date(d); });
-  var x = d3.time.scale().range([0, width]).domain(timeExtent);
-  var format = d3.time.format("%-d %b");
-  var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(10).tickFormat(format);
-  context.append("g").attr("class", "x axis").attr("transform", "translate(0," + (height/2) + ")")
-    .call(xAxis).selectAll("text").attr("y", 4).attr("x", 2).style("text-anchor", "start");
+  scope.$watch('start', function (newVal, oldData){
+    if (!newVal) { return; }
+    context.selectAll('*').remove();
+    
+    //The x axis & labelling
+    var timespan = [newVal, scope.end];
+    var timeExtent = d3.extent(timespan, function(d) { return new Date(d); });
+    var x = d3.time.scale().range([0, width]).domain(timeExtent);
+    
+    var format = d3.time.format("%-d %b");
+    var spanDiff = (scope.end - newVal);
+    if (spanDiff >= (300*24*60*60*1000)){ format = d3.time.format("%b %y"); }
+    
+    var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(10).tickFormat(format);
+    context.append("g").attr("class", "x axis").attr("transform", "translate(0," + (height/2) + ")")
+      .call(xAxis).selectAll("text").attr("y", 4).attr("x", 2).style("text-anchor", "start");
 
-  var zoom = d3.behavior.zoom().x(x).scaleExtent([0, width]).on("zoom", zoomed);
+    //The "brush" or selector itself
+    var brush = d3.svg.brush().x(x).on('brushend', brushend);
+    var brushg = context.append('g').attr('class', 'x brush').call(brush); 
 
-  //The "brush" or selector itself
-  var brush = d3.svg.brush().x(x).on('brushend', brushend);
-  var brushg = context.append('g').attr('class', 'x brush').call(brush); 
+    svg.append("defs").append("pattern").attr("height", 21).attr("width", 16).attr("id", "grip").append("image").attr("xlink:href", "app/assets/images/grip.png").attr("height", 25).attr("width", 16);
+    brushg.selectAll(".resize").append("rect").attr("width", 16).attr("height", 20).attr("transform", "translate(-8,0)").style("fill", "url(#grip)");
+    brushg.selectAll('rect').attr('y', 0).attr('height', 23);//.attr("transform", "translate(0," +  height / 2 + ")");
 
-  svg.append("defs").append("pattern").attr("height", 21).attr("width", 16).attr("id", "grip").append("image").attr("xlink:href", "app/assets/images/grip.png").attr("height", 25).attr("width", 16);
-  brushg.selectAll(".resize").append("rect").attr("width", 16).attr("height", 20).attr("transform", "translate(-8,0)").style("fill", "url(#grip)");
-  brushg.selectAll('rect').attr('y', 0).attr('height', 23);//.attr("transform", "translate(0," +  height / 2 + ")");
+    // define our brush extent
+    brush.extent([new Date(scope.selectStart), new Date(scope.selectEnd)]);
+    brush(d3.select(".brush"));
 
-  // define our brush extent
-  brush.extent([new Date(scope.selectStart), new Date(scope.selectEnd)]);
-  brush(d3.select(".brush"));
+    //Brush callback
+    function brushend(){
+      if (brush.empty()) {
+        console.log("brush empty, doing nowt");
+      } else {
+        scope.selectStart = brush.extent()[0];
+        scope.selectEnd = brush.extent()[1];
+        scope.interval = IntervalService.calculateInterval(scope.selectStart, scope.selectEnd);
+        scope.updateFn(scope.location, scope.selectStart.toTimeString(), scope.selectEnd.toTimeString(), scope.interval, scope.source);
+      }
+    };
 
-  function brushend(){
-    if (brush.empty()) {
-      console.log("brush empty, doing nowt");
-    } else {
-      scope.selectStart = brush.extent()[0];
-      scope.selectEnd = brush.extent()[1];
-      scope.interval = IntervalService.calculateInterval(scope.selectStart, scope.selectEnd);     
-      scope.updateFn(scope.location, scope.selectStart.toTimeString(), scope.selectEnd.toTimeString(), scope.interval, scope.source);
-    }
-  }
-
-  function zoomed(e) {
-    svg.select(".x.axis").call(xAxis);
-    /*svg.selectAll('rect.extent').attr("transform", function(d) { 
-      return "translate(" + x(d.point.x) + ",0)"; }
-    );
-    svg.selectAll('g.resize.e').attr("transform", function(d) { 
-      return "translate(" + x(d.point.x) + ",0)"; }
-    );
-    svg.selectAll('g.resize.w').attr("transform", function(d) { 
-      return "translate(" + x(d.point.x) + ",0)"; }
-    );*/
-  }
-
-  d3.select("button.zr").on("click", reset);
-
-  function reset() {
-    d3.transition().duration(750).tween("zoom", function() {
-      var newDomain = [new Date(x.domain()[0]-(86400000*7)), x.domain()[1]]; //set a week hence
-      var ix = d3.interpolate(x.domain(), newDomain);
-      return function(t) {
-        zoom.x(x.domain(ix(t)));
-        zoomed();
-      };
-    });
-  }
+  });
 
 }
+
+var timespanZoom = function(scope, element, attrs){
+  element.on('click', function(event) {
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    var zoomIn = (element[0].getAttribute("zoom-direction") === "in");
+    var diff = (scope.end - scope.start);
+    var newDate = newDate = new Date(scope.start - Math.round(diff/8));
+    if (zoomIn){ newDate = new Date((scope.start-0) + Math.round(diff/8)); }
+    
+    var maxDate = new Date(scope.end - (2*365*24*60*60*1000));
+    var minDate = new Date(scope.end - (7*24*60*60*1000));
+
+    if ((newDate >= maxDate) && (newDate <= minDate)){
+      $('.zoomControl').prop("disabled", false);
+      scope.updateFn(newDate);
+    } else {
+      console.log("disabling");
+      $('.zoomControl').prop("disabled", false);
+      $(element[0]).prop("disabled", true);
+    }
+
+  });
+};
 
 var drawTreemap = function(scope, element, attrs){
 

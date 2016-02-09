@@ -108,6 +108,13 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
     $scope.$apply();
   };
 
+  $scope.spanEnd   = today-1; //at 23:59:59
+  $scope.spanStart = today-(91*day);
+  $scope.setSpanStart = function(startDate) {
+    $scope.spanStart = startDate;
+    $scope.$apply();
+  };
+
 }]);
 
 
@@ -217,9 +224,7 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
     $scope.selectionEnd = today-1;
     $scope.interval = 3;
   }
-  $scope.spanEnd   = today-1;
-  $scope.spanStart = today-(91*day);
-
+  
   $scope.dataAvailable = true;
 
   $scope.getStats($scope.location);
@@ -344,8 +349,6 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     $scope.selectionEnd = today-1;
     $scope.interval = 3;
   }
-  $scope.spanEnd   = today-1;
-  $scope.spanStart = today-(91*day);
 
   $scope.tabs = { "twitter":[], "blog":[], "academic":[], "news":[] };
   $scope.prevalences = {};
@@ -413,9 +416,6 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
 
   $scope.dataAvailable = false;
   $scope.trends = $scope.generateExampleTrends();
-
-  $scope.spanEnd   = today-1; //at 23:59:59
-  $scope.spanStart = today-(91*day);
   
   if ($routeParams.selectionStart && $routeParams.selectionEnd){
     $scope.selectionStart = new Date(parseInt($routeParams.selectionStart));
