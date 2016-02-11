@@ -671,17 +671,26 @@ body.trends-trend #filters {
   padding: 1em;
   background: #ecece5;
 }
+body.trends-trend #filters label {
+  display: inline-block;
+  margin-bottom: 1em;
+  font-weight: bold;
+}
 body.trends-trend #filters ul {
   padding: 0;
   margin: 0;
-  display: inline;
+  display: inline-block;
 }
 body.trends-trend #filters ul li {
   list-style: none;
   display: inline-block;
-  margin: 0 1em;
+  margin: 0 1em 0 0;
+}
+body.trends-trend #filters ul li:last-child {
+  margin-right: 0;
 }
 body.trends-trend #filters ul li a {
+  display: block;
   text-decoration: none;
   padding: 0.25em 0.5em;
   border: #008e8f solid 1px;
@@ -957,6 +966,30 @@ body.locations-location section#trendsOverview {
 }
 
 /*  Profile Timespan styling  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+#trendProfile .timespan-container, .locations-location .timespan-container {
+  position: relative;
+}
+#trendProfile .timespan-container button.zoomControl, .locations-location .timespan-container button.zoomControl {
+  z-index: 1000;
+  background-color: inherit;
+  border: none;
+  position: absolute;
+  top: 0px;
+  left: 20px;
+  padding: 4px 6px;
+}
+#trendProfile .timespan-container button.zoomControl i.fa, .locations-location .timespan-container button.zoomControl i.fa {
+  font-size: 1.25em;
+}
+#trendProfile .timespan-container button.zoomControl:hover *, .locations-location .timespan-container button.zoomControl:hover * {
+  color: #008e8f;
+}
+#trendProfile .timespan-container button.zoomControl.zoomIn, .locations-location .timespan-container button.zoomControl.zoomIn {
+  left: 3em;
+}
+#trendProfile .timespan-container button.zoomControl:focus, .locations-location .timespan-container button.zoomControl:focus {
+  border: none;
+}
 #trendProfile .timespan-container .ui-brush, .locations-location .timespan-container .ui-brush {
   background: #f9f9f5;
   fill: white;
@@ -1093,6 +1126,10 @@ button.tab.active {
   }
 
   /*  MOBILE: Home Page  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+  body.home h2 {
+    font-size: 1.5em;
+    margin: 1em 0;
+  }
   body.home .splash {
     position: absolute;
     height: auto;
@@ -1246,6 +1283,22 @@ button.tab.active {
 
   button.tab span {
     display: none;
+  }
+
+  #filters {
+    text-align: center;
+  }
+  #filters label {
+    display: block;
+  }
+  #filters ul {
+    display: block;
+  }
+  #filters ul li {
+    margin: 0 0.5em;
+  }
+  #filters ul li:last-child {
+    margin-right: 0.5em;
   }
 
   /*  MOBILE: LOCATION PROFILE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */

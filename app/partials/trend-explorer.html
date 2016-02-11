@@ -66,7 +66,11 @@
       <ul><li ng-repeat="trend in trends">  <a href="#/trends/{{ trend.term | urlEncode }}?selectionStart={{ selectionStart.getTime() }}&selectionEnd={{ selectionEnd.getTime() }}"> {{ trend.term }} <span>Score: {{ trend.velocity.toFixed(2) }}</span></a></li></ul>
     </div>
 
-    <div timespan location="location" source="source" select-start="selectionStart" select-end="selectionEnd" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
+    <div timespan location="location" source="source" select-start="selectionStart" select-end="selectionEnd" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'>
+      <button title="Zoom in to timeline" class="zoomControl zoomIn" update-fn="setSpanStart" select-start="selectionStart" select-end="selectionEnd" start="spanStart" end="spanEnd" zoom-direction="in"><i class="fa fa-search-plus"></i></button>
+      <button title="Zoom out of timeline"  class ="zoomControl zoomOut" update-fn="setSpanStart" select-start="selectionStart" select-end="selectionEnd" start="spanStart" end="spanEnd" zoom-direction="out"><i class="fa fa-search-minus"></i></button>
+    </div>
+
     <div ng-visible="true" ng-click="resetPanels()" id="overlay"></div>
     <div ng-repeat="(idx,trend) in trends | orderBy:'-velocity'" class="trendPanel" id="trend-panel-{{ idx }}">
       <h4>{{ trend.term }}</h4>

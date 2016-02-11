@@ -32,9 +32,9 @@
   </header>
   
   <div id="filters">
-   Filter trend by location:
-    <ul>
-    <li ng-repeat="loc in locations" ng-class="{selected: location.name === loc.name}"><a href="#/trends/{{ trend }}?location={{ loc.name }}&selectionStart={{ selectionStart.getTime() }}&selectionEnd={{ selectionEnd.getTime() }}" class="upcase"><i class="fa fa-map-marker"></i> {{ loc.name | allAsGlobal }}</a></li>
+   <label for="filters">Filter trend by location:</label>
+    <ul id="filters">
+      <li ng-repeat="loc in locations" ng-class="{selected: location.name === loc.name}"><a href="#/trends/{{ trend }}?location={{ loc.name }}&selectionStart={{ selectionStart.getTime() }}&selectionEnd={{ selectionEnd.getTime() }}" class="upcase"><i class="fa fa-map-marker"></i> {{ loc.name | allAsGlobal }}</a></li>
     </ul>
   </div>
   
@@ -90,10 +90,10 @@
 
   <div class="timespan-container" style="margin: 1em 0.5em;">
     <div timespan location="location" source="source"  interval="interval" select-start="selectionStart" select-end="selectionEnd" start="spanStart" end="spanEnd" update-fn='updateFn' class='ui-brush'></div>
-  </div>
 
-  <button class ="zoomControl" style="background-color:black;color:white;" update-fn="setSpanStart" select-start="selectionStart" select-end="selectionEnd" start="spanStart" end="spanEnd" zoom-direction="in"><i class="fa fa-search-plus"></i></button>
-  <button class ="zoomControl" style="background-color:black;color:white;" update-fn="setSpanStart" select-start="selectionStart" select-end="selectionEnd" start="spanStart" end="spanEnd" zoom-direction="out"><i class="fa fa-search-minus"></i></button>
+  <button title="Zoom in to timeline" class="zoomControl zoomIn" update-fn="setSpanStart" select-start="selectionStart" select-end="selectionEnd" start="spanStart" end="spanEnd" zoom-direction="in"><i class="fa fa-search-plus"></i></button>
+  <button title="Zoom out of timeline"  class ="zoomControl zoomOut" update-fn="setSpanStart" select-start="selectionStart" select-end="selectionEnd" start="spanStart" end="spanEnd" zoom-direction="out"><i class="fa fa-search-minus"></i></button>
+  </div>
  
   <div id="sourcesTabs" class="tabs">
    <button class="tab active" ng-click="toggleSources('all', $event)">All Sources</button>
