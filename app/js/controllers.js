@@ -503,6 +503,8 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
       }
 
       $scope.trends = data.slice(0,10);
+      if ($(".open")[0]){ $scope.hideFilters(); }
+
     }, function(error){
       $scope.dataAvailable = false;
       $scope.loadingState(false);
@@ -533,14 +535,18 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
     $(clickEvent.target).addClass("active");    
   };
 
-  $scope.toggleFilters = function(view, clickEvent){     
+  $scope.hideFilters = function(){
+    $('#side-menu').removeClass('active');
+    $('#toggleViews').slideUp();
+    $('#showFiltersMobile').removeClass("open");
+  };
+
+  $scope.toggleFilters = function(view, clickEvent){
     if ($(".open")[0]){
-      $('#side-menu').removeClass('active');
-      $('#toggleViews').slideUp();
-      $(clickEvent.target).removeClass("open");
+      $scope.hideFilters();
     } else {
       $('#toggleViews').slideDown();
-      $(clickEvent.target).addClass("open");
+      $('#showFiltersMobile').addClass("open");
       $('#side-menu').addClass('active');
     }
   };
