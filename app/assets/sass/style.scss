@@ -38,7 +38,7 @@ body {
 #loading-overlay {
   z-index: 1000;
   background: none;
-  background: rgba(100,100,100,0.3);
+  background: rgba(12,20,68,0.3);
   width: 100%;
   height: 100%;
   position: fixed;
@@ -233,6 +233,15 @@ a {color: $pa-royal-blue;;
  #pa-logo {display: inline-block; margin-left: 188px;} 
  #edu {display: inline-block;}
 
+}
+
+body.home {
+ h2 {
+    font-weight: 600;
+    font-size: 1.75em;
+    line-height: 1.5em;
+    margin: 1em 5em;
+  }
 }
 
 #top-trends {
