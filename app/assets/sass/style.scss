@@ -646,13 +646,20 @@ body.trends-trend {
 #filters {
  padding: 1em;
  background: #ecece5;;
+ label {
+  display: inline-block;
+  margin-bottom: 1em;
+  font-weight: bold;
+  }
  ul {
   padding: 0; margin: 0;
-  display: inline;
+  display: inline-block;
   li {list-style: none;
    display: inline-block;
-   margin: 0 1em;
+   margin: 0 1em 0 0;
+   &:last-child {margin-right: 0;}
    a { 
+    display: block;
     text-decoration: none;
     padding: 0.25em 0.5em;
     border: $pa-turquoise solid 1px;
@@ -914,6 +921,25 @@ section#trendsOverview {
 
 #trendProfile, .locations-location {
  .timespan-container {
+  position: relative;
+  
+  button.zoomControl {
+   z-index: 1000;
+   background-color: inherit;
+   border: none;
+   position: absolute;
+   top: 0px;
+   left: 20px;
+   padding: 4px 6px;
+   i.fa {font-size: 1.25em;}
+   &:hover {
+    * {color:$pa-turquoise}
+   }
+   &.zoomIn {left: 3em;}
+   &:focus {border: none;}
+  }
+
+  
   .ui-brush {
    background: $pa-cream;
    fill:white;
@@ -1058,6 +1084,11 @@ body {
 /*  MOBILE: Home Page  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 body.home {
+ 
+ h2 {
+    font-size: 1.5em;
+    margin: 1em 0;
+  }
 
 .splash {
  position: absolute;
@@ -1217,6 +1248,18 @@ button.tab span {
  display: none;
 }
 
+#filters {
+ label {display: block;}
+ text-align: center;
+ ul {
+  display: block;
+  li {
+      margin: 0 0.5em;
+   &:last-child {margin-right: 0.5em;}
+
+  }
+  }
+ }
 /*  MOBILE: LOCATION PROFILE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 
