@@ -63,7 +63,7 @@
     <div scatter-plot id="scatterplot" trends="trends"></div>
     <div treemap id="treemap" trends="trends"></div>
     <div id="list">
-      <ul><li ng-repeat="trend in trends">  <a href="#/trends/{{ trend.term | urlEncode }}?selectionStart={{ selectionStart.getTime() }}&selectionEnd={{ selectionEnd.getTime() }}"> {{ trend.term }} <span>Score: {{ trend.velocity.toFixed(2) }}</span></a></li></ul>
+      <ul><li ng-repeat="trend in trends">  <a href="#/trends/{{ trend.term | urlEncode }}?selectionStart={{ selectionStart.getTime() }}&selectionEnd={{ selectionEnd.getTime() }}"> {{ trend.term }} <span>Trend score: {{ trend.velocity.toFixed(2) }}</span></a></li></ul>
     </div>
 
       

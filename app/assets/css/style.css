@@ -10,7 +10,7 @@
 body {
   background: #f9f9f5;
   color: #0c1444;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 #loading-overlay {
@@ -1071,6 +1071,46 @@ button.tab:focus {
 button.tab.active {
   background: white;
   border-bottom-color: white;
+}
+
+/*  Tabs  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+body.about .content img {
+  max-width: 100%;
+  height: auto;
+  margin: 0 2em;
+}
+body.about .content header {
+  background: #0c1444;
+  padding: 3em 0;
+}
+body.about .content header h1 {
+  color: white;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+body.about .content P {
+  font-size: 1.5em;
+  line-height: 1.25em;
+  margin: 0 2em;
+}
+body.about .content .rounded-corner {
+  border: 0px;
+  border-radius: 1em;
+}
+body.about .content .row {
+  padding: 5em 0;
+}
+body.about .content #paragraph-1 {
+  text-align: center;
+}
+body.about .content #paragraph-2 {
+  background: #008e8f;
+  color: white;
+  text-align: center;
+}
+body.about .content #paragraph-3 {
+  text-align: center;
 }
 
 @media (max-width: 600px) {

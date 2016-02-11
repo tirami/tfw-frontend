@@ -32,7 +32,7 @@ $pa-light-blue: #66afe9;
 body {
  background: $pa-cream;
  color: $navy-blue;
- font-weight: 300;
+ font-weight: 400;
 }
 
 #loading-overlay {
@@ -1009,6 +1009,57 @@ button.tab.active {
 }
 
 
+/*  Tabs  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+body.about .content {
+ 
+ img {
+  max-width: 100%;
+  height: auto;
+  margin: 0 2em;
+ }
+ header {
+  background: $navy-blue;
+  padding: 3em 0;
+  h1 {
+   color: white;
+   text-align: center;
+   padding: 0;
+   margin: 0;
+  }
+ }
+ P {
+  font-size: 1.5em;
+  line-height: 1.25em;
+  margin: 0 2em;
+ }
+ .rounded-corner {
+    border: 0px;
+    border-radius: 1em;
+ }
+ 
+ .row {
+  padding: 5em 0;
+ }
+ 
+ #paragraph-1 {
+  text-align: center;
+ }
+
+ 
+ #paragraph-2 {
+  background: $pa-turquoise;
+  color: white;
+  text-align: center;
+ }
+
+ #paragraph-3 {
+  text-align: center;
+ }
+
+}
+
+
 @media (max-width: 600px) {
  
 /*  MOBILE: Layout  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -1305,6 +1356,9 @@ button.tab span {
   }
   }
  }
+ 
+ 
+ 
 /*  MOBILE: LOCATION PROFILE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 
