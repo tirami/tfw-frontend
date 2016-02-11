@@ -64,8 +64,7 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
 
   $scope.locations = [{ name: "all", geo_coord: { latitude: 0.0, longitude: 0.0 }, scale: 0.9 }];
   $scope.getLocations = function(){
-    
-    Locations.query({}, 
+    Locations.query({},
       function(data){  $scope.locations = data; }, 
       function(error){ $scope.locations = [{ name: "all", geo_coord: { latitude: 0.0, longitude: 0.0 }, scale: 0.9 }]; $scope.loadingState(false); });
   };
@@ -135,10 +134,14 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
 udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window', 'Stats', 'LocationTrends', function($scope, $route, $log, $window, Stats, LocationTrends) { 
   $scope.setActivePage($route.current.originalPath);
   
+  $scope.lastTrendRequest = ["",0];
   $scope.getTrends = function(location, fromDate, interval){ 
+    if (($scope.lastTrendRequest[0] == location.name) && ($scope.lastTrendRequest[1] == fromDate)){ return; }
+    $scope.lastTrendRequest = [location.name, fromDate];
+
     LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval, source: "" }, 
       function(data) {
-        data = data.slice(0,10); //NB will just be in alphabetical order if all velocities are -1
+        data = data.slice(0,5); //NB will just be in alphabetical order if all velocities are -1
         jQuery.each($scope.locations, function(i,l){
           if(location.name === l.name){ location.trends = data; }
         });
@@ -161,13 +164,15 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
   $scope.globalLocation = undefined;
   $scope.query = "";
   
-  //$scope.$watch('locations', function(newValue, oldValue) {
-  $.each($scope.locations, function(idx, item){
-    if (item.name == "all"){ $scope.globalLocation = item; }
-    $scope.getTrends(item, new Date($scope.selectionStart).toTimeString(), $scope.interval);
-    $scope.getStats(item);
+  $scope.$watch('locations', function(newValue, oldValue) {
+    $scope.locations.sort(function(a,b){ if(a.name > b.name){ return -1; } else { return 1; } return 0; });
+
+    $.each($scope.locations, function(idx, item){
+      if (item.name == "all"){ $scope.globalLocation = item; }
+      $scope.getTrends(item, new Date($scope.selectionStart).toTimeString(), $scope.interval);
+      //$scope.getStats(item);
+    });
   });
-  //});
 
 }]);
 
