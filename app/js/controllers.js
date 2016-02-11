@@ -363,9 +363,9 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
           }
         }
 
-        if ((dataAvailable) && ((source === "") || (source === "all"))){
+        if ((dataAvailable) && ((source === "") || (source === "all"))){ //should not run on regular update
           $scope.prevalences[location.name].occurrences = data.occurrences;
-          $scope.calculatePrevalences();
+          if ($scope.requestCounter == $scope.locations.length){ $scope.calculatePrevalences(); }
         }
       },
       function(error){
