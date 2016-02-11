@@ -1122,11 +1122,11 @@ body.home {
  
   #side-menu {
    width: 100%;
+   bottom: auto;
+   position: relative;
    &.active {
     top: 50px;
-    position: absolute;
-    bottom: auto;
-   
+    position: absolute;   
     bottom: 0;
     z-index: 1000;
    }

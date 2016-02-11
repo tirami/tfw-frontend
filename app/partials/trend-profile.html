@@ -92,8 +92,8 @@
     <div timespan location="location" source="source"  interval="interval" select-start="selectionStart" select-end="selectionEnd" start="spanStart" end="spanEnd" update-fn='updateFn' class='ui-brush'></div>
   </div>
 
-  <button class ="zoomControl" style="background-color:black;color:white;" update-fn="setSpanStart" select-start="selectionStart" select-end="selectionEnd" start="spanStart" end="spanEnd" zoom-direction="in">IN</button>
-  <button class ="zoomControl" style="background-color:black;color:white;" update-fn="setSpanStart" select-start="selectionStart" select-end="selectionEnd" start="spanStart" end="spanEnd" zoom-direction="out">OUT</button>
+  <button class ="zoomControl" style="background-color:black;color:white;" update-fn="setSpanStart" select-start="selectionStart" select-end="selectionEnd" start="spanStart" end="spanEnd" zoom-direction="in"><i class="fa fa-search-plus"></i></button>
+  <button class ="zoomControl" style="background-color:black;color:white;" update-fn="setSpanStart" select-start="selectionStart" select-end="selectionEnd" start="spanStart" end="spanEnd" zoom-direction="out"><i class="fa fa-search-minus"></i></button>
  
   <div id="sourcesTabs" class="tabs">
    <button class="tab active" ng-click="toggleSources('all', $event)">All Sources</button>
