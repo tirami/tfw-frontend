@@ -349,6 +349,10 @@ button.pure-button span.active {
 .ui-brush .tick {
   fill: white;
 }
+.ui-brush text {
+  font-weight: 600;
+  font-size: 0.8em;
+}
 
 .brush .extent {
   fill: #ffd600;
@@ -486,6 +490,30 @@ rect.legend-box {
 }
 #graph-container #overlay.active {
   display: block;
+}
+#graph-container #timeSpanZoom {
+  position: absolute;
+  margin: 5px 5px 5px 0;
+  background: rgba(255, 255, 255, 0.05);
+}
+#graph-container #timeSpanZoom button.zoomControl {
+  z-index: 1000;
+  background-color: inherit;
+  border: none;
+  display: block;
+  padding: 4px 6px;
+}
+#graph-container #timeSpanZoom button.zoomControl i.fa {
+  font-size: 1.25em;
+}
+#graph-container #timeSpanZoom button.zoomControl:hover * {
+  color: #008e8f;
+}
+#graph-container #timeSpanZoom button.zoomControl.zoomIn {
+  left: 3em;
+}
+#graph-container #timeSpanZoom button.zoomControl:focus {
+  outline: 0;
 }
 
 #graph-container.list-container #list {
@@ -673,7 +701,6 @@ body.trends-trend #filters {
 }
 body.trends-trend #filters label {
   display: inline-block;
-  margin-bottom: 1em;
   font-weight: bold;
 }
 body.trends-trend #filters ul {
@@ -969,26 +996,33 @@ body.locations-location section#trendsOverview {
 #trendProfile .timespan-container, .locations-location .timespan-container {
   position: relative;
 }
-#trendProfile .timespan-container button.zoomControl, .locations-location .timespan-container button.zoomControl {
+#trendProfile .timespan-container #timeSpanZoom, .locations-location .timespan-container #timeSpanZoom {
+  z-index: 1000;
+  position: absolute;
+  margin: 0px 5px 5px 0;
+  background: none;
+  left: 0;
+  top: 0;
+}
+#trendProfile .timespan-container #timeSpanZoom button.zoomControl, .locations-location .timespan-container #timeSpanZoom button.zoomControl {
+  color: #0c1444;
   z-index: 1000;
   background-color: inherit;
   border: none;
-  position: absolute;
-  top: 0px;
-  left: 20px;
+  display: block;
   padding: 4px 6px;
 }
-#trendProfile .timespan-container button.zoomControl i.fa, .locations-location .timespan-container button.zoomControl i.fa {
+#trendProfile .timespan-container #timeSpanZoom button.zoomControl i.fa, .locations-location .timespan-container #timeSpanZoom button.zoomControl i.fa {
   font-size: 1.25em;
 }
-#trendProfile .timespan-container button.zoomControl:hover *, .locations-location .timespan-container button.zoomControl:hover * {
+#trendProfile .timespan-container #timeSpanZoom button.zoomControl:hover *, .locations-location .timespan-container #timeSpanZoom button.zoomControl:hover * {
   color: #008e8f;
 }
-#trendProfile .timespan-container button.zoomControl.zoomIn, .locations-location .timespan-container button.zoomControl.zoomIn {
+#trendProfile .timespan-container #timeSpanZoom button.zoomControl.zoomIn, .locations-location .timespan-container #timeSpanZoom button.zoomControl.zoomIn {
   left: 3em;
 }
-#trendProfile .timespan-container button.zoomControl:focus, .locations-location .timespan-container button.zoomControl:focus {
-  border: none;
+#trendProfile .timespan-container #timeSpanZoom button.zoomControl:focus, .locations-location .timespan-container #timeSpanZoom button.zoomControl:focus {
+  outline: 0;
 }
 #trendProfile .timespan-container .ui-brush, .locations-location .timespan-container .ui-brush {
   background: #f9f9f5;
@@ -1009,6 +1043,10 @@ body.locations-location section#trendsOverview {
 }
 #trendProfile .timespan-container .ui-brush g.resize rect, .locations-location .timespan-container .ui-brush g.resize rect {
   background: url("../images/grip.png ");
+}
+#trendProfile .timespan-container .ui-brush text, .locations-location .timespan-container .ui-brush text {
+  font-weight: 600;
+  font-size: 0.8em;
 }
 
 /*  Tabs  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -1257,6 +1295,10 @@ button.tab.active {
     font-size: 0.5em;
     font-weight: 600;
   }
+  #graph-container #timeSpanZoom {
+    margin: 5px;
+    background: none;
+  }
 
   #graph-container.wordcloud-container #wordcloud {
     display: none !important;
@@ -1266,19 +1308,25 @@ button.tab.active {
     display: block !important;
   }
 
-  .ui-brush {
-    position: fixed !important;
-  }
   .ui-brush .tick {
     display: none;
   }
   .ui-brush .tick:nth-child(3n+1) {
     display: block;
   }
+  .ui-brush text {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  body.trend-explorer .ui-brush {
+    position: fixed !important;
+  }
 
   /*  MOBILE: TRENDS PROFILE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
   #profileHeader h1 {
     margin: 0.25em 0 0 0;
+    text-align: center;
   }
 
   button.tab span {
@@ -1290,6 +1338,7 @@ button.tab.active {
   }
   #filters label {
     display: block;
+    margin-bottom: 1em;
   }
   #filters ul {
     display: block;

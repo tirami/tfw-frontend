@@ -53,10 +53,10 @@
   </section> <!-- end city trends overview -->
   <div class="timespan-container" style="margin: 1em 0.5em;">
     <div timespan location="location" source="source" select-start="selectionStart" select-end="selectionEnd" interval="interval" start="spanStart" end="spanEnd" update-fn='getTrends' class='ui-brush'></div>
-
-  <button title="Zoom in to timeline" class="zoomControl zoomIn" update-fn="setSpanStart" select-start="selectionStart" select-end="selectionEnd" start="spanStart" end="spanEnd" zoom-direction="in"><i class="fa fa-search-plus"></i></button>
-  <button title="Zoom out of timeline"  class ="zoomControl zoomOut" update-fn="setSpanStart" select-start="selectionStart" select-end="selectionEnd" start="spanStart" end="spanEnd" zoom-direction="out"><i class="fa fa-search-minus"></i></button>
-  
+    <div id="timeSpanZoom">
+      <button title="Zoom in to timeline" class="zoomControl zoomIn" update-fn="setSpanStart" select-start="selectionStart" select-end="selectionEnd" start="spanStart" end="spanEnd" zoom-direction="in"><i class="fa fa-search-plus"></i></button>
+      <button title="Zoom out of timeline"  class ="zoomControl zoomOut" update-fn="setSpanStart" select-start="selectionStart" select-end="selectionEnd" start="spanStart" end="spanEnd" zoom-direction="out"><i class="fa fa-search-minus"></i></button>
+    </div>  
   </div>
 </div> 
 </div> <!-- end cityProfile content -->

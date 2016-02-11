@@ -348,6 +348,7 @@ button.pure-button span.active { color:white;background-color:#333; }
   width:100%;
   margin: 0 auto;
   .tick { fill: white; }
+  text {font-weight: 600; font-size: 0.8em;}
 }
 .brush .extent {
   fill: $pa-yellow;
@@ -471,6 +472,28 @@ rect.legend-box {
     opacity: 0.4;
   }
   #overlay.active { display:block; }
+  
+   
+   #timeSpanZoom {
+     position: absolute;
+     margin: 5px 5px 5px 0; 
+     background: rgba(255, 255, 255, 0.05);
+      button.zoomControl {
+        z-index: 1000;
+        background-color: inherit;
+        border: none;
+        display: block;
+        padding: 4px 6px;
+      i.fa {font-size: 1.25em;}
+      &:hover {
+       * {color:$pa-turquoise}
+      }
+      &.zoomIn {left: 3em;}
+      &:focus {outline:0;}
+     }     
+    }
+
+  
 }
 
 #graph-container.list-container {
@@ -648,7 +671,6 @@ body.trends-trend {
  background: #ecece5;;
  label {
   display: inline-block;
-  margin-bottom: 1em;
   font-weight: bold;
   }
  ul {
@@ -920,25 +942,31 @@ section#trendsOverview {
 
 
 #trendProfile, .locations-location {
- .timespan-container {
+  .timespan-container {
   position: relative;
   
-  button.zoomControl {
-   z-index: 1000;
-   background-color: inherit;
-   border: none;
-   position: absolute;
-   top: 0px;
-   left: 20px;
-   padding: 4px 6px;
-   i.fa {font-size: 1.25em;}
-   &:hover {
-    * {color:$pa-turquoise}
-   }
-   &.zoomIn {left: 3em;}
-   &:focus {border: none;}
-  }
-
+   #timeSpanZoom {
+     z-index: 1000;
+     position: absolute;
+     margin: 0px 5px 5px 0; 
+     background: none;
+     left: 0;
+     top: 0;
+     button.zoomControl {
+       color: $navy-blue;
+       z-index: 1000;
+       background-color: inherit;
+       border: none;
+       display: block;
+       padding: 4px 6px;
+      i.fa {font-size: 1.25em;}
+      &:hover {
+       * {color:$pa-turquoise}
+      }
+      &.zoomIn {left: 3em;}
+      &:focus {outline:0;}
+     } 
+    }
   
   .ui-brush {
    background: $pa-cream;
@@ -949,6 +977,7 @@ section#trendsOverview {
     .background { fill: #e9e9e5; visibility: visible !important;
     }
     g.resize rect { background: url('../images/grip.png ')}
+    text {font-weight: 600; font-size: 0.8em;}
   }
  } 
 }
@@ -1218,6 +1247,14 @@ body.home {
      }
     }
    }
+   
+   #timeSpanZoom { 
+    margin: 5px;
+    background: none;
+    
+   }
+      
+   
   }
   
   
@@ -1230,18 +1267,23 @@ body.home {
   }
   
   .ui-brush {
-   position: fixed !important;
    .tick {display: none;}
    .tick:nth-child(3n+1) {
       display: block;
    }
+   text {font-size: 12px; font-weight: 600;}
   }
   
+  
+  body.trend-explorer {
+   .ui-brush {position: fixed !important;}
+  }
   
 /*  MOBILE: TRENDS PROFILE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 #profileHeader h1 {
  margin: 0.25em 0 0 0;
+ text-align: center;
 }
 
 button.tab span {
@@ -1249,7 +1291,10 @@ button.tab span {
 }
 
 #filters {
- label {display: block;}
+ label {
+  display: block;   
+  margin-bottom: 1em;
+}
  text-align: center;
  ul {
   display: block;
