@@ -307,18 +307,20 @@ var drawTimeSeries = function(scope, element, attrs){
     //Add Y scale
     group.append("g").attr("class", "y axis").call(yAxis);
 
+    var linesGroup = group.append("g").attr("class", "linesGroup");
+
     // Add the valueline path.
     data.forEach(function(entry, i){
       var tmp = 0;
       var valueline = d3.svg.line().x(function(d){ return x(tmp++); }).y(function(d){ return y(d); });
-      group.append("path")
+      linesGroup.append("path")
         .attr("data-legend",function(d) { return entry.term; })
         .attr("class", "line")
         .style("stroke", function() { return entry.color = getUdadisiColour(i); })
         .attr("d", valueline(entry.series));
 
       var tmp2 = 0;
-      group.selectAll("dot")
+      linesGroup.selectAll("dot")
         .data(entry.series)
         .enter().append("circle").style("fill", getUdadisiColour(i))
         .attr("r", 5)
@@ -530,8 +532,8 @@ var toggleLocation = function(scope, element, attrs) {
 
     scope.setLocation(element[0].getAttribute("target-location"));
 
-    $('.locationToggle').removeClass('selected');
-    $(element[0]).toggleClass('selected');
+    $('.locationToggle').removeClass('active');
+    $(element[0]).toggleClass('active');
     
     var fromDate = scope.selectStart;
     var toDate = scope.selectEnd;
@@ -550,8 +552,8 @@ var selectSource = function(scope, element, attrs) {
 
     scope.setSource(element[0].getAttribute("target-source"));
 
-    $('.sourceSelect').removeClass('selected');
-    $(element[0]).toggleClass('selected');
+    $('.sourceSelect').removeClass('active');
+    $(element[0]).toggleClass('active');
     
     var fromDate = scope.selectStart;
     var toDate = scope.selectEnd;
