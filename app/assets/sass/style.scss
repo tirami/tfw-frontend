@@ -1145,16 +1145,17 @@ body.home {
   
   #graph-container {
    width: 100% !important;
+   .unavailableOverlay {height: 100% !important;}
   }
   
   #graph-container {
-   top: auto;
+   top: 0;
    bottom: 0;   
-   padding-top: 5em;
    float: none;
    overflow: scroll;
    
    #list {
+   margin-top: 120px;
     ul {
      margin: 0;
      padding: 0;

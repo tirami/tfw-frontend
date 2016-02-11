@@ -1176,13 +1176,18 @@ button.tab.active {
   #graph-container {
     width: 100% !important;
   }
+  #graph-container .unavailableOverlay {
+    height: 100% !important;
+  }
 
   #graph-container {
-    top: auto;
+    top: 0;
     bottom: 0;
-    padding-top: 5em;
     float: none;
     overflow: scroll;
+  }
+  #graph-container #list {
+    margin-top: 120px;
   }
   #graph-container #list ul {
     margin: 0;
