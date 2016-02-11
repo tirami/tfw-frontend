@@ -1153,8 +1153,13 @@ button.tab.active {
   /*  MOBILE: TRENDS EXPLORER  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
   #side-menu {
     width: 100%;
-    position: relative;
+  }
+  #side-menu.active {
+    top: 50px;
+    position: absolute;
     bottom: auto;
+    bottom: 0;
+    z-index: 1000;
   }
   #side-menu .padding {
     padding-top: 1em;
@@ -1176,13 +1181,18 @@ button.tab.active {
   #graph-container {
     width: 100% !important;
   }
+  #graph-container .unavailableOverlay {
+    height: 100% !important;
+  }
 
   #graph-container {
-    top: auto;
+    top: 0;
     bottom: 0;
-    padding-top: 5em;
     float: none;
     overflow: scroll;
+  }
+  #graph-container #list {
+    margin-top: 120px;
   }
   #graph-container #list ul {
     margin: 0;

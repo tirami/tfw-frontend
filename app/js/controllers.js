@@ -516,7 +516,7 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
     $('.trendPanel').attr("style", "");
   };
 
-  $scope.toggleExplorer = function(view, clickEvent){
+  $scope.toggleExplorerView = function(view, clickEvent){
     $scope.resetPanels();
     $("#graph-container").removeClass("wordcloud-container");
     $("#graph-container").removeClass("scatterplot-container");
@@ -527,13 +527,21 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
     $(clickEvent.target).addClass("active");    
   };
 
+  $scope.toggleExplorerLocation = function(view, clickEvent){
+    $scope.resetPanels();
+    $("#locationOptions button").removeClass("active");
+    $(clickEvent.target).addClass("active");    
+  };
+
   $scope.toggleFilters = function(view, clickEvent){     
     if ($(".open")[0]){
+      $('#side-menu').removeClass('active');
       $('#toggleViews').slideUp();
       $(clickEvent.target).removeClass("open");
     } else {
       $('#toggleViews').slideDown();
       $(clickEvent.target).addClass("open");
+      $('#side-menu').addClass('active');
     }
   };
 
