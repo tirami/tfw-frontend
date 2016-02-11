@@ -1153,8 +1153,13 @@ button.tab.active {
   /*  MOBILE: TRENDS EXPLORER  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
   #side-menu {
     width: 100%;
-    position: relative;
+  }
+  #side-menu.active {
+    top: 50px;
+    position: absolute;
     bottom: auto;
+    bottom: 0;
+    z-index: 1000;
   }
   #side-menu .padding {
     padding-top: 1em;

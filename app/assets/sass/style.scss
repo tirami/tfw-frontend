@@ -1122,8 +1122,14 @@ body.home {
  
   #side-menu {
    width: 100%;
-   position: relative;
-   bottom: auto;
+   &.active {
+    top: 50px;
+    position: absolute;
+    bottom: auto;
+   
+    bottom: 0;
+    z-index: 1000;
+   }
    
    .padding { padding-top: 1em; }
 

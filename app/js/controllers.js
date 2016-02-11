@@ -535,11 +535,13 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
 
   $scope.toggleFilters = function(view, clickEvent){     
     if ($(".open")[0]){
+      $('#side-menu').removeClass('active');
       $('#toggleViews').slideUp();
       $(clickEvent.target).removeClass("open");
     } else {
       $('#toggleViews').slideDown();
       $(clickEvent.target).addClass("open");
+      $('#side-menu').addClass('active');
     }
   };
 
