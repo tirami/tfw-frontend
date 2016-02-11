@@ -1,6 +1,6 @@
 'use strict';
 // var host = 'http://localhost:8080/'; // use this for local dev
-var host = 'http://engine.udadisi.com/';
+var host = 'http://54.229.255.66:8080/';
 
 /* Services */
 var udadisiServices = angular.module('udadisiServices', ['ngResource']);
