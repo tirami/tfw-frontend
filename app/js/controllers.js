@@ -15,6 +15,19 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
   // $scope.setActivePage will be available to all children 
   // scopes of this controller
 
+
+  // refresh the window on resize to stop trend graph breaking
+  var windowWidth = $(window).width();
+  
+  $(window).resize(function() {
+      if(windowWidth != $(window).width()){
+      location.reload();
+      return;
+      }
+  });
+
+
+
   $scope.Math = window.Math;
   
   $scope.isLoading = false;
