@@ -672,7 +672,7 @@ var drawBars = function (scope, element, attrs) {
 
 var setTimespan = function(scope, element, attrs, IntervalService) {
   var container = d3.select(element[0]),
-    margin = {top: 0, right: 20, bottom: 0, left: 20},
+    margin = {top: 0, right: 25, bottom: 0, left: 40},
     height = 70;
   var width = (container.node().offsetWidth) - margin.left - margin.right;
 
