@@ -285,14 +285,15 @@ var drawTimeSeries = function(scope, element, attrs){
 
     var allSeries = [];
     var allLengths = [];
+
     data.forEach(function(e){ 
       allSeries = allSeries.concat(e.series);  
-      allLengths = allSeries.concat(e.series.length);
+      allLengths = allLengths.concat(e.series.length);
     });
 
     var xExtent = d3.extent(allLengths);
     x.domain([0,(xExtent[1]-1)]);
-
+    
     var yExtent = d3.extent(allSeries);
     y.domain(yExtent);
 
