@@ -279,13 +279,20 @@ var drawTimeSeries = function(scope, element, attrs){
 
   var div = d3.select("div#graph-tooltip");
 
-  scope.$watch('seriesData', function (data, oldData) { 
+  scope.$watch('seriesData', function (data, oldData) {
     group.selectAll('*').remove();
     if ((!data || data.length===0)) { return; }
 
-    x.domain([0,(data[0].series.length-1)]);
     var allSeries = [];
-    data.forEach(function(e){ allSeries = allSeries.concat(e.series); });
+    var allLengths = [];
+    data.forEach(function(e){ 
+      allSeries = allSeries.concat(e.series);  
+      allLengths = allSeries.concat(e.series.length);
+    });
+
+    var xExtent = d3.extent(allLengths);
+    x.domain([0,(xExtent[1]-1)]);
+
     var yExtent = d3.extent(allSeries);
     y.domain(yExtent);
 
@@ -312,6 +319,7 @@ var drawTimeSeries = function(scope, element, attrs){
     // Add the valueline path.
     data.forEach(function(entry, i){
       var tmp = 0;
+
       var valueline = d3.svg.line().x(function(d){ return x(tmp++); }).y(function(d){ return y(d); });
       linesGroup.append("path")
         .attr("data-legend",function(d) { return entry.term; })
@@ -735,7 +743,6 @@ var timespanZoom = function(scope, element, attrs){
       $('.zoomControl').prop("disabled", false);
       scope.updateFn(newDate);
     } else {
-      console.log("disabling");
       $('.zoomControl').prop("disabled", false);
       $(element[0]).prop("disabled", true);
     }
