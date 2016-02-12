@@ -1414,6 +1414,22 @@ body.about .content .para-cols p, body.about .content .para-cols img {
   }
 
   /*  MOBILE: ABOUT PAGE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+}
+/* End of Mobile Styles    */
+@media (max-width: 1200px) {
+  .mediumscr-hide {
+    display: none;
+  }
+
+  div.locationPanel.mediumscr-hide {
+    display: none;
+  }
+}
+@media screen and (max-width: 48em) {
+  .container {
+    max-width: 750px;
+  }
+
   body.about .content .row {
     padding: 1em;
   }
@@ -1435,29 +1451,21 @@ body.about .content .para-cols p, body.about .content .para-cols img {
     padding: 0;
   }
 }
-/* End of Mobile Styles    */
-@media (max-width: 1200px) {
-  .mediumscr-hide {
-    display: none;
-  }
-
-  div.locationPanel.mediumscr-hide {
-    display: none;
-  }
-}
-@media screen and (min-width: 48em) {
-  .container {
-    max-width: 750px;
-  }
-}
 @media screen and (min-width: 64em) {
   .container {
     max-width: 1000px;
   }
 }
-@media screen and (min-width: 80em) {
+@media screen and (max-width: 80em) {
   .container {
     max-width: 1200px;
+  }
+
+  body.about .content .row {
+    padding: 1em;
+  }
+  body.about .content .row p {
+    font-size: 1.25em;
   }
 }
 
