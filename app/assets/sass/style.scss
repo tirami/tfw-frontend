@@ -61,10 +61,9 @@ body {
   z-index: 1001;
   border-bottom: 10px solid $navy-blue;
   background: $pa-cream;
-  padding: 0 0.5em;
+  padding: 0.5em;
   overflow: visible;
   position: relative;
-  height: 6vh;
   #logo {margin: 0.5em; display: inline-block;}
   #toggle {display: none;}
 }
@@ -451,10 +450,10 @@ rect.legend-box {
 #graph-container {
   background: $pa-cream;
   position: absolute;
-  height:94vh;
+  height:92vh;
   right: 0;
   width: 80%;
-  top: 6vh;
+  top: 8vh;
 
   .ui-brush { position:absolute; } 
 
@@ -536,7 +535,6 @@ rect.legend-box {
 
 #graph-container.scatterplot-container {
   .trendPanel { 
-
   }
 
   #overlay.active { display: none; }
@@ -550,6 +548,21 @@ rect.legend-box {
       .tick { font-size: 0.8em; }
     }
     line, path { stroke-width: 1px; stroke: gray; }
+    
+        circle {
+      &:nth-child(1) {fill: $navy-blue;}
+      &:nth-child(2) { fill: $pa-yellow;}
+      &:nth-child(3) { fill: $pa-turquoise; }
+      &:nth-child(4) { fill: $pa-brown;}
+      &:nth-child(5) {fill: $pa-pink; }
+      &:nth-child(6) { fill: $pa-red;}
+      &:nth-child(7) { fill: $pa-orange;}
+      &:nth-child(8) { fill: $pa-royal-blue; }
+      &:nth-child(9) { fill: $pa-light-green; ;}
+      &:nth-child(10) {fill: $navy-blue; }
+      &:nth-child(11) { fill: $pa-light-blue; }
+    }
+    
   }
 }
 
