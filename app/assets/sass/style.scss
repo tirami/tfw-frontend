@@ -1009,7 +1009,7 @@ button.tab.active {
 }
 
 
-/*  Tabs  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+/*  ABOUT PAGE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 body.about .content {
  
@@ -1028,7 +1028,7 @@ body.about .content {
    margin: 0;
   }
  }
- P {
+ p {
   font-size: 1.5em;
   line-height: 1.25em;
   margin: 0 2em;
@@ -1042,6 +1042,12 @@ body.about .content {
   padding: 5em 0;
  }
  
+ #logos {
+  padding-top: 2em;
+  a {display: inline-block; padding: 0 1em;}
+  img {max-width: 100%; }
+ } 
+
  #paragraph-1 {
   text-align: center;
  }
@@ -1051,6 +1057,7 @@ body.about .content {
   background: $pa-turquoise;
   color: white;
   text-align: center;
+  p {margin: 3em 2em;}
  }
 
  #paragraph-3 {

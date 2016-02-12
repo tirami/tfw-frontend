@@ -1073,7 +1073,7 @@ button.tab.active {
   border-bottom-color: white;
 }
 
-/*  Tabs  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+/*  ABOUT PAGE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 body.about .content img {
   max-width: 100%;
   height: auto;
@@ -1089,7 +1089,7 @@ body.about .content header h1 {
   padding: 0;
   margin: 0;
 }
-body.about .content P {
+body.about .content p {
   font-size: 1.5em;
   line-height: 1.25em;
   margin: 0 2em;
@@ -1101,6 +1101,16 @@ body.about .content .rounded-corner {
 body.about .content .row {
   padding: 5em 0;
 }
+body.about .content #logos {
+  padding-top: 2em;
+}
+body.about .content #logos a {
+  display: inline-block;
+  padding: 0 1em;
+}
+body.about .content #logos img {
+  max-width: 100%;
+}
 body.about .content #paragraph-1 {
   text-align: center;
 }
@@ -1108,6 +1118,9 @@ body.about .content #paragraph-2 {
   background: #008e8f;
   color: white;
   text-align: center;
+}
+body.about .content #paragraph-2 p {
+  margin: 3em 2em;
 }
 body.about .content #paragraph-3 {
   text-align: center;
