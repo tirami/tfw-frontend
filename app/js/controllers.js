@@ -283,8 +283,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   };
   
   var generateFakeSourcesData = function(){
-    //return [{term:"twitter", series:generateFakeData().series}, {term:"blog", series:generateFakeData().series}, {term:"academic", series: generateFakeData().series}, {term:"news", series: generateFakeData().series}];
-    return [];
+    return [{term:"twitter", series:generateFakeData().series}, {term:"blog", series:generateFakeData().series}, {term:"academic", series: generateFakeData().series}, {term:"news", series: generateFakeData().series}];
   }
 
   $scope.calculatePrevalences = function(){
