@@ -129,10 +129,16 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
 
 }]);
 
+//About Controller
+udadisiControllers.controller('AboutCtrl', ['$scope', '$route', '$log', function($scope, $route, $log){
+  $scope.setActivePage($route.current.originalPath);
+  $scope.loadingState(false);
+}]);
 
 //Home Controller
 udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window', 'Stats', 'LocationTrends', function($scope, $route, $log, $window, Stats, LocationTrends) { 
   $scope.setActivePage($route.current.originalPath);
+  $scope.loadingState(false);
   
   $scope.getTrends = function(location, fromDate, interval){   
     LocationTrends.query({ location: location.name, limit: 5, from: fromDate, interval: interval, source: "" }, 
