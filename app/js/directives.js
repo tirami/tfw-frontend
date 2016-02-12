@@ -793,7 +793,7 @@ var drawTreemap = function(scope, element, attrs){
       .attr("class", "node")
       .call(position)
       //.style("background", function(d) { return d.children ? color(d.term) : null; })
-      .text(function(d) { return d.children ? null : d.term; });
+      .html(function(d) { return d.children ? null : '<a href="#/trends/'+d.term+'">'+d.term+'</a>'; });
 
     /*
     d3.selectAll("input").on("change", function change() {
