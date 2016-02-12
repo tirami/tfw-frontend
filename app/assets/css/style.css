@@ -603,6 +603,39 @@ rect.legend-box {
   stroke-width: 1px;
   stroke: gray;
 }
+#graph-container.scatterplot-container #scatterplot circle:nth-child(1) {
+  fill: #0c1444;
+}
+#graph-container.scatterplot-container #scatterplot circle:nth-child(2) {
+  fill: #ffd600;
+}
+#graph-container.scatterplot-container #scatterplot circle:nth-child(3) {
+  fill: #008e8f;
+}
+#graph-container.scatterplot-container #scatterplot circle:nth-child(4) {
+  fill: #634400;
+}
+#graph-container.scatterplot-container #scatterplot circle:nth-child(5) {
+  fill: #e2014d;
+}
+#graph-container.scatterplot-container #scatterplot circle:nth-child(6) {
+  fill: #fc1921;
+}
+#graph-container.scatterplot-container #scatterplot circle:nth-child(7) {
+  fill: #faa433;
+}
+#graph-container.scatterplot-container #scatterplot circle:nth-child(8) {
+  fill: #232690;
+}
+#graph-container.scatterplot-container #scatterplot circle:nth-child(9) {
+  fill: #98cb99;
+}
+#graph-container.scatterplot-container #scatterplot circle:nth-child(10) {
+  fill: #0c1444;
+}
+#graph-container.scatterplot-container #scatterplot circle:nth-child(11) {
+  fill: #66afe9;
+}
 
 #graph-container.wordcloud-container #wordcloud {
   display: block;

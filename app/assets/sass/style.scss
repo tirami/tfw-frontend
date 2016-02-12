@@ -535,7 +535,6 @@ rect.legend-box {
 
 #graph-container.scatterplot-container {
   .trendPanel { 
-
   }
 
   #overlay.active { display: none; }
@@ -549,6 +548,21 @@ rect.legend-box {
       .tick { font-size: 0.8em; }
     }
     line, path { stroke-width: 1px; stroke: gray; }
+    
+        circle {
+      &:nth-child(1) {fill: $navy-blue;}
+      &:nth-child(2) { fill: $pa-yellow;}
+      &:nth-child(3) { fill: $pa-turquoise; }
+      &:nth-child(4) { fill: $pa-brown;}
+      &:nth-child(5) {fill: $pa-pink; }
+      &:nth-child(6) { fill: $pa-red;}
+      &:nth-child(7) { fill: $pa-orange;}
+      &:nth-child(8) { fill: $pa-royal-blue; }
+      &:nth-child(9) { fill: $pa-light-green; ;}
+      &:nth-child(10) {fill: $navy-blue; }
+      &:nth-child(11) { fill: $pa-light-blue; }
+    }
+    
   }
 }
 
