@@ -61,9 +61,10 @@ body {
   z-index: 1001;
   border-bottom: 10px solid $navy-blue;
   background: $pa-cream;
-  padding: 0.5em;
+  padding: 0 0.5em;
   overflow: visible;
   position: relative;
+  height: 6vh;
   #logo {margin: 0.5em; display: inline-block;}
   #toggle {display: none;}
 }
@@ -450,10 +451,10 @@ rect.legend-box {
 #graph-container {
   background: $pa-cream;
   position: absolute;
-  height:92vh;
+  height:94vh;
   right: 0;
   width: 80%;
-  top: 8vh;
+  top: 6vh;
 
   .ui-brush { position:absolute; } 
 
@@ -512,12 +513,23 @@ rect.legend-box {
 #graph-container.treemap-container {
   #treemap { display:block; 
     .node {
-      border: solid 1px white;
-      font: 10px sans-serif;
-      line-height: 12px;
+      font-size : 2em;
+      line-height: 2em;
       overflow: hidden;
       position: absolute;
-      text-indent: 2px;
+      text-indent: 0.5em;
+      background: $navy-blue;
+      &:nth-child(1) {background: $navy-blue; color: white !important; }
+      &:nth-child(2) { background: $pa-yellow; color: $navy-blue }
+      &:nth-child(3) { background: $pa-turquoise; color: white}
+      &:nth-child(4) { background: $pa-brown; color: white;}
+      &:nth-child(5) {background: $pa-pink; color: white; }
+      &:nth-child(6) { background: $pa-red; color: white;}
+      &:nth-child(7) { background: $pa-orange; color: $navy-blue}
+      &:nth-child(8) { background: $pa-royal-blue; color: white}
+      &:nth-child(9) { background: $pa-light-green; color: white;}
+      &:nth-child(10) {background: $navy-blue; color: white !important; }
+      &:nth-child(11) { background: $pa-light-blue; color: white}
     }
   }
 }
@@ -906,6 +918,8 @@ body.locations-location {
    }
 
  }
+ 
+ 
  
  div.chart {
   div {padding: 0.25em;
