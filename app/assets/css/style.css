@@ -10,7 +10,7 @@
 body {
   background: #f9f9f5;
   color: #0c1444;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 #loading-overlay {
@@ -1073,6 +1073,61 @@ button.tab.active {
   border-bottom-color: white;
 }
 
+/*  ABOUT PAGE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+body.about .content img {
+  max-width: 100%;
+  height: auto;
+}
+body.about .content header {
+  background: #0c1444;
+  padding: 3em 0;
+}
+body.about .content header h1 {
+  color: white;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+body.about .content p {
+  font-size: 1.5em;
+  line-height: 1.25em;
+}
+body.about .content .rounded-corner {
+  border: 0px;
+  border-radius: 1em;
+}
+body.about .content .row {
+  padding: 5em 0;
+}
+body.about .content #logos {
+  padding-top: 2em;
+}
+body.about .content #logos a {
+  display: inline-block;
+  padding: 0 1em;
+}
+body.about .content #logos img {
+  max-width: 100%;
+}
+body.about .content .para-full {
+  text-align: center;
+}
+body.about .content .para-full a {
+  text-decoration: none;
+  color: #008e8f;
+}
+body.about .content .para-full a:hover {
+  color: #fc1921;
+}
+body.about .content .para-cols {
+  background: #008e8f;
+  color: white;
+  text-align: left;
+}
+body.about .content .para-cols p, body.about .content .para-cols img {
+  padding: 2em;
+}
+
 @media (max-width: 600px) {
   /*  MOBILE: Layout  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
   body {
@@ -1356,6 +1411,28 @@ button.tab.active {
   }
   body.locations-location div.chart {
     width: 100%;
+  }
+
+  /*  MOBILE: ABOUT PAGE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+  body.about .content .row {
+    padding: 1em;
+  }
+  body.about .content .row p {
+    font-size: 1em;
+    text-align: center;
+    padding: 1em;
+  }
+  body.about .content .row img {
+    padding: 1em;
+  }
+  body.about #logos {
+    padding-top: 0 !important;
+  }
+  body.about #logos a {
+    padding: 0 !important;
+  }
+  body.about #logos a img {
+    padding: 0;
   }
 }
 /* End of Mobile Styles    */

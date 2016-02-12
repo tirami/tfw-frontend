@@ -32,7 +32,7 @@ $pa-light-blue: #66afe9;
 body {
  background: $pa-cream;
  color: $navy-blue;
- font-weight: 300;
+ font-weight: 400;
 }
 
 #loading-overlay {
@@ -1009,6 +1009,65 @@ button.tab.active {
 }
 
 
+/*  ABOUT PAGE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+body.about .content {
+ 
+ img {
+  max-width: 100%;
+  height: auto;
+ }
+ header {
+  background: $navy-blue;
+  padding: 3em 0;
+  h1 {
+   color: white;
+   text-align: center;
+   padding: 0;
+   margin: 0;
+  }
+ }
+ p {
+  font-size: 1.5em;
+  line-height: 1.25em;
+ }
+ .rounded-corner {
+    border: 0px;
+    border-radius: 1em;
+ }
+ 
+ 
+ .row {
+  padding: 5em 0;
+ }
+ 
+ #logos {
+  padding-top: 2em;
+  a {display: inline-block; padding: 0 1em;}
+  img {max-width: 100%; }
+ } 
+
+ .para-full {
+  text-align: center;
+  
+  a {text-decoration: none; color: $pa-turquoise; &:hover {color: $pa-red;}}
+  
+ }
+
+ 
+ .para-cols {
+  background: $pa-turquoise;
+  color: white;
+  text-align: left;
+  
+  p, img { padding: 2em;}
+  
+ }
+
+
+}
+
+
 @media (max-width: 600px) {
  
 /*  MOBILE: Layout  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -1305,6 +1364,9 @@ button.tab span {
   }
   }
  }
+ 
+ 
+ 
 /*  MOBILE: LOCATION PROFILE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
 
@@ -1315,7 +1377,24 @@ body.locations-location {
  }
 }
 
+/*  MOBILE: ABOUT PAGE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
+body.about {
+ .content {
+  .row {
+   padding: 1em;
+   p {font-size: 1em; text-align: center; padding: 1em;}
+   img { padding: 1em;}
+  }
+ }
+ #logos {
+  padding-top: 0 !important;
+  a {
+   padding: 0 !important;
+   img {padding: 0;}
+  }
+ }
+}
 
 
 } /* End of Mobile Styles    */

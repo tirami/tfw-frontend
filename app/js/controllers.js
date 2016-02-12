@@ -20,7 +20,7 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
   var windowWidth = $(window).width();
   
   $(window).resize(function() {
-      if(windowWidth != $(window).width()){
+      if(windowWidth != $(window).width()) {
       location.reload();
       return;
       }
