@@ -39,10 +39,9 @@ body {
   z-index: 1001;
   border-bottom: 10px solid #0c1444;
   background: #f9f9f5;
-  padding: 0 0.5em;
+  padding: 0.5em;
   overflow: visible;
   position: relative;
-  height: 6vh;
 }
 #pageHeader #logo {
   margin: 0.5em;
@@ -464,10 +463,10 @@ rect.legend-box {
 #graph-container {
   background: #f9f9f5;
   position: absolute;
-  height: 94vh;
+  height: 92vh;
   right: 0;
   width: 80%;
-  top: 6vh;
+  top: 8vh;
 }
 #graph-container .ui-brush {
   position: absolute;
