@@ -47,10 +47,15 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
       day.setDate(day.getDate() + 1);
       series.push( Math.random()*100 );
     }
-    return series;
+    //return series;
+    return [];
   };
 
   $scope.generateExampleTrends = function(){
+
+    return [];
+
+    /*
     var trends = [{"term":"water-pump","occurrences":122, "velocity": 2.4, "series":[]},
     {"term":"solar","occurrences":92, "velocity": 1.3, "series":[]},
     {"term":"battery","occurrences":57, "velocity": 5.4, "series":[]}];
@@ -59,7 +64,7 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
       t.series = $scope.generateSeries();
     });
 
-    return trends;
+    return trends;*/
   };
 
   $scope.locations = [{ name: "all", geo_coord: { latitude: 0.0, longitude: 0.0 }, scale: 0.9 }];
@@ -273,11 +278,13 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
   };
 
   var generateFakeData = function(){   
-    return { velocity: 1, series: [Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10], related: $scope.generateExampleTrends() };
+    //return { velocity: 1, series: [Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10,Math.random()*10], related: $scope.generateExampleTrends() };
+    return { velocity: 1, series: [], related: $scope.generateExampleTrends() };
   };
   
   var generateFakeSourcesData = function(){
-    return [{term:"twitter", series:generateFakeData().series}, {term:"blog", series:generateFakeData().series}, {term:"academic", series: generateFakeData().series}, {term:"news", series: generateFakeData().series}];
+    //return [{term:"twitter", series:generateFakeData().series}, {term:"blog", series:generateFakeData().series}, {term:"academic", series: generateFakeData().series}, {term:"news", series: generateFakeData().series}];
+    return [];
   }
 
   $scope.calculatePrevalences = function(){
@@ -293,7 +300,9 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
 
   $scope.populateSourcesTabs = function(sources){
     $scope.tabs = { "twitter":[], "blog":[], "academic":[], "news":[] };
-    if (sources ===undefined){ generateFakeSources(); return; }
+    if (sources ===undefined){ //generateFakeSources(); 
+      return; 
+    }
     sources.forEach(function(src){
       if ($scope.tabs[src.source] === undefined) { $scope.tabs[src.source] = [src]; }
       else { $scope.tabs[src.source].push(src); }
