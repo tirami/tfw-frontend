@@ -1016,7 +1016,6 @@ body.about .content {
  img {
   max-width: 100%;
   height: auto;
-  margin: 0 2em;
  }
  header {
   background: $navy-blue;
@@ -1031,12 +1030,12 @@ body.about .content {
  p {
   font-size: 1.5em;
   line-height: 1.25em;
-  margin: 0 2em;
  }
  .rounded-corner {
     border: 0px;
     border-radius: 1em;
  }
+ 
  
  .row {
   padding: 5em 0;
@@ -1048,21 +1047,23 @@ body.about .content {
   img {max-width: 100%; }
  } 
 
- #paragraph-1 {
+ .para-full {
   text-align: center;
+  
+  a {text-decoration: none; color: $pa-turquoise; &:hover {color: $pa-red;}}
+  
  }
 
  
- #paragraph-2 {
+ .para-cols {
   background: $pa-turquoise;
   color: white;
-  text-align: center;
-  p {margin: 3em 2em;}
+  text-align: left;
+  
+  p, img { padding: 2em;}
+  
  }
 
- #paragraph-3 {
-  text-align: center;
- }
 
 }
 
@@ -1376,7 +1377,24 @@ body.locations-location {
  }
 }
 
+/*  MOBILE: ABOUT PAGE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 
+body.about {
+ .content {
+  .row {
+   padding: 1em;
+   p {font-size: 1em; text-align: center; padding: 1em;}
+   img { padding: 1em;}
+  }
+ }
+ #logos {
+  padding-top: 0 !important;
+  a {
+   padding: 0 !important;
+   img {padding: 0;}
+  }
+ }
+}
 
 
 } /* End of Mobile Styles    */
