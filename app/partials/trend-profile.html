@@ -106,6 +106,14 @@
    <button class="tab" ng-click="toggleSources('blog', $event)">Blog sources</button>
   </div>
 
+  <select name="tabSelect">
+    <option ng-click="toggleSources('all', $event)">All Sources</option>
+    <option ng-click="toggleSources('twitter', $event)">Twitter Sources</option>
+    <option ng-click="toggleSources('academic', $event)">Academic Sources</option>
+    <option ng-click="toggleSources('news', $event)">News Sources</option>
+    <option ng-click="toggleSources('blog', $event)">Blog sources</option>
+  </select>
+
   <section id="trendSources" class="all-tab-open">
     
     <div class="allSources">
