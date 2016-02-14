@@ -413,8 +413,10 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$window', '$rout
   
   $scope.getCsv = function(){
     var frm = $scope.selectionStart.toTimeString();
-    var to = $scope.selectionEnd.toTimeString()
-    var csvUrl = ('http://engine.udadisi.com/v1/locations/'+$scope.location.name+'/trends/'+$scope.trend+'/csv?source='+$scope.source+'&selectionStart='+frm+'&selectionEnd='+to);
+    var to = $scope.selectionEnd.toTimeString();
+    var src = $scope.source;
+    if ($scope.source === 'all' ){ src = ''; }
+    var csvUrl = ('http://engine.udadisi.com/v1/locations/'+$scope.location.name+'/trends/'+$scope.trend+'/csv?source='+src+'&selectionStart='+frm+'&selectionEnd='+to);
     $window.open(csvUrl, '_blank');
   };
 
