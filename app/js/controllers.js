@@ -250,9 +250,9 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
     $scope.selectionEnd = new Date(parseInt($routeParams.selectionEnd));
     $scope.interval = IntervalService.calculateInterval($scope.selectionStart, $scope.selectionEnd);
   } else {
-    $scope.selectionStart = today-(1*day);
+    $scope.selectionStart = today-(4*day);
     $scope.selectionEnd = today-1;
-    $scope.interval = 3;
+    $scope.interval = 4;
   }
   
   $scope.dataAvailable = true;
@@ -426,9 +426,9 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
     $scope.selectionEnd = new Date(parseInt($routeParams.selectionEnd));
     $scope.interval = IntervalService.calculateInterval($scope.selectionStart, $scope.selectionEnd);
   } else {
-    $scope.selectionStart = today-(1*day);
+    $scope.selectionStart = today-(4*day);
     $scope.selectionEnd = today-1;
-    $scope.interval = 3;
+    $scope.interval = 4;
   }
 
   $scope.tabs = { "twitter":[], "blog":[], "academic":[], "news":[] };
@@ -510,9 +510,9 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
     $scope.selectionEnd = new Date(parseInt($routeParams.selectionEnd));
     $scope.interval = IntervalService.calculateInterval($scope.selectionStart, $scope.selectionEnd);
   } else {
-    $scope.selectionStart = today-(1*day);
+    $scope.selectionStart = today-(4*day);
     $scope.selectionEnd = today-1;
-    $scope.interval = 2;
+    $scope.interval = 4;
   }
 
   $scope.location = { name: "all" };
