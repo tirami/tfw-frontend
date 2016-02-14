@@ -535,7 +535,9 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$location', '$route', 
 
   $scope.shareResults = function(clickEvent){
     $('#share').show();
-    var currUrl = ($location.protocol()+'://'+$location.host()+'/#/trend-explorer?location='+$scope.location.name+'&source='+$scope.source+'&selectionStart='+$scope.selectionStart+'&selectionEnd='+$scope.selectionEnd);
+    var frm = $scope.selectionStart.toTimeString();
+    var to = $scope.selectionEnd.toTimeString();
+    var currUrl = ($location.protocol()+'://'+$location.host()+'/#/trend-explorer?location='+$scope.location.name+'&source='+$scope.source+'&selectionStart='+frm+'&selectionEnd='+to);
     $('#share input').val(currUrl).select();
   };
 
