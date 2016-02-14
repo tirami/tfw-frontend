@@ -127,6 +127,7 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
     $scope.$apply();
   };
 
+  $scope.location = { name: "all" };
   $scope.setLocation = function(name) {
     $scope.location = { name: name };
     $scope.$apply();
@@ -515,11 +516,9 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
     $scope.interval = 4;
   }
 
-  $scope.location = { name: "all" };
-
   $scope.getTrends = function(location, fromDate, toDate, interval, source){
     if ((source === undefined) || (source == "all")){ source = "" }
-
+    
     $scope.loadingState(true);
     LocationTrends.query({ location: location.name, limit: 10, from: fromDate, to: toDate, interval: interval, source: source }, function(data) {
       $scope.dataAvailable = true;
