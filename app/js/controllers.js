@@ -269,7 +269,7 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
 
 
 //Trend Profile
-udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$routeParams', 'RelatedTrends', 'IntervalService', function($scope, $log, $route, $routeParams, RelatedTrends, IntervalService) { 
+udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$window', '$route', '$routeParams', 'RelatedTrends', 'IntervalService', function($scope, $log, $window, $route, $routeParams, RelatedTrends, IntervalService) { 
   $scope.setActivePage($route.current.originalPath);
 
   var generateFakeSources = function(){
@@ -410,7 +410,14 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
         if ($scope.requestCounter >= $scope.locations.length){ $scope.loadingState(false); }
       });
   };
-    
+  
+  $scope.getCsv = function(){
+    var frm = $scope.selectionStart.toTimeString();
+    var to = $scope.selectionEnd.toTimeString()
+    var csvUrl = ('http://engine.udadisi.com/v1/locations/'+$scope.location.name+'/trends/'+$scope.trend+'/csv?source='+$scope.source+'&selectionStart='+frm+'&selectionEnd='+to);
+    $window.open(csvUrl, '_blank');
+  };
+
   $scope.dataAvailable = false;
   $scope.sourcesDataAvailable = false;
   $scope.trendData = { term: $routeParams.trend, velocity:0, sources:[], series: [] };
