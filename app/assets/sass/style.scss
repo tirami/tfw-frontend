@@ -263,6 +263,11 @@ body.home {
     li {
       border-bottom: 1px solid rgba(255, 255, 255, 0.25);
       padding: 0.5em 0;
+
+      a {color: white; text-decoration: none;
+       &:hover {text-decoration: underline;}
+   
+      }
       }
   }
   

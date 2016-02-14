@@ -263,6 +263,13 @@ body.home h2 {
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
   padding: 0.5em 0;
 }
+#top-trends ul li a {
+  color: white;
+  text-decoration: none;
+}
+#top-trends ul li a:hover {
+  text-decoration: underline;
+}
 #top-trends a.capitalize {
   text-transform: capitalize;
   background: #ffd600;
