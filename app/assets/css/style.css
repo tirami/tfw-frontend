@@ -1,5 +1,9 @@
 @charset "UTF-8";
 /* Rory - these are the 10 PA colors */
+#svg {
+  width: 100%;
+}
+
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -501,10 +505,11 @@ rect.legend-box {
   position: absolute;
   margin: 5px 5px 5px 0;
   background: rgba(255, 255, 255, 0.05);
+  background: #222a55;
 }
 #graph-container #timeSpanZoom button.zoomControl {
   z-index: 1000;
-  background-color: inherit;
+  background-color: #222a55;
   border: none;
   display: block;
   padding: 4px 6px;

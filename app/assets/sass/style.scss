@@ -14,7 +14,7 @@ $pa-royal-blue: #232690;
 $pa-light-green: #98cb99;
 $pa-light-blue: #66afe9;
 
-
+ #svg { width: 100%; }
 
 @mixin rounded($radius: 0.5em) {
   -webkit-border-radius: $radius;
@@ -479,9 +479,10 @@ rect.legend-box {
      position: absolute;
      margin: 5px 5px 5px 0; 
      background: rgba(255, 255, 255, 0.05);
+     background: #222a55;
       button.zoomControl {
         z-index: 1000;
-        background-color: inherit;
+        background-color: #222a55;
         border: none;
         display: block;
         padding: 4px 6px;
