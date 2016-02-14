@@ -584,6 +584,11 @@ rect.legend-box {
   background: #66afe9;
   color: white;
 }
+#graph-container.treemap-container #treemap .node a {
+  color: white;
+  text-decoration: none;
+  word-break: break-all;
+}
 
 #graph-container.scatterplot-container #overlay.active {
   display: none;
@@ -1540,15 +1545,16 @@ body.about .content .para-cols p, body.about .content .para-cols img {
   }
 }
 @media screen and (max-width: 80em) {
-  .container {
-    max-width: 1200px;
-  }
-
   body.about .content .row {
     padding: 1em;
   }
   body.about .content .row p {
     font-size: 1.25em;
+  }
+}
+@media screen and (max-width: 80em) {
+  .container {
+    max-width: 1200px;
   }
 }
 

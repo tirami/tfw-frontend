@@ -529,6 +529,8 @@ rect.legend-box {
       &:nth-child(9) { background: $pa-light-green; color: white;}
       &:nth-child(10) {background: $navy-blue; color: white !important; }
       &:nth-child(11) { background: $pa-light-blue; color: white}
+      
+      a {color: white; text-decoration: none; word-break: break-all;}
     }
   }
 }
@@ -1462,10 +1464,6 @@ body.about {
 
 @media screen and (max-width:80em){
   
-  .container {
-    max-width: 1200px;
-  }
-  
   body.about {
   .content {
    .row {
@@ -1475,3 +1473,10 @@ body.about {
   }
  }  
 }
+
+
+@media screen and (max-width:80em){
+  .container {
+    max-width: 1200px;
+  }
+ }
