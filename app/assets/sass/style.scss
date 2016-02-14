@@ -162,7 +162,7 @@ h3 a {color: white}
  font-weight: 600;
 }
 
-a {color: $pa-royal-blue;;
+a {color: $navy-blue;;
  &:hover {
   color: $pa-turquoise;
  }
@@ -909,6 +909,13 @@ body.locations-location {
   .container {background: $pa-cream;}
  
   #locationMap {height: 150px;}
+  
+  #topTrends, #risingTrends {
+   a {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.8em;    }
+  }
 
   #graph-container {
     width:100%;

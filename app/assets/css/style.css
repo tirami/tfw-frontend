@@ -150,7 +150,7 @@ h3 a {
 }
 
 a {
-  color: #232690;
+  color: #0c1444;
 }
 a:hover {
   color: #008e8f;
@@ -1014,6 +1014,11 @@ body.locations-location #cityProfile .container {
 }
 body.locations-location #cityProfile #locationMap {
   height: 150px;
+}
+body.locations-location #cityProfile #topTrends a, body.locations-location #cityProfile #risingTrends a {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.8em;
 }
 body.locations-location #cityProfile #graph-container {
   width: 100%;
