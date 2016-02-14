@@ -28,6 +28,7 @@
     <div class="pure-u-1 pure-u-md-1-2">
       <section id="topTrends">
         <h2>Top trends</h2>
+        <p ng-if="(trends.length === 0) || (trends[0].velocity === 0)">No top trends available.</p>
         <div bar-graph collection="trends" property="'topval'">
         </div>
       </section>
@@ -36,6 +37,7 @@
     <div class="pure-u-1 pure-u-md-1-2">
       <section id="risingTrends">
         <h2>Rising trends</h2>
+        <p ng-if="(trends.length === 0) || (trends[0].velocity === 0)">No rising trends available.</p>
         <div bar-graph collection="trends" property="'velocity'">
         </div>
       </section>
