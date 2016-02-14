@@ -530,7 +530,6 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
         totalVelocity = totalVelocity + entry.velocity;
       });
 
-      $log.log(totalVelocity);
       if ((data === null) || (data.length == 0) || (totalVelocity <= 0)){
         data = $scope.generateExampleTrends();
         $scope.dataAvailable = false;
