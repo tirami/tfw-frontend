@@ -38,7 +38,7 @@
     <div ng-repeat="location in locations" class="locationTop l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
       <h4 class="capitalize">Top {{ location.name | allAsGlobal }} Trends</h4>
       <ul>
-        <li ng-repeat="trend in location.trends">{{ trend.term }}</li>
+        <li ng-repeat="trend in location.trends"><a href="#/trends/{{ trend.term }}">{{ trend.term }}</li></a>
       </ul>
       <!-- <ul><li ng-repeat="trend in location.trends" class="trend">{{ trend.term }}</li></ul>-->
       <a class="capitalize pure-button" href="#/locations/{{ location.name }}">{{ location.name | allAsGlobal }} Profile</a>
