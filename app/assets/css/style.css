@@ -709,6 +709,9 @@ div.tooltip {
 }
 
 /*  Trend Profile  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
+body.trends-trend #sourcesTabSelect {
+  display: none;
+}
 body.trends-trend #trendProfile {
   background: #0c1444;
   padding: 3em 0;
@@ -1528,6 +1531,18 @@ body.about .content .para-cols p, body.about .content .para-cols img {
   }
   #filters ul li:last-child {
     margin-right: 0.5em;
+  }
+
+  body.trends-trend #sourcesTabSelect {
+    display: block;
+    margin: 1em;
+    margin-top: 1.5em;
+    height: 2.8em;
+    width: 80%;
+  }
+
+  #sourcesTabs {
+    display: none;
   }
 
   /*  MOBILE: LOCATION PROFILE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */

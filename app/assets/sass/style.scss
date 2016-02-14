@@ -623,6 +623,7 @@ div.tooltip {
 
 body.trends-trend {
 
+#sourcesTabSelect { display:none; }
 
 #trendProfile {
   background: $navy-blue;
@@ -701,13 +702,13 @@ body.trends-trend {
 
 
 #filters {
- padding: 1em;
- background: #ecece5;;
- label {
-  display: inline-block;
-  font-weight: bold;
+  padding: 1em;
+  background: #ecece5;;
+  label {
+    display: inline-block;
+    font-weight: bold;
   }
- ul {
+  ul {
   padding: 0; margin: 0;
   display: inline-block;
   li {list-style: none;
@@ -1416,6 +1417,8 @@ button.tab span {
   }
  }
  
+body.trends-trend #sourcesTabSelect { display:block; margin:1em; margin-top:1.5em; height:2.8em; width:80%; }
+#sourcesTabs { display:none; }
  
  
 /*  MOBILE: LOCATION PROFILE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
