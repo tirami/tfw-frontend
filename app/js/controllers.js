@@ -1,8 +1,5 @@
 'use strict';
 
-
-
-
 /* Controllers */
 var startOfToday = function(){
   return Date.now() - (Date.now() % (24*60*60*1000));
@@ -136,7 +133,7 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
   };
 
   $scope.spanEnd   = today-1; //at 23:59:59
-  $scope.spanStart = today-(91*day);
+  $scope.spanStart = today-(31*day);
   $scope.setSpanStart = function(startDate) {
     $scope.spanStart = startDate;
     $scope.$apply();
