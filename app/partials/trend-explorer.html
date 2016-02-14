@@ -26,8 +26,8 @@
             <h3>Location Options</h3>
             
             <ul class="filter">
-              <li ng-repeat="location in locations">
-                <button ng-click="toggleExplorerLocation('location.name', $event)" ng-class="{active: location.name === 'all'}" class="locationToggle" target-location="{{location.name}}" location="location" source="source" interval="interval" set-location='setLocation' select-start="selectionStart" select-end="selectionEnd" update-fn='getTrends'>{{ location.name | allAsGlobal }}</button>
+              <li ng-repeat="loc in locations">
+                <button ng-click="toggleExplorerLocation('loc.name', $event)" ng-class="{active: loc.name === location.name}" class="locationToggle" target-location="{{loc.name}}" location="location" source="source" interval="interval" set-location='setLocation' select-start="selectionStart" select-end="selectionEnd" update-fn='getTrends'>{{ loc.name | allAsGlobal }}</button>
               </li>
             </ul>
           </div>
@@ -36,15 +36,15 @@
          <div id="sourceOptions">
           <h3>Source Options</h3>
           <ul class="filter">
-              <li><button ng-click="toggleExplorerSources('all', $event)" class="sourceSelect active" location="location" source="source" interval="interval" target-source='all' set-source='setSource' select-start="selectionStart" select-end="selectionEnd" update-fn='getTrends'>All sources</button></li>
+              <li><button ng-click="toggleExplorerSources('all', $event)" ng-class="{active: 'all' === source}" class="sourceSelect" location="location" source="source" interval="interval" target-source='all' set-source='setSource' select-start="selectionStart" select-end="selectionEnd" update-fn='getTrends'>All sources</button></li>
               
-              <li><button class="sourceSelect" ng-click="toggleExplorerSources('blogs', $event)" location="location" source="source" interval="interval" target-source='blog' set-source='setSource' select-start="selectionStart" select-end="selectionEnd" update-fn='getTrends'>Blogs</button></li>
+              <li><button class="sourceSelect" ng-class="{active: 'blog' === source}" ng-click="toggleExplorerSources('blogs', $event)" location="location" source="source" interval="interval" target-source='blog' set-source='setSource' select-start="selectionStart" select-end="selectionEnd" update-fn='getTrends'>Blogs</button></li>
               
-              <li><button ng-click="toggleExplorerSources('news', $event)" class="sourceSelect" location="location" source="source" interval="interval" target-source='news' set-source='setSource' select-start="selectionStart" select-end="selectionEnd" update-fn='getTrends'>News</button></li>
+              <li><button ng-click="toggleExplorerSources('news', $event)" ng-class="{active: 'news' === source}" class="sourceSelect" location="location" source="source" interval="interval" target-source='news' set-source='setSource' select-start="selectionStart" select-end="selectionEnd" update-fn='getTrends'>News</button></li>
               
-              <li><button class="sourceSelect" location="location" source="source" interval="interval" target-source='academic' set-source='setSource' select-start="selectionStart" select-end="selectionEnd" update-fn='getTrends'>Academic</button></li>
+              <li><button class="sourceSelect"  ng-class="{active: 'academic' === source}" location="location" source="source" interval="interval" target-source='academic' set-source='setSource' select-start="selectionStart" select-end="selectionEnd" update-fn='getTrends'>Academic</button></li>
               
-              <li><button class="sourceSelect" location="location" source="source" interval="interval" target-source='twitter' set-source='setSource' select-start="selectionStart" select-end="selectionEnd" update-fn='getTrends'>Twitter</button></li>
+              <li><button class="sourceSelect"  ng-class="{active: 'twitter' === source}" location="location" source="source" interval="interval" target-source='twitter' set-source='setSource' select-start="selectionStart" select-end="selectionEnd" update-fn='getTrends'>Twitter</button></li>
           </ul>
           </div>
           

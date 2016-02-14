@@ -516,6 +516,14 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
     $scope.interval = 4;
   }
 
+  if ($routeParams.source){
+    $scope.source = $routeParams.source;
+  }
+
+  if ($routeParams.location){
+    $scope.location = { name: $routeParams.location }
+  }
+
   $scope.getTrends = function(location, fromDate, toDate, interval, source){
     if ((source === undefined) || (source == "all")){ source = "" }
     
