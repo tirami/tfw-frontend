@@ -498,7 +498,7 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$route', '$route
 
 
 //Trend Explorer
-udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$routeParams', 'LocationTrends', 'IntervalService', function($scope, $route, $log, $routeParams, LocationTrends, IntervalService) { 
+udadisiControllers.controller('ExplorerCtrl', ['$scope', '$location', '$route', '$log', '$routeParams', 'LocationTrends', 'IntervalService', function($scope, $location, $route, $log, $routeParams, LocationTrends, IntervalService) { 
   $scope.loadingState(false);
   $scope.setActivePage($route.current.originalPath);
   $scope.currentView = 'wordcloud';
@@ -523,6 +523,12 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$route', '$log', '$rou
   if ($routeParams.location){
     $scope.location = { name: $routeParams.location }
   }
+
+  $scope.shareResults = function(clickEvent){
+    $('#share').show();
+    var currUrl = ($location.protocol()+'://'+$location.host()+'/#/trend-explorer?location='+$scope.location.name+'&source='+$scope.source+'&selectionStart='+$scope.selectionStart+'&selectionEnd='+$scope.selectionEnd);
+    $('#share input').val(currUrl).select();
+  };
 
   $scope.getTrends = function(location, fromDate, toDate, interval, source){
     if ((source === undefined) || (source == "all")){ source = "" }
