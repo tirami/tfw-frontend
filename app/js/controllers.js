@@ -1,5 +1,8 @@
 'use strict';
 
+
+
+
 /* Controllers */
 var startOfToday = function(){
   return Date.now() - (Date.now() % (24*60*60*1000));
@@ -14,6 +17,13 @@ var udadisiControllers = angular.module('udadisiControllers', ['ngRoute']);
 udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Locations', '$log', function ($scope, $route, $timeout, Locations, $log) {
   // $scope.setActivePage will be available to all children 
   // scopes of this controller
+
+  // Close the IE alert
+
+  $("#ieWarning a").click(function() {
+  $("#ieWarning").slideUp();
+  return false;
+  });
 
 
   // refresh the window on resize to stop trend graph breaking

@@ -2,7 +2,8 @@
 <!--[if lt IE 7]>      <html lang="en" ng-app="udadisiApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" ng-app="udadisiApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="udadisiApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="udadisiApp" class="no-js"> <!--<![endif]-->
+<!--[if IE 9]>         <html lang="en" ng-app="udadisiApp" class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en" ng-app="udadisiApp" class="no-js"> <!--<![endif]-->
 <head>
 
   <!-- Basic Page Needs
@@ -68,6 +69,10 @@
 </head>
 <body data-ng-controller="MainCtrl" class="{{ activePage }}">
  
+ <div id="ieWarning">
+  The browser you are using is out of date and you may not be able to use all the functionality of this website. To ensure the best experience please use Chrome or Firefox or update to the latest version of Internet Explorer. <a class="close" href="#">Close this panel</a>
+ </div>
+ 
  <header id="pageHeader">
 
   <a href="#/home" id="logo" ng-click="closeMenu($event)"><img src="app/assets/images/udasisi-logo.png" alt="Udasisi"></a>
@@ -78,14 +83,15 @@
 
     <ul class="pure-menu-list">
       <li class="pure-menu-item"><a href="#/home" ng-click="closeMenu($event)" class="pure-menu-link home-btn">Home</a></li>
-      <li class="pure-menu-item"><a href="#/trend-explorer" ng-click="closeMenu($event)" class="pure-menu-link te-btn">Trend Explorer</a></li>
+      <li class="pure-menu-item"><a href="#/trend-explorer" ng-click="closeMenu($event)" class="pure-menu-link te-btn">Trend explorer</a></li>
       <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-        <a href="" id="menuLink1" ng-click="closeMenu($event)" class="pure-menu-link location-btn">Location Reports</a>
+        <a href="" id="menuLink1" ng-click="closeMenu($event)" class="pure-menu-link location-btn">Location reports</a>
         <ul class="pure-menu-children">
           <li ng-repeat="location in locations" class="pure-menu-item"><a href="#/locations/{{ location.name }}" ng-click="closeMenu($event)" class="pure-menu-link">{{ location.name | allAsGlobal }}</a></li>
         </ul>
       </li>
       <li class="pure-menu-item"><a href="#/about" ng-click="closeMenu($event)" class="pure-menu-link about-btn">About</a></li>
+      <li class="pure-menu-item"><a href="#/about" ng-click="closeMenu($event)" class="pure-menu-link about-btn">How it works</a></li>
     </ul>
   </nav>
   

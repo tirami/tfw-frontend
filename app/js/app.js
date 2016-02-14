@@ -25,6 +25,10 @@ udadisiApp.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'app/partials/about.html',
       controller: 'AboutCtrl'
     }).
+    when('/how-it-works', {
+      templateUrl: 'app/partials/how-it-works.html',
+      controller: 'HowItWorksCtrl'
+    }).
     when('/locations/:location', {
       templateUrl: 'app/partials/location-profile.html',
       controller: 'LocationsCtrl'

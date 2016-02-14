@@ -1,5 +1,9 @@
 @charset "UTF-8";
 /* Rory - these are the 10 PA colors */
+#svg {
+  width: 100%;
+}
+
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -236,7 +240,7 @@ body.home h2 {
   font-weight: 600;
   font-size: 1.75em;
   line-height: 1.5em;
-  margin: 1em 5em;
+  margin: 1em 3em;
 }
 
 #top-trends {
@@ -501,10 +505,11 @@ rect.legend-box {
   position: absolute;
   margin: 5px 5px 5px 0;
   background: rgba(255, 255, 255, 0.05);
+  background: #222a55;
 }
 #graph-container #timeSpanZoom button.zoomControl {
   z-index: 1000;
-  background-color: inherit;
+  background-color: #222a55;
   border: none;
   display: block;
   padding: 4px 6px;
@@ -799,7 +804,7 @@ body.trends-trend #filters ul {
 body.trends-trend #filters ul li {
   list-style: none;
   display: inline-block;
-  margin: 0 1em 0 0;
+  margin: 0 0.5em 0 0;
 }
 body.trends-trend #filters ul li:last-child {
   margin-right: 0;
@@ -811,7 +816,7 @@ body.trends-trend #filters ul li a {
   border: #008e8f solid 1px;
   color: #008e8f;
 }
-body.trends-trend #filters ul li.selected a {
+body.trends-trend #filters ul li.selected a, body.trends-trend #filters ul li:hover a {
   background: #008e8f;
   color: white;
   border-radius: 2px;
@@ -1219,6 +1224,26 @@ body.about .content .para-cols {
 }
 body.about .content .para-cols p, body.about .content .para-cols img {
   padding: 2em;
+}
+
+/* IE STYLES */
+#ieWarning {
+  display: none;
+  background: #fc1921;
+  color: white;
+  text-align: center;
+  font-weight: 600;
+  padding: 1em;
+  position: relative;
+  z-index: 99999;
+}
+
+#ieWarning a {
+  color: white;
+}
+
+.lt-ie10 #ieWarning {
+  display: block;
 }
 
 @media (max-width: 600px) {

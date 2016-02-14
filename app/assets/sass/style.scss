@@ -14,7 +14,7 @@ $pa-royal-blue: #232690;
 $pa-light-green: #98cb99;
 $pa-light-blue: #66afe9;
 
-
+ #svg { width: 100%; }
 
 @mixin rounded($radius: 0.5em) {
   -webkit-border-radius: $radius;
@@ -240,7 +240,7 @@ body.home {
     font-weight: 600;
     font-size: 1.75em;
     line-height: 1.5em;
-    margin: 1em 5em;
+    margin: 1em 3em;
   }
 }
 
@@ -479,9 +479,10 @@ rect.legend-box {
      position: absolute;
      margin: 5px 5px 5px 0; 
      background: rgba(255, 255, 255, 0.05);
+     background: #222a55;
       button.zoomControl {
         z-index: 1000;
-        background-color: inherit;
+        background-color: #222a55;
         border: none;
         display: block;
         padding: 4px 6px;
@@ -706,7 +707,7 @@ body.trends-trend {
   display: inline-block;
   li {list-style: none;
    display: inline-block;
-   margin: 0 1em 0 0;
+   margin: 0 0.5em 0 0;
    &:last-child {margin-right: 0;}
    a { 
     display: block;
@@ -715,7 +716,7 @@ body.trends-trend {
     border: $pa-turquoise solid 1px;
     color: $pa-turquoise;
     }
-  &.selected {
+  &.selected, &:hover {
    a {
     background: $pa-turquoise; 
     color: white;
@@ -1104,6 +1105,14 @@ body.about .content {
 
 }
 
+/* IE STYLES */
+
+#ieWarning { display:none; background: $pa-red; color: white; text-align: center; font-weight: 600; padding: 1em; position: relative; z-index: 99999;}
+#ieWarning a { color: white;}
+.lt-ie10 #ieWarning {display: block;}
+
+
+
 
 @media (max-width: 600px) {
  
@@ -1415,8 +1424,6 @@ body.locations-location {
 }
 
 /*  MOBILE: ABOUT PAGE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
-
-
 
 
 } /* End of Mobile Styles    */
