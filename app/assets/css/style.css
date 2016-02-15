@@ -1530,10 +1530,11 @@ body.about .content .para-cols p, body.about .content .para-cols img {
     display: block;
   }
   #filters ul li {
-    margin: 0 0.5em;
+    width: 43%;
+    margin: 0 0.25em 0.25em 0.25em !important;
   }
   #filters ul li:last-child {
-    margin-right: 0.5em;
+    margin-right: 0.25em !important;
   }
 
   body.trends-trend #sourcesTabSelect {
