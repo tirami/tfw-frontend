@@ -87,6 +87,7 @@ body {
 
 body.trend-explorer .pure-menu-link.te-btn:before,
 body.locations-location .pure-menu-link.location-btn:before,
+body.how-it-works .pure-menu-link.how-it-works-btn:before,
 body.about .pure-menu-link.about-btn:before {
   position: absolute;
   right: 50%;
@@ -1185,60 +1186,98 @@ button.tab.active {
 }
 
 /*  ABOUT PAGE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
-body.about .content img {
+.content.static img {
   max-width: 100%;
   height: auto;
 }
-body.about .content header {
+.content.static header {
   background: #0c1444;
   padding: 3em 0;
 }
-body.about .content header h1 {
+.content.static header h1 {
   color: white;
   text-align: center;
   padding: 0;
   margin: 0;
 }
-body.about .content p {
+.content.static h2 {
+  font-size: 2em;
+}
+.content.static p {
   font-size: 1.5em;
   line-height: 1.25em;
 }
-body.about .content .rounded-corner {
+.content.static .rounded-corner {
   border: 0px;
   border-radius: 1em;
 }
-body.about .content .row {
+.content.static .row {
   padding: 5em 0;
 }
-body.about .content #logos {
+.content.static #logos {
   padding-top: 2em;
 }
-body.about .content #logos a {
+.content.static #logos a {
   display: inline-block;
   padding: 0 1em;
 }
-body.about .content #logos img {
+.content.static #logos img {
   max-width: 100%;
 }
-body.about .content .para-full {
+.content.static .para-full {
   text-align: center;
 }
-body.about .content .para-full a {
+.content.static .para-full a {
   text-decoration: none;
   color: #008e8f;
 }
-body.about .content .para-full a:hover {
+.content.static .para-full a:hover {
   color: #fc1921;
 }
-body.about .content .para-cols {
+.content.static .green {
   background: #008e8f;
   color: white;
   text-align: left;
-}
-body.about .content .para-cols p, body.about .content .para-cols img {
-  padding: 2em;
+  padding: 2em 0;
 }
 
+body.about .para-cols img, body.about .para-cols p {
+  max-width: 45%;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+body.about .para-cols img.right {
+  margin-left: 5%;
+}
+body.about .para-cols img.left {
+  margin-right: 5%;
+}
+
+body.how-it-works .para-cols img, body.how-it-works .para-cols div.text {
+  max-width: 45%;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+body.how-it-works .para-cols div.text {
+  padding: 0 1em;
+}
+body.how-it-works .para-cols img.right {
+  margin-left: 5%;
+}
+body.how-it-works .para-cols img.left {
+  margin-right: 5%;
+}
+
+img.ipad {
+  margin: 20px !important;
+  max-width: 30% !important;
+}
+
+/*  ABOUT PAGE  –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– */
 /* IE STYLES */
 #ieWarning {
   display: none;
@@ -1297,6 +1336,7 @@ body.about .content .para-cols p, body.about .content .para-cols img {
 
   body.trend-explorer .pure-menu-link.te-btn:before,
   body.locations-location .pure-menu-link.location-btn:before,
+  body.how-it-works .pure-menu-link.how-it-works-btn:before,
   body.about .pure-menu-link.about-btn:before {
     position: relative;
     right: inherit;
@@ -1570,6 +1610,10 @@ body.about .content .para-cols p, body.about .content .para-cols img {
   }
 }
 @media screen and (max-width: 48em) {
+  .para-cols img, .para-cols p {
+    max-width: 100%;
+  }
+
   .container {
     max-width: 750px;
   }
@@ -1602,15 +1646,20 @@ body.about .content .para-cols p, body.about .content .para-cols img {
 }
 @media screen and (max-width: 80em) {
   body.about .content .row {
-    padding: 1em;
+    padding: 2em;
   }
   body.about .content .row p {
     font-size: 1.25em;
   }
 }
 @media screen and (max-width: 80em) {
-  .container {
+  .static .container {
     max-width: 1200px;
+    padding: 0 3em;
+  }
+
+  .static p {
+    font-size: 1em !important;
   }
 }
 
