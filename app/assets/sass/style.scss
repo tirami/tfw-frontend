@@ -763,6 +763,9 @@ body.trends-trend {
  }
  
  #trendSources {
+  
+  #sourcesTabSelect {display: none;}
+  
   margin: 0 1em 1em 1em;
   background: white;
   .allSources, .twitterSources, .academicSources, .newsSources, .blogSources {display: none;}
@@ -778,7 +781,7 @@ body.trends-trend {
    margin: 0;
    padding: 0;
    li {
-    padding: 0.5em 0;
+    padding: 1em 0;
     word-wrap: break-word;
     border-top: 1px solid #e9e9e9;
     span {
