@@ -411,8 +411,8 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$window', '$rout
   };
   
   $scope.getCsv = function(){
-    var frm = $scope.selectionStart.toTimeString();
-    var to = $scope.selectionEnd.toTimeString();
+    var frm = new Date($scope.selectionStart).toTimeString();
+    var to = new Date($scope.selectionEnd).toTimeString();
     var src = $scope.source;
     if ($scope.source === 'all' ){ src = ''; }
     var csvUrl = ('http://engine.udadisi.com/v1/locations/'+$scope.location.name+'/trends/'+$scope.trend+'/csv?source='+src+'&from='+frm+'&to='+to);
