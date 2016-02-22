@@ -133,7 +133,7 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
     $scope.$apply();
   };
 
-  $scope.spanEnd   = today-1-(4*day); //at 23:59:59
+  $scope.spanEnd   = today-1; //at 23:59:59
   $scope.spanStart = today-(31*day);
   $scope.setSpanStart = function(startDate) {
     $scope.spanStart = startDate;
