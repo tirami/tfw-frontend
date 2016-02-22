@@ -133,7 +133,7 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
     $scope.$apply();
   };
 
-  $scope.spanEnd   = today-1; //at 23:59:59
+  $scope.spanEnd   = today-1-(4*day); //at 23:59:59
   $scope.spanStart = today-(31*day);
   $scope.setSpanStart = function(startDate) {
     $scope.spanStart = startDate;
@@ -174,7 +174,7 @@ udadisiControllers.controller('HomeCtrl', ['$scope', '$route', '$log', '$window'
     $window.location.href = '#/trends/'+$scope.query;
   };
 
-  $scope.selectionStart = today-(4*day);
+  $scope.selectionStart = $scope.spanEnd-(4*day);
   $scope.interval = 2;
   $scope.globalLocation = undefined;
   $scope.query = "";
@@ -249,12 +249,11 @@ udadisiControllers.controller('LocationsCtrl', ['$scope', '$route', '$routeParam
   if ($routeParams.selectionStart && $routeParams.selectionEnd){
     $scope.selectionStart = new Date(parseInt($routeParams.selectionStart));
     $scope.selectionEnd = new Date(parseInt($routeParams.selectionEnd));
-    $scope.interval = IntervalService.calculateInterval($scope.selectionStart, $scope.selectionEnd);
   } else {
-    $scope.selectionStart = today-(4*day);
-    $scope.selectionEnd = today-1;
-    $scope.interval = 4;
+    $scope.selectionStart = $scope.spanEnd-(4*day);
+    $scope.selectionEnd = $scope.spanEnd;
   }
+  $scope.interval = IntervalService.calculateInterval($scope.selectionStart, $scope.selectionEnd);
   
   $scope.dataAvailable = true;
 
@@ -434,12 +433,11 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$window', '$rout
   if ($routeParams.selectionStart && $routeParams.selectionEnd){
     $scope.selectionStart = new Date(parseInt($routeParams.selectionStart));
     $scope.selectionEnd = new Date(parseInt($routeParams.selectionEnd));
-    $scope.interval = IntervalService.calculateInterval($scope.selectionStart, $scope.selectionEnd);
   } else {
-    $scope.selectionStart = today-(4*day);
-    $scope.selectionEnd = today-1;
-    $scope.interval = 4;
+    $scope.selectionStart = $scope.spanEnd-(4*day);
+    $scope.selectionEnd = $scope.spanEnd;
   }
+  $scope.interval = IntervalService.calculateInterval($scope.selectionStart, $scope.selectionEnd);
 
   $scope.tabs = { "twitter":[], "blog":[], "academic":[], "news":[] };
   $scope.prevalences = {};
@@ -518,12 +516,11 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$location', '$route', 
   if ($routeParams.selectionStart && $routeParams.selectionEnd){
     $scope.selectionStart = new Date(parseInt($routeParams.selectionStart));
     $scope.selectionEnd = new Date(parseInt($routeParams.selectionEnd));
-    $scope.interval = IntervalService.calculateInterval($scope.selectionStart, $scope.selectionEnd);
   } else {
-    $scope.selectionStart = today-(4*day);
-    $scope.selectionEnd = today-1;
-    $scope.interval = 4;
+    $scope.selectionStart = $scope.spanEnd-(4*day);
+    $scope.selectionEnd = $scope.spanEnd;
   }
+  $scope.interval = IntervalService.calculateInterval($scope.selectionStart, $scope.selectionEnd);
 
   if ($routeParams.source){
     $scope.source = $routeParams.source;
