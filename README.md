@@ -1,6 +1,17 @@
 # Udadisi Front End
 
-An [AngularJS](http://angularjs.org/) web app bootstrapped from the angular-seed repo.
+###
+
+Udadisi was developed by [Tirami](http://www.tirami.co.uk/), a software development company, in collaboration with [Practical Action](http://practicalaction.org/) and the [University of Edinburgh Global Development Academy](http://www.ed.ac.uk/schools-departments/global-development), as part of the Technology and the Future of Work project, funded by the [Rockefeller Foundation](https://www.rockefellerfoundation.org/).
+
+### Other Components
+
+The other components that build up the suite can be found at:
+
+* https://github.com/tirami/udadisi-engine
+* https://github.com/tirami/udadisi-twitter
+* https://github.com/tirami/udadisi-rss
+* https://github.com/tirami/udadisi-web
 
 
 ## Running with Docker:
@@ -25,6 +36,8 @@ The only environment variable is the engine url, currently hard coded in `app/js
 ## Running Locally
 
 ### Prerequisites
+
+This is an [AngularJS](http://angularjs.org/) based application.
 
 We also use a number of node.js tools to initialize and test the app. You must have node.js and
 its package manager (npm) installed.  You can get them from [http://nodejs.org/](http://nodejs.org/).
