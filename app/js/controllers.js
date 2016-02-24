@@ -22,7 +22,6 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
   return false;
   });
 
-
   // refresh the window on resize to stop trend graph breaking
   var windowWidth = $(window).width();
   
@@ -32,8 +31,6 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
       return;
       }
   });
-
-
 
   $scope.Math = window.Math;
   
@@ -133,7 +130,7 @@ udadisiControllers.controller('MainCtrl', ['$scope', '$route', '$timeout', 'Loca
     $scope.$apply();
   };
 
-  $scope.spanEnd   = today-1; //at 23:59:59
+  $scope.spanEnd   = Date.now()-1; 
   $scope.spanStart = today-(31*day);
   $scope.setSpanStart = function(startDate) {
     $scope.spanStart = startDate;

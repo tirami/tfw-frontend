@@ -8,11 +8,13 @@ udadisiApp.factory('IntervalService', function(){
   IntervalService.calculateInterval = function(selectStart, selectEnd){
     var hoursdiff = Math.round((selectEnd - selectStart) / (60*60*1000));
     var interval = 3;
-    if (hoursdiff < 24){ return 2; } 
+    if (hoursdiff < 24){ return 2; }
     else if (hoursdiff < (5*24)){ interval = Math.round(hoursdiff/12); }
     else if (hoursdiff <= (10*24)){ interval = Math.round(hoursdiff/24); }
     else if (hoursdiff <= (28*24)){ interval = Math.round(hoursdiff/48); }
-    else if (hoursdiff >= (28*24)){ interval = Math.round((hoursdiff/24)/5); }
+    else if (hoursdiff <= (63*24)){ interval = Math.round((hoursdiff/24)/7); }
+    else if (hoursdiff <= (126*24)){ interval = Math.round((hoursdiff/24)/14); }
+    else if (hoursdiff > (126*24)){ interval = Math.round((hoursdiff/24)/31); }
     else { interval = 3; }
     return interval;
   };
