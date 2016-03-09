@@ -543,12 +543,12 @@ udadisiControllers.controller('ExplorerCtrl', ['$scope', '$location', '$route', 
       $scope.dataAvailable = true;
       $scope.loadingState(false);
 
-      var totalVelocity = 0;
+      var hasTrends = false;
       data.forEach(function(entry){
-        totalVelocity = totalVelocity + entry.velocity;
+        if (entry.velocity > 0){ hasTrends = true; }
       });
 
-      if ((data === null) || (data.length == 0) || (totalVelocity <= 0)){
+      if ((data === null) || (data.length == 0) || (!hasTrends)){
         data = $scope.generateExampleTrends();
         $scope.dataAvailable = false;
       }
