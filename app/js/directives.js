@@ -9,8 +9,8 @@ udadisiApp.factory('IntervalService', function(){
     var hoursdiff = Math.round((selectEnd - selectStart) / (60*60*1000));
     var interval = 3;
     if (hoursdiff < 24){ return 2; }
-    else if (hoursdiff < (5*24)){ interval = Math.round(hoursdiff/12); }
-    else if (hoursdiff <= (10*24)){ interval = Math.round(hoursdiff/24); }
+    //else if (hoursdiff < (5*24)){ interval = Math.round(hoursdiff/12); }
+    else if (hoursdiff <= (9*24)){ interval = Math.round(hoursdiff/24); }
     else if (hoursdiff <= (28*24)){ interval = Math.round(hoursdiff/48); }
     else if (hoursdiff <= (63*24)){ interval = Math.round((hoursdiff/24)/7); }
     else if (hoursdiff <= (126*24)){ interval = Math.round((hoursdiff/24)/14); }
