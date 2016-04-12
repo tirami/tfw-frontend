@@ -11,6 +11,14 @@ udadisiFilters.filter('allAsGlobal', function() {
   };
 })
 
+udadisiFilters.filter('unspecifiedFull', function() {
+  return function(input) {
+    if (input == 'unspecified') { return 'unspecified locations' }
+    else if (input == 'Unspecified') { return 'unspecified locations' }
+    else { return input; }
+  };
+})
+
 udadisiFilters.filter('boolAsActive', function() {
   return function(input) {
     if (input) { return 'active' } else { return ''; }
