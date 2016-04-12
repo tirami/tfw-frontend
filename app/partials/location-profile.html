@@ -3,7 +3,7 @@
   <header id="profileHeader" class="pageHeader pure-g">
 
     <div id="cityTitle" class="pure-u-1 pure-u-md-1-3 column">
-      <h1><span class="description">Trends overview for </span> <span data-fittext>{{ location.name | allAsGlobal }}</span></h1>
+      <h1><span class="description">Trends overview for </span> <span data-fittext>{{ location.name | allAsGlobal | unspecifiedFull }}</span></h1>
     </div>
     <div class="pure-u-1 pure-u-md-1-3 column">
     </div>
@@ -44,7 +44,7 @@
     </div>  <!-- end city rising trends --> 
   </div>
   <section id="trendsOverview">
-    <h2>Overview of all {{ location.name | allAsGlobal }} trends</h2>
+    <h2>Overview of all {{ location.name | allAsGlobal | unspecifiedFull }} trends</h2>
     <div class = "series-container">
       
       <div ng-hide="dataAvailable" class="unavailableOverlay">
