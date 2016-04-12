@@ -291,11 +291,10 @@ udadisiControllers.controller('TrendsCtrl', ['$scope', '$log', '$window', '$rout
   }
 
   $scope.calculatePrevalences = function(){
-    var occurrences = [];
+    var max = 0;
     jQuery.each($scope.prevalences, function(k,l){
-      if (l.occurrences){ occurrences.push(l.occurrences); }
+      if ((l.name=="all") || (l.name=="")) { max = l.occurrences; }
     });
-    var max = occurrences.sort().reverse()[0];
     jQuery.each($scope.prevalences, function(k,l){
       if (l.occurrences){ l.prevalence = l.occurrences/max; } else { l.prevalence = 0; }
     });
